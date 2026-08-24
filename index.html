@@ -569,18 +569,20 @@
                 </div>
                 <button class="btn-main" onclick="saveProfile()" style="background: #0284c7; margin-bottom: 15px;" data-i18n="save_btn">حفظ</button>
 
-                <!-- Admin Panel -->
-                <div id="admin-panel" style="display: none; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px;">
-                    <h4 style="color: var(--primary); margin-bottom: 10px;">⚙️ Admin Panel (إدارة المستخدمين والطلبات)</h4>
-                    
-                    <h5 style="margin: 10px 0 5px 0; color: var(--text-color);">👥 تىزىملاتقان ئابونتلار ۋە باش رەسىملىرى (المستخدمين):</h5>
-                    <div id="admin-users-list" style="max-height: 180px; overflow-y: auto; text-align: right; font-size: 12px; background: var(--bg-color); padding: 8px; border-radius: 8px; margin-bottom: 15px;"></div>
-
-                    <h5 style="margin: 10px 0 5px 0; color: var(--text-color);">📦 زاكازلار ۋە پۇل قاچىلاشلار (الطلبات):</h5>
-                    <div id="admin-orders-list" style="max-height: 180px; overflow-y: auto; text-align: right; font-size: 12px; background: var(--bg-color); padding: 8px; border-radius: 8px;"></div>
-                </div>
-
                 <button class="btn-main" style="background: #ef4444; margin-top: 15px;" onclick="logoutUser()" data-i18n="logout_btn">تسجيل الخروج</button>
+            </div>
+        </div>
+
+        <!-- 5. Admin باشقۇرۇش بېتى (پەقەت nasrulla غىلا كۆرۈنىدۇ) -->
+        <div id="admin-dashboard-section" class="page-view">
+            <div class="card">
+                <h3 style="color: var(--primary); margin-top: 0; text-align: center;">⚙️ باشقۇرۇش بېتى (Admin Dashboard)</h3>
+                
+                <h4 style="margin: 15px 0 8px 0; color: var(--text-color);">👥 تىزىملاتقان بارلىق ئابونتلار (المستخدمين المسجلين):</h4>
+                <div id="admin-users-list" style="max-height: 220px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: 10px; margin-bottom: 20px;"></div>
+
+                <h4 style="margin: 15px 0 8px 0; color: var(--text-color);">📦 زاكازلار ۋە پۇل قاچىلاش تەلىپى (الطلبات):</h4>
+                <div id="admin-orders-list" style="max-height: 220px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: 10px;"></div>
             </div>
         </div>
     </div>
@@ -606,7 +608,9 @@
         </div>
     </div>
 
-    <nav class="bottom-nav">
+    <!-- استىدىكى نېۋىگاتسىيە (سول چەتتە باشقۇرۇش بېتى قوشۇلدى) -->
+    <nav class="bottom-nav" id="bottom-navigation">
+        <button class="nav-item" id="nav-admin-btn" onclick="switchPage('admin-dashboard', this)" style="display: none;"><span>⚙️</span>باشقۇرۇش</button>
         <button class="nav-item active" onclick="switchPage('home', this)"><span>🏠</span><span data-i18n="nav_home">الرئيسية</span></button>
         <button class="nav-item" onclick="switchPage('topup', this)"><span>💳</span><span data-i18n="nav_topup">الشحن</span></button>
         <button class="nav-item" onclick="switchPage('orders', this)"><span>🛒</span><span data-i18n="nav_orders">طلباتي</span></button>
@@ -805,10 +809,10 @@
 
         function navigateMenu(page) {
             toggleMenu();
-            if (page === 'home') switchPage('home', document.querySelectorAll('.nav-item')[0]);
-            if (page === 'topup') switchPage('topup', document.querySelectorAll('.nav-item')[1]);
-            if (page === 'orders') switchPage('orders', document.querySelectorAll('.nav-item')[2]);
-            if (page === 'account') switchPage('account', document.querySelectorAll('.nav-item')[3]);
+            if (page === 'home') switchPage('home', document.querySelectorAll('.nav-item')[1]);
+            if (page === 'topup') switchPage('topup', document.querySelectorAll('.nav-item')[2]);
+            if (page === 'orders') switchPage('orders', document.querySelectorAll('.nav-item')[3]);
+            if (page === 'account') switchPage('account', document.querySelectorAll('.nav-item')[4]);
         }
 
         function updateBalanceDisplay() {
@@ -854,6 +858,9 @@
             if (pageName === 'account') {
                 checkLogin();
                 updateAnalyticsDisplay();
+            }
+            if (pageName === 'admin-dashboard') {
+                loadAdminData();
             }
         }
 
@@ -958,8 +965,8 @@
                 } else {
                     let uHtml = '';
                     users.forEach((u, index) => {
-                        let avatarContent = u.avatar ? `<img src="${u.avatar}" style="width:30px; height:30px; border-radius:50%; object-fit:cover; vertical-align:middle; margin-left:8px;">` : '👤';
-                        uHtml += `<div style="border-bottom: 1px solid var(--border-color); padding: 6px 0; display:flex; align-items:center; gap:10px;">
+                        let avatarContent = u.avatar ? `<img src="${u.avatar}" style="width:35px; height:35px; border-radius:50%; object-fit:cover; vertical-align:middle; margin-left:8px;">` : '👤';
+                        uHtml += `<div style="border-bottom: 1px solid var(--border-color); padding: 8px 0; display:flex; align-items:center; gap:12px;">
                             ${avatarContent}
                             <div><b>${index + 1}. ${u.name}</b><br><span style="color:var(--text-dim);">${u.email || 'No email'}</span></div>
                         </div>`;
@@ -1126,7 +1133,7 @@
             const drawerName = document.getElementById('drawer-username');
             const authBox = document.getElementById('auth-box');
             const userProfile = document.getElementById('user-profile');
-            const adminPanel = document.getElementById('admin-panel');
+            const adminNavBtn = document.getElementById('nav-admin-btn');
 
             if (localStorage.getItem('is_logged') === 'true') {
                 if (authBox) authBox.style.display = 'none';
@@ -1149,16 +1156,17 @@
 
                 updateAnalyticsDisplay();
                 
+                // پەقەت nasrulla غىلا باشقۇرۇش كۇنۇپكىسىنى كۆرسىتىش
                 if (localStorage.getItem('is_admin') === 'true') {
-                    if (adminPanel) adminPanel.style.display = 'block';
-                    loadAdminData();
+                    if (adminNavBtn) adminNavBtn.style.display = 'block';
                 } else {
-                    if (adminPanel) adminPanel.style.display = 'none';
+                    if (adminNavBtn) adminNavBtn.style.display = 'none';
                 }
             } else {
                 if (authBox) authBox.style.display = 'block';
                 if (userProfile) userProfile.style.display = 'none';
                 if (drawerName) drawerName.textContent = 'ميھمان (Guest)';
+                if (adminNavBtn) adminNavBtn.style.display = 'none';
                 updateAvatarDisplay(null);
             }
         }
