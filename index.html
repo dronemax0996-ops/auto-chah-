@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
     <style>
-        /* كۆرۈنۈش ئۇسلۇبلىرى ئوخشاش، پەقەت سىستېما يادروسى ئۆزگەردى */
         :root {
             --bg: #05070e;
             --surface: rgba(14, 20, 36, 0.88);
@@ -48,12 +47,12 @@
         .panel-heading i { color: var(--neon-blue); margin-left: 6px; }
 
         .game-scroller, .tiers-grid { display: grid; gap: 10px; }
-        .game-scroller { grid-template-columns: repeat(4, 1fr); }
+        .game-scroller { grid-template-columns: repeat(2, 1fr); }
         .tiers-grid { grid-template-columns: repeat(3, 1fr); }
 
         .game-box, .tier-box {
             background: rgba(10, 14, 26, 0.8); border: 1px solid var(--border);
-            border-radius: var(--radius-md); padding: 12px 6px; text-align: center; cursor: pointer;
+            border-radius: var(--radius-md); padding: 12px 8px; text-align: center; cursor: pointer;
         }
         .game-box.active { border-color: var(--neon-blue); color: var(--neon-blue); background: rgba(0, 242, 254, 0.1); }
         .tier-box.active { border-color: var(--neon-pink); background: rgba(255, 0, 127, 0.08); }
@@ -99,7 +98,7 @@
 
     <div class="glass-panel">
         <div class="panel-heading"><i class="fa-solid fa-user-astronaut"></i> ھېسابات ئۇچۇرى</div>
-        <input type="number" id="inputUID" placeholder="UID نومۇرىنى يېزىڭ...">
+        <input type="text" id="inputUID" placeholder="UID نومۇرى ياكى Server نى يېزىڭ...">
     </div>
 
     <div class="glass-panel">
@@ -137,7 +136,6 @@
 </div>
 
 <script>
-    // مۇلازىمېتىر ئادرېسى (Render.com دىكى ھەقىقىي مۇلازىمېتىرىڭىزغا ئۇلاندى)
     const API_BASE = "https://autochah-api.onrender.com/api";
     
     let isLoginMode = true;
@@ -146,8 +144,22 @@
     let activeGame = 'PUBG Mobile';
 
     const DEMO_GAMES = [
-        { id: 'pubg', title: 'PUBG Mobile', icon: 'fa-crosshairs', tiers: [{name: '60 UC', price: 0.99}, {name: '325 UC', price: 4.99}] },
-        { id: 'mlbb', title: 'Mobile Legends', icon: 'fa-shield-halved', tiers: [{name: '86 Dia', price: 1.49}, {name: '257 Dia', price: 4.49}] }
+        { 
+            id: 'pubg', title: 'PUBG Mobile', icon: 'fa-crosshairs', 
+            tiers: [{name: '60 UC', price: 0.99}, {name: '325 UC', price: 4.99}, {name: '660 UC', price: 9.99}] 
+        },
+        { 
+            id: 'mlbb', title: 'Mobile Legends', icon: 'fa-shield-halved', 
+            tiers: [{name: '86 Dia', price: 1.49}, {name: '257 Dia', price: 4.49}, {name: '706 Dia', price: 11.99}] 
+        },
+        { 
+            id: 'hok', title: 'Honor of Kings', icon: 'fa-crown', 
+            tiers: [{name: '80 Tokens', price: 0.99}, {name: '400 Tokens', price: 4.99}, {name: '880 Tokens', price: 9.99}] 
+        },
+        { 
+            id: 'ab', title: 'Arena Breakout', icon: 'fa-gun', 
+            tiers: [{name: '60 Bonds', price: 0.99}, {name: '300 Bonds', price: 4.99}, {name: '680 Bonds', price: 10.99}] 
+        }
     ];
 
     window.onload = () => {
@@ -167,7 +179,7 @@
 
     function renderGames() {
         const grid = document.getElementById('gameGrid');
-        grid.innerHTML = DEMO_GAMES.map(g => `<div class="game-box ${g.title===activeGame?'active':''}" onclick="selectGame('${g.title}')"><i class="fa-solid ${g.icon}"></i> <span>${g.title}</span></div>`).join('');
+        grid.innerHTML = DEMO_GAMES.map(g => `<div class="game-box ${g.title===activeGame?'active':''}" onclick="selectGame('${g.title}')"><i class="fa-solid ${g.icon}"></i> <br><span style="font-size:0.85rem;">${g.title}</span></div>`).join('');
         renderTiers();
     }
 
@@ -211,9 +223,6 @@
         document.getElementById('authEmail').style.display = isLoginMode ? 'none' : 'block';
     }
 
-    // ===============================================
-    // Python مۇلازىمېتىرى بىلەن ئالاقە قىلىش (API FETCH)
-    // ===============================================
     async function processAuth() {
         const username = document.getElementById('authUsername').value;
         const email = document.getElementById('authEmail').value;
@@ -249,7 +258,7 @@
                 alert(data.msg);
             }
         } catch (error) {
-            alert('مۇلازىمېتىرغا ئۇلىنالمىدى! تور مۇھىتىنى تەكشۈرۈپ بېقىڭ.');
+            alert('مۇلازىمېتىرغا ئۇلىنالمىدى!');
         } finally {
             loader.classList.remove('active');
         }
@@ -261,7 +270,7 @@
         const uid = document.getElementById('inputUID').value;
         if(!uid) return alert('UID كىرگۈزۈڭ!');
 
-        document.getElementById('authLoading').classList.add('active'); // Loading
+        document.getElementById('authLoading').classList.add('active');
 
         try {
             const res = await fetch(API_BASE + '/checkout', {
@@ -279,11 +288,10 @@
             const data = await res.json();
             
             if(data.success) {
-                // مۇلازىمېتىر قايتۇرغان يېڭى قالدۇق پۇلنى يېڭىلاش
                 currentUser.balance = data.new_balance;
                 localStorage.setItem('secure_user_session', JSON.stringify(currentUser));
                 updateUI();
-                alert('زاكاز مۇۋەپپەقىيەتلىك بېجىرىلدى! مۇلازىمېتىر تەرىپىدىن پۇل تۇتۇلدى.');
+                alert('زاكاز مۇۋەپپەقىيەتلىك بېجىرىلدى!');
             } else {
                 alert(data.msg);
             }
