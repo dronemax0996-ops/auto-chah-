@@ -446,7 +446,7 @@
         <div class="drawer-header">
             <button class="drawer-close" onclick="toggleMenu()">✕</button>
             <div class="drawer-avatar" id="drawer-avatar-container">👤</div>
-            <div class="drawer-name" id="drawer-username">Killer 0996</div>
+            <div class="drawer-name" id="drawer-username">ميھمان (Guest)</div>
             <div class="drawer-balance" id="drawer-balance">0.00$</div>
         </div>
         <div class="drawer-links">
@@ -561,10 +561,11 @@
             <div id="user-profile" class="card" style="display: none;">
                 <div style="text-align: center; margin-bottom: 15px;">
                     <div id="profile-avatar-preview" style="width: 80px; height: 80px; border-radius: 50%; background: #111; margin: 0 auto 8px auto; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; overflow: hidden; border: 3px solid var(--primary);">👤</div>
-                    <input type="file" id="profile-img-input" accept="image/*" onchange="uploadProfileImage(this)" style="font-size: 11px;">
+                    <input type="file" id="profile-img-input" accept="image/*" onchange="uploadProfileImage(this)" style="font-size: 11px; margin-top: 5px;">
                 </div>
 
-                <h3 style="margin-bottom: 15px; text-align: center;" id="user-email-display">Killer 0996</h3>
+                <h3 style="margin-bottom: 5px; text-align: center;" id="profile-username-display">User</h3>
+                <p style="margin-top: 0; text-align: center; color: var(--text-dim); font-size: 13px;" id="profile-email-display">email@gmail.com</p>
                 
                 <div class="wallet-grid">
                     <div class="wallet-box green">
@@ -580,20 +581,6 @@
                         <span data-i18n="box_topup">الوارد</span>
                     </div>
                 </div>
-
-                <div class="input-group">
-                    <label data-i18n="fname_label">الاسم الاول</label>
-                    <input type="text" id="profile-fname" placeholder="Killer">
-                </div>
-                <div class="input-group">
-                    <label data-i18n="lname_label">الاسم الاخير</label>
-                    <input type="text" id="profile-lname" placeholder="0996">
-                </div>
-                <div class="input-group">
-                    <label>البريد الالكتروني (Gmail)</label>
-                    <input type="email" id="profile-email" placeholder="dronemax0996@gmail.com">
-                </div>
-                <button class="btn-main" onclick="saveProfile()" style="background: #0284c7; margin-bottom: 15px;" data-i18n="save_btn">حفظ</button>
 
                 <button class="btn-main" style="background: #ef4444; margin-top: 15px;" onclick="logoutUser()" data-i18n="logout_btn">تسجيل الخروج</button>
             </div>
@@ -672,11 +659,6 @@
                 box_balance: "نۆۋەتتىكى قالدىقى",
                 box_spent: "جەمئىي سېتىۋېلىش",
                 box_topup: "جەمئىي كىرگىنى",
-                fname_label: "ئىسمى",
-                lname_label: "فامىلىسى",
-                save_btn: "ساقلاش",
-                ref_label: "دەۋەت قىلىش ئۇلانمىسى",
-                copy_btn: "كۆچۈرۈش",
                 logout_btn: "ھېساباتتىن چىقىش",
                 player_id_label: "ئويۇن كىملىكى (Player ID)",
                 package_label: "مەھسۇلاتنى تاللاڭ",
@@ -709,11 +691,6 @@
                 box_balance: "رصيدك الحالي",
                 box_spent: "اجمالي مشتريات",
                 box_topup: "الوارد",
-                fname_label: "الاسم الاول",
-                lname_label: "الاسم الاخير",
-                save_btn: "حفظ",
-                ref_label: "رابط الإحالة",
-                copy_btn: "نسخ",
                 logout_btn: "تسجيل الخروج",
                 player_id_label: "آيدي اللاعب (Player ID)",
                 package_label: "اختر الباقة",
@@ -746,11 +723,6 @@
                 box_balance: "Current Balance",
                 box_spent: "Total Spent",
                 box_topup: "Total Top-up",
-                fname_label: "First Name",
-                lname_label: "Last Name",
-                save_btn: "Save",
-                ref_label: "Referral Link",
-                copy_btn: "Copy",
                 logout_btn: "Logout",
                 player_id_label: "Player ID",
                 package_label: "Select Package",
@@ -783,11 +755,6 @@
                 box_balance: "Joriy balans",
                 box_spent: "Xarajatlar",
                 box_topup: "To'ldirilgan",
-                fname_label: "Ism",
-                lname_label: "Familiya",
-                save_btn: "Saqlash",
-                ref_label: "Taklif havolasi",
-                copy_btn: "Nusxalash",
                 logout_btn: "Chiqish",
                 player_id_label: "O'yin ID raqami",
                 package_label: "Paketni tanlang",
@@ -842,7 +809,16 @@
         }
 
         function updateBalanceDisplay() {
-            let balUSD = parseFloat(localStorage.getItem('user_balance') || '0');
+            let activeUser = localStorage.getItem('s_name');
+            let balUSD = 0;
+            if (activeUser === 'nasrulla') {
+                balUSD = parseFloat(localStorage.getItem('user_balance') || '0');
+            } else if (activeUser) {
+                let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
+                let u = users.find(item => item.name === activeUser);
+                if (u) balUSD = u.balance || 0;
+            }
+
             let displayEl = document.getElementById('user-balance-display');
             let drawerBalEl = document.getElementById('drawer-balance');
             let walletBox = document.getElementById('wallet-balance-box');
@@ -905,7 +881,7 @@
             const pkgPrice = parseFloat(packageData[1]);
             
             if (!playerId) {
-                alert('أدخل آيدي اللاعب!');
+                alert('آيدي اللاعب كىرگۈزۈڭ!');
                 return;
             }
 
@@ -925,7 +901,7 @@
             const amount = amountEl.value.trim();
             const gateway = gatewayEl.value;
             if (!amount) {
-                alert('أدخل المبلغ!');
+                alert('المبلغ كىرگۈزۈڭ!');
                 return;
             }
             let usdAmount = parseFloat(amount);
@@ -1022,11 +998,9 @@
             });
             localStorage.setItem('registered_users', JSON.stringify(users));
 
-            // ئەگەر ئابونت نۆۋەتتە كىرىپ تۇرغان ئابونت بولسا، ئۇنىڭ قالدىقىمۇ يېڭىلىنىدۇ
             let currentName = localStorage.getItem('s_name');
             if (currentName === userName) {
-                let currentBal = parseFloat(localStorage.getItem('user_balance') || '0');
-                localStorage.setItem('user_balance', (currentBal + amount).toFixed(3));
+                localStorage.setItem('user_balance', users.find(u => u.name === userName).balance);
                 updateBalanceDisplay();
             }
 
@@ -1104,7 +1078,7 @@
             const pass = passEl.value.trim();
 
             if (!name || !email || !pass) { 
-                alert('Барلىق بۆلەكلەرنى טولدۇرۇڭ!'); 
+                alert('بارلىق بۆلەكلەرنى تولدۇرۇڭ!'); 
                 return; 
             }
 
@@ -1114,20 +1088,26 @@
             }
             
             let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
-            if(!users.some(u => u.name === name)) {
-                users.push({name: name, email: email, pass: pass, avatar: '', balance: 0.00});
-                localStorage.setItem('registered_users', JSON.stringify(users));
+            if(users.some(u => u.name === name)) {
+                alert('بۇ ئىسىمدىكى ئابونت ئاللىقاچان بار!');
+                return;
             }
+
+            let newUser = {name: name, email: email, pass: pass, avatar: '', balance: 0.00};
+            users.push(newUser);
+            localStorage.setItem('registered_users', JSON.stringify(users));
 
             localStorage.setItem('s_name', name);
             localStorage.setItem('s_email', email);
             localStorage.setItem('s_pass', pass);
             localStorage.removeItem('s_avatar');
+            localStorage.setItem('user_balance', '0');
             localStorage.setItem('is_logged', 'true');
             localStorage.removeItem('is_admin');
             
             alert('تم التسجيل بنجاح!');
             checkLogin();
+            switchPage('home', document.querySelectorAll('.nav-item')[1]);
         }
 
         function loginUser() {
@@ -1142,6 +1122,7 @@
                 localStorage.setItem('is_logged', 'true');
                 localStorage.setItem('s_name', 'nasrulla');
                 localStorage.setItem('s_email', 'dronemax0996@gmail.com');
+                localStorage.removeItem('s_avatar');
                 alert('تم تسجيل الدخول بنجاح (Admin)!');
                 checkLogin();
                 switchPage('admin-dashboard', document.getElementById('nav-admin-btn'));
@@ -1157,34 +1138,16 @@
                 localStorage.setItem('s_name', foundUser.name);
                 localStorage.setItem('s_email', foundUser.email || '');
                 localStorage.setItem('s_pass', foundUser.pass);
+                localStorage.setItem('user_balance', foundUser.balance || 0);
                 if(foundUser.avatar) localStorage.setItem('s_avatar', foundUser.avatar);
                 else localStorage.removeItem('s_avatar');
-                if(foundUser.balance !== undefined) localStorage.setItem('user_balance', foundUser.balance);
 
                 alert('تم تسجيل الدخول بنجاح!');
                 checkLogin();
                 switchPage('home', document.querySelectorAll('.nav-item')[1]);
             } else {
-                alert('خطأ في الاسم أو كلمة المرور! (Admin: nasrulla / 0996)');
+                alert('خطأ في الاسم أو كلمة المرور!');
             }
-        }
-
-        function saveProfile() {
-            const fname = document.getElementById('profile-fname').value.trim();
-            const lname = document.getElementById('profile-lname').value.trim();
-            const email = document.getElementById('profile-email').value.trim().toLowerCase();
-
-            if (email && !email.endsWith('@gmail.com')) {
-                alert('چوقۇم رەسمىي Gmail ئادرىسى (@gmail.com) بولۇشى كېرەك!');
-                return;
-            }
-
-            const fullName = (fname + ' ' + lname).trim();
-            if (fullName) localStorage.setItem('s_name', fullName);
-            if (email) localStorage.setItem('s_email', email);
-
-            alert('تم حفظ التغييرات بنجاح!');
-            checkLogin();
         }
 
         function toggleAuthMode() {
@@ -1202,8 +1165,12 @@
         function logoutUser() {
             localStorage.removeItem('is_logged');
             localStorage.removeItem('is_admin');
+            localStorage.removeItem('s_name');
+            localStorage.removeItem('s_email');
+            localStorage.removeItem('s_avatar');
+            localStorage.setItem('user_balance', '0');
             checkLogin();
-            switchPage('home', document.querySelectorAll('.nav-item')[1]);
+            switchPage('account', document.querySelectorAll('.nav-item')[4]);
         }
 
         function checkLogin() {
@@ -1211,26 +1178,23 @@
             const authBox = document.getElementById('auth-box');
             const userProfile = document.getElementById('user-profile');
             const adminNavBtn = document.getElementById('nav-admin-btn');
+            const profileUsernameDisplay = document.getElementById('profile-username-display');
+            const profileEmailDisplay = document.getElementById('profile-email-display');
 
             if (localStorage.getItem('is_logged') === 'true') {
                 if (authBox) authBox.style.display = 'none';
                 if (userProfile) userProfile.style.display = 'block';
                 
                 const currentName = localStorage.getItem('s_name') || 'User';
-                if (drawerName) drawerName.textContent = currentName;
+                const currentEmail = localStorage.getItem('s_email') || '';
 
-                const nameParts = currentName.split(' ');
-                const fnameInput = document.getElementById('profile-fname');
-                const lnameInput = document.getElementById('profile-lname');
-                const emailInput = document.getElementById('profile-email');
-                
-                if (fnameInput) fnameInput.value = nameParts[0] || '';
-                if (lnameInput) lnameInput.value = nameParts.slice(1).join(' ') || '';
-                if (emailInput) emailInput.value = localStorage.getItem('s_email') || '';
+                if (drawerName) drawerName.textContent = currentName;
+                if (profileUsernameDisplay) profileUsernameDisplay.textContent = currentName;
+                if (profileEmailDisplay) profileEmailDisplay.textContent = currentEmail;
 
                 const savedAvatar = localStorage.getItem('s_avatar');
                 updateAvatarDisplay(savedAvatar);
-
+                updateBalanceDisplay();
                 updateAnalyticsDisplay();
                 
                 if (localStorage.getItem('is_admin') === 'true') {
@@ -1244,6 +1208,7 @@
                 if (drawerName) drawerName.textContent = 'ميھمان (Guest)';
                 if (adminNavBtn) adminNavBtn.style.display = 'none';
                 updateAvatarDisplay(null);
+                updateBalanceDisplay();
             }
         }
 
