@@ -32,7 +32,6 @@
             margin: 0;
             padding: 0;
             padding-bottom: 80px;
-            transition: background 0.3s, color 0.3s;
         }
 
         .navbar {
@@ -720,20 +719,18 @@
         function toggleMenu() {
             const drawer = document.getElementById('side-drawer');
             const overlay = document.getElementById('drawer-overlay');
-            drawer.classList.toggle('open');
-            if (drawer.classList.contains('open')) {
-                overlay.style.display = 'block';
-            } else {
-                overlay.style.display = 'none';
+            if (drawer && overlay) {
+                drawer.classList.toggle('open');
+                overlay.style.display = drawer.classList.contains('open') ? 'block' : 'none';
             }
         }
 
         function navigateMenu(page) {
             toggleMenu();
-            if(page === 'home') switchPage('home', document.querySelectorAll('.nav-item')[0]);
-            if(page === 'topup') switchPage('topup', document.querySelectorAll('.nav-item')[2]);
-            if(page === 'orders') switchPage('orders', document.querySelectorAll('.nav-item')[1]);
-            if(page === 'account') switchPage('account', document.querySelectorAll('.nav-item')[3]);
+            if (page === 'home') switchPage('home', document.querySelectorAll('.nav-item')[0]);
+            if (page === 'topup') switchPage('topup', document.querySelectorAll('.nav-item')[2]);
+            if (page === 'orders') switchPage('orders', document.querySelectorAll('.nav-item')[1]);
+            if (page === 'account') switchPage('account', document.querySelectorAll('.nav-item')[3]);
         }
 
         function loadGames() {
@@ -745,13 +742,14 @@
                     <span>${g.name}</span>
                 </div>`;
             });
-            document.getElementById('games-grid-container').innerHTML = gridHtml;
+            const container = document.getElementById('games-grid-container');
+            if (container) container.innerHTML = gridHtml;
         }
 
         function adminAddGame() {
             let name = document.getElementById('admin-game-name').value;
             let img = document.getElementById('admin-game-img').value;
-            if(!name || !img) { alert('بارلىق بوشلۇقلارنى تولدۇرۇڭ!'); return; }
+            if (!name || !img) { alert('بارلىق بوشلۇقلارنى تولدۇرۇڭ!'); return; }
             let games = JSON.parse(localStorage.getItem('platform_games') || JSON.stringify(defaultGames));
             games.push({name: name, img: img});
             localStorage.setItem('platform_games', JSON.stringify(games));
@@ -774,16 +772,16 @@
             let drawerBalEl = document.getElementById('drawer-balance');
             
             let formattedBal = '';
-            if(currentCurrency === 'SYP') {
+            if (currentCurrency === 'SYP') {
                 let balSYP = balUSD * sypRate;
                 formattedBal = balSYP.toLocaleString() + ' ل.س';
             } else {
                 formattedBal = balUSD.toFixed(2) + '$';
             }
             
-            if(displayEl) displayEl.textContent = formattedBal;
-            if(navbarBalEl) navbarBalEl.textContent = formattedBal;
-            if(drawerBalEl) drawerBalEl.textContent = formattedBal;
+            if (displayEl) displayEl.textContent = formattedBal;
+            if (navbarBalEl) navbarBalEl.textContent = formattedBal;
+            if (drawerBalEl) drawerBalEl.textContent = formattedBal;
         }
 
         function updateAnalyticsDisplay() {
@@ -793,8 +791,8 @@
             let topupEl = document.getElementById('total-topup-stat');
             let spentEl = document.getElementById('total-spent-stat');
 
-            if(topupEl && spentEl) {
-                if(currentCurrency === 'SYP') {
+            if (topupEl && spentEl) {
+                if (currentCurrency === 'SYP') {
                     topupEl.textContent = (totalTopupUSD * sypRate).toLocaleString() + ' ل.س';
                     spentEl.textContent = (totalSpentUSD * sypRate).toLocaleString() + ' ل.س';
                 } else {
@@ -806,38 +804,40 @@
 
         function copyRefLink() {
             const refInput = document.getElementById('ref-link');
-            refInput.select();
-            navigator.clipboard.writeText(refInput.value);
-            alert('دەۋەت ئۇلانمىسى كۆچۈرۈلدى!');
+            if (refInput) {
+                refInput.select();
+                navigator.clipboard.writeText(refInput.value);
+                alert('دەۋەت ئۇلانمىسى كۆچۈرۈلدى!');
+            }
         }
 
         function sendSupportMessage() {
-            const msg = document.getElementById('support-msg').value.trim();
-            if(!msg) { alert('ئۇچۇر يېزىڭ!'); return; }
+            const msgInput = document.getElementById('support-msg');
+            if (!msgInput) return;
+            const msg = msgInput.value.trim();
+            if (!msg) { alert('ئۇچۇر يېزىڭ!'); return; }
             let tickets = JSON.parse(localStorage.getItem('support_tickets') || '[]');
-            tickets.push({user: localStorage.getItem('s_email'), message: msg, date: new Date().toLocaleDateString()});
+            tickets.push({user: localStorage.getItem('s_email') || 'Guest', message: msg, date: new Date().toLocaleDateString()});
             localStorage.setItem('support_tickets', JSON.stringify(tickets));
             alert('ئۇچرىڭىز باشقۇرغۇچىغا ئەۋەتىلدى!');
-            document.getElementById('support-msg').value = '';
-        }
-
-        function openTopupPage() {
-            const topupNavBtn = document.querySelectorAll('.nav-item')[2];
-            switchPage('topup', topupNavBtn);
+            msgInput.value = '';
         }
 
         function changeLanguage(lang) {
             localStorage.setItem('selected_lang', lang);
-            document.getElementById('lang-selector').value = lang;
+            const selector = document.getElementById('lang-selector');
+            if (selector) selector.value = lang;
             const htmlRoot = document.getElementById('html-root');
-            if (lang === 'en' || lang === 'uz') {
-                htmlRoot.setAttribute('dir', 'ltr');
-            } else {
-                htmlRoot.setAttribute('dir', 'rtl');
+            if (htmlRoot) {
+                if (lang === 'en' || lang === 'uz') {
+                    htmlRoot.setAttribute('dir', 'ltr');
+                } else {
+                    htmlRoot.setAttribute('dir', 'rtl');
+                }
             }
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) {
+                if (translations[lang] && translations[lang][key]) {
                     el.textContent = translations[lang][key];
                 }
             });
@@ -847,30 +847,31 @@
         let isLoginView = false;
         function updateAuthToggleText(lang) {
             const toggleText = document.getElementById('auth-toggle-text');
-            if(toggleText) {
-                if (isLoginView) {
-                    toggleText.textContent = translations[lang]['no_account'];
-                } else {
-                    toggleText.textContent = translations[lang]['has_account'];
-                }
+            if (toggleText && translations[lang]) {
+                toggleText.textContent = isLoginView ? translations[lang]['no_account'] : translations[lang]['has_account'];
             }
         }
 
         function toggleAuthMode() {
             isLoginView = !isLoginView;
-            document.getElementById('register-form').style.display = isLoginView ? 'none' : 'block';
-            document.getElementById('login-form').style.display = isLoginView ? 'block' : 'none';
+            const regForm = document.getElementById('register-form');
+            const logForm = document.getElementById('login-form');
+            if (regForm) regForm.style.display = isLoginView ? 'none' : 'block';
+            if (logForm) logForm.style.display = isLoginView ? 'block' : 'none';
             const currentLang = localStorage.getItem('selected_lang') || 'ug';
             updateAuthToggleText(currentLang);
         }
 
         function switchPage(pageName, element) {
             document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
-            document.getElementById(pageName + '-section').classList.add('active');
+            const targetSection = document.getElementById(pageName + '-section');
+            if (targetSection) targetSection.classList.add('active');
+            
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            if(element) element.classList.add('active');
-            if(pageName === 'orders') loadOrders();
-            if(pageName === 'account') {
+            if (element) element.classList.add('active');
+            
+            if (pageName === 'orders') loadOrders();
+            if (pageName === 'account') {
                 checkLogin();
                 updateAnalyticsDisplay();
             }
@@ -879,28 +880,37 @@
         let selectedGameName = '';
         function openModal(gameName) {
             selectedGameName = gameName;
-            document.getElementById('modal-game-title').textContent = gameName;
-            document.getElementById('purchase-modal').style.display = 'flex';
+            const titleEl = document.getElementById('modal-game-title');
+            const modalEl = document.getElementById('purchase-modal');
+            if (titleEl) titleEl.textContent = gameName;
+            if (modalEl) modalEl.style.display = 'flex';
         }
+
         function closeModal() {
-            document.getElementById('purchase-modal').style.display = 'none';
+            const modalEl = document.getElementById('purchase-modal');
+            if (modalEl) modalEl.style.display = 'none';
         }
 
         function confirmPurchase() {
-            const playerId = document.getElementById('player-id').value;
-            const packageData = document.getElementById('product-package').value.split('|');
+            const playerIdEl = document.getElementById('player-id');
+            const packageEl = document.getElementById('product-package');
+            const promoEl = document.getElementById('promo-code');
+            
+            if (!playerIdEl || !packageEl) return;
+            const playerId = playerIdEl.value.trim();
+            const packageData = packageEl.value.split('|');
             const pkgName = packageData[0] + ' UC';
             const pkgPrice = parseFloat(packageData[1]);
-            const promo = document.getElementById('promo-code').value.trim();
+            const promo = promoEl ? promoEl.value.trim() : '';
             
-            if(!playerId) {
+            if (!playerId) {
                 alert('Player ID كىرگۈزۈڭ!');
                 return;
             }
 
             let finalPrice = pkgPrice;
             let discountMsg = '';
-            if(promo === 'NASRULLA' || promo === 'VIP') {
+            if (promo === 'NASRULLA' || promo === 'VIP') {
                 finalPrice = finalPrice * 0.9;
                 discountMsg = ' (Promo Code: 10% Off!)';
             }
@@ -911,14 +921,17 @@
             
             alert('زاكاز مۇۋەپپەقىيەتلىك ئەۋەتىلدى!');
             closeModal();
-            document.getElementById('player-id').value = '';
-            document.getElementById('promo-code').value = '';
+            playerIdEl.value = '';
+            if (promoEl) promoEl.value = '';
         }
 
         function sendTopupRequest() {
-            const amount = document.getElementById('topup-amount').value;
-            const gateway = document.getElementById('payment-gateway').value;
-            if(!amount) {
+            const amountEl = document.getElementById('topup-amount');
+            const gatewayEl = document.getElementById('payment-gateway');
+            if (!amountEl || !gatewayEl) return;
+            const amount = amountEl.value.trim();
+            const gateway = gatewayEl.value;
+            if (!amount) {
                 alert('پۇل سوممىسىنى كىرگۈزۈڭ!');
                 return;
             }
@@ -929,13 +942,14 @@
             localStorage.setItem('user_orders', JSON.stringify(orders));
             
             alert('تولۇقلاش تەلىپى شامكەش ئارقىلىق ئەۋەتىلدى!');
-            document.getElementById('topup-amount').value = '';
+            amountEl.value = '';
         }
 
         function loadOrders() {
             const listEl = document.getElementById('orders-list');
+            if (!listEl) return;
             let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-            if(orders.length === 0) {
+            if (orders.length === 0) {
                 listEl.innerHTML = '<p style="color: var(--text-dim); text-align: center;">ھېچقانداق زاكاز خاتىرىسى يوق.</p>';
                 return;
             }
@@ -951,8 +965,9 @@
 
         function loadAdminOrders() {
             const adminList = document.getElementById('admin-orders-list');
+            if (!adminList) return;
             let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-            if(orders.length === 0) {
+            if (orders.length === 0) {
                 adminList.innerHTML = '<p>زاكازلار يوق.</p>';
                 return;
             }
@@ -969,15 +984,15 @@
         function approveOrder(orderId) {
             let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
             orders = orders.map(o => {
-                if(o.id === orderId) {
+                if (o.id === orderId) {
                     o.status = 'مۇۋەپپەقىيەتلىك (Approved)';
-                    if(o.type === 'topup') {
+                    if (o.type === 'topup') {
                         let currentBal = parseFloat(localStorage.getItem('user_balance') || '0');
                         localStorage.setItem('user_balance', (currentBal + o.priceUSD).toFixed(2));
 
                         let totalTopup = parseFloat(localStorage.getItem('total_topup') || '0');
                         localStorage.setItem('total_topup', (totalTopup + o.priceUSD).toFixed(2));
-                    } else if(o.type === 'spent') {
+                    } else if (o.type === 'spent') {
                         let totalSpent = parseFloat(localStorage.getItem('total_spent') || '0');
                         localStorage.setItem('total_spent', (totalSpent + o.priceUSD).toFixed(2));
                     }
@@ -992,17 +1007,22 @@
         }
 
         function updatePassword() {
-            let newPass = document.getElementById('new-password').value;
-            if(!newPass) { alert('يېڭى مەخپىي نومۇرنى يېزىڭ!'); return; }
+            const passEl = document.getElementById('new-password');
+            if (!passEl) return;
+            let newPass = passEl.value.trim();
+            if (!newPass) { alert('يېڭى مەخپىي نومۇرنى يېزىڭ!'); return; }
             localStorage.setItem('s_pass', newPass);
             alert('مەخپىي نومۇر مۇۋەپپەقىيەتلىك ئۆزگەرتىلدى!');
-            document.getElementById('new-password').value = '';
+            passEl.value = '';
         }
 
         function registerUser() {
-            const email = document.getElementById('reg-email').value;
-            const pass = document.getElementById('reg-password').value;
-            if(!email || !pass) { alert('بارلىق بوشلۇقلارنى تولدۇرۇڭ!'); return; }
+            const emailEl = document.getElementById('reg-email');
+            const passEl = document.getElementById('reg-password');
+            if (!emailEl || !passEl) return;
+            const email = emailEl.value.trim();
+            const pass = passEl.value.trim();
+            if (!email || !pass) { alert('بارلىق بوشلۇقلارنى تولدۇرۇڭ!'); return; }
             localStorage.setItem('s_email', email);
             localStorage.setItem('s_pass', pass);
             alert('مۇۋەپپەقىيەتلىك تىزىملىتىلدى!');
@@ -1010,10 +1030,13 @@
         }
 
         function loginUser() {
-            const nameInput = document.getElementById('log-email').value.trim().toLowerCase();
-            const passInput = document.getElementById('log-password').value.trim();
+            const nameInputEl = document.getElementById('log-email');
+            const passInputEl = document.getElementById('log-password');
+            if (!nameInputEl || !passInputEl) return;
+            const nameInput = nameInputEl.value.trim().toLowerCase();
+            const passInput = passInputEl.value.trim();
             
-            if(nameInput === 'auto chah' && passInput === '0996') {
+            if (nameInput === 'auto chah' && passInput === '0996') {
                 localStorage.setItem('is_admin', 'true');
                 localStorage.setItem('is_logged', 'true');
                 localStorage.setItem('s_email', 'auto chah');
@@ -1022,7 +1045,7 @@
                 return;
             }
 
-            if(nameInput === localStorage.getItem('s_email') && passInput === localStorage.getItem('s_pass')) {
+            if (nameInput === localStorage.getItem('s_email') && passInput === localStorage.getItem('s_pass')) {
                 localStorage.setItem('is_logged', 'true');
                 localStorage.removeItem('is_admin');
                 alert('مۇۋەپپەقىيەتلىك كىردىڭىز!');
@@ -1040,24 +1063,29 @@
 
         function checkLogin() {
             const drawerName = document.getElementById('drawer-username');
-            if(localStorage.getItem('is_logged') === 'true') {
-                document.getElementById('auth-box').style.display = 'none';
-                document.getElementById('user-profile').style.display = 'block';
-                const currentEmail = localStorage.getItem('s_email');
-                document.getElementById('user-email-display').textContent = currentEmail;
-                if(drawerName) drawerName.textContent = currentEmail;
+            const authBox = document.getElementById('auth-box');
+            const userProfile = document.getElementById('user-profile');
+            const userEmailDisplay = document.getElementById('user-email-display');
+            const adminPanel = document.getElementById('admin-panel');
+
+            if (localStorage.getItem('is_logged') === 'true') {
+                if (authBox) authBox.style.display = 'none';
+                if (userProfile) userProfile.style.display = 'block';
+                const currentEmail = localStorage.getItem('s_email') || 'User';
+                if (userEmailDisplay) userEmailDisplay.textContent = currentEmail;
+                if (drawerName) drawerName.textContent = currentEmail;
                 updateAnalyticsDisplay();
                 
-                if(localStorage.getItem('is_admin') === 'true') {
-                    document.getElementById('admin-panel').style.display = 'block';
+                if (localStorage.getItem('is_admin') === 'true') {
+                    if (adminPanel) adminPanel.style.display = 'block';
                     loadAdminOrders();
                 } else {
-                    document.getElementById('admin-panel').style.display = 'none';
+                    if (adminPanel) adminPanel.style.display = 'none';
                 }
             } else {
-                document.getElementById('auth-box').style.display = 'block';
-                document.getElementById('user-profile').style.display = 'none';
-                if(drawerName) drawerName.textContent = 'ميھمان (Guest)';
+                if (authBox) authBox.style.display = 'block';
+                if (userProfile) userProfile.style.display = 'none';
+                if (drawerName) drawerName.textContent = 'ميھمان (Guest)';
             }
         }
 
