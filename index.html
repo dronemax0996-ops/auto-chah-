@@ -37,7 +37,7 @@
 
         .navbar {
             background-color: var(--card-bg);
-            padding: 15px 20px;
+            padding: 12px 20px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             display: flex;
             justify-content: space-between;
@@ -47,10 +47,41 @@
             z-index: 100;
         }
 
+        /* زامانىۋى ھەم ئىسىل لوگو لايىھەسى */
         .logo {
-            color: var(--primary);
-            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 800;
             font-size: 20px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        [data-theme="dark"] .logo {
+            background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
+            color: white;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 16px;
+            box-shadow: 0 4px 10px rgba(230, 0, 18, 0.3);
+        }
+
+        [data-theme="dark"] .logo-icon {
+            background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
         }
 
         .nav-actions {
@@ -263,10 +294,13 @@
 </head>
 <body>
 
+    <!-- يېڭى، ئىسىل لوگو لايىھەسى بىلەن باش قىسىم -->
     <header class="navbar">
-        <div class="logo">⚡ Auto Chah</div>
+        <div class="logo">
+            <div class="logo-icon">⚡</div>
+            <span>Auto Chah</span>
+        </div>
         <div class="nav-actions">
-            <!-- تىل تاللاش (پەقەت تىل ئىسىملىرى) -->
             <select class="lang-select" id="lang-selector" onchange="changeLanguage(this.value)">
                 <option value="ug">ئۇيغۇرچە</option>
                 <option value="ar">العربية</option>
@@ -743,7 +777,7 @@
         }
 
         function checkLogin() {
-            if(localStorage.getItem('is_logged'] === 'true') {
+            if(localStorage.getItem('is_logged') === 'true') {
                 document.getElementById('auth-box').style.display = 'none';
                 document.getElementById('user-profile').style.display = 'block';
                 document.getElementById('user-email-display').textContent = localStorage.getItem('s_email');
