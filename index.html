@@ -133,6 +133,7 @@
             font-size: 32px;
             border: 3px solid #10B981;
             overflow: hidden;
+            object-fit: cover;
         }
 
         .drawer-name {
@@ -424,7 +425,7 @@
     <div class="drawer" id="side-drawer">
         <div class="drawer-header">
             <button class="drawer-close" onclick="toggleMenu()">✕</button>
-            <div class="drawer-avatar">👤</div>
+            <div class="drawer-avatar" id="drawer-avatar-container">👤</div>
             <div class="drawer-name" id="drawer-username">Killer 0996</div>
             <div class="drawer-balance" id="drawer-balance">0.00$</div>
         </div>
@@ -532,6 +533,11 @@
             </div>
 
             <div id="user-profile" class="card" style="display: none;">
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <div id="profile-avatar-preview" style="width: 80px; height: 80px; border-radius: 50%; background: #111; margin: 0 auto 8px auto; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; overflow: hidden; border: 3px solid var(--primary);">👤</div>
+                    <input type="file" id="profile-img-input" accept="image/*" onchange="uploadProfileImage(this)" style="font-size: 11px;">
+                </div>
+
                 <h3 style="margin-bottom: 15px; text-align: center;" id="user-email-display">Killer 0996</h3>
                 
                 <div class="wallet-grid">
@@ -559,16 +565,16 @@
                 </div>
                 <div class="input-group">
                     <label>البريد الالكتروني</label>
-                    <input type="email" id="profile-email" placeholder="email@gmail.com">
+                    <input type="email" id="profile-email" placeholder="dronemax0996@gmail.com">
                 </div>
                 <button class="btn-main" onclick="saveProfile()" style="background: #0284c7; margin-bottom: 15px;" data-i18n="save_btn">حفظ</button>
 
-                <!-- Admin Panel (ئابونتلار تىزىملىكى ۋە زاكازلار) -->
+                <!-- Admin Panel (ئابونتلارنىڭ رەسىمى ۋە ئىسمى كۆرۈنىدىغان ئايرىم كۆزنەك) -->
                 <div id="admin-panel" style="display: none; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px;">
                     <h4 style="color: var(--primary); margin-bottom: 10px;">⚙️ Admin Panel (إدارة المستخدمين والطلبات)</h4>
                     
-                    <h5 style="margin: 10px 0 5px 0; color: var(--text-color);">👥 تىزىملاتقان ئابونتلار (المستخدمين المسجلين):</h5>
-                    <div id="admin-users-list" style="max-height: 150px; overflow-y: auto; text-align: right; font-size: 12px; background: var(--bg-color); padding: 8px; border-radius: 8px; margin-bottom: 15px;"></div>
+                    <h5 style="margin: 10px 0 5px 0; color: var(--text-color);">👥 تىزىملاتقان ئابونتلار ۋە باش رەسىملىرى (المستخدمين):</h5>
+                    <div id="admin-users-list" style="max-height: 180px; overflow-y: auto; text-align: right; font-size: 12px; background: var(--bg-color); padding: 8px; border-radius: 8px; margin-bottom: 15px;"></div>
 
                     <h5 style="margin: 10px 0 5px 0; color: var(--text-color);">📦 زاكازلار ۋە پۇل قاچىلاشلار (الطلبات):</h5>
                     <div id="admin-orders-list" style="max-height: 180px; overflow-y: auto; text-align: right; font-size: 12px; background: var(--bg-color); padding: 8px; border-radius: 8px;"></div>
@@ -927,7 +933,6 @@
         }
 
         function loadAdminData() {
-            // زاكازلارنى يۈكلەش
             const adminList = document.getElementById('admin-orders-list');
             if (adminList) {
                 let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
@@ -945,7 +950,7 @@
                 }
             }
 
-            // تىزىملاتقان ئابونتلارنى يۈكلەش
+            // ئابونتلارنىڭ رەسىمى ۋە ئىسمىنى Admin غا كۆرسىتىش
             const adminUsersList = document.getElementById('admin-users-list');
             if (adminUsersList) {
                 let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
@@ -954,8 +959,10 @@
                 } else {
                     let uHtml = '';
                     users.forEach((u, index) => {
-                        uHtml += `<div style="border-bottom: 1px solid var(--border-color); padding: 5px 0;">
-                            <b>${index + 1}. ${u.name}</b> (${u.email})
+                        let avatarContent = u.avatar ? `<img src="${u.avatar}" style="width:30px; height:30px; border-radius:50%; object-fit:cover; vertical-align:middle; margin-left:8px;">` : '👤';
+                        uHtml += `<div style="border-bottom: 1px solid var(--border-color); padding: 6px 0; display:flex; align-items:center; gap:10px;">
+                            ${avatarContent}
+                            <div><b>${index + 1}. ${u.name}</b><br><span style="color:var(--text-dim);">${u.email || 'No email'}</span></div>
                         </div>`;
                     });
                     adminUsersList.innerHTML = uHtml;
@@ -987,6 +994,42 @@
             alert('تمت الموافقة بنجاح!');
         }
 
+        function uploadProfileImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgData = e.target.result;
+                    localStorage.setItem('s_avatar', imgData);
+                    
+                    // تىزىملاتقان ئابونتلار تىزىملىكىدىمۇ يېڭىلاش
+                    let currentName = localStorage.getItem('s_name');
+                    let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
+                    users = users.map(u => {
+                        if(u.name === currentName) u.avatar = imgData;
+                        return u;
+                    });
+                    localStorage.setItem('registered_users', JSON.stringify(users));
+
+                    updateAvatarDisplay(imgData);
+                    alert('تم تحديث الصورة الشخصية بنجاح!');
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function updateAvatarDisplay(imgUrl) {
+            const drawerContainer = document.getElementById('drawer-avatar-container');
+            const profilePreview = document.getElementById('profile-avatar-preview');
+            
+            if (imgUrl) {
+                if(drawerContainer) drawerContainer.innerHTML = `<img src="${imgUrl}" style="width:100%; height:100%; object-fit:cover;">`;
+                if(profilePreview) profilePreview.innerHTML = `<img src="${imgUrl}" style="width:100%; height:100%; object-fit:cover;">`;
+            } else {
+                if(drawerContainer) drawerContainer.innerHTML = '👤';
+                if(profilePreview) profilePreview.innerHTML = '👤';
+            }
+        }
+
         function registerUser() {
             const nameEl = document.getElementById('reg-name');
             const emailEl = document.getElementById('reg-email');
@@ -998,16 +1041,16 @@
 
             if (!name || !pass) { alert('املأ الحقول المطلوبة!'); return; }
             
-            // ئابونتنى تىزىملار تىزىملىكىگە قوشۇش
             let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
             if(!users.some(u => u.name === name)) {
-                users.push({name: name, email: email, pass: pass});
+                users.push({name: name, email: email, pass: pass, avatar: ''});
                 localStorage.setItem('registered_users', JSON.stringify(users));
             }
 
             localStorage.setItem('s_name', name);
             localStorage.setItem('s_email', email);
             localStorage.setItem('s_pass', pass);
+            localStorage.removeItem('s_avatar');
             localStorage.setItem('is_logged', 'true');
             
             alert('تم التسجيل بنجاح!');
@@ -1021,23 +1064,29 @@
             const nameInput = nameInputEl.value.trim().toLowerCase();
             const passInput = passInputEl.value.trim();
             
-            // Admin (nasrulla / 0996) تەكشۈرۈش
-            if (nameInput === 'nasrulla' && passInput === '0996') {
+            // Admin (nasrulla / 0996 / dronemax0996@gmail.com)
+            if ((nameInput === 'nasrulla' || nameInput === 'dronemax0996@gmail.com') && passInput === '0996') {
                 localStorage.setItem('is_admin', 'true');
                 localStorage.setItem('is_logged', 'true');
-                localStorage.setItem('s_name', 'Nasrulla Admin');
+                localStorage.setItem('s_name', 'nasrulla');
+                localStorage.setItem('s_email', 'dronemax0996@gmail.com');
                 alert('تم تسجيل الدخول بنجاح (Admin)!');
                 checkLogin();
                 return;
             }
 
-            const savedName = (localStorage.getItem('s_name') || '').toLowerCase();
-            const savedEmail = (localStorage.getItem('s_email') || '').toLowerCase();
-            const savedPass = localStorage.getItem('s_pass') || '';
+            let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
+            let foundUser = users.find(u => (u.name.toLowerCase() === nameInput || u.email.toLowerCase() === nameInput) && u.pass === passInput);
 
-            if ((nameInput === savedName || nameInput === savedEmail) && passInput === savedPass) {
+            if (foundUser) {
                 localStorage.setItem('is_logged', 'true');
                 localStorage.removeItem('is_admin');
+                localStorage.setItem('s_name', foundUser.name);
+                localStorage.setItem('s_email', foundUser.email || '');
+                localStorage.setItem('s_pass', foundUser.pass);
+                if(foundUser.avatar) localStorage.setItem('s_avatar', foundUser.avatar);
+                else localStorage.removeItem('s_avatar');
+
                 alert('تم تسجيل الدخول بنجاح!');
                 checkLogin();
             } else {
@@ -1086,7 +1135,7 @@
                 if (authBox) authBox.style.display = 'none';
                 if (userProfile) userProfile.style.display = 'block';
                 
-                const currentName = localStorage.getItem('s_name') || 'User';
+                const currentName = localStorage.getItem('s_name'] || 'User';
                 if (drawerName) drawerName.textContent = currentName;
 
                 const nameParts = currentName.split(' ');
@@ -1096,7 +1145,10 @@
                 
                 if (fnameInput) fnameInput.value = nameParts[0] || '';
                 if (lnameInput) lnameInput.value = nameParts.slice(1).join(' ') || '';
-                if (emailInput) emailInput.value = localStorage.getItem('s_email') || '';
+                if (emailInput) emailInput.value = localStorage.getItem('s_email'] || '';
+
+                const savedAvatar = localStorage.getItem('s_avatar');
+                updateAvatarDisplay(savedAvatar);
 
                 updateAnalyticsDisplay();
                 
@@ -1110,11 +1162,12 @@
                 if (authBox) authBox.style.display = 'block';
                 if (userProfile) userProfile.style.display = 'none';
                 if (drawerName) drawerName.textContent = 'ميھمان (Guest)';
+                updateAvatarDisplay(null);
             }
         }
 
         window.onload = function() {
-            const savedLang = localStorage.getItem('selected_lang') || 'ug';
+            const savedLang = localStorage.getItem('selected_lang'] || 'ug';
             changeLanguage(savedLang);
             checkLogin();
             updateBalanceDisplay();
