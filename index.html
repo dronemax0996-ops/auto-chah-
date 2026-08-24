@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Auto Chah - Secure Enterprise Hub</title>
+    <title>Auto Chah - Ultimate Gaming Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #05070e;
-            --surface: rgba(14, 20, 36, 0.88);
-            --border: rgba(0, 242, 254, 0.22);
+            --bg: #03050b;
+            --surface: rgba(12, 17, 30, 0.9);
+            --border: rgba(0, 242, 254, 0.25);
             --neon-blue: #00f2fe;
             --neon-purple: #9d00ff;
             --neon-pink: #ff007f;
@@ -18,74 +18,83 @@
             --gold: #ffbe0b;
             --text-main: #f0f4fc;
             --text-muted: #798ba3;
-            --radius-md: 12px;
-            --transition: all 0.25s ease;
+            --radius-md: 14px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Rajdhani', sans-serif; }
-        body { background: var(--bg); color: var(--text-main); padding-bottom: 90px; }
+        body { background: var(--bg); color: var(--text-main); padding-bottom: 100px; }
         .font-tech { font-family: 'Orbitron', sans-serif; }
 
         .header {
-            position: sticky; top: 0; z-index: 200; background: rgba(5, 7, 14, 0.95);
-            backdrop-filter: blur(18px); border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 200; background: rgba(3, 5, 11, 0.95);
+            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
             padding: 12px 18px; display: flex; align-items: center; justify-content: space-between;
         }
 
-        .brand { font-size: 1.35rem; font-weight: 900; color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
+        .brand { font-size: 1.4rem; font-weight: 900; color: var(--neon-blue); text-shadow: 0 0 12px rgba(0,242,254,0.5); }
 
+        .header-actions { display: flex; gap: 8px; align-items: center; }
         .glass-btn {
             background: var(--surface); border: 1px solid var(--border); color: #fff;
-            padding: 7px 12px; border-radius: 20px; font-weight: 600; cursor: pointer;
+            padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer; font-size: 0.85rem;
         }
         .glass-btn:hover { border-color: var(--neon-blue); box-shadow: 0 0 10px rgba(0, 242, 254, 0.3); }
 
         .app-container { max-width: 900px; margin: 15px auto; padding: 0 15px; }
-        .glass-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 15px; }
+        .glass-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 18px; margin-bottom: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
         
-        .panel-heading { font-size: 1.05rem; font-weight: 700; margin-bottom: 14px; color: #fff; }
+        .panel-heading { font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; color: #fff; display: flex; align-items: center; justify-content: space-between; }
         .panel-heading i { color: var(--neon-blue); margin-left: 6px; }
 
-        .game-scroller, .tiers-grid { display: grid; gap: 10px; }
-        .game-scroller { grid-template-columns: repeat(2, 1fr); }
-        .tiers-grid { grid-template-columns: repeat(3, 1fr); }
+        .game-scroller { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .tiers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 
         .game-box, .tier-box {
-            background: rgba(10, 14, 26, 0.8); border: 1px solid var(--border);
-            border-radius: var(--radius-md); padding: 12px 8px; text-align: center; cursor: pointer;
+            background: rgba(8, 12, 22, 0.8); border: 1px solid var(--border);
+            border-radius: var(--radius-md); padding: 12px 6px; text-align: center; cursor: pointer; transition: var(--transition);
         }
-        .game-box.active { border-color: var(--neon-blue); color: var(--neon-blue); background: rgba(0, 242, 254, 0.1); }
-        .tier-box.active { border-color: var(--neon-pink); background: rgba(255, 0, 127, 0.08); }
+        .game-box:hover, .tier-box:hover { border-color: var(--neon-blue); }
+        .game-box.active { border-color: var(--neon-blue); color: var(--neon-blue); background: rgba(0, 242, 254, 0.12); box-shadow: 0 0 15px rgba(0,242,254,0.2); }
+        .tier-box.active { border-color: var(--neon-pink); background: rgba(255, 0, 127, 0.12); box-shadow: 0 0 15px rgba(255,0,127,0.2); }
 
         input, select {
-            width: 100%; background: rgba(5, 8, 16, 0.9); border: 1px solid var(--border);
-            border-radius: 10px; padding: 12px; color: #fff; margin-top: 6px; outline: none;
+            width: 100%; background: rgba(3, 6, 14, 0.95); border: 1px solid var(--border);
+            border-radius: 10px; padding: 12px; color: #fff; margin-top: 6px; outline: none; font-size: 0.95rem;
         }
+        input:focus { border-color: var(--neon-blue); box-shadow: 0 0 8px rgba(0,242,254,0.3); }
 
         .checkout-bar {
-            position: fixed; bottom: 0; left: 0; right: 0; background: rgba(5, 7, 14, 0.95);
+            position: fixed; bottom: 0; left: 0; right: 0; background: rgba(3, 5, 11, 0.95);
             border-top: 1px solid var(--border); padding: 14px 20px; z-index: 150;
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(15px);
         }
         .btn-glow {
             background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
-            border: none; color: #fff; padding: 12px 30px; border-radius: 12px; font-weight: bold; cursor: pointer;
+            border: none; color: #fff; padding: 12px 28px; border-radius: 12px; font-weight: bold; cursor: pointer;
+            box-shadow: 0 0 15px rgba(0,242,254,0.3); transition: 0.2s;
         }
+        .btn-glow:active { transform: scale(0.96); }
 
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; z-index: 1000; padding: 15px;}
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; z-index: 1000; padding: 15px; backdrop-filter: blur(8px); }
         .modal.active { display: flex; }
-        .modal-box { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 400px; padding: 20px; }
+        .modal-box { background: var(--bg); border: 1px solid var(--border); border-radius: 18px; width: 100%; max-width: 400px; padding: 22px; position: relative; }
 
-        .loading-spinner { display: none; color: var(--neon-green); font-size: 0.85rem; margin-top: 5px; }
+        .close-modal { position: absolute; top: 15px; left: 15px; color: var(--text-muted); cursor: pointer; font-size: 1.2rem; }
+        .loading-spinner { display: none; color: var(--neon-green); font-size: 0.85rem; margin-top: 8px; text-align: center; }
         .loading-spinner.active { display: block; }
+        
+        .tab-buttons { display: flex; gap: 10px; margin-bottom: 15px; }
+        .tab-btn { flex: 1; background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); padding: 8px; border-radius: 8px; cursor: pointer; font-weight: bold; text-align: center; }
+        .tab-btn.active { background: var(--neon-blue); color: #000; border-color: var(--neon-blue); }
     </style>
 </head>
 <body>
 
 <header class="header">
     <div class="brand font-tech">AUTO CHAH</div>
-    <div style="display:flex; gap:10px; align-items:center;">
-        <span id="userBalance" style="color:var(--gold); font-weight:bold;">$0.00</span>
+    <div class="header-actions">
+        <button class="glass-btn" onclick="openDepositModal()"><i class="fa-solid fa-wallet"></i> پۇل قاچىلاش</button>
+        <span id="userBalance" style="color:var(--gold); font-weight:bold; font-size:0.95rem;">$0.00</span>
         <button class="glass-btn" onclick="toggleAuthModal()" id="authBtn">كىرىش</button>
     </div>
 </header>
@@ -108,22 +117,32 @@
     
     <div class="glass-panel">
         <div class="panel-heading"><i class="fa-solid fa-credit-card"></i> چىقىم شەكلى</div>
-        <div class="game-box active"><i class="fa-solid fa-wallet"></i> ھېسابات قالدۇقى ($ USD)</div>
+        <div class="game-box active" style="text-align: right; padding: 12px; display:flex; align-items:center; gap:10px;">
+            <i class="fa-solid fa-wallet" style="color:var(--gold); font-size:1.2rem;"></i> 
+            <div><strong>ھېسابات قالدۇقى ($ USD)</strong><div style="font-size:0.75rem; color:var(--text-muted);">مۇلازىمېتىردىن بىۋاسىتە تۇتۇلىدۇ</div></div>
+        </div>
     </div>
 </div>
 
 <div class="checkout-bar">
     <div>
-        <div style="font-size:0.75rem; color:var(--text-muted);">چىقىم</div>
+        <div style="font-size:0.75rem; color:var(--text-muted);">جەمئىي چىقىم</div>
         <div id="finalPriceDisplay" style="color:var(--gold); font-size:1.3rem; font-weight:bold;">$0.00</div>
     </div>
     <button class="btn-glow" onclick="submitSecureOrder()">سېتىۋېلىش</button>
 </div>
 
-<!-- Auth Modal -->
+<!-- Auth Modal (Login / Register) -->
 <div class="modal" id="authModal">
     <div class="modal-box">
+        <i class="fa-solid fa-xmark close-modal" onclick="toggleAuthModal()"></i>
         <h3 style="text-align:center; color:var(--neon-blue); margin-bottom:15px;" id="authTitle">ھېساباتقا كىرىش</h3>
+        
+        <div class="tab-buttons">
+            <div class="tab-btn active" id="loginTabBtn" onclick="setAuthMode(true)">كىرىش</div>
+            <div class="tab-btn" id="regTabBtn" onclick="setAuthMode(false)">تىزىملىتىش</div>
+        </div>
+
         <input type="text" id="authUsername" placeholder="ئىشلەتكۈچى نامى">
         <input type="email" id="authEmail" placeholder="ئېلخەت ئادرېسى" style="display:none;">
         <input type="password" id="authPassword" placeholder="مەخپىي نومۇر">
@@ -131,7 +150,21 @@
         <div id="authLoading" class="loading-spinner"><i class="fa-solid fa-spinner fa-spin"></i> مۇلازىمېتىرغا ئۇلىنىۋاتىدۇ...</div>
         
         <button class="btn-glow" style="width:100%; margin-top:15px;" onclick="processAuth()" id="authSubmitBtn">كىرىش</button>
-        <div style="text-align:center; margin-top:10px; font-size:0.85rem; color:var(--text-muted); cursor:pointer;" onclick="switchAuthMode()">يېڭى ھېسابات قۇرۇشمۇ؟</div>
+    </div>
+</div>
+
+<!-- Deposit Modal (Balance Topup) -->
+<div class="modal" id="depositModal">
+    <div class="modal-box">
+        <i class="fa-solid fa-xmark close-modal" onclick="openDepositModal()"></i>
+        <h3 style="text-align:center; color:var(--neon-green); margin-bottom:15px;">ھېساباتقا پۇل توللاش</h3>
+        <input type="number" id="depositAmount" placeholder="مىقدارى ($ USD) مەسىلەن: 10">
+        <select id="depositGateway">
+            <option value="ShamCash">ShamCash (ئاپتوماتىك)</option>
+            <option value="USDT">USDT (Crypto)</option>
+            <option value="BankTransfer">بانكا كارتىسى</option>
+        </select>
+        <button class="btn-glow" style="width:100%; margin-top:15px; background:linear-gradient(45deg, var(--neon-green), var(--neon-blue)); color:#000;" onclick="submitDeposit()">تالون يوللاش</button>
     </div>
 </div>
 
@@ -144,22 +177,10 @@
     let activeGame = 'PUBG Mobile';
 
     const DEMO_GAMES = [
-        { 
-            id: 'pubg', title: 'PUBG Mobile', icon: 'fa-crosshairs', 
-            tiers: [{name: '60 UC', price: 0.99}, {name: '325 UC', price: 4.99}, {name: '660 UC', price: 9.99}] 
-        },
-        { 
-            id: 'mlbb', title: 'Mobile Legends', icon: 'fa-shield-halved', 
-            tiers: [{name: '86 Dia', price: 1.49}, {name: '257 Dia', price: 4.49}, {name: '706 Dia', price: 11.99}] 
-        },
-        { 
-            id: 'hok', title: 'Honor of Kings', icon: 'fa-crown', 
-            tiers: [{name: '80 Tokens', price: 0.99}, {name: '400 Tokens', price: 4.99}, {name: '880 Tokens', price: 9.99}] 
-        },
-        { 
-            id: 'ab', title: 'Arena Breakout', icon: 'fa-gun', 
-            tiers: [{name: '60 Bonds', price: 0.99}, {name: '300 Bonds', price: 4.99}, {name: '680 Bonds', price: 10.99}] 
-        }
+        { id: 'pubg', title: 'PUBG', icon: 'fa-crosshairs', tiers: [{name: '60 UC', price: 0.99}, {name: '325 UC', price: 4.99}, {name: '660 UC', price: 9.99}] },
+        { id: 'mlbb', title: 'MLBB', icon: 'fa-shield-halved', tiers: [{name: '86 Dia', price: 1.49}, {name: '257 Dia', price: 4.49}, {name: '706 Dia', price: 11.99}] },
+        { id: 'hok', title: 'HOK', icon: 'fa-crown', tiers: [{name: '80 Tok', price: 0.99}, {name: '400 Tok', price: 4.99}, {name: '880 Tok', price: 9.99}] },
+        { id: 'ab', title: 'Arena', icon: 'fa-gun', tiers: [{name: '60 Bond', price: 0.99}, {name: '300 Bond', price: 4.99}, {name: '680 Bond', price: 10.99}] }
     ];
 
     window.onload = () => {
@@ -179,7 +200,7 @@
 
     function renderGames() {
         const grid = document.getElementById('gameGrid');
-        grid.innerHTML = DEMO_GAMES.map(g => `<div class="game-box ${g.title===activeGame?'active':''}" onclick="selectGame('${g.title}')"><i class="fa-solid ${g.icon}"></i> <br><span style="font-size:0.85rem;">${g.title}</span></div>`).join('');
+        grid.innerHTML = DEMO_GAMES.map(g => `<div class="game-box ${g.title===activeGame?'active':''}" onclick="selectGame('${g.title}')"><i class="fa-solid ${g.icon}"></i><div style="font-size:0.8rem; margin-top:4px;">${g.title}</div></div>`).join('');
         renderTiers();
     }
 
@@ -194,7 +215,7 @@
         document.getElementById('finalPriceDisplay').innerText = `$${selectedTier.price.toFixed(2)}`;
         
         const grid = document.getElementById('tierGrid');
-        grid.innerHTML = game.tiers.map((t, i) => `<div class="tier-box ${i===0?'active':''}" onclick="selectTier(this, ${t.price}, '${t.name}')"><strong>${t.name}</strong><br><span style="color:var(--gold);">$${t.price}</span></div>`).join('');
+        grid.innerHTML = game.tiers.map((t, i) => `<div class="tier-box ${i===0?'active':''}" onclick="selectTier(this, ${t.price}, '${t.name}')"><strong>${t.name}</strong><br><span style="color:var(--gold); font-size:0.9rem;">$${t.price}</span></div>`).join('');
     }
 
     function selectTier(el, price, name) {
@@ -216,11 +237,18 @@
         document.getElementById('authModal').classList.toggle('active');
     }
 
-    function switchAuthMode() {
-        isLoginMode = !isLoginMode;
-        document.getElementById('authTitle').innerText = isLoginMode ? 'ھېساباتقا كىرىش' : 'يېڭى ھېسابات قۇرۇش';
-        document.getElementById('authSubmitBtn').innerText = isLoginMode ? 'كىرىش' : 'تىزىملىتىش';
-        document.getElementById('authEmail').style.display = isLoginMode ? 'none' : 'block';
+    function setAuthMode(login) {
+        isLoginMode = login;
+        document.getElementById('loginTabBtn').classList.toggle('active', login);
+        document.getElementById('regTabBtn').classList.toggle('active', !login);
+        document.getElementById('authTitle').innerText = login ? 'ھېساباتقا كىرىش' : 'يېڭى ھېسابات قۇرۇش';
+        document.getElementById('authSubmitBtn').innerText = login ? 'كىرىش' : 'تىزىملىتىش';
+        document.getElementById('authEmail').style.display = login ? 'none' : 'block';
+    }
+
+    function openDepositModal() {
+        if(!currentUser) return alert('ئالدى بىلەن ھېساباتقا كىرىڭ!');
+        document.getElementById('depositModal').classList.toggle('active');
     }
 
     async function processAuth() {
@@ -246,7 +274,7 @@
             if(data.success) {
                 if(!isLoginMode) {
                     alert('تىزىملىتىش مۇۋەپپەقىيەتلىك! ئەمدى كىرىڭ.');
-                    switchAuthMode();
+                    setAuthMode(true);
                 } else {
                     currentUser = data.user;
                     localStorage.setItem('secure_user_session', JSON.stringify(currentUser));
@@ -266,11 +294,8 @@
 
     async function submitSecureOrder() {
         if(!currentUser) return alert('ئالدى بىلەن كىرىڭ!');
-        
         const uid = document.getElementById('inputUID').value;
         if(!uid) return alert('UID كىرگۈزۈڭ!');
-
-        document.getElementById('authLoading').classList.add('active');
 
         try {
             const res = await fetch(API_BASE + '/checkout', {
@@ -286,7 +311,6 @@
                 })
             });
             const data = await res.json();
-            
             if(data.success) {
                 currentUser.balance = data.new_balance;
                 localStorage.setItem('secure_user_session', JSON.stringify(currentUser));
@@ -296,7 +320,30 @@
                 alert(data.msg);
             }
         } catch (err) {
-            alert('زاكاز سىستېمىسىغا ئۇلىنالمىدى!');
+            alert('ئۇلىنىش خاتالىقى!');
+        }
+    }
+
+    async function submitDeposit() {
+        const amount = document.getElementById('depositAmount').value;
+        const gateway = document.getElementById('depositGateway').value;
+        if(!amount || amount <= 0) return alert('توغرا مىقدار يېزىڭ!');
+
+        try {
+            const res = await fetch(API_BASE + '/deposit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: currentUser.id, amount: parseFloat(amount), gateway })
+            });
+            const data = await res.json();
+            if(data.success) {
+                alert(data.msg);
+                openDepositModal();
+            } else {
+                alert('خاتالىق كۆرۈلدى!');
+            }
+        } catch(e) {
+            alert('مۇلازىمېتىرغا ئۇلىنالمىدى!');
         }
     }
 </script>
