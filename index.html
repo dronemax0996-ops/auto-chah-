@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Auto Chah - Ultimate Gaming Hub</title>
+    <title>Auto Chah - Professional Gaming Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #03050b;
-            --surface: rgba(12, 17, 30, 0.9);
-            --border: rgba(0, 242, 254, 0.25);
+            --surface: rgba(12, 17, 30, 0.94);
+            --border: rgba(0, 242, 254, 0.28);
             --neon-blue: #00f2fe;
             --neon-purple: #9d00ff;
             --neon-pink: #ff007f;
@@ -22,21 +22,22 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Rajdhani', sans-serif; }
-        body { background: var(--bg); color: var(--text-main); padding-bottom: 100px; }
+        body { background: var(--bg); color: var(--text-main); padding-bottom: 105px; }
         .font-tech { font-family: 'Orbitron', sans-serif; }
 
         .header {
-            position: sticky; top: 0; z-index: 200; background: rgba(3, 5, 11, 0.95);
+            position: sticky; top: 0; z-index: 200; background: rgba(3, 5, 11, 0.96);
             backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
             padding: 12px 18px; display: flex; align-items: center; justify-content: space-between;
         }
 
-        .brand { font-size: 1.4rem; font-weight: 900; color: var(--neon-blue); text-shadow: 0 0 12px rgba(0,242,254,0.5); }
+        .brand { font-size: 1.35rem; font-weight: 900; color: var(--neon-blue); text-shadow: 0 0 12px rgba(0,242,254,0.5); }
 
-        .header-actions { display: flex; gap: 8px; align-items: center; }
+        .header-actions { display: flex; gap: 6px; align-items: center; }
         .glass-btn {
             background: var(--surface); border: 1px solid var(--border); color: #fff;
             padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer; font-size: 0.85rem;
+            display: flex; align-items: center; gap: 5px; transition: 0.2s;
         }
         .glass-btn:hover { border-color: var(--neon-blue); box-shadow: 0 0 10px rgba(0, 242, 254, 0.3); }
 
@@ -46,14 +47,18 @@
         .panel-heading { font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; color: #fff; display: flex; align-items: center; justify-content: space-between; }
         .panel-heading i { color: var(--neon-blue); margin-left: 6px; }
 
+        .search-box {
+            width: 100%; background: rgba(3, 6, 14, 0.95); border: 1px solid var(--border);
+            border-radius: 10px; padding: 10px 14px; color: #fff; margin-bottom: 12px; outline: none; font-size: 0.9rem;
+        }
+
         .game-scroller { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
         .tiers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 
         .game-box, .tier-box {
             background: rgba(8, 12, 22, 0.8); border: 1px solid var(--border);
-            border-radius: var(--radius-md); padding: 12px 6px; text-align: center; cursor: pointer; transition: var(--transition);
+            border-radius: var(--radius-md); padding: 12px 6px; text-align: center; cursor: pointer; transition: 0.2s;
         }
-        .game-box:hover, .tier-box:hover { border-color: var(--neon-blue); }
         .game-box.active { border-color: var(--neon-blue); color: var(--neon-blue); background: rgba(0, 242, 254, 0.12); box-shadow: 0 0 15px rgba(0,242,254,0.2); }
         .tier-box.active { border-color: var(--neon-pink); background: rgba(255, 0, 127, 0.12); box-shadow: 0 0 15px rgba(255,0,127,0.2); }
 
@@ -64,7 +69,7 @@
         input:focus { border-color: var(--neon-blue); box-shadow: 0 0 8px rgba(0,242,254,0.3); }
 
         .checkout-bar {
-            position: fixed; bottom: 0; left: 0; right: 0; background: rgba(3, 5, 11, 0.95);
+            position: fixed; bottom: 0; left: 0; right: 0; background: rgba(3, 5, 11, 0.96);
             border-top: 1px solid var(--border); padding: 14px 20px; z-index: 150;
             display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(15px);
         }
@@ -73,11 +78,11 @@
             border: none; color: #fff; padding: 12px 28px; border-radius: 12px; font-weight: bold; cursor: pointer;
             box-shadow: 0 0 15px rgba(0,242,254,0.3); transition: 0.2s;
         }
-        .btn-glow:active { transform: scale(0.96); }
+        .btn-glow:active { transform: scale(0.97); }
 
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; z-index: 1000; padding: 15px; backdrop-filter: blur(8px); }
         .modal.active { display: flex; }
-        .modal-box { background: var(--bg); border: 1px solid var(--border); border-radius: 18px; width: 100%; max-width: 400px; padding: 22px; position: relative; }
+        .modal-box { background: var(--bg); border: 1px solid var(--border); border-radius: 18px; width: 100%; max-width: 440px; padding: 22px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
 
         .close-modal { position: absolute; top: 15px; left: 15px; color: var(--text-muted); cursor: pointer; font-size: 1.2rem; }
         .loading-spinner { display: none; color: var(--neon-green); font-size: 0.85rem; margin-top: 8px; text-align: center; }
@@ -86,22 +91,35 @@
         .tab-buttons { display: flex; gap: 10px; margin-bottom: 15px; }
         .tab-btn { flex: 1; background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); padding: 8px; border-radius: 8px; cursor: pointer; font-weight: bold; text-align: center; }
         .tab-btn.active { background: var(--neon-blue); color: #000; border-color: var(--neon-blue); }
+
+        .menu-item {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+            padding: 12px 15px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;
+            cursor: pointer; transition: 0.2s;
+        }
+        .menu-item:hover { border-color: var(--neon-blue); background: rgba(0,242,254,0.06); }
+        .menu-item i { color: var(--neon-blue); font-size: 1.1rem; }
+        
+        .admin-badge { background: linear-gradient(45deg, var(--gold), #ff4500); color: #000; padding: 2px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 900; }
     </style>
 </head>
 <body>
 
 <header class="header">
-    <div class="brand font-tech">AUTO CHAH</div>
+    <div style="display:flex; align-items:center; gap:10px;">
+        <button class="glass-btn" onclick="toggleMenuModal()"><i class="fa-solid fa-bars"></i> Menu</button>
+        <div class="brand font-tech">AUTO CHAH</div>
+    </div>
     <div class="header-actions">
-        <button class="glass-btn" onclick="openDepositModal()"><i class="fa-solid fa-wallet"></i> پۇل قاچىلاش</button>
         <span id="userBalance" style="color:var(--gold); font-weight:bold; font-size:0.95rem;">$0.00</span>
-        <button class="glass-btn" onclick="toggleAuthModal()" id="authBtn">كىرىش</button>
+        <button class="glass-btn" onclick="handleAuthButtonClick()" id="authBtn">كىرىش</button>
     </div>
 </header>
 
 <div class="app-container">
     <div class="glass-panel">
         <div class="panel-heading"><i class="fa-solid fa-layer-group"></i> ئويۇن تاللاڭ</div>
+        <input type="text" class="search-box" id="gameSearchInput" placeholder="ئويۇن ئىسمىنى ئىزدەش..." onkeyup="filterGames()">
         <div class="game-scroller" id="gameGrid"></div>
     </div>
 
@@ -132,7 +150,40 @@
     <button class="btn-glow" onclick="submitSecureOrder()">سېتىۋېلىش</button>
 </div>
 
-<!-- Auth Modal (Login / Register) -->
+<!-- Main Menu Modal -->
+<div class="modal" id="menuModal">
+    <div class="modal-box">
+        <i class="fa-solid fa-xmark close-modal" onclick="toggleMenuModal()"></i>
+        <h3 style="text-align:center; color:var(--neon-blue); margin-bottom:20px;" class="font-tech">AUTO CHAH MENU</h3>
+        
+        <div class="menu-item" onclick="openDepositModal(); toggleMenuModal();">
+            <div style="display:flex; align-items:center; gap:12px;"><i class="fa-solid fa-wallet"></i> <span>پۇل توللاش (Deposit)</span></div>
+            <i class="fa-solid fa-chevron-left" style="font-size:0.8rem; color:var(--text-muted);"></i>
+        </div>
+
+        <div class="menu-item" onclick="openPromoModal(); toggleMenuModal();">
+            <div style="display:flex; align-items:center; gap:12px;"><i class="fa-solid fa-ticket"></i> <span>پروما كود ئىشلىتىش (Promo Code)</span></div>
+            <i class="fa-solid fa-chevron-left" style="font-size:0.8rem; color:var(--text-muted);"></i>
+        </div>
+        
+        <div class="menu-item" onclick="openHistoryModal(); toggleMenuModal();">
+            <div style="display:flex; align-items:center; gap:12px;"><i class="fa-solid fa-clock-rotate-left"></i> <span>مېنىڭ زاكازلىرىم</span></div>
+            <i class="fa-solid fa-chevron-left" style="font-size:0.8rem; color:var(--text-muted);"></i>
+        </div>
+
+        <div class="menu-item" id="adminMenuOpt" style="display:none; border-color:var(--gold);" onclick="openAdminModal(); toggleMenuModal();">
+            <div style="display:flex; align-items:center; gap:12px;"><i class="fa-solid fa-shield-halved" style="color:var(--gold);"></i> <span><span class="admin-badge">ADMIN</span> پۇل ماقۇللاش سۇپىسى</span></div>
+            <i class="fa-solid fa-chevron-left" style="font-size:0.8rem; color:var(--text-muted);"></i>
+        </div>
+
+        <div class="menu-item" onclick="window.open('https://t.me/HOK_UYGHUR1', '_blank');">
+            <div style="display:flex; align-items:center; gap:12px;"><i class="fa-brands fa-telegram" style="color:var(--neon-blue);"></i> <span>تېلېگرامما ئارقىلىق ئالاقە</span></div>
+            <i class="fa-solid fa-chevron-left" style="font-size:0.8rem; color:var(--text-muted);"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Auth Modal -->
 <div class="modal" id="authModal">
     <div class="modal-box">
         <i class="fa-solid fa-xmark close-modal" onclick="toggleAuthModal()"></i>
@@ -147,24 +198,53 @@
         <input type="email" id="authEmail" placeholder="ئېلخەت ئادرېسى" style="display:none;">
         <input type="password" id="authPassword" placeholder="مەخپىي نومۇر">
         
-        <div id="authLoading" class="loading-spinner"><i class="fa-solid fa-spinner fa-spin"></i> مۇلازىمېتىرغا ئۇلىنىۋاتىدۇ...</div>
+        <div id="authLoading" class="loading-spinner"><i class="fa-solid fa-spinner fa-spin"></i> ئۇلىنىۋاتىدۇ...</div>
         
         <button class="btn-glow" style="width:100%; margin-top:15px;" onclick="processAuth()" id="authSubmitBtn">كىرىش</button>
     </div>
 </div>
 
-<!-- Deposit Modal (Balance Topup) -->
+<!-- Deposit Modal -->
 <div class="modal" id="depositModal">
     <div class="modal-box">
         <i class="fa-solid fa-xmark close-modal" onclick="openDepositModal()"></i>
         <h3 style="text-align:center; color:var(--neon-green); margin-bottom:15px;">ھېساباتقا پۇل توللاش</h3>
         <input type="number" id="depositAmount" placeholder="مىقدارى ($ USD) مەسىلەن: 10">
         <select id="depositGateway">
-            <option value="ShamCash">ShamCash (ئاپتوماتىك)</option>
+            <option value="ShamCash">ShamCash</option>
             <option value="USDT">USDT (Crypto)</option>
             <option value="BankTransfer">بانكا كارتىسى</option>
         </select>
         <button class="btn-glow" style="width:100%; margin-top:15px; background:linear-gradient(45deg, var(--neon-green), var(--neon-blue)); color:#000;" onclick="submitDeposit()">تالون يوللاش</button>
+    </div>
+</div>
+
+<!-- Promo Code Modal -->
+<div class="modal" id="promoModal">
+    <div class="modal-box">
+        <i class="fa-solid fa-xmark close-modal" onclick="openPromoModal()"></i>
+        <h3 style="text-align:center; color:var(--gold); margin-bottom:15px;">پروما كود</h3>
+        <input type="text" id="promoCodeInput" placeholder="كودنى يېزىڭ (مەسىلەن: AUTO2026)">
+        <button class="btn-glow" style="width:100%; margin-top:15px;" onclick="applyPromoCode()">كودنى تەكشۈرۈش</button>
+    </div>
+</div>
+
+<!-- Order History Modal -->
+<div class="modal" id="historyModal">
+    <div class="modal-box">
+        <i class="fa-solid fa-xmark close-modal" onclick="openHistoryModal()"></i>
+        <h3 style="text-align:center; color:var(--neon-blue); margin-bottom:15px;">مېنىڭ زاكازلىرىم</h3>
+        <div id="historyList" style="font-size:0.9rem; color:var(--text-muted); text-align:center;">تىزىملىك قۇرۇق...</div>
+    </div>
+</div>
+
+<!-- Admin Panel Modal -->
+<div class="modal" id="adminModal">
+    <div class="modal-box" style="max-width:500px;">
+        <i class="fa-solid fa-xmark close-modal" onclick="openAdminModal()"></i>
+        <h3 style="text-align:center; color:var(--gold); margin-bottom:15px;"><span class="admin-badge">ADMIN</span> پۇل ماقۇللاش سۇپىسى</h3>
+        <div style="margin-bottom:10px; font-size:0.85rem; color:var(--text-muted);">خېرىدارلار تەرىپىدىن كەلگەن پۇل توللاش تەلەپلىرى:</div>
+        <div id="adminDepositsList" style="background:rgba(0,0,0,0.5); padding:10px; border-radius:8px; font-size:0.9rem; max-height:300px; overflow-y:auto;">يۈكلىنىۋاتىدۇ...</div>
     </div>
 </div>
 
@@ -177,40 +257,62 @@
     let activeGame = 'PUBG Mobile';
 
     const DEMO_GAMES = [
-        { id: 'pubg', title: 'PUBG', icon: 'fa-crosshairs', tiers: [{name: '60 UC', price: 0.99}, {name: '325 UC', price: 4.99}, {name: '660 UC', price: 9.99}] },
-        { id: 'mlbb', title: 'MLBB', icon: 'fa-shield-halved', tiers: [{name: '86 Dia', price: 1.49}, {name: '257 Dia', price: 4.49}, {name: '706 Dia', price: 11.99}] },
-        { id: 'hok', title: 'HOK', icon: 'fa-crown', tiers: [{name: '80 Tok', price: 0.99}, {name: '400 Tok', price: 4.99}, {name: '880 Tok', price: 9.99}] },
-        { id: 'ab', title: 'Arena', icon: 'fa-gun', tiers: [{name: '60 Bond', price: 0.99}, {name: '300 Bond', price: 4.99}, {name: '680 Bond', price: 10.99}] }
+        { id: 'pubg', title: 'PUBG Mobile', icon: 'fa-crosshairs', tiers: [{name: '60 UC', price: 0.99}, {name: '325 UC', price: 4.99}, {name: '660 UC', price: 9.99}] },
+        { id: 'mlbb', title: 'Mobile Legends', icon: 'fa-shield-halved', tiers: [{name: '86 Dia', price: 1.49}, {name: '257 Dia', price: 4.49}, {name: '706 Dia', price: 11.99}] },
+        { id: 'hok', title: 'Honor of Kings', icon: 'fa-crown', tiers: [{name: '80 Tok', price: 0.99}, {name: '400 Tok', price: 4.99}, {name: '880 Tok', price: 9.99}] },
+        { id: 'ab', title: 'Arena Breakout', icon: 'fa-gun', tiers: [{name: '60 Bond', price: 0.99}, {name: '300 Bond', price: 4.99}, {name: '680 Bond', price: 10.99}] }
     ];
 
     window.onload = () => {
         updateUI();
-        renderGames();
+        renderGames(DEMO_GAMES);
     };
 
     function updateUI() {
         if(currentUser) {
             document.getElementById('authBtn').innerText = 'چىقىش';
             document.getElementById('userBalance').innerText = `$${currentUser.balance.toFixed(2)}`;
+            if(currentUser.username === 'nasrulla' || currentUser.is_vip) {
+                document.getElementById('adminMenuOpt').style.display = 'flex';
+            }
         } else {
             document.getElementById('authBtn').innerText = 'كىرىش';
             document.getElementById('userBalance').innerText = `$0.00`;
+            document.getElementById('adminMenuOpt').style.display = 'none';
         }
     }
 
-    function renderGames() {
+    function handleAuthButtonClick() {
+        if(currentUser) {
+            if(confirm('ھېساباتتىن چىقامسىز؟')) {
+                currentUser = null;
+                localStorage.removeItem('secure_user_session');
+                updateUI();
+            }
+        } else {
+            toggleAuthModal();
+        }
+    }
+
+    function renderGames(gamesArray) {
         const grid = document.getElementById('gameGrid');
-        grid.innerHTML = DEMO_GAMES.map(g => `<div class="game-box ${g.title===activeGame?'active':''}" onclick="selectGame('${g.title}')"><i class="fa-solid ${g.icon}"></i><div style="font-size:0.8rem; margin-top:4px;">${g.title}</div></div>`).join('');
+        grid.innerHTML = gamesArray.map(g => `<div class="game-box ${g.title===activeGame?'active':''}" onclick="selectGame('${g.title}')"><i class="fa-solid ${g.icon}"></i><div style="font-size:0.8rem; margin-top:4px;">${g.title}</div></div>`).join('');
         renderTiers();
+    }
+
+    function filterGames() {
+        const query = document.getElementById('gameSearchInput').value.toLowerCase();
+        const filtered = DEMO_GAMES.filter(g => g.title.toLowerCase().includes(query));
+        renderGames(filtered);
     }
 
     function selectGame(name) {
         activeGame = name;
-        renderGames();
+        renderGames(DEMO_GAMES);
     }
 
     function renderTiers() {
-        const game = DEMO_GAMES.find(g => g.title === activeGame);
+        const game = DEMO_GAMES.find(g => g.title === activeGame) || DEMO_GAMES[0];
         selectedTier = game.tiers[0];
         document.getElementById('finalPriceDisplay').innerText = `$${selectedTier.price.toFixed(2)}`;
         
@@ -225,16 +327,51 @@
         document.getElementById('finalPriceDisplay').innerText = `$${price.toFixed(2)}`;
     }
 
-    function toggleAuthModal() {
-        if(currentUser) {
-            if(confirm('ھېساباتتىن چىقامسىز؟')) {
-                currentUser = null;
-                localStorage.removeItem('secure_user_session');
-                updateUI();
+    function toggleMenuModal() { document.getElementById('menuModal').classList.toggle('active'); }
+    function toggleAuthModal() { document.getElementById('authModal').classList.toggle('active'); }
+    function openDepositModal() { if(!currentUser) return alert('ئالدى بىلەن كىرىڭ!'); document.getElementById('depositModal').classList.toggle('active'); }
+    function openPromoModal() { if(!currentUser) return alert('ئالدى بىلەن كىرىڭ!'); document.getElementById('promoModal').classList.toggle('active'); }
+    function openHistoryModal() { if(!currentUser) return alert('ئالدى بىلەن كىرىڭ!'); document.getElementById('historyModal').classList.toggle('active'); document.getElementById('historyList').innerHTML = `<div style="color:var(--neon-blue);">ئابونت: ${currentUser.username}<br>قالدۇق: $${currentUser.balance.toFixed(2)}<br><br>زاكازلىرىڭىز بىر تەرەپ قىلىنىۋاتىدۇ.</div>`; }
+
+    async function openAdminModal() {
+        document.getElementById('adminModal').classList.toggle('active');
+        const container = document.getElementById('adminDepositsList');
+        container.innerHTML = "يۈكلىنىۋاتىدۇ...";
+
+        try {
+            const res = await fetch(API_BASE + '/admin/deposits');
+            const data = await res.json();
+            if(data.success && data.requests.length > 0) {
+                container.innerHTML = data.requests.map(req => `
+                    <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:8px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <b>${req.username}</b> - <span style="color:var(--gold);">$${req.amount}</span> (${req.gateway})<br>
+                            <span style="font-size:0.75rem; color:${req.status==='approved'?'var(--neon-green)':'var(--neon-pink)'};">${req.status==='approved'?'تەستىقلاندى':'كۈتۈلمەكتە'}</span>
+                        </div>
+                        ${req.status === 'pending' ? `<button onclick="approveDepositReq(${req.id})" style="background:var(--neon-green); border:none; padding:6px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">ماقۇللاش</button>` : '<span>✔</span>'}
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = "تەلەپلەر يوق.";
             }
-            return;
+        } catch(e) {
+            container.innerHTML = "مۇلازىمېتىرغا ئۇلىنالمىدى!";
         }
-        document.getElementById('authModal').classList.toggle('active');
+    }
+
+    async function approveDepositReq(reqId) {
+        try {
+            const res = await fetch(API_BASE + '/admin/approve', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ req_id: reqId })
+            });
+            const data = await res.json();
+            alert(data.msg);
+            openAdminModal(); // تىزىملىكنى يېڭىلاش
+        } catch(e) {
+            alert('خاتالىق كۆرۈلدى!');
+        }
     }
 
     function setAuthMode(login) {
@@ -244,11 +381,6 @@
         document.getElementById('authTitle').innerText = login ? 'ھېساباتقا كىرىش' : 'يېڭى ھېسابات قۇرۇش';
         document.getElementById('authSubmitBtn').innerText = login ? 'كىرىش' : 'تىزىملىتىش';
         document.getElementById('authEmail').style.display = login ? 'none' : 'block';
-    }
-
-    function openDepositModal() {
-        if(!currentUser) return alert('ئالدى بىلەن ھېساباتقا كىرىڭ!');
-        document.getElementById('depositModal').classList.toggle('active');
     }
 
     async function processAuth() {
@@ -270,10 +402,9 @@
                 body: JSON.stringify(payload)
             });
             const data = await res.json();
-            
             if(data.success) {
                 if(!isLoginMode) {
-                    alert('تىزىملىتىش مۇۋەپپەقىيەتلىك! ئەمدى كىرىڭ.');
+                    alert('تىزىملىتىش مۇۋەپپەقىيەتلىك!');
                     setAuthMode(true);
                 } else {
                     currentUser = data.user;
@@ -282,14 +413,9 @@
                     toggleAuthModal();
                     alert(data.msg);
                 }
-            } else {
-                alert(data.msg);
-            }
-        } catch (error) {
-            alert('مۇلازىمېتىرغا ئۇلىنالمىدى!');
-        } finally {
-            loader.classList.remove('active');
-        }
+            } else { alert(data.msg); }
+        } catch (error) { alert('مۇلازىمېتىرغا ئۇلىنالمىدى!'); }
+        finally { loader.classList.remove('active'); }
     }
 
     async function submitSecureOrder() {
@@ -316,18 +442,14 @@
                 localStorage.setItem('secure_user_session', JSON.stringify(currentUser));
                 updateUI();
                 alert('زاكاز مۇۋەپپەقىيەتلىك بېجىرىلدى!');
-            } else {
-                alert(data.msg);
-            }
-        } catch (err) {
-            alert('ئۇلىنىش خاتالىقى!');
-        }
+            } else { alert(data.msg); }
+        } catch (err) { alert('ئۇلىنىش خاتالىقى!'); }
     }
 
     async function submitDeposit() {
         const amount = document.getElementById('depositAmount').value;
         const gateway = document.getElementById('depositGateway').value;
-        if(!amount || amount <= 0) return alert('توغرا مىقدار يېزىڭ!');
+        if(!amount || amount <= 0) return alert('مىقدار يېزىڭ!');
 
         try {
             const res = await fetch(API_BASE + '/deposit', {
@@ -336,14 +458,24 @@
                 body: JSON.stringify({ user_id: currentUser.id, amount: parseFloat(amount), gateway })
             });
             const data = await res.json();
-            if(data.success) {
-                alert(data.msg);
-                openDepositModal();
-            } else {
-                alert('خاتالىق كۆرۈلدى!');
-            }
-        } catch(e) {
-            alert('مۇلازىمېتىرغا ئۇلىنالمىدى!');
+            if(data.success) { 
+                alert(data.msg); 
+                openDepositModal(); 
+            } else { alert('خاتالىق!'); }
+        } catch(e) { alert('مۇلازىمېتىرغا ئۇلىنالمىدى!'); }
+    }
+
+    function applyPromoCode() {
+        const code = document.getElementById('promoCodeInput').value;
+        if(!code) return alert('كود كىرگۈزۈڭ!');
+        if(code === 'AUTO2026') {
+            currentUser.balance += 5.00;
+            localStorage.setItem('secure_user_session', JSON.stringify(currentUser));
+            updateUI();
+            alert('مۇۋەپپەقىيەتلىك! ھېساباتىڭىزغا $5.00 قوشۇلدى.');
+            openPromoModal();
+        } else {
+            alert('كود خاتالىقى ياكى ئىناۋەتسىز كود!');
         }
     }
 </script>
