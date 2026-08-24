@@ -187,7 +187,6 @@
         <div style="font-size:0.75rem; color:var(--gold); margin-top:3px;"><i class="fa-solid fa-crown"></i> VIP مىھمان</div>
     </div>
 
-    <!-- تىل تاللىغۇچ -->
     <div style="margin-bottom:12px;">
         <select id="langSelector" onchange="changeLanguage(this.value)" style="background:rgba(255,255,255,0.05); border:1px solid var(--border); color:var(--text-main); padding:10px; border-radius:10px; font-size:0.9rem; width:100%; text-align:center;">
             <option value="ug" style="background:#070913;"> ئۇيغۇرچە</option>
@@ -267,13 +266,11 @@
 </nav>
 
 <!-- Modals -->
-<!-- شامكەش ئارقىلىق پۇل قاچىلاش كۆزنىكى -->
 <div class="modal" id="depositModal">
     <div class="modal-box">
         <i class="fa-solid fa-xmark close-manager" onclick="openDepositModal()"></i>
         <h3 style="color:var(--neon-green); margin-bottom:12px; text-align:right;" class="font-tech">شامكەش ئارقىلىق پۇل قاچىلاش</h3>
         
-        <!-- شامكەش نومۇرى كۆرسىتىش ۋە كۆچۈرۈش قىسمى -->
         <div style="background:rgba(0,242,254,0.08); border:1px solid var(--neon-blue); border-radius:12px; padding:12px; margin-bottom:15px; text-align:center;">
             <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:4px;">شامكەش نۇمۇرىمىز (بېسىپ كۆچۈرۈڭ):</div>
             <div id="shamCashNum" style="font-size:0.9rem; font-weight:bold; color:var(--gold); word-break:break-all; font-family:'Orbitron',sans-serif; cursor:pointer;" onclick="copyShamCashNum()">efe8a2b200d66411c7c7e296369cbba8</div>
@@ -343,6 +340,11 @@
     let selectedPackage = null;
     let tempAvatarBase64 = currentUser.avatar || null;
 
+    // بارلىق تىزىملاتقان ئابونتلارنىڭ تىزىملىكىنى ساقلاش (Admin باشقۇرۇشى ئۈچۈن)
+    let allUsersList = JSON.parse(localStorage.getItem('all_registered_users')) || [
+        { id: 1, username: 'nasrulla', balance: currentUser.balance, avatar: currentUser.avatar }
+    ];
+
     const SERVICES_DATA = {
         games: [
             { id: 'ff', title: 'Free Fire', count: '13 خىل', img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300', pkgs: [{name:'100 Diamond', price:1.00}, {name:'310 Diamond', price:2.99}] },
@@ -363,17 +365,19 @@
 
     window.onload = () => {
         updateAvatarUI();
-        syncUserWithBackend();
+        saveUserToGlobalList();
     };
 
-    async function syncUserWithBackend() {
-        try {
-            await fetch(API_BASE + '/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: currentUser.username, password: 'user_secure_auto' })
-            });
-        } catch(e) {}
+    function saveUserToGlobalList() {
+        let found = allUsersList.find(u => u.id === currentUser.id || u.username === currentUser.username);
+        if(found) {
+            found.balance = currentUser.balance;
+            found.avatar = currentUser.avatar;
+            found.username = currentUser.username;
+        } else {
+            allUsersList.push({ id: currentUser.id, username: currentUser.username, balance: currentUser.balance, avatar: currentUser.avatar });
+        }
+        localStorage.setItem('all_registered_users', JSON.stringify(allUsersList));
     }
 
     function updateAvatarUI() {
@@ -409,6 +413,7 @@
             authIcon.className = "fa-solid fa-right-to-bracket";
             authText.innerText = "سىستېمىغا كىرىش";
         }
+        saveUserToGlobalList();
     }
 
     function copyShamCashNum() {
@@ -458,7 +463,6 @@
         currentUser.avatar = tempAvatarBase64;
         localStorage.setItem('secure_user_session', JSON.stringify(currentUser));
         updateAvatarUI();
-        syncUserWithBackend();
         alert('پروفىل ۋە باش رەسىم ساقلاندى!');
         openProfileModal();
     }
@@ -583,27 +587,31 @@
         goHome();
     }
 
+    // ئايرىم باشقۇرۇش سۇپىسى بېتى (Admin Page) - پۇلنى جىقلىتىش / ئازايتىش ئىقتىدارى بىلەن
     async function openAdminPage() {
-        document.getElementById('mainContentArea').innerHTML = `
-            <div class="glass-panel">
-                <div class="panel-heading"><i class="fa-solid fa-shield-halved" style="color:var(--gold);"></i> <span class="admin-badge">ADMIN</span> باشقۇرۇش سۇپىسى - تىزىملاتقان ئابونتلار</div>
-                
-                <div style="font-weight:bold; font-size:0.95rem; margin-bottom:10px; color:var(--neon-blue);">تولدۇرۇلغان / تىزىملاتقان ئابونتلار تىزىملىكى:</div>
-                <div id="adminUsersList" style="margin-bottom:20px;">
-                    <div style="background:rgba(255,255,255,0.05); padding:12px; border-radius:12px; display:flex; align-items:center; justify-content:space-between; border:1px solid var(--border); margin-bottom:8px;">
-                        <div style="display:flex; align-items:center; gap:12px;">
-                            <img src="${currentUser.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'}" style="width:45px; height:45px; border-radius:50%; object-fit:cover; border:2px solid var(--gold);">
-                            <div>
-                                <div style="font-weight:bold; font-size:1rem;">${currentUser.username}</div>
-                                <div style="font-size:0.75rem; color:var(--text-muted);">ID: #${currentUser.id} (نۆۋەتتىكى ئابونت)</div>
-                            </div>
-                        </div>
-                        <div style="text-align:left;">
-                            <div style="color:var(--neon-green); font-weight:bold; font-family:'Orbitron',sans-serif;">$${currentUser.balance.toFixed(2)}</div>
-                            <div style="font-size:0.7rem; color:var(--gold);">قالدۇق سومما</div>
-                        </div>
+        let usersHtml = allUsersList.map(u => `
+            <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:10px; display:flex; align-items:center; justify-content:space-between; border:1px solid var(--border); margin-bottom:8px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <img src="${u.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'}" style="width:40px; height:40px; border-radius:50%; object-fit:cover; border:2px solid var(--gold);">
+                    <div>
+                        <div style="font-weight:bold; font-size:0.95rem;">${u.username}</div>
+                        <div style="font-size:0.7rem; color:var(--text-muted);">ID: #${u.id}</div>
                     </div>
                 </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="color:var(--neon-green); font-weight:bold; font-family:'Orbitron',sans-serif; font-size:0.95rem;">$${u.balance.toFixed(2)}</div>
+                    <button onclick="adjustBalance(${u.id}, 5)" style="background:var(--neon-green); border:none; padding:4px 8px; border-radius:6px; font-weight:bold; cursor:pointer; color:#000;">+$5</button>
+                    <button onclick="adjustBalance(${u.id}, -5)" style="background:#ff1744; border:none; padding:4px 8px; border-radius:6px; font-weight:bold; cursor:pointer; color:#fff;">-$5</button>
+                </div>
+            </div>
+        `).join('');
+
+        document.getElementById('mainContentArea').innerHTML = `
+            <div class="glass-panel">
+                <div class="panel-heading"><i class="fa-solid fa-shield-halved" style="color:var(--gold);"></i> <span class="admin-badge">ADMIN</span> باشقۇرۇش سۇپىسى</div>
+                
+                <div style="font-weight:bold; font-size:0.95rem; margin-bottom:10px; color:var(--neon-blue);">تىزىملاتقان بارلىق ئابونتلار (پۇل قوشۇش/ئەڭگۈزۈش):</div>
+                <div id="adminUsersList" style="margin-bottom:20px;">${usersHtml}</div>
 
                 <div style="font-weight:bold; font-size:0.95rem; margin-bottom:10px; color:var(--gold);">شامكەش پۇل قاچىلاش تەلەپلىرى:</div>
                 <div id="adminDepositsList" style="background:rgba(0,0,0,0.3); padding:12px; border-radius:12px; font-size:0.85rem; max-height:300px; overflow-y:auto;">يۈكلىنىۋاتىدۇ...</div>
@@ -619,17 +627,35 @@
             if(data.success && data.requests.length > 0) {
                 depContainer.innerHTML = data.requests.map(req => `
                     <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:8px; margin-bottom:8px; border:1px solid var(--border);">
-                        <b>ئابونت: ${req.username}</b> | سومما: <span style="color:var(--gold);">$${req.amount}</span><br>
+                        <b>ئابونت: ${req.username}</b> (ID: ${req.user_id})<br>
+                        سومما: <span style="color:var(--gold);">$${req.amount}</span><br>
                         إسپات نومۇرى (ID): <span style="color:var(--neon-blue);">${req.receipt_id || 'يوق'}</span><br>
                         ${req.receipt_image ? `<a href="${req.receipt_image}" target="_blank" style="color:var(--neon-green);">ئىسپات رەسىمىنى كۆرۈش</a><br>` : ''}
-                        ${req.status === 'pending' ? `<button onclick="approveShamCashDeposit(${req.id}, ${req.amount})" style="background:var(--neon-green); border:none; padding:6px 14px; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:8px; color:#000;">تەستىقلاش (پۇل قاچىلاش)</button>` : '<span style="color:var(--neon-green);">✔ تەستىقلاندى</span>'}
+                        ${req.status === 'pending' ? `<button onclick="approveUserDeposit(${req.id}, ${req.user_id}, ${req.amount})" style="background:var(--neon-green); border:none; padding:6px 14px; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:8px; color:#000;">تەستىقلاش (شۇ ئابونتقا پۇل قاچىلاش)</button>` : '<span style="color:var(--neon-green);">✔ تەستىقلاندى</span>'}
                     </div>
                 `).join('');
             } else { depContainer.innerHTML = "تەلەپلەر يوق."; }
         } catch(e) { document.getElementById('adminDepositsList').innerHTML = "مۇلازىمېتىرغا ئۇلىنالمىدى!"; }
     }
 
-    async function approveShamCashDeposit(reqId, amount) {
+    // ئابونتنىڭ پۇلىنى جىقلىتىش ياكى ئازايتىش
+    function adjustBalance(userId, amount) {
+        let target = allUsersList.find(u => u.id === userId);
+        if(target) {
+            target.balance += amount;
+            if(target.balance < 0) target.balance = 0;
+            localStorage.setItem('all_registered_users', JSON.stringify(allUsersList));
+            
+            if(currentUser.id === userId) {
+                currentUser.balance = target.balance;
+                localStorage.setItem('secure_user_session', JSON.stringify(currentUser));
+                updateAvatarUI();
+            }
+            openAdminPage();
+        }
+    }
+
+    async function approveUserDeposit(reqId, targetUserId, amount) {
         try {
             const res = await fetch(API_BASE + '/admin/approve', {
                 method: 'POST',
@@ -638,12 +664,20 @@
             });
             const data = await res.json();
             
-            // ئەگەر ئابونت نۆۋەتتىكى ئابونت بولسا قالدۇقىغا قوشۇش
-            currentUser.balance += amount;
-            localStorage.setItem('secure_user_session', JSON.stringify(currentUser));
-            updateAvatarUI();
+            // دەل شۇ تەلەپ قىلغان ئابونتنىڭ قالدۇقىغا پۇلنى قوشۇش
+            let targetUser = allUsersList.find(u => u.id === targetUserId);
+            if(targetUser) {
+                targetUser.balance += amount;
+                localStorage.setItem('all_registered_users', JSON.stringify(allUsersList));
+                
+                if(currentUser.id === targetUserId) {
+                    currentUser.balance = targetUser.balance;
+                    localStorage.setItem('secure_user_session', JSON.stringify(currentUser));
+                    updateAvatarUI();
+                }
+            }
 
-            alert(data.msg);
+            alert(data.msg + " (تەلەپ قىلغان ئابونتقا پۇل قوشۇلدى)");
             openAdminPage();
         } catch(e) { alert('خاتالىق!'); }
     }
