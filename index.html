@@ -1,71 +1,214 @@
-/* ئاساسلىق سەھىپە ئۇسلۇبى */
-body {
-    background-color: #F7F8FA;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    color: #222222;
-    margin: 0;
-    padding: 0;
-}
+<!DOCTYPE html>
+<html lang="ug" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Chah - پۇل قاچىلاش سۇپىسى</title>
+    <style>
+        /* ئاساسلىق سەھىپە ئۇسلۇبى */
+        body {
+            background-color: #F7F8FA;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: #222222;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 70px;
+        }
 
-/* باش قىسىم (Navbar) */
-.navbar {
-    background-color: #FFFFFF;
-    padding: 15px 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        /* باش قىسىم (Navbar) */
+        .navbar {
+            background-color: #FFFFFF;
+            padding: 15px 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-.logo {
-    color: #E60012;
-    font-weight: 700;
-    font-size: 20px;
-}
+        .logo {
+            color: #E60012;
+            font-weight: 700;
+            font-size: 20px;
+        }
 
-/* مەھسۇلات/ئويۇن كارتىلىرى ئورۇنلاشتۇرۇشى */
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-    gap: 15px;
-    padding: 20px;
-}
+        .balance-badge {
+            background-color: #FFF0F1;
+            color: #E60012;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
 
-.game-card {
-    background: #FFFFFF;
-    border-radius: 14px;
-    padding: 10px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
+        /* ئاساسلىق مەزمۇن قىسمى */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 10px;
+        }
 
-.game-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(230, 0, 18, 0.15);
-}
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 20px 15px 10px 15px;
+            color: #333333;
+        }
 
-.game-card img {
-    width: 100%;
-    border-radius: 10px;
-}
+        /* مەھسۇلات/ئويۇن كارتىلىرى ئورۇنلاشتۇرۇشى */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 15px;
+            padding: 15px;
+        }
 
-/* باھا ۋە ئالماس كۇنۇپكىلىرى ئۇسلۇبى */
-.price-option {
-    border: 2px solid #E5E7EB;
-    border-radius: 10px;
-    background: #FFFFFF;
-    padding: 12px;
-    text-align: center;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.2s;
-}
+        .game-card {
+            background: #FFFFFF;
+            border-radius: 14px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
 
-/* تاللانغان مەھسۇلات ھالىتى (Active state) */
-.price-option.active {
-    border-color: #E60012;
-    background-color: #FFF0F1;
-    color: #E60012;
-}
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(230, 0, 18, 0.15);
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 5px;
+        }
+
+        .game-card span {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333333;
+        }
+
+        /* باھا ۋە ئالماس كۇنۇپكىلىرى ئۇسلۇبى */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            padding: 15px;
+        }
+
+        .price-option {
+            border: 2px solid #E5E7EB;
+            border-radius: 10px;
+            background: #FFFFFF;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        /* تاللانغان مەھسۇلات ھالىتى (Active state) */
+        .price-option.active {
+            border-color: #E60012;
+            background-color: #FFF0F1;
+            color: #E60012;
+        }
+
+        /* تۆۋەندىكى تىزىملىك (Bottom Nav) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #FFFFFF;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+
+        .nav-item {
+            text-align: center;
+            font-size: 12px;
+            color: #666666;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: #E60012;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- باش قىسىم -->
+    <header class="navbar">
+        <div class="logo">⚡ Auto Chah</div>
+        <div class="balance-badge">قالدۇق: 0.00$</div>
+    </header>
+
+    <div class="container">
+        <!-- ئويۇن ۋە مۇلازىمەت تۈرلىرى -->
+        <div class="section-title">مۇلازىمەت ۋە ئويۇن تۈرلىرى</div>
+        <div class="grid-container">
+            
+            <div class="game-card">
+                <div style="font-size: 32px; margin-bottom: 5px;">🎮</div>
+                <span>PUBG Mobile</span>
+            </div>
+
+            <div class="game-card">
+                <div style="font-size: 32px; margin-bottom: 5px;">⚔️</div>
+                <span>Mobile Legends</span>
+            </div>
+
+            <div class="game-card">
+                <div style="font-size: 32px; margin-bottom: 5px;">👑</div>
+                <span>Honor of Kings</span>
+            </div>
+
+            <div class="game-card">
+                <div style="font-size: 32px; margin-bottom: 5px;">🎯</div>
+                <span>Arena Breakout</span>
+            </div>
+
+            <div class="game-card">
+                <div style="font-size: 32px; margin-bottom: 5px;">📱</div>
+                <span>ھېسابات تولۇقلاش</span>
+            </div>
+
+            <div class="game-card">
+                <div style="font-size: 32px; margin-bottom: 5px;">💬</div>
+                <span>تېلېگرام مۇلازىمىتى</span>
+            </div>
+
+        </div>
+
+        <!-- باھا تاللاش مىسالى -->
+        <div class="section-title">باھا تاللاش ئۆرنەكى</div>
+        <div class="options-grid">
+            <div class="price-option active">60 UC (1.00$)</div>
+            <div class="price-option">325 UC (5.00$)</div>
+            <div class="price-option">660 UC (10.00$)</div>
+            <div class="price-option">1800 UC (25.00$)</div>
+        </div>
+    </div>
+
+    <!-- تۆۋەندىكى مەنىيۇ -->
+    <nav class="bottom-nav">
+        <a class="nav-item active">🏠<br>باش بەت</a>
+        <a class="nav-item">📋<br>تەلەپلىرىم</a>
+        <a class="nav-item">💳<br>پۇل قاچىلاش</a>
+        <a class="nav-item">👤<br>ھېساباتىم</a>
+    </nav>
+
+</body>
+</html>
