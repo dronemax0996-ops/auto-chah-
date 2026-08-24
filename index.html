@@ -711,7 +711,7 @@
         </div>
     </div>
 
-    <!-- رەسىمنى پۈتۈن ئېكراندا چوڭايتىپ كۆرۈش كۆزنىكى (Lightbox) -->
+    <!-- رەسىمنى چوڭايتىپ كۆرۈش كۆزنىكى (Lightbox) -->
     <div id="lightbox-modal" class="modal" onclick="closeLightbox()">
         <div style="max-width:90%; max-height:90%; position:relative;" onclick="event.stopPropagation()">
             <img id="lightbox-img" src="" style="width:100%; height:auto; max-height:80vh; object-fit:contain; border-radius:12px; box-shadow: 0 5px 25px rgba(0,0,0,0.5);">
@@ -975,7 +975,6 @@
             }
         }
 
-        // --- Telegram Bot ئارقىلىق دەرھال ئۇقتۇرۇش ئەۋەتىش ---
         async function sendTelegramNotification(text) {
             const token = localStorage.getItem('tg_bot_token');
             const chatId = localStorage.getItem('tg_chat_id');
@@ -1046,7 +1045,6 @@
             if (modalEl) modalEl.style.display = 'none';
         }
 
-        // --- ئويۇن زاكاز قىلىش (ئاپتوماتىك پۇل كېسىش بىلەن) ---
         function confirmPurchase() {
             const playerIdEl = document.getElementById('player-id');
             const packageEl = document.getElementById('product-package');
@@ -1070,7 +1068,6 @@
                     alert('ھېساباتىڭىزدا يېتەرلىك قالدۇق يوق! ئالدى بىلەن پۇل قاچىلاڭ.');
                     return;
                 }
-                // ئاپتوماتىك كېسىش
                 currentUser.balance -= pkgPrice;
                 localStorage.setItem('registered_users', JSON.stringify(users));
                 updateBalanceDisplay();
@@ -1092,7 +1089,6 @@
             });
             localStorage.setItem('user_orders', JSON.stringify(orders));
             
-            // Telegram غا ئۇقتۇرۇش
             sendTelegramNotification(`🛒 <b>يېڭى ئويۇن زاكاز تەلىپى!</b>\n👤 ئابونت: <b>${activeUser}</b>\n🎮 ئويۇن: <b>${selectedGameName}</b>\n🆔 ID: <code>${playerId}</code>\n📦 باقە: <b>${pkgName} (${pkgPrice}$)</b>\n📅 ۋاقتى: ${new Date().toLocaleString()}`);
 
             alert('زاكاز تەلىپى مۇۋەپپەقىيەتلىك ئەۋەتىلدى!');
@@ -1101,7 +1097,6 @@
             loadAdminOrdersList();
         }
 
-        // --- پۇل قاچىلاش تەلىپى ---
         function sendTopupRequest() {
             if (localStorage.getItem('is_logged') !== 'true') {
                 alert('ئالدى بىلەن ھېساباتىڭىزغا كىرىڭ!');
@@ -1151,7 +1146,6 @@
                 });
                 localStorage.setItem('user_orders', JSON.stringify(orders));
                 
-                // Telegram غا ئۇقتۇرۇش
                 sendTelegramNotification(`💳 <b>يېڭى پۇل قاچىلاش تەلىپى!</b>\n👤 ئابونت: <b>${activeUser}</b>\n💰 سومما: <b>${amountStr}</b>\n🏦 ئۇسۇل: <b>${gateway}</b>\n🧾 ئىسپات نومۇرى: <code>${proofNum}</code>\n📅 ۋاقتى: ${new Date().toLocaleString()}`);
 
                 alert('تەلەپ مۇۋەپپەقىيەتلىك ئەۋەتىلدى!');
@@ -1540,7 +1534,6 @@
             alert('تەلەپ قوبۇل قىلىندى ۋە تەستىقلاندى!');
         }
 
-        // --- تەلەپنى بىكار قىلىش ۋە پۇلنى ئاپتوماتىك قايتۇرۇش ---
         function rejectOrder(orderId) {
             let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
             let targetOrder = orders.find(o => o.id === orderId);
@@ -1548,7 +1541,6 @@
 
             targetOrder.status = 'Rejected';
 
-            // ئەگەر ئويۇن سېتىۋالغان بولسا، كېسىلگەن پۇلنى ئابونت ھېساباتىغا قايتۇرۇش
             if (targetOrder.type === 'spent') {
                 let targetUser = targetOrder.username;
                 let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
@@ -1568,7 +1560,6 @@
             alert('تەلەپ بىكار قىلىندى ۋە كېسىلگەن پۇل قايتۇرۇلدى!');
         }
 
-        // --- Lightbox رەسىم چوڭايتىش ---
         function openLightbox(src) {
             const modal = document.getElementById('lightbox-modal');
             const img = document.getElementById('lightbox-img');
@@ -1583,7 +1574,6 @@
             if (modal) modal.style.display = 'none';
         }
 
-        // --- بارلىق سانلىق مەلۇماتنى ھۆججەت قىلىپ چۈشۈرۈش ۋە كىرگۈزۈش ---
         function exportDataBackup() {
             const backupData = {
                 registered_users: JSON.parse(localStorage.getItem('registered_users') || '[]'),
@@ -1706,7 +1696,6 @@
             localStorage.setItem('is_logged', 'true');
             localStorage.removeItem('is_admin');
             
-            // Telegram ئۇقتۇرۇش
             sendTelegramNotification(`👤 <b>يېڭى ئابونت تىزىملاتتى!</b>\nئىسمى: <b>${name}</b>\nئېلخەت: ${email}\nۋاقتى: ${new Date().toLocaleString()}`);
 
             alert('تم التسجيل بنجاح!');
@@ -1825,7 +1814,6 @@
                     if (userTopupView) userTopupView.style.display = 'none';
                     if (adminTopupView) adminTopupView.style.display = 'block';
 
-                    // Telegram تەڭشەكلىرىنى تولدۇرۇپ قويۇش
                     const tgTokenInput = document.getElementById('tg-bot-token');
                     const tgChatInput = document.getElementById('tg-chat-id');
                     if (tgTokenInput) tgTokenInput.value = localStorage.getItem('tg_bot_token') || '';
@@ -1864,6 +1852,14 @@
         }
 
         window.onload = function() {
+            // سىز تېلېگراممىدىن ئالغان مەخسۇس API كودلىرىنى تۆۋەندىكى تىرناق ئىچىگە قويسىڭىزمۇ بولىدۇ:
+            if (!localStorage.getItem('tg_bot_token')) {
+                localStorage.setItem('tg_bot_token', 'بۇ_يەرگە_BOT_TOKEN_قويۇڭ');
+            }
+            if (!localStorage.getItem('tg_chat_id')) {
+                localStorage.setItem('tg_chat_id', 'بۇ_يەرگە_CHAT_ID_قويۇڭ');
+            }
+
             const savedLang = localStorage.getItem('selected_lang') || 'ug';
             changeLanguage(savedLang);
             loadCategories();
