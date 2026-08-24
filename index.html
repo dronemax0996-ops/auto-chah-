@@ -46,7 +46,7 @@
 
         .nav-actions {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
         }
 
@@ -56,6 +56,24 @@
             color: white;
             font-size: 18px;
             cursor: pointer;
+        }
+
+        /* تىل تاللاش Dropdown ئۇسلۇبى */
+        .lang-select {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 5px 8px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .lang-select option {
+            color: #222;
+            background: #fff;
         }
 
         /* سىيرىلىپ چىقىدىغان تىزىملىك (Drawer Menu) */
@@ -393,8 +411,14 @@
             <img src="logo.png" alt="Logo" onerror="this.src='https://img.icons8.com/color/96/lightning-bolt.png'">
         </a>
         <div class="nav-actions">
+            <!-- تىل تاللاش تىزىملىكى (ئۇيغۇرچە، ئەرەبچە، ئىنگلىزچە، ئۆزبېكچە) -->
+            <select class="lang-select" id="lang-selector" onchange="changeLanguage(this.value)">
+                <option value="ug">🇺🇬 ئۇيغۇرچە</option>
+                <option value="ar">🇸🇦 العربية</option>
+                <option value="en">🇬🇧 English</option>
+                <option value="uz">🇺🇿 O'zbek</option>
+            </select>
             <button class="nav-icon-btn" onclick="switchPage('account', document.querySelectorAll('.nav-item')[3])">👤</button>
-            <button class="nav-icon-btn" onclick="toggleLanguage()">🌐</button>
             <button class="nav-icon-btn" onclick="toggleMenu()">☰</button>
         </div>
     </header>
@@ -405,15 +429,15 @@
         <div class="drawer-header">
             <button class="drawer-close" onclick="toggleMenu()">✕</button>
             <div class="drawer-avatar">👤</div>
-            <div class="drawer-name" id="drawer-username">ميھمان (Guest)</div>
+            <div class="drawer-name" id="drawer-username">Killer 0996</div>
             <div class="drawer-balance" id="drawer-balance">0.00$</div>
         </div>
         <div class="drawer-links">
-            <button class="drawer-item" onclick="navigateMenu('home')">🏠 الرئيسية (باش بەت)</button>
-            <button class="drawer-item" onclick="navigateMenu('topup')">💳 إضافة رصيد (پۇل قاچىلاش)</button>
-            <button class="drawer-item" onclick="navigateMenu('orders')">🛒 طلباتي (تەلەپلىرىم)</button>
-            <button class="drawer-item" onclick="navigateMenu('account')">👤 حسابي (ھېساباتىم)</button>
-            <a href="https://t.me/nasrulla0996" target="_blank" class="drawer-item">✈️ تېلېگرامما ئالاقە</a>
+            <button class="drawer-item" onclick="navigateMenu('home')">🏠 <span data-i18n="nav_home">الرئيسية</span></button>
+            <button class="drawer-item" onclick="navigateMenu('topup')">💳 <span data-i18n="nav_topup">إضافة رصيد</span></button>
+            <button class="drawer-item" onclick="navigateMenu('orders')">🛒 <span data-i18n="nav_orders">طلباتي</span></button>
+            <button class="drawer-item" onclick="navigateMenu('account')">👤 <span data-i18n="nav_account">حسابي</span></button>
+            <a href="https://t.me/nasrulla0996" target="_blank" class="drawer-item">✈️ <span data-i18n="telegram_contact">تېلېگرامما ئالاقە</span></a>
         </div>
     </div>
 
@@ -424,28 +448,28 @@
                 <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=60" alt="Banner">
             </div>
 
-            <div class="notice-bar">
+            <div class="notice-bar" data-i18n="support_notice">
                 الدعم الفني: 00963958498149, خدمة العملاء
             </div>
 
-            <input type="text" class="search-box" placeholder="بحث...">
+            <input type="text" class="search-box" data-i18n-placeholder="search_placeholder" placeholder="بحث...">
 
             <div class="categories-grid">
                 <div class="category-card" onclick="openModal('PUBG Mobile')">
                     <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=300&auto=format&fit=crop&q=60" alt="Games">
-                    <span>قسم الألعاب</span>
+                    <span data-i18n="cat_games">قسم الألعاب</span>
                 </div>
                 <div class="category-card" onclick="openModal('Telegram Premium')">
                     <img src="https://images.unsplash.com/photo-1614680376593-902f749f7ffc?w=300&auto=format&fit=crop&q=60" alt="Chat">
-                    <span>تطبيقات الشات</span>
+                    <span data-i18n="cat_chat">تطبيقات الشات</span>
                 </div>
                 <div class="category-card" onclick="openModal('Digital Banks')">
                     <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=300&auto=format&fit=crop&q=60" alt="Banks">
-                    <span>البنوك الرقمية</span>
+                    <span data-i18n="cat_banks">البنوك الرقمية</span>
                 </div>
                 <div class="category-card" onclick="openModal('Balance Topup')">
                     <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=300&auto=format&fit=crop&q=60" alt="Balance">
-                    <span>قسم الرصيد</span>
+                    <span data-i18n="cat_balance">قسم الرصيد</span>
                 </div>
             </div>
         </div>
@@ -453,37 +477,36 @@
         <!-- 2. تەلەپلىرىم -->
         <div id="orders-section" class="page-view">
             <div class="card" id="orders-list">
-                <p style="color: var(--text-dim); text-align: center;">لا توجد عناصر (ھېچقانداق زاكاز يوق)</p>
+                <p style="color: var(--text-dim); text-align: center;" data-i18n="no_orders">لا توجد عناصر</p>
             </div>
         </div>
 
         <!-- 3. پۇل قاچىلاش -->
         <div id="topup-section" class="page-view">
             <div class="card" style="text-align: center;">
-                <p style="font-weight: 600; margin-bottom: 15px;">رصيدك الحالي: <span style="color: #10B981;" id="user-balance-display">0.00$</span></p>
+                <p style="font-weight: 600; margin-bottom: 15px;"><span data-i18n="current_balance">رصيدك الحالي:</span> <span style="color: #10B981;" id="user-balance-display">0.00$</span></p>
                 <div class="input-group">
-                    <label>المبلغ (پۇل سوممىسى)</label>
+                    <label data-i18n="amount_label">المبلغ</label>
                     <input type="number" id="topup-amount" placeholder="10">
                 </div>
                 <div class="input-group">
-                    <label>طريقة الدفع (تۆلەش ئۇسۇلى)</label>
+                    <label data-i18n="payment_method">طريقة الدفع</label>
                     <select id="payment-gateway">
-                        <option value="Sham Cash">شامكەش (Sham Cash)</option>
+                        <option value="Sham Cash">Sham Cash</option>
                         <option value="USDT / Crypto">USDT / Crypto</option>
                     </select>
                 </div>
-                <button class="btn-main" onclick="sendTopupRequest()">إرسال طلب الشحن</button>
+                <button class="btn-main" onclick="sendTopupRequest()" data-i18n="topup_btn">إرسال طلب الشحن</button>
             </div>
         </div>
 
-        <!-- 4. ھېساباتىم ۋە تىزىملاش / كىرىش سىستېمىسى -->
+        <!-- 4. ھېساباتىم -->
         <div id="account-section" class="page-view">
-            <!-- ئەگەر كىرمىگەن بولسا تىزىملاش كۆزنىكى -->
             <div id="auth-box" class="card">
                 <div id="register-form">
-                    <h3 style="margin-top: 0; text-align: center;">إنشاء حساب جديد (تىزىملىتىش)</h3>
+                    <h3 style="margin-top: 0; text-align: center;" data-i18n="reg_title">إنشاء حساب جديد</h3>
                     <div class="input-group">
-                        <label>اسم المستخدم (ئىسمىڭىز)</label>
+                        <label data-i18n="name_label">اسم المستخدم</label>
                         <input type="text" id="reg-name" placeholder="Killer 0996">
                     </div>
                     <div class="input-group">
@@ -491,78 +514,63 @@
                         <input type="email" id="reg-email" placeholder="example@gmail.com">
                     </div>
                     <div class="input-group">
-                        <label>كلمة المرور (مەخپىي نومۇر)</label>
+                        <label data-i18n="pass_label">كلمة المرور</label>
                         <input type="password" id="reg-password" placeholder="********">
                     </div>
-                    <div class="input-group">
-                        <label>رقم الهاتف (تېلېفون نومۇرى)</label>
-                        <input type="text" id="reg-phone" placeholder="+963...">
-                    </div>
-                    <button class="btn-main" onclick="registerUser()">تسجيل (تىزىملىتىش)</button>
+                    <button class="btn-main" onclick="registerUser()" data-i18n="reg_btn">تسجيل</button>
                 </div>
 
                 <div id="login-form" style="display: none;">
-                    <h3 style="margin-top: 0; text-align: center;">تسجيل الدخول (كىرىش)</h3>
+                    <h3 style="margin-top: 0; text-align: center;" data-i18n="login_title">تسجيل الدخول</h3>
                     <div class="input-group">
-                        <label>اسم المستخدم أو البريد (Admin: auto chah)</label>
+                        <label data-i18n="name_label">اسم المستخدم (Admin: auto chah)</label>
                         <input type="text" id="log-email" placeholder="auto chah">
                     </div>
                     <div class="input-group">
-                        <label>كلمة المرور (Admin: 0996)</label>
+                        <label data-i18n="pass_label">كلمة المرور (Admin: 0996)</label>
                         <input type="password" id="log-password" placeholder="0996">
                     </div>
-                    <button class="btn-main" onclick="loginUser()">دخول (كىرىش)</button>
+                    <button class="btn-main" onclick="loginUser()" data-i18n="login_btn">دخول</button>
                 </div>
                 <p style="text-align: center; font-size: 13px; margin-top: 15px; color: var(--text-dim); cursor: pointer;" onclick="toggleAuthMode()" id="auth-toggle-text">لديك حساب؟ تسجيل الدخول</p>
             </div>
 
-            <!-- رەسىمدىكىگە ئوخشاش پروفىل ۋە ساقلاش (حفظ) كۇنۇپكىسى -->
             <div id="user-profile" class="card" style="display: none;">
-                <h3 style="margin-bottom: 15px; text-align: center;" id="user-profile-title">تەھرىرلەش</h3>
+                <h3 style="margin-bottom: 15px; text-align: center;" id="user-email-display">Killer 0996</h3>
                 
                 <div class="wallet-grid">
                     <div class="wallet-box green">
                         <strong id="wallet-balance-box">0$</strong>
-                        <span>رصيدك الحالي</span>
+                        <span data-i18n="box_balance">رصيدك الحالي</span>
                     </div>
                     <div class="wallet-box red">
                         <strong id="total-spent-stat">0$</strong>
-                        <span>اجمالي مشتريات</span>
+                        <span data-i18n="box_spent">اجمالي مشتريات</span>
                     </div>
                     <div class="wallet-box purple">
                         <strong id="total-topup-stat">0$</strong>
-                        <span>الوارد</span>
+                        <span data-i18n="box_topup">الوارد</span>
                     </div>
                 </div>
 
                 <div class="input-group">
-                    <label>الاسم الاول (ئىسمى)</label>
+                    <label data-i18n="fname_label">الاسم الاول</label>
                     <input type="text" id="profile-fname" placeholder="Killer">
                 </div>
                 <div class="input-group">
-                    <label>الاسم الاخير (فامىلىسى)</label>
+                    <label data-i18n="lname_label">الاسم الاخير</label>
                     <input type="text" id="profile-lname" placeholder="0996">
                 </div>
                 <div class="input-group">
-                    <label>البريد الالكتروني (Gmail)</label>
+                    <label>البريد الالكتروني</label>
                     <input type="email" id="profile-email" placeholder="email@gmail.com">
                 </div>
-                <div class="input-group">
-                    <label>هاتف (تېلېفون نومۇرى)</label>
-                    <input type="text" id="profile-phone" placeholder="+963...">
-                </div>
-                <button class="btn-main" onclick="saveProfile()" style="background: #0284c7; margin-bottom: 15px;">حفظ (ساقلاش)</button>
+                <button class="btn-main" onclick="saveProfile()" style="background: #0284c7; margin-bottom: 15px;" data-i18n="save_btn">حفظ</button>
 
-                <div class="input-group" style="text-align: right; background: var(--bg-color); padding: 10px; border-radius: 10px; border: 1px dashed var(--primary);">
-                    <label style="color: var(--primary);">🎁 رابط الإحالة (Referral Link)</label>
+                <div class="input-group" style="text-align: right; background: var(--bg-color); padding: 10px; border-radius: 10px; border: 1px dashed var(--primary); margin-top: 15px;">
+                    <label style="color: var(--primary);" data-i18n="ref_label">رابط الإحالة</label>
                     <input type="text" id="ref-link" readonly style="font-size: 12px; background: transparent;" value="https://autochah.com/?ref=nasrulla">
-                    <button class="btn-main" style="margin-top: 5px; font-size: 12px; padding: 6px;" onclick="copyRefLink()">کۆچۈرۈش</button>
-                </div>
-
-                <div class="input-group" style="text-align: right; margin-top: 15px;">
-                    <label>💬 التواصل مع الدعم</label>
-                    <textarea id="support-msg" rows="2" placeholder="اكتب رسالتك..."></textarea>
-                    <button class="btn-main" style="margin-top: 5px; background: #229ED9;" onclick="sendSupportMessage()">إرسال</button>
+                    <button class="btn-main" style="margin-top: 5px; font-size: 12px; padding: 6px;" onclick="copyRefLink()" data-i18n="copy_btn">کۆچۈرۈش</button>
                 </div>
 
                 <div id="admin-panel" style="display: none; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px;">
@@ -570,7 +578,7 @@
                     <div id="admin-orders-list" style="max-height: 180px; overflow-y: auto; text-align: right; font-size: 12px;"></div>
                 </div>
 
-                <button class="btn-main" style="background: #ef4444; margin-top: 15px;" onclick="logoutUser()">تسجيل الخروج (چыقىش)</button>
+                <button class="btn-main" style="background: #ef4444; margin-top: 15px;" onclick="logoutUser()" data-i18n="logout_btn">تسجيل الخروج</button>
             </div>
         </div>
     </div>
@@ -581,29 +589,210 @@
             <button class="close-btn" onclick="closeModal()">✕</button>
             <h3 id="modal-game-title" style="margin-top: 0; text-align: center;">شراء</h3>
             <div class="input-group">
-                <label>آيدي اللاعب (Player ID)</label>
+                <label data-i18n="player_id_label">آيدي اللاعب (Player ID)</label>
                 <input type="text" id="player-id" placeholder="ID...">
             </div>
             <div class="input-group">
-                <label>اختر الباقة</label>
+                <label data-i18n="package_label">اختر الباقة</label>
                 <select id="product-package">
                     <option value="60|1.00">60 UC (1.00$)</option>
                     <option value="325|5.00">325 UC (5.00$)</option>
                     <option value="660|10.00">660 UC (10.00$)</option>
                 </select>
             </div>
-            <button class="btn-main" onclick="confirmPurchase()">تأكيد الطلب</button>
+            <button class="btn-main" onclick="confirmPurchase()" data-i18n="confirm_btn">تأكيد الطلب</button>
         </div>
     </div>
 
     <nav class="bottom-nav">
-        <button class="nav-item active" onclick="switchPage('home', this)"><span>🏠</span>الرئيسية</button>
-        <button class="nav-item" onclick="switchPage('topup', this)"><span>💳</span>الشحن</button>
-        <button class="nav-item" onclick="switchPage('orders', this)"><span>🛒</span>طلباتي</button>
-        <button class="nav-item" onclick="switchPage('account', this)"><span>👤</span>حسابي</button>
+        <button class="nav-item active" onclick="switchPage('home', this)"><span>🏠</span><span data-i18n="nav_home">الرئيسية</span></button>
+        <button class="nav-item" onclick="switchPage('topup', this)"><span>💳</span><span data-i18n="nav_topup">الشحن</span></button>
+        <button class="nav-item" onclick="switchPage('orders', this)"><span>🛒</span><span data-i18n="nav_orders">طلباتي</span></button>
+        <button class="nav-item" onclick="switchPage('account', this)"><span>👤</span><span data-i18n="nav_account">حسابي</span></button>
     </nav>
 
     <script>
+        // تىل فوندلىرى (Translations)
+        const translations = {
+            ug: {
+                nav_home: "باش بەت",
+                nav_topup: "پۇل قاچىلاش",
+                nav_orders: "تەلەپلىرىم",
+                nav_account: "ھېساباتىم",
+                telegram_contact: "تېلېگرامما ئالاقە",
+                services_title: "مۇلازىمەت ۋە ئويۇن تۈرلىرى",
+                support_notice: "قوللاش مەركىزى: 00963958498149، خېرىدارلار مۇلازىمىتى",
+                search_placeholder: "ئىزدەش...",
+                cat_games: "ئويۇنلار بۆلىكى",
+                cat_chat: "چات ئەپلىرى",
+                cat_banks: "رەقەملىك بانكىلار",
+                cat_balance: "قالدۇق بۆلىكى",
+                no_orders: "ھېچقانداق زاكاز خاتىرىسى يوق",
+                current_balance: "نۆۋەتتىكى قالدىقىڭىز:",
+                amount_label: "پۇل سوممىسى ($)",
+                payment_method: "تۆلەش ئۇسۇلى",
+                topup_btn: "تولۇقلاش تەلىپى ئەۋەتىش",
+                reg_title: "يېڭى ھېسابات ئېچىش",
+                login_title: "سۇپىغا كىرىش",
+                name_label: "ئىسمىڭىز",
+                pass_label: "مەخپىي نومۇر",
+                reg_btn: "تىزىملىتىش",
+                login_btn: "كىرىش",
+                box_balance: "نۆۋەتتىكى قالدىقى",
+                box_spent: "جەمئىي سېتىۋېلىش",
+                box_topup: "جەمئىي كىرگىنى",
+                fname_label: "ئىسمى",
+                lname_label: "فامىلىسى",
+                save_btn: "ساقلاش",
+                ref_label: "دەۋەت قىلىش ئۇلانمىسى",
+                copy_btn: "كۆچۈرۈش",
+                logout_btn: "ھېساباتتىن چىقىش",
+                player_id_label: "ئويۇن كىملىكى (Player ID)",
+                package_label: "مەھسۇلاتنى تاللاڭ",
+                confirm_btn: "زاكازنى جەزملەش"
+            },
+            ar: {
+                nav_home: "الرئيسية",
+                nav_topup: "الشحن",
+                nav_orders: "طلباتي",
+                nav_account: "حسابي",
+                telegram_contact: "تواصل تيليجرام",
+                services_title: "خدمات الألعاب والتصنيفات",
+                support_notice: "الدعم الفني: 00963958498149, خدمة العملاء",
+                search_placeholder: "بحث...",
+                cat_games: "قسم الألعاب",
+                cat_chat: "تطبيقات الشات",
+                cat_banks: "البنوك الرقمية",
+                cat_balance: "قسم الرصيد",
+                no_orders: "لا توجد عناصر",
+                current_balance: "رصيدك الحالي:",
+                amount_label: "المبلغ",
+                payment_method: "طريقة الدفع",
+                topup_btn: "إرسال طلب الشحن",
+                reg_title: "إنشاء حساب جديد",
+                login_title: "تسجيل الدخول",
+                name_label: "اسم المستخدم",
+                pass_label: "كلمة المرور",
+                reg_btn: "تسجيل",
+                login_btn: "دخول",
+                box_balance: "رصيدك الحالي",
+                box_spent: "اجمالي مشتريات",
+                box_topup: "الوارد",
+                fname_label: "الاسم الاول",
+                lname_label: "الاسم الاخير",
+                save_btn: "حفظ",
+                ref_label: "رابط الإحالة",
+                copy_btn: "نسخ",
+                logout_btn: "تسجيل الخروج",
+                player_id_label: "آيدي اللاعب (Player ID)",
+                package_label: "اختر الباقة",
+                confirm_btn: "تأكيد الطلب"
+            },
+            en: {
+                nav_home: "Home",
+                nav_topup: "Top-up",
+                nav_orders: "Orders",
+                nav_account: "Account",
+                telegram_contact: "Telegram Contact",
+                services_title: "Games & Services",
+                support_notice: "Support: 00963958498149, Customer Service",
+                search_placeholder: "Search...",
+                cat_games: "Games Section",
+                cat_chat: "Chat Apps",
+                cat_banks: "Digital Banks",
+                cat_balance: "Balance Section",
+                no_orders: "No orders found",
+                current_balance: "Current Balance:",
+                amount_label: "Amount",
+                payment_method: "Payment Method",
+                topup_btn: "Send Top-up Request",
+                reg_title: "Create New Account",
+                login_title: "Sign In",
+                name_label: "Username",
+                pass_label: "Password",
+                reg_btn: "Register",
+                login_btn: "Login",
+                box_balance: "Current Balance",
+                box_spent: "Total Spent",
+                box_topup: "Total Top-up",
+                fname_label: "First Name",
+                lname_label: "Last Name",
+                save_btn: "Save",
+                ref_label: "Referral Link",
+                copy_btn: "Copy",
+                logout_btn: "Logout",
+                player_id_label: "Player ID",
+                package_label: "Select Package",
+                confirm_btn: "Confirm Order"
+            },
+            uz: {
+                nav_home: "Bosh sahifa",
+                nav_topup: "To'ldirish",
+                nav_orders: "Buyurtmalar",
+                nav_account: "Hisobim",
+                telegram_contact: "Telegram aloqa",
+                services_title: "O'yinlar va xizmatlar",
+                support_notice: "Qo'llab-quvvatlash: 00963958498149",
+                search_placeholder: "Qidirish...",
+                cat_games: "O'yinlar bo'limi",
+                cat_chat: "Chat ilovalari",
+                cat_banks: "Raqamli banklar",
+                cat_balance: "Balans bo'limi",
+                no_orders: "Buyurtmalar topilmadi",
+                current_balance: "Joriy balans:",
+                amount_label: "Miqdor",
+                payment_method: "To'lov usuli",
+                topup_btn: "So'rov yuborish",
+                reg_title: "Yangi hisob ochish",
+                login_title: "Tizimga kirish",
+                name_label: "Foydalanuvchi nomi",
+                pass_label: "Parol",
+                reg_btn: "Ro'yxatdan o'tish",
+                login_btn: "Kirish",
+                box_balance: "Joriy balans",
+                box_spent: "Xarajatlar",
+                box_topup: "To'ldirilgan",
+                fname_label: "Ism",
+                lname_label: "Familiya",
+                save_btn: "Saqlash",
+                ref_label: "Taklif havolasi",
+                copy_btn: "Nusxalash",
+                logout_btn: "Chiqish",
+                player_id_label: "O'yin ID raqami",
+                package_label: "Paketni tanlang",
+                confirm_btn: "Tasdiqlash"
+            }
+        };
+
+        function changeLanguage(lang) {
+            localStorage.setItem('selected_lang', lang);
+            const selector = document.getElementById('lang-selector');
+            if (selector) selector.value = lang;
+            
+            const htmlRoot = document.getElementById('html-root');
+            if (htmlRoot) {
+                if (lang === 'en' || lang === 'uz') {
+                    htmlRoot.setAttribute('dir', 'ltr');
+                } else {
+                    htmlRoot.setAttribute('dir', 'rtl');
+                }
+            }
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[lang] && translations[lang][key]) {
+                    el.setAttribute('placeholder', translations[lang][key]);
+                }
+            });
+        }
+
         function toggleMenu() {
             const drawer = document.getElementById('side-drawer');
             const overlay = document.getElementById('drawer-overlay');
@@ -619,14 +808,6 @@
             if (page === 'topup') switchPage('topup', document.querySelectorAll('.nav-item')[1]);
             if (page === 'orders') switchPage('orders', document.querySelectorAll('.nav-item')[2]);
             if (page === 'account') switchPage('account', document.querySelectorAll('.nav-item')[3]);
-        }
-
-        function toggleLanguage() {
-            let langs = ['ug', 'ar', 'en'];
-            let current = localStorage.getItem('selected_lang') || 'ug';
-            let nextIndex = (langs.indexOf(current) + 1) % langs.length;
-            localStorage.setItem('selected_lang', langs[nextIndex]);
-            alert('Language switched to: ' + langs[nextIndex].toUpperCase());
         }
 
         function updateBalanceDisplay() {
@@ -774,7 +955,7 @@
             orders.forEach((o) => {
                 html += `<div style="border-bottom: 1px solid var(--border-color); padding: 5px 0;">
                     <b>${o.game}</b> (${o.pkg})<br>ID: ${o.playerId} | Status: <b>${o.status}</b><br>
-                    <button onclick="approveOrder(${o.id})" style="background:#10B981; color:white; border:none; padding:2px 6px; border-radius:4px; cursor:pointer;">موافقة (تەستىقلاش)</button>
+                    <button onclick="approveOrder(${o.id})" style="background:#10B981; color:white; border:none; padding:2px 6px; border-radius:4px; cursor:pointer;">موافقة</button>
                 </div>`;
             });
             adminList.innerHTML = html;
@@ -808,19 +989,16 @@
             const nameEl = document.getElementById('reg-name');
             const emailEl = document.getElementById('reg-email');
             const passEl = document.getElementById('reg-password');
-            const phoneEl = document.getElementById('reg-phone');
             if (!nameEl || !passEl) return;
             const name = nameEl.value.trim();
             const email = emailEl ? emailEl.value.trim() : '';
             const pass = passEl.value.trim();
-            const phone = phoneEl ? phoneEl.value.trim() : '';
 
             if (!name || !pass) { alert('املأ الحقول المطلوبة!'); return; }
             
             localStorage.setItem('s_name', name);
             localStorage.setItem('s_email', email);
             localStorage.setItem('s_pass', pass);
-            localStorage.setItem('s_phone', phone);
             localStorage.setItem('is_logged', 'true');
             
             alert('تم التسجيل بنجاح!');
@@ -861,12 +1039,10 @@
             const fname = document.getElementById('profile-fname').value.trim();
             const lname = document.getElementById('profile-lname').value.trim();
             const email = document.getElementById('profile-email').value.trim();
-            const phone = document.getElementById('profile-phone').value.trim();
 
             const fullName = (fname + ' ' + lname).trim();
             if (fullName) localStorage.setItem('s_name', fullName);
             if (email) localStorage.setItem('s_email', email);
-            if (phone) localStorage.setItem('s_phone', phone);
 
             alert('تم حفظ التغييرات بنجاح!');
             checkLogin();
@@ -875,15 +1051,12 @@
         function toggleAuthMode() {
             const regForm = document.getElementById('register-form');
             const logForm = document.getElementById('login-form');
-            const toggleText = document.getElementById('auth-toggle-text');
             if (regForm.style.display === 'none') {
                 regForm.style.display = 'block';
                 logForm.style.display = 'none';
-                toggleText.textContent = 'لديك حساب؟ تسجيل الدخول';
             } else {
                 regForm.style.display = 'none';
                 logForm.style.display = 'block';
-                toggleText.textContent = 'ليس لديك حساب؟ إنشاء حساب';
             }
         }
 
@@ -906,12 +1079,10 @@
                 const currentName = localStorage.getItem('s_name') || 'User';
                 if (drawerName) drawerName.textContent = currentName;
 
-                // پروفىل ئۆيلىرىنى تولدۇرۇش
                 const nameParts = currentName.split(' ');
                 document.getElementById('profile-fname').value = nameParts[0] || '';
                 document.getElementById('profile-lname').value = nameParts.slice(1).join(' ') || '';
                 document.getElementById('profile-email').value = localStorage.getItem('s_email') || '';
-                document.getElementById('profile-phone').value = localStorage.getItem('s_phone') || '';
 
                 updateAnalyticsDisplay();
                 
@@ -929,6 +1100,8 @@
         }
 
         window.onload = function() {
+            const savedLang = localStorage.getItem('selected_lang') || 'ug';
+            changeLanguage(savedLang);
             checkLogin();
             updateBalanceDisplay();
             updateAnalyticsDisplay();
