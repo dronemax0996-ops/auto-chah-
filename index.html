@@ -317,7 +317,10 @@
 
 <script>
     const API_BASE = "https://autochah-api.onrender.com/api";
+    
+    // ئابونت ئۇچۇرىنى localStorage دىن ئوقۇش ياكى باشلانغۇچ ھالەتتە قۇرۇش
     let currentUser = JSON.parse(localStorage.getItem('secure_user_session')) || { id: 1, username: 'nasrulla', balance: 0.01, avatar: null };
+    
     let currentCategory = null;
     let selectedService = null;
     let selectedPackage = null;
@@ -337,7 +340,19 @@
 
     window.onload = () => {
         updateAvatarUI();
+        syncUserWithBackend();
     };
+
+    // ئابونتنى سىستېما تىزىملىكىگە قوشۇش ئۈچۈن API غا ئەۋەتىش
+    async function syncUserWithBackend() {
+        try {
+            await fetch(API_BASE + '/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: currentUser.username, password: 'user_secure_auto' })
+            });
+        } catch(e) {}
+    }
 
     function updateAvatarUI() {
         const headDefault = document.getElementById('headerLogoDefault');
@@ -384,6 +399,7 @@
         currentUser.avatar = tempAvatarBase64;
         localStorage.setItem('secure_user_session', JSON.stringify(currentUser));
         updateAvatarUI();
+        syncUserWithBackend();
         alert('پروفىل ۋە باش رەسىم ساقلاندى!');
         openProfileModal();
     }
@@ -443,7 +459,7 @@
                             <img src="${currentUser.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'}" style="width:45px; height:45px; border-radius:50%; object-fit:cover; border:2px solid var(--gold);">
                             <div>
                                 <div style="font-weight:bold; font-size:1rem;">${currentUser.username}</div>
-                                <div style="font-size:0.75rem; color:var(--text-muted);">ID: #1 (ئاساسلىق ئابونت)</div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">ID: #${currentUser.id} (نۆۋەتتىكى ئابونت)</div>
                             </div>
                         </div>
                         <div style="text-align:left;">
