@@ -75,15 +75,24 @@
             align-items: center;
         }
 
-        .badge-btn {
+        /* كىچىك ھەم بېسىشقا بولىدىغان قالدۇق كۇنۇپكىسى (تېمىنىڭ ئورنىدا) */
+        .balance-btn {
             background-color: var(--primary-light);
-            color: var(--primary);
-            padding: 5px 8px;
+            color: #10B981;
+            padding: 5px 10px;
             border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 700;
             border: none;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: 0.2s;
+        }
+
+        .balance-btn:hover {
+            opacity: 0.85;
         }
 
         .lang-select {
@@ -285,7 +294,7 @@
             <span>Auto Chah</span>
         </a>
         <div class="nav-actions">
-            <!-- پۇل بىرلىكى ئالماشتۇرۇش ($ / SYP) -->
+            <!-- پۇل بىرلىكى تاللىغۇچ -->
             <select class="lang-select" id="currency-selector" onchange="changeCurrency(this.value)">
                 <option value="USD">USD ($)</option>
                 <option value="SYP">SYP (ل.س)</option>
@@ -296,7 +305,10 @@
                 <option value="en">English</option>
                 <option value="uz">O'zbek</option>
             </select>
-            <button class="badge-btn" onclick="toggleTheme()" data-i18n="theme_btn">تېما</button>
+            <!-- تېمىنىڭ ئورنىغا قالدۇق كۇنۇپكىسى (باسقاندا پۇل قاچىلاش بېتىگە ئۆتىدۇ) -->
+            <button class="balance-btn" onclick="openTopupPage()">
+                💳 <span id="navbar-balance-text">0.00$</span>
+            </button>
         </div>
     </header>
 
@@ -306,9 +318,7 @@
         <!-- 1. باش بەت -->
         <div id="home-section" class="page-view active">
             <div class="section-title" data-i18n="services_title">مۇلازىمەت ۋە ئويۇن تۈرلىرى</div>
-            <div class="grid-container" id="games-grid-container">
-                <!-- Javascript ئارقىلىق ئويۇنلار يۈكلىنىدۇ -->
-            </div>
+            <div class="grid-container" id="games-grid-container"></div>
         </div>
 
         <!-- 2. تەلەپلىرىم ۋە تارىخ -->
@@ -319,7 +329,7 @@
             </div>
         </div>
 
-        <!-- 3. پۇل قاچىلاش (شامكەش ۋە باشقىلار) -->
+        <!-- 3. پۇل قاچىلاش (شامكەش) -->
         <div id="topup-section" class="page-view">
             <div class="section-title" data-i18n="topup_title">قالدۇق تولۇقلاش (Top-up)</div>
             <div class="card" style="text-align: center;">
@@ -329,14 +339,14 @@
                     <input type="number" id="topup-amount" placeholder="10">
                 </div>
                 <div class="input-group">
-                    <label data-i18n="payment_method">تۆلەش ئۇسۇلى</label>
-                    <select id="payment-gateway" onchange="toggleReceiptInput(this.value)">
+                    <label data-i18n="payment_method">تۆلەش ئۇسۇلى (شامكەش)</label>
+                    <select id="payment-gateway">
                         <option value="Sham Cash">شامكەش (Sham Cash)</option>
                         <option value="USDT / Crypto">USDT / Crypto</option>
                         <option value="Syriatel Cash">Syriatel Cash</option>
                     </select>
                 </div>
-                <div class="input-group" id="receipt-group">
+                <div class="input-group">
                     <label>چەك فايىلى ياكى رەسىمى (Receipt Image/File)</label>
                     <input type="file" id="topup-receipt">
                 </div>
@@ -344,7 +354,7 @@
             </div>
         </div>
 
-        <!-- 4. ھېساباتىم ۋە پروفىل تەڭشەكلىرى / Admin -->
+        <!-- 4. ھېساباتىم -->
         <div id="account-section" class="page-view">
             <div class="section-title" data-i18n="account_title">ئابونت ھېساباتى</div>
             <div id="auth-box" class="card">
@@ -375,7 +385,7 @@
                 <p style="text-align: center; font-size: 13px; margin-top: 15px; color: var(--text-dim); cursor: pointer;" onclick="toggleAuthMode()" id="auth-toggle-text">ھېساباتىڭىز بارمۇ؟ كىرىش</p>
             </div>
 
-            <!-- پروفىل ۋە تەڭشەكلەر -->
+            <!-- پروفىل -->
             <div id="user-profile" class="card" style="display: none; text-align: center;">
                 <h3 style="margin-bottom: 5px;" data-i18n="welcome_msg">خۇش كەپسىز!</h3>
                 <p id="user-email-display" style="color: var(--text-dim); font-size: 14px; margin-bottom: 10px;"></p>
@@ -386,7 +396,6 @@
                 </div>
                 <button class="btn-main" style="background: #3b82f6; margin-bottom: 15px;" onclick="updatePassword()">مەخپىي نومۇرنى يېڭىلاش</button>
 
-                <!-- Admin Panel -->
                 <div id="admin-panel" style="display: none; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px;">
                     <h4 style="color: var(--primary); margin-bottom: 10px;">⚙️ Admin Panel (باشقۇرغۇچى)</h4>
                     <div class="input-group" style="text-align: right;">
@@ -403,7 +412,7 @@
         </div>
     </div>
 
-    <!-- سېتىۋېلىش كۆزنىكى (Modal) -->
+    <!-- سېتىۋېلىش كۆزنىكى -->
     <div id="purchase-modal" class="modal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal()">✕</button>
@@ -436,13 +445,11 @@
     </nav>
 
     <script>
-        // پۇل بىرلىكى ۋە باھا نىسبىتى (1 USD = 15000 SYP دەپ مۆلچەرلەندى)
         let currentCurrency = 'USD';
         const sypRate = 15000;
 
         const translations = {
             ug: {
-                theme_btn: "تېما",
                 services_title: "مۇلازىمەت ۋە ئويۇن تۈرلىرى",
                 telegram_service: "تېلېگرامما",
                 orders_title: "زاكاز ۋە تەلەپ تارىخىم",
@@ -473,7 +480,6 @@
                 no_account: "ھېساباتىڭىز يوقمۇ؟ تىزىملىتىش"
             },
             ar: {
-                theme_btn: "المظهر",
                 services_title: "خدمات الألعاب والتصنيفات",
                 telegram_service: "تيليجرام",
                 orders_title: "سجل الطلبات والخدمات",
@@ -504,7 +510,6 @@
                 no_account: "ليس لديك حساب؟ إنشاء حساب"
             },
             en: {
-                theme_btn: "Theme",
                 services_title: "Games & Services",
                 telegram_service: "Telegram",
                 orders_title: "My Orders History",
@@ -535,7 +540,6 @@
                 no_account: "Don't have an account? Register"
             },
             uz: {
-                theme_btn: "Mavzu",
                 services_title: "O'yinlar va xizmatlar",
                 orders_title: "Buyurtmalar tarixi",
                 no_orders: "Buyurtmalar topilmadi.",
@@ -566,7 +570,6 @@
             }
         };
 
-        // باشلانغۇچ ئويۇن تۈرلىرى
         const defaultGames = [
             {name: 'PUBG Mobile', img: 'https://img.icons8.com/color/96/pubg.png'},
             {name: 'Mobile Legends', img: 'https://img.icons8.com/color/96/controller.png'},
@@ -607,12 +610,24 @@
         function updateBalanceDisplay() {
             let balUSD = parseFloat(localStorage.getItem('user_balance') || '0');
             let displayEl = document.getElementById('user-balance-display');
+            let navbarBalEl = document.getElementById('navbar-balance-text');
+            
+            let formattedBal = '';
             if(currentCurrency === 'SYP') {
                 let balSYP = balUSD * sypRate;
-                displayEl.textContent = balSYP.toLocaleString() + ' ل.س';
+                formattedBal = balSYP.toLocaleString() + ' ل.س';
             } else {
-                displayEl.textContent = balUSD.toFixed(2) + '$';
+                formattedBal = balUSD.toFixed(2) + '$';
             }
+            
+            if(displayEl) displayEl.textContent = formattedBal;
+            if(navbarBalEl) navbarBalEl.textContent = formattedBal;
+        }
+
+        // قالدۇق كۇنۇپكىسىنى باسقاندا پۇل قاچىلاش بېتىگە ئۆتۈش
+        function openTopupPage() {
+            const topupNavBtn = document.querySelectorAll('.nav-item')[2];
+            switchPage('topup', topupNavBtn);
         }
 
         function changeLanguage(lang) {
@@ -636,10 +651,12 @@
         let isLoginView = false;
         function updateAuthToggleText(lang) {
             const toggleText = document.getElementById('auth-toggle-text');
-            if (isLoginView) {
-                toggleText.textContent = translations[lang]['no_account'];
-            } else {
-                toggleText.textContent = translations[lang]['has_account'];
+            if(toggleText) {
+                if (isLoginView) {
+                    toggleText.textContent = translations[lang]['no_account'];
+                } else {
+                    toggleText.textContent = translations[lang]['has_account'];
+                }
             }
         }
 
@@ -655,7 +672,7 @@
             document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
             document.getElementById(pageName + '-section').classList.add('active');
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
+            if(element) element.classList.add('active');
             if(pageName === 'orders') loadOrders();
             if(pageName === 'account') checkLogin();
         }
@@ -831,7 +848,7 @@
                 document.getElementById('user-profile').style.display = 'block';
                 document.getElementById('user-email-display').textContent = localStorage.getItem('s_email');
                 
-                if(localStorage.getItem('is_admin') === 'true') {
+                if(localStorage.getItem('is_admin'] === 'true') {
                     document.getElementById('admin-panel').style.display = 'block';
                     loadAdminOrders();
                 } else {
