@@ -436,7 +436,7 @@
                 <option value="en">English</option>
                 <option value="uz">O'zbek</option>
             </select>
-            <button class="nav-icon-btn" onclick="switchPage('account', document.querySelectorAll('.nav-item')[4])">👤</button>
+            <button class="nav-icon-btn" onclick="switchPage('account', document.querySelectorAll('.nav-item')[3])">👤</button>
             <button class="nav-icon-btn" onclick="toggleMenu()">☰</button>
         </div>
     </header>
@@ -451,8 +451,8 @@
         </div>
         <div class="drawer-links">
             <button class="drawer-item" onclick="navigateMenu('home')">🏠 <span data-i18n="nav_home">الرئيسية</span></button>
-            <button class="drawer-item" onclick="navigateMenu('topup')">💳 <span data-i18n="nav_topup">إضافة رصيد</span></button>
-            <button class="drawer-item" onclick="navigateMenu('orders')">🛒 <span data-i18n="nav_orders">طلباتي</span></button>
+            <button class="drawer-item" id="drawer-topup-btn" onclick="navigateMenu('topup')">💳 <span id="drawer-topup-text" data-i18n="nav_topup">إضافة رصيد</span></button>
+            <button class="drawer-item" id="drawer-orders-btn" onclick="navigateMenu('orders')">🛒 <span id="drawer-orders-text" data-i18n="nav_orders">طلباتي</span></button>
             <button class="drawer-item" onclick="navigateMenu('account')">👤 <span data-i18n="nav_account">حسابي</span></button>
             <a href="https://t.me/nasrulla0996" target="_blank" class="drawer-item">✈️ <span data-i18n="telegram_contact">تېلېگرامما ئالاقە</span></a>
         </div>
@@ -491,16 +491,27 @@
             </div>
         </div>
 
-        <!-- 2. تەلەپلىرىم -->
+        <!-- 2. تەلەپلىرىم (ئابونت) / تىزىملاتقان ئابونتلار (باشقۇرغۇچى) -->
         <div id="orders-section" class="page-view">
-            <div class="card" id="orders-list">
-                <p style="color: var(--text-dim); text-align: center;" data-i18n="no_orders">لا توجد عناصر</p>
+            <!-- ئابونت ئۈچۈن زاكازلىرى -->
+            <div id="user-orders-view">
+                <div class="card" id="orders-list">
+                    <p style="color: var(--text-dim); text-align: center;" data-i18n="no_orders">لا توجد عناصر</p>
+                </div>
+            </div>
+            <!-- باشقۇرغۇچى ئۈچۈن تىزىملاتقان ئابونتلار -->
+            <div id="admin-users-view" style="display: none;">
+                <div class="card">
+                    <h3 style="color: var(--primary); margin-top: 0; text-align: center;">👥 تىزىملاتقان ئابونتلار</h3>
+                    <div id="admin-users-list" style="max-height: 400px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: 10px;"></div>
+                </div>
             </div>
         </div>
 
-        <!-- 3. پۇل قاچىلاش -->
+        <!-- 3. پۇل قاچىلاش (ئابونت) / تەلەپ قىلىش (باشقۇرغۇچى) -->
         <div id="topup-section" class="page-view">
-            <div class="card" style="text-align: center;">
+            <!-- ئابونت ئۈچۈن پۇل قاچىلاش -->
+            <div id="user-topup-view" class="card" style="text-align: center;">
                 <p style="font-weight: 600; margin-bottom: 15px;"><span data-i18n="current_balance">رصيدك الحالي:</span> <span style="color: #10B981;" id="user-balance-display">0.00$</span></p>
                 <div class="input-group">
                     <label data-i18n="amount_label">المبلغ</label>
@@ -514,6 +525,24 @@
                     </select>
                 </div>
                 <button class="btn-main" onclick="sendTopupRequest()" data-i18n="topup_btn">إرسال طلب الشحن</button>
+            </div>
+            <!-- باشقۇرغۇچى ئۈچۈن ئابونت تەلەپلىرى ۋە بۆلەك قوشۇش -->
+            <div id="admin-topup-view" class="card" style="display: none;">
+                <h3 style="color: var(--primary); margin-top: 0; text-align: center;">📦 ئابونت تەلەپلىرى</h3>
+                <div id="admin-orders-list" style="max-height: 250px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: 10px; margin-bottom: 20px;"></div>
+
+                <h3 style="color: var(--primary); margin-top: 0; text-align: center;">➕ يېڭى بۆلەك/ئويۇن قوشۇش</h3>
+                <div style="background: var(--bg-color); padding: 15px; border-radius: 10px;">
+                    <div class="input-group">
+                        <label>بۆلەك ئىسمى (اسم القسم / اللعبة)</label>
+                        <input type="text" id="new-cat-name" placeholder="مەسىلەن: Mobile Legends">
+                    </div>
+                    <div class="input-group">
+                        <label>بۆلەك رەسىمىنى تاللاش (اختر صورة القسم)</label>
+                        <input type="file" id="new-cat-img" accept="image/*" style="font-size: 12px;">
+                    </div>
+                    <button class="btn-main" onclick="addNewCategory()">بۆلەك قوشۇش (إضافة القسم)</button>
+                </div>
             </div>
         </div>
 
@@ -585,35 +614,6 @@
                 <button class="btn-main" style="background: #ef4444; margin-top: 15px;" onclick="logoutUser()" data-i18n="logout_btn">تسجيل الخروج</button>
             </div>
         </div>
-
-        <!-- 5. Admin باشقۇرۇش بېتى (پەقەت nasrulla غىلا كۆرۈنىدۇ) -->
-        <div id="admin-dashboard-section" class="page-view">
-            <div class="card">
-                <h3 style="color: var(--primary); margin-top: 0; text-align: center;">⚙️ باشقۇرۇش بېتى (Admin Dashboard)</h3>
-                
-                <!-- 1. تىزىملاپ كىرگەن ئابونتلار -->
-                <h4 style="margin: 15px 0 8px 0; color: var(--text-color);">1. 👥 تىزىملاتقان ئابونتلار (إدارة المستخدمين):</h4>
-                <div id="admin-users-list" style="max-height: 250px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: 10px; margin-bottom: 20px;"></div>
-
-                <!-- 2. ئابونت تەلەپلىرى -->
-                <h4 style="margin: 15px 0 8px 0; color: var(--text-color);">2. 📦 ئابونت تەلەپلىرى (طلبات الأعضاء):</h4>
-                <div id="admin-orders-list" style="max-height: 220px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: 10px; margin-bottom: 20px;"></div>
-
-                <!-- 3. بۆلەك قۇشۇش ئورنى -->
-                <h4 style="margin: 15px 0 8px 0; color: var(--text-color);">3. ➕ يېڭى بۆلەك/ئويۇن قوشۇش (إضافة قسم جديد):</h4>
-                <div style="background: var(--bg-color); padding: 15px; border-radius: 10px;">
-                    <div class="input-group">
-                        <label>بۆلەك ئىسمى (اسم القسم / اللعبة)</label>
-                        <input type="text" id="new-cat-name" placeholder="مەسىلەن: Mobile Legends">
-                    </div>
-                    <div class="input-group">
-                        <label>بۆلەك رەسىمىنى تاللاش (اختر صورة القسم)</label>
-                        <input type="file" id="new-cat-img" accept="image/*" style="font-size: 12px;">
-                    </div>
-                    <button class="btn-main" onclick="addNewCategory()">بۆلەك قوشۇش (إضافة القسم)</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- سېتىۋېلىش كۆزنىكى -->
@@ -639,10 +639,9 @@
 
     <!-- استىدىكى نېۋىگاتسىيە -->
     <nav class="bottom-nav" id="bottom-navigation">
-        <button class="nav-item" id="nav-admin-btn" onclick="switchPage('admin-dashboard', this)" style="display: none;"><span>⚙️</span>باشقۇرۇش</button>
-        <button class="nav-item active" id="nav-home-btn" onclick="switchPage('home', this)"><span>🏠</span><span data-i18n="nav_home">الرئيسية</span></button>
-        <button class="nav-item" id="nav-topup-btn" onclick="switchPage('topup', this)"><span>💳</span><span data-i18n="nav_topup">الشحن</span></button>
-        <button class="nav-item" id="nav-orders-btn" onclick="switchPage('orders', this)"><span>🛒</span><span data-i18n="nav_orders">طلباتي</span></button>
+        <button class="nav-item active" onclick="switchPage('home', this)"><span>🏠</span><span data-i18n="nav_home">الرئيسية</span></button>
+        <button class="nav-item" id="nav-topup-btn" onclick="switchPage('topup', this)"><span>💳</span><span id="nav-topup-text" data-i18n="nav_topup">الشحن</span></button>
+        <button class="nav-item" id="nav-orders-btn" onclick="switchPage('orders', this)"><span>🛒</span><span id="nav-orders-text" data-i18n="nav_orders">طلباتي</span></button>
         <button class="nav-item" onclick="switchPage('account', this)"><span>👤</span><span data-i18n="nav_account">حسابي</span></button>
     </nav>
 
@@ -818,10 +817,10 @@
 
         function navigateMenu(page) {
             toggleMenu();
-            if (page === 'home') switchPage('home', document.querySelectorAll('.nav-item')[1]);
-            if (page === 'topup') switchPage('topup', document.querySelectorAll('.nav-item')[2]);
-            if (page === 'orders') switchPage('orders', document.querySelectorAll('.nav-item')[3]);
-            if (page === 'account') switchPage('account', document.querySelectorAll('.nav-item')[4]);
+            if (page === 'home') switchPage('home', document.querySelectorAll('.nav-item')[0]);
+            if (page === 'topup') switchPage('topup', document.querySelectorAll('.nav-item')[1]);
+            if (page === 'orders') switchPage('orders', document.querySelectorAll('.nav-item')[2]);
+            if (page === 'account') switchPage('account', document.querySelectorAll('.nav-item')[3]);
         }
 
         function updateBalanceDisplay() {
@@ -869,12 +868,6 @@
         }
 
         function switchPage(pageName, element) {
-            // ئەگەر باشقۇرغۇچى بولسا ھەمدە باش بەت ياكى پۇل قاچىلاشقا ئۆتمەكچى بولسا، ئۇنى باشقۇرۇش بېتىگە يۆتكەش
-            if (localStorage.getItem('is_admin') === 'true' && (pageName === 'home' || pageName === 'topup')) {
-                pageName = 'admin-dashboard';
-                element = document.getElementById('nav-admin-btn');
-            }
-
             document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
             const targetSection = document.getElementById(pageName + '-section');
             if (targetSection) targetSection.classList.add('active');
@@ -882,13 +875,16 @@
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             if (element) element.classList.add('active');
             
-            if (pageName === 'orders') loadOrders();
+            if (pageName === 'orders') {
+                loadOrders();
+                loadAdminData();
+            }
+            if (pageName === 'topup') {
+                loadAdminData();
+            }
             if (pageName === 'account') {
                 checkLogin();
                 updateAnalyticsDisplay();
-            }
-            if (pageName === 'admin-dashboard') {
-                loadAdminData();
             }
         }
 
@@ -896,7 +892,7 @@
         function openModal(gameName) {
             if (localStorage.getItem('is_logged') !== 'true') {
                 alert('ئالدى بىلەن ھېساباتىڭىزغا كىرىڭ ياكى تىزىملىتىڭ!');
-                switchPage('account', document.querySelectorAll('.nav-item')[4]);
+                switchPage('account', document.querySelectorAll('.nav-item')[3]);
                 return;
             }
             selectedGameName = gameName;
@@ -953,7 +949,7 @@
         function sendTopupRequest() {
             if (localStorage.getItem('is_logged') !== 'true') {
                 alert('ئالدى بىلەن ھېساباتىڭىزغا كىرىڭ!');
-                switchPage('account', document.querySelectorAll('.nav-item')[4]);
+                switchPage('account', document.querySelectorAll('.nav-item')[3]);
                 return;
             }
 
@@ -1014,7 +1010,7 @@
         }
 
         function loadAdminData() {
-            // 2. ئابونت تەلەپلىرى
+            // باشقۇرغۇچى ئۈچۈن تەلەپ قىلىش (topup-section) قىسمىدىكى تەلەپلەر
             const adminList = document.getElementById('admin-orders-list');
             if (adminList) {
                 let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
@@ -1034,7 +1030,7 @@
                 }
             }
 
-            // 1. تىزىملاپ كىرگەن ئابونتلار (ئىسمى، Gmail، قالدىقى، باش رەسىمى)
+            // باشقۇرغۇچى ئۈچۈن تىزىملاتقان ئابونتلار (orders-section) قىسمىدىكى تىزىملىك
             const adminUsersList = document.getElementById('admin-users-list');
             if (adminUsersList) {
                 let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
@@ -1065,7 +1061,6 @@
             }
         }
 
-        // 3. يېڭى بۆلەك قوشۇش فۇنكسىيەسى (فەيىل ئارقىلىق رەسىم yükləş)
         function addNewCategory() {
             const nameInput = document.getElementById('new-cat-name');
             const imgInput = document.getElementById('new-cat-img');
@@ -1085,7 +1080,6 @@
                 };
                 reader.readAsDataURL(imgInput.files[0]);
             } else {
-                // ئەگەر رەسىم تاللىمىغان بولسا سۈكۈتتىكى رەسىم بېرىش
                 saveCategoryToStorage(catName, 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&auto=format&fit=crop&q=60');
             }
         }
@@ -1276,7 +1270,7 @@
             
             alert('تم التسجيل بنجاح!');
             checkLogin();
-            switchPage('home', document.querySelectorAll('.nav-item')[1]);
+            switchPage('home', document.querySelectorAll('.nav-item')[0]);
         }
 
         function loginUser() {
@@ -1294,7 +1288,7 @@
                 localStorage.removeItem('s_avatar');
                 alert('تم تسجيل الدخول بنجاح (Admin)!');
                 checkLogin();
-                switchPage('admin-dashboard', document.getElementById('nav-admin-btn'));
+                switchPage('home', document.querySelectorAll('.nav-item')[0]);
                 return;
             }
 
@@ -1312,7 +1306,7 @@
 
                 alert('تم تسجيل الدخول بنجاح!');
                 checkLogin();
-                switchPage('home', document.querySelectorAll('.nav-item')[1]);
+                switchPage('home', document.querySelectorAll('.nav-item')[0]);
             } else {
                 alert('خطأ في الاسم أو كلمة المرور!');
             }
@@ -1337,16 +1331,25 @@
             localStorage.removeItem('s_email');
             localStorage.removeItem('s_avatar');
             checkLogin();
-            switchPage('account', document.querySelectorAll('.nav-item')[4]);
+            switchPage('account', document.querySelectorAll('.nav-item')[3]);
         }
 
         function checkLogin() {
             const drawerName = document.getElementById('drawer-username');
             const authBox = document.getElementById('auth-box');
             const userProfile = document.getElementById('user-profile');
-            const adminNavBtn = document.getElementById('nav-admin-btn');
             const profileUsernameDisplay = document.getElementById('profile-username-display');
             const profileEmailDisplay = document.getElementById('profile-email-display');
+            
+            const navTopupText = document.getElementById('nav-topup-text');
+            const navOrdersText = document.getElementById('nav-orders-text');
+            const drawerTopupText = document.getElementById('drawer-topup-text');
+            const drawerOrdersText = document.getElementById('drawer-orders-text');
+
+            const userOrdersView = document.getElementById('user-orders-view');
+            const adminUsersView = document.getElementById('admin-users-view');
+            const userTopupView = document.getElementById('user-topup-view');
+            const adminTopupView = document.getElementById('admin-topup-view');
 
             if (localStorage.getItem('is_logged') === 'true') {
                 if (authBox) authBox.style.display = 'none';
@@ -1371,17 +1374,40 @@
                 updateAnalyticsDisplay();
                 
                 if (localStorage.getItem('is_admin') === 'true') {
-                    if (adminNavBtn) adminNavBtn.style.display = 'block';
-                    // ئەگەر admin بولسا، بىۋاسىتە باشقۇرۇش بېتىگە ئۆتكۈزۈش
-                    switchPage('admin-dashboard', adminNavBtn);
+                    if (navTopupText) navTopupText.textContent = "تەلەپ قىلىش";
+                    if (navOrdersText) navOrdersText.textContent = "تىزىملاتقان ئابونتلار";
+                    if (drawerTopupText) drawerTopupText.textContent = "تەلەپ قىلىش";
+                    if (drawerOrdersText) drawerOrdersText.textContent = "تىزىملاتقان ئابونتلار";
+
+                    if (userOrdersView) userOrdersView.style.display = 'none';
+                    if (adminUsersView) adminUsersView.style.display = 'block';
+                    if (userTopupView) userTopupView.style.display = 'none';
+                    if (adminTopupView) adminTopupView.style.display = 'block';
+
+                    loadAdminData();
                 } else {
-                    if (adminNavBtn) adminNavBtn.style.display = 'none';
+                    if (navTopupText) navTopupText.textContent = "پۇل قاچىلاش";
+                    if (navOrdersText) navOrdersText.textContent = "تەلەپلىرىم";
+                    if (drawerTopupText) drawerTopupText.textContent = "پۇل قاچىلاش";
+                    if (drawerOrdersText) drawerOrdersText.textContent = "تەلەپلىرىم";
+
+                    if (userOrdersView) userOrdersView.style.display = 'block';
+                    if (adminUsersView) adminUsersView.style.display = 'none';
+                    if (userTopupView) userTopupView.style.display = 'block';
+                    if (adminTopupView) adminTopupView.style.display = 'none';
                 }
             } else {
                 if (authBox) authBox.style.display = 'block';
                 if (userProfile) userProfile.style.display = 'none';
                 if (drawerName) drawerName.textContent = 'ميھمان (Guest)';
-                if (adminNavBtn) adminNavBtn.style.display = 'none';
+                
+                if (navTopupText) navTopupText.textContent = "پۇل قاچىلاش";
+                if (navOrdersText) navOrdersText.textContent = "تەلەپلىرىم";
+                if (userOrdersView) userOrdersView.style.display = 'block';
+                if (adminUsersView) adminUsersView.style.display = 'none';
+                if (userTopupView) userTopupView.style.display = 'block';
+                if (adminTopupView) adminTopupView.style.display = 'none';
+
                 updateAvatarDisplay(null);
                 updateBalanceDisplay();
             }
