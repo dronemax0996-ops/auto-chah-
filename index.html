@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Chah - پۇل قاچىلاش سۇپىسى</title>
+    <title>Auto Chah - تېلېگرامما ئارقىلىق كىرىش</title>
     <style>
         body {
             background-color: #F7F8FA;
@@ -54,7 +54,6 @@
             color: #333333;
         }
 
-        /* بەت ئالماشتۇرۇش سىستېمىسى */
         .page-view {
             display: none;
         }
@@ -62,52 +61,15 @@
             display: block;
         }
 
-        /* ھېسابات بېتى ئۇسلۇبى */
         .auth-card {
             background: #FFFFFF;
             border-radius: 16px;
-            padding: 20px;
+            padding: 25px;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
             margin: 15px;
         }
 
-        .auth-btn {
-            width: 100%;
-            padding: 12px;
-            border-radius: 12px;
-            border: 1px solid #E5E7EB;
-            background: #FFFFFF;
-            font-weight: 600;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            cursor: pointer;
-            margin-bottom: 12px;
-            transition: 0.2s;
-        }
-
-        .auth-btn:hover {
-            background: #F9FAFB;
-        }
-
-        .google-btn {
-            border-color: #DB4437;
-            color: #DB4437;
-        }
-
-        .telegram-btn {
-            background-color: #229ED9;
-            color: #FFFFFF;
-            border: none;
-        }
-        .telegram-btn:hover {
-            background-color: #1b8ac4;
-        }
-
-        /* تور كۆزنەكلەر */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
@@ -140,7 +102,6 @@
             display: block;
         }
 
-        /* تۆۋەندىكى تىزىملىك */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -171,15 +132,13 @@
 </head>
 <body>
 
-    <!-- باش قىسىم -->
     <header class="navbar">
         <div class="logo">⚡ Auto Chah</div>
         <div class="balance-badge">قالدۇق: 0.00$</div>
     </header>
 
     <div class="container">
-
-        <!-- 1. باش بەت (Home) -->
+        <!-- 1. باش بەت -->
         <div id="home-section" class="page-view active">
             <div class="section-title">مۇلازىمەت ۋە ئويۇن تۈرلىرى</div>
             <div class="grid-container">
@@ -191,18 +150,10 @@
                     <img src="https://img.icons8.com/color/96/controller.png" alt="MLBB">
                     <span>Mobile Legends</span>
                 </div>
-                <div class="game-card">
-                    <img src="https://img.icons8.com/color/96/sword.png" alt="HOK">
-                    <span>Honor of Kings</span>
-                </div>
-                <div class="game-card">
-                    <img src="https://img.icons8.com/color/96/telegram-app.png" alt="Telegram">
-                    <span>تېلېگرام</span>
-                </div>
             </div>
         </div>
 
-        <!-- 2. تەلەپلىرىم (Orders) -->
+        <!-- 2. تەلەپلىرىم -->
         <div id="orders-section" class="page-view">
             <div class="section-title">سىزنىڭ تەلەپلىرىڭىز</div>
             <div class="auth-card" style="color: #666;">
@@ -210,37 +161,35 @@
             </div>
         </div>
 
-        <!-- 3. پۇل قاچىلاش (Topup) -->
+        <!-- 3. پۇل قاچىلاش -->
         <div id="topup-section" class="page-view">
             <div class="section-title">پۇل قاچىلاش ئۇسۇللىرى</div>
             <div class="auth-card">
                 <p style="font-weight: 600; margin-bottom: 10px;">نۆۋەتتىكى قالدۇق: 0.00$</p>
-                <button class="auth-btn" style="background: #E60012; color: white; border: none;">پۇل قاچىلاش تەلىپى ئەۋەتىش</button>
+                <button style="background: #E60012; color: white; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 600; cursor: pointer;">پۇل قاچىلاش تەلىپى ئەۋەتىش</button>
             </div>
         </div>
 
-        <!-- 4. ھېساباتىم ۋە كىرىش (Account / Login) -->
+        <!-- 4. ھېساباتىم (Telegram كىرىش نۇسخىسى) -->
         <div id="account-section" class="page-view">
             <div class="section-title">ئابونت ھېساباتى</div>
             <div class="auth-card">
-                <h3 style="margin-top: 0; color: #222;">سۇپىغا كىرىش</h3>
-                <p style="font-size: 13px; color: #666; margin-bottom: 20px;">ھېساباتىڭىزغا كىرىش ئۈچۈن تۆۋەندىكىلەرنىڭ بىرىنى تاللاڭ:</p>
+                <h3 style="margin-top: 0; color: #222;">تېلېگرامما ئارقىلىق كىرىش</h3>
+                <p style="font-size: 13px; color: #666; margin-bottom: 20px;">سۇپىمىزغا كىرىش ئۈچۈن تۆۋەندىكى تېلېگرامما كۇنۇپكىسىنى بېسىڭ:</p>
                 
-                <!-- Google (Gmail) ئارقىلىق كىرىش كۇنۇپكىسى -->
-                <button class="auth-btn google-btn">
-                    <span>🌐</span> Google (Gmail) ئارقىلىق كىرىش
-                </button>
-
-                <!-- Telegram ئارقىلىق كىرىش كۇنۇپكىسى -->
-                <button class="auth-btn telegram-btn">
-                    <span>✈️</span> Telegram ئارقىلىق كىرىش
-                </button>
+                <!-- Telegram Login Widget كۇنۇپكىسى ئورنى -->
+                <div id="telegram-login-container" style="display: flex; justify-content: center;">
+                    <script async src="https://telegram.org/js/telegram-widget.js?22" 
+                            data-telegram-login="YOUR_BOT_USERNAME" 
+                            data-size="large" 
+                            data-auth-url="YOUR_WEBSITE_URL" 
+                            data-request-access="write">
+                    </script>
+                </div>
             </div>
         </div>
-
     </div>
 
-    <!-- تۆۋەندىكى مەنىيۇ (Tab Navigation) -->
     <nav class="bottom-nav">
         <button class="nav-item active" onclick="switchPage('home', this)">🏠<br>باش بەت</button>
         <button class="nav-item" onclick="switchPage('orders', this)">📋<br>تەلەپلىرىم</button>
@@ -249,18 +198,12 @@
     </nav>
 
     <script>
-        // بەتلەرنى ئالماشتۇرۇش ئىقتىدارى
         function switchPage(pageName, element) {
-            // بارلىق بەتلەرنى يوشۇرۇش
             document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
-            // تاللانغان بەەتنى ئېچىش
             document.getElementById(pageName + '-section').classList.add('active');
-
-            // تىزىملىكتىكى ئاكتىپ ھالەتنى يۆتكەش
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             element.classList.add('active');
         }
     </script>
-
 </body>
 </html>
