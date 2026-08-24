@@ -70,26 +70,11 @@
             cursor: pointer;
         }
 
-        /* تىل تاللاش قىسمىغا رەسىم بىرلەشتۈرۈش */
-        .lang-container {
-            display: flex;
-            align-items: center;
-            background-color: var(--primary-light);
-            padding: 4px 10px;
-            border-radius: 20px;
-            gap: 6px;
-        }
-
-        .lang-container img {
-            width: 20px;
-            height: 14px;
-            object-fit: cover;
-            border-radius: 2px;
-        }
-
         .lang-select {
-            background: transparent;
+            background-color: var(--primary-light);
             color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
             border: none;
@@ -281,16 +266,13 @@
     <header class="navbar">
         <div class="logo">⚡ Auto Chah</div>
         <div class="nav-actions">
-            <!-- تۈركىستان بايرىقى ۋە تىل تاللاش -->
-            <div class="lang-container">
-                <img id="lang-flag" src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Flag_of_East_Turkestan.svg" alt="Flag">
-                <select class="lang-select" id="lang-selector" onchange="changeLanguage(this.value)">
-                    <option value="ug">Uyghur</option>
-                    <option value="ar">العربية</option>
-                    <option value="en">English</option>
-                    <option value="uz">O'zbek</option>
-                </select>
-            </div>
+            <!-- تىل تاللاش (پەقەت تىل ئىسىملىرى) -->
+            <select class="lang-select" id="lang-selector" onchange="changeLanguage(this.value)">
+                <option value="ug">ئۇيغۇرچە</option>
+                <option value="ar">العربية</option>
+                <option value="en">English</option>
+                <option value="uz">O'zbek</option>
+            </select>
             <button class="badge-btn" onclick="toggleTheme()" data-i18n="theme_btn">تېما</button>
         </div>
     </header>
@@ -555,17 +537,9 @@
             }
         };
 
-        const flags = {
-            ug: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Flag_of_East_Turkestan.svg",
-            ar: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Saudi_Arabia.svg",
-            en: "https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg",
-            uz: "https://upload.wikimedia.org/wikipedia/commons/8/84/Flag_of_Uzbekistan.svg"
-        };
-
         function changeLanguage(lang) {
             localStorage.setItem('selected_lang', lang);
             document.getElementById('lang-selector').value = lang;
-            document.getElementById('lang-flag').src = flags[lang];
 
             const htmlRoot = document.getElementById('html-root');
             if (lang === 'en' || lang === 'uz') {
@@ -769,7 +743,7 @@
         }
 
         function checkLogin() {
-            if(localStorage.getItem('is_logged') === 'true') {
+            if(localStorage.getItem('is_logged'] === 'true') {
                 document.getElementById('auth-box').style.display = 'none';
                 document.getElementById('user-profile').style.display = 'block';
                 document.getElementById('user-email-display').textContent = localStorage.getItem('s_email');
