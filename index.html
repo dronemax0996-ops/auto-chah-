@@ -80,18 +80,21 @@
             box-shadow: 0 6px 15px rgba(230, 0, 18, 0.15);
         }
 
+        /* رەسىم چوڭلۇقى ۋە شەكلى */
         .game-card img {
-            width: 100%;
-            height: 80px;
-            object-fit: contain;
-            border-radius: 10px;
-            margin-bottom: 5px;
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 0 auto 8px auto;
+            display: block;
         }
 
         .game-card span {
             font-size: 13px;
             font-weight: 600;
             color: #333333;
+            display: block;
         }
 
         /* باھا ۋە ئالماس كۇنۇپكىلىرى ئۇسلۇبى */
@@ -113,7 +116,6 @@
             transition: all 0.2s;
         }
 
-        /* تاللانغان مەھسۇلات ھالىتى (Active state) */
         .price-option.active {
             border-color: #E60012;
             background-color: #FFF0F1;
@@ -156,43 +158,49 @@
     </header>
 
     <div class="container">
-        <!-- ئويۇن ۋە مۇلازىمەت تۈرلىرى -->
+        <!-- ئويۇن ۋە مۇلازىمەت تۈرلىرى (رەسىملىك) -->
         <div class="section-title">مۇلازىمەت ۋە ئويۇن تۈرلىرى</div>
         <div class="grid-container">
             
+            <!-- 1-كۆزنەك (PUBG) -->
             <div class="game-card">
-                <div style="font-size: 32px; margin-bottom: 5px;">🎮</div>
+                <img src="https://img.icons8.com/color/96/pubg.png" alt="PUBG">
                 <span>PUBG Mobile</span>
             </div>
 
+            <!-- 2-كۆزنەك (Mobile Legends) -->
             <div class="game-card">
-                <div style="font-size: 32px; margin-bottom: 5px;">⚔️</div>
+                <img src="https://img.icons8.com/color/96/controller.png" alt="MLBB">
                 <span>Mobile Legends</span>
             </div>
 
+            <!-- 3-كۆزنەك (Honor of Kings) -->
             <div class="game-card">
-                <div style="font-size: 32px; margin-bottom: 5px;">👑</div>
+                <img src="https://img.icons8.com/color/96/sword.png" alt="HOK">
                 <span>Honor of Kings</span>
             </div>
 
+            <!-- 4-كۆزنەك (Arena Breakout) -->
             <div class="game-card">
-                <div style="font-size: 32px; margin-bottom: 5px;">🎯</div>
+                <img src="https://img.icons8.com/color/96/experimental-target-color.png" alt="Arena">
                 <span>Arena Breakout</span>
             </div>
 
+            <!-- 5-كۆزنەك (ھېسابات تولۇقلاش) -->
             <div class="game-card">
-                <div style="font-size: 32px; margin-bottom: 5px;">📱</div>
+                <img src="https://img.icons8.com/color/96/sim-card-chip.png" alt="Topup">
                 <span>ھېسابات تولۇقلاش</span>
             </div>
 
+            <!-- 6-كۆزنەك (تېلېگرام مۇلازىمىتى) -->
             <div class="game-card">
-                <div style="font-size: 32px; margin-bottom: 5px;">💬</div>
-                <span>تېلېگرام مۇلازىمىتى</span>
+                <img src="https://img.icons8.com/color/96/telegram-app.png" alt="Telegram">
+                <span>تېلېگرام</span>
             </div>
 
         </div>
 
-        <!-- باھا تاللاش مىسالى -->
+        <!-- باھا تاللاش بۆلۈمى -->
         <div class="section-title">باھا تاللاش ئۆرنەكى</div>
         <div class="options-grid">
             <div class="price-option active">60 UC (1.00$)</div>
