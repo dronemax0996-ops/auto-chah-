@@ -1,21 +1,42 @@
 <!DOCTYPE html>
-<html lang="ug" dir="rtl">
+<html lang="ug" dir="rtl" id="html-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auto Chah - پۇل قاچىلاش سۇپىسى</title>
     <style>
+        :root {
+            --bg-color: #F7F8FA;
+            --card-bg: #FFFFFF;
+            --text-color: #222222;
+            --text-dim: #666666;
+            --border-color: #E5E7EB;
+            --primary: #E60012;
+            --primary-light: #FFF0F1;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0b0f19;
+            --card-bg: #131826;
+            --text-color: #FFFFFF;
+            --text-dim: #9ca3af;
+            --border-color: #1f2937;
+            --primary: #3b82f6;
+            --primary-light: rgba(59, 130, 246, 0.15);
+        }
+
         body {
-            background-color: #F7F8FA;
+            background-color: var(--bg-color);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            color: #222222;
+            color: var(--text-color);
             margin: 0;
             padding: 0;
-            padding-bottom: 70px;
+            padding-bottom: 80px;
+            transition: background 0.3s, color 0.3s;
         }
 
         .navbar {
-            background-color: #FFFFFF;
+            background-color: var(--card-bg);
             padding: 15px 20px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             display: flex;
@@ -27,18 +48,26 @@
         }
 
         .logo {
-            color: #E60012;
+            color: var(--primary);
             font-weight: 700;
             font-size: 20px;
         }
 
-        .balance-badge {
-            background-color: #FFF0F1;
-            color: #E60012;
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .badge-btn {
+            background-color: var(--primary-light);
+            color: var(--primary);
             padding: 6px 12px;
             border-radius: 20px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
+            border: none;
+            cursor: pointer;
         }
 
         .container {
@@ -51,7 +80,7 @@
             font-size: 16px;
             font-weight: 700;
             margin: 20px 15px 10px 15px;
-            color: #333333;
+            color: var(--text-color);
         }
 
         .page-view {
@@ -61,99 +90,13 @@
             display: block;
         }
 
-        .auth-card {
-            background: #FFFFFF;
+        .card {
+            background: var(--card-bg);
             border-radius: 16px;
             padding: 20px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
             margin: 15px;
-        }
-
-        .input-group {
-            margin-bottom: 15px;
-            text-align: right;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #444;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #E5E7EB;
-            border-radius: 10px;
-            font-size: 14px;
-            box-sizing: border-box;
-            outline: none;
-        }
-
-        .input-group input:focus {
-            border-color: #E60012;
-        }
-
-        .auth-btn {
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            background: #E60012;
-            color: #FFFFFF;
-            border: none;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-bottom: 10px;
-        }
-
-        .auth-btn:hover {
-            background: #c80010;
-        }
-
-        .telegram-login-btn {
-            background-color: #229ED9;
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            color: #FFFFFF;
-            border: none;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .telegram-login-btn:hover {
-            background-color: #1b8ac4;
-        }
-
-        .divider {
-            text-align: center;
-            margin: 15px 0;
-            color: #888;
-            font-size: 12px;
-            position: relative;
-        }
-
-        .toggle-link {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 13px;
-            color: #666;
-            cursor: pointer;
-        }
-
-        .toggle-link span {
-            color: #E60012;
-            font-weight: 600;
+            border: 1px solid var(--border-color);
         }
 
         .grid-container {
@@ -164,12 +107,18 @@
         }
 
         .game-card {
-            background: #FFFFFF;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 14px;
             padding: 10px;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
             cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .game-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
         }
 
         .game-card img {
@@ -184,26 +133,111 @@
         .game-card span {
             font-size: 13px;
             font-weight: 600;
-            color: #333333;
+            color: var(--text-color);
             display: block;
+        }
+
+        /* Modal (سېتىۋېلىش كۆزنىكى) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px; left: 15px;
+            background: none; border: none;
+            font-size: 18px; cursor: pointer;
+            color: var(--text-dim);
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-dim);
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+            border-radius: 10px;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .btn-main {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            background: var(--primary);
+            color: #FFFFFF;
+            border: none;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        /* پەنار (Floating) تېلېگرامما ئالاقە كۇنۇپكىسى */
+        .floating-telegram {
+            position: fixed;
+            bottom: 85px;
+            left: 20px;
+            background: #229ED9;
+            color: white;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(34, 158, 217, 0.4);
+            z-index: 99;
+            text-decoration: none;
         }
 
         .bottom-nav {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #FFFFFF;
-            border-top: 1px solid #E5E7EB;
+            bottom: 0; left: 0; right: 0;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
             display: flex;
             justify-content: space-around;
             padding: 10px 0;
+            z-index: 100;
         }
 
         .nav-item {
             text-align: center;
             font-size: 12px;
-            color: #666666;
+            color: var(--text-dim);
             text-decoration: none;
             cursor: pointer;
             background: none;
@@ -211,109 +245,130 @@
         }
 
         .nav-item.active {
-            color: #E60012;
+            color: var(--primary);
             font-weight: 700;
         }
     </style>
 </head>
 <body>
 
+    <!-- باش قىسىم -->
     <header class="navbar">
-        <div class="logo">⚡ Auto Chah</div>
-        <div class="balance-badge">قالدۇق: 0.00$</div>
+        <div class="logo" id="logo-text">⚡ Auto Chah</div>
+        <div class="nav-actions">
+            <button class="badge-btn" onclick="toggleTheme()">🌓 تېما</button>
+            <button class="badge-btn" onclick="switchLanguage()" id="lang-btn">🇺🇬 ئۇيغۇرچە</button>
+        </div>
     </header>
+
+    <!-- تېلېگرامما ئالاقە توپچىسى -->
+    <a href="https://t.me/nasrulla0996" target="_blank" class="floating-telegram">✈️</a>
 
     <div class="container">
         <!-- 1. باش بەت -->
         <div id="home-section" class="page-view active">
-            <div class="section-title">مۇلازىمەت ۋە ئويۇن تۈرلىرى</div>
+            <div class="section-title" data-i18n="services_title">مۇلازىمەت ۋە ئويۇن تۈرلىرى</div>
             <div class="grid-container">
-                <div class="game-card">
+                <div class="game-card" onclick="openModal('PUBG Mobile')">
                     <img src="https://img.icons8.com/color/96/pubg.png" alt="PUBG">
                     <span>PUBG Mobile</span>
                 </div>
-                <div class="game-card">
+                <div class="game-card" onclick="openModal('Mobile Legends')">
                     <img src="https://img.icons8.com/color/96/controller.png" alt="MLBB">
                     <span>Mobile Legends</span>
+                </div>
+                <div class="game-card" onclick="openModal('Honor of Kings')">
+                    <img src="https://img.icons8.com/color/96/sword.png" alt="HOK">
+                    <span>Honor of Kings</span>
+                </div>
+                <div class="game-card" onclick="openModal('Telegram Premium')">
+                    <img src="https://img.icons8.com/color/96/telegram-app.png" alt="Telegram">
+                    <span>تېلېگرامما</span>
                 </div>
             </div>
         </div>
 
-        <!-- 2. تەلەپلىرىم -->
+        <!-- 2. تەلەپلىرىم ۋە تارىخ -->
         <div id="orders-section" class="page-view">
-            <div class="section-title">سىزنىڭ تەلەپلىرىڭىز</div>
-            <div class="auth-card" style="color: #666; text-align: center;">
-                <p>ھېچقانداق تەلەپ بايقالمىدى.</p>
+            <div class="section-title">زاكاز ۋە تەلەپ تارىخىم</div>
+            <div class="card" id="orders-list">
+                <p style="color: var(--text-dim); text-align: center;">ھېچقانداق زاكاز خاتىرىسى يوق.</p>
             </div>
         </div>
 
         <!-- 3. پۇل قاچىلاش -->
         <div id="topup-section" class="page-view">
-            <div class="section-title">پۇل قاچىلاش ئۇسۇللىرى</div>
-            <div class="auth-card" style="text-align: center;">
-                <p style="font-weight: 600; margin-bottom: 10px;">نۆۋەتتىكى قالدۇق: 0.00$</p>
-                <button class="auth-btn">پۇل قاچىلاش تەلىپى ئەۋەتىش</button>
+            <div class="section-title">قالدۇق تولۇقلاش (Top-up)</div>
+            <div class="card" style="text-align: center;">
+                <p style="font-weight: 600; margin-bottom: 15px;">نۆۋەتتىكى قالدىقىڭىز: <span style="color: #10B981;">0.00$</span></p>
+                <div class="input-group">
+                    <label>پۇل سوممىسى ($)</label>
+                    <input type="number" id="topup-amount" placeholder="مەسىلەن: 10">
+                </div>
+                <button class="btn-main" onclick="sendTopupRequest()">تولۇقلاش تەلىپى ئەۋەتىش</button>
             </div>
         </div>
 
-        <!-- 4. ھېساباتىم (Gmail & Telegram كىرىش) -->
+        <!-- 4. ھېساباتىم -->
         <div id="account-section" class="page-view">
             <div class="section-title">ئابونت ھېساباتى</div>
-            
-            <!-- ئەگەر كىرمىگەن بولسا -->
-            <div id="auth-box" class="auth-card">
-                <!-- تىزىملاش فورمىسى -->
+            <div id="auth-box" class="card">
                 <div id="register-form">
-                    <h3 style="margin-top: 0; color: #222; text-align: center;">يېڭى ھېسابات ئېچىش</h3>
+                    <h3 style="margin-top: 0; text-align: center;">يېڭى ھېسابات ئېچىش</h3>
                     <div class="input-group">
-                        <label>Gmail ئادرىسىڭىز</label>
+                        <label>Gmail ئادرىسى</label>
                         <input type="email" id="reg-email" placeholder="example@gmail.com">
                     </div>
                     <div class="input-group">
-                        <label>مەخپىي نومۇر (Parol)</label>
+                        <label>مەخپىي نومۇر</label>
                         <input type="password" id="reg-password" placeholder="********">
                     </div>
-                    <button class="auth-btn" onclick="registerUser()">تىزىملىتىش</button>
-                    
-                    <div class="divider">ياكى</div>
-                    <button class="telegram-login-btn" onclick="loginWithTelegram()">
-                        <span>✈️</span> تېلېگرامما ئارقىلىق كىرىش
-                    </button>
-
-                    <div class="toggle-link" onclick="toggleForm('login')">ھېساباتىڭىز بارمۇ? <span>كىرىش</span></div>
+                    <button class="btn-main" onclick="registerUser()">تىزىملىتىش</button>
                 </div>
-
-                <!-- كىرىش فورمىسى -->
                 <div id="login-form" style="display: none;">
-                    <h3 style="margin-top: 0; color: #222; text-align: center;">سۇپىغا كىرىش</h3>
+                    <h3 style="margin-top: 0; text-align: center;">سۇپىغا كىرىش</h3>
                     <div class="input-group">
-                        <label>Gmail ئادرىسىڭىز</label>
+                        <label>Gmail ئادرىسى</label>
                         <input type="email" id="log-email" placeholder="example@gmail.com">
                     </div>
                     <div class="input-group">
-                        <label>مەخپىي نومۇر (Parol)</label>
+                        <label>مەخپىي نومۇر</label>
                         <input type="password" id="log-password" placeholder="********">
                     </div>
-                    <button class="auth-btn" onclick="loginUser()">كىرىش</button>
-                    
-                    <div class="divider">ياكى</div>
-                    <button class="telegram-login-btn" onclick="loginWithTelegram()">
-                        <span>✈️</span> تېلېگرامما ئارقىلىق كىرىش
-                    </button>
-
-                    <div class="toggle-link" onclick="toggleForm('register')">ھېساباتىڭىز يوقمۇ? <span>تىزىملىتىش</span></div>
+                    <button class="btn-main" onclick="loginUser()">كىرىش</button>
                 </div>
+                <p style="text-align: center; font-size: 13px; margin-top: 15px; color: var(--text-dim); cursor: pointer;" onclick="toggleAuthMode()" id="auth-toggle-text">ھېساباتىڭىز بارمۇ؟ كىرىش</p>
             </div>
-
-            <!-- ئەگەر كىرگەن بولسا كۆرۈنىدىغان قىسىم -->
-            <div id="user-profile" class="auth-card" style="display: none; text-align: center;">
-                <h3 style="color: #222; margin-bottom: 5px;">خۇش كەپسىز!</h3>
-                <p id="user-email-display" style="color: #666; font-size: 14px; margin-bottom: 20px;"></p>
-                <button class="auth-btn" style="background: #E60012;" onclick="logoutUser()">ھېساباتتىن چىقىش</button>
+            <div id="user-profile" class="card" style="display: none; text-align: center;">
+                <h3 style="margin-bottom: 5px;">خۇش كەپسىز!</h3>
+                <p id="user-email-display" style="color: var(--text-dim); font-size: 14px; margin-bottom: 20px;"></p>
+                <button class="btn-main" style="background: #ef4444;" onclick="logoutUser()">ھېساباتتىن چىقىش</button>
             </div>
         </div>
     </div>
 
+    <!-- سېتىۋېلىش كۆزنىكى (Modal) -->
+    <div id="purchase-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">✕</button>
+            <h3 id="modal-game-title" style="margin-top: 0; text-align: center;">سېتىۋېلىش</h3>
+            <div class="input-group">
+                <label>ئويۇن كىملىكى (Player ID)</label>
+                <input type="text" id="player-id" placeholder="ID نى بۇ يەرگە كىرگۈزۈڭ...">
+            </div>
+            <div class="input-group">
+                <label>مەھسۇلاتنى تاللاڭ</label>
+                <select id="product-package">
+                    <option value="60 UC - 1.00$">60 UC (1.00$)</option>
+                    <option value="325 UC - 5.00$">325 UC (5.00$)</option>
+                    <option value="660 UC - 10.00$">660 UC (10.00$)</option>
+                </select>
+            </div>
+            <button class="btn-main" onclick="confirmPurchase()">زاكازنى جەزملەش</button>
+        </div>
+    </div>
+
+    <!-- تۆۋەندىكى مەنىيۇ -->
     <nav class="bottom-nav">
         <button class="nav-item active" onclick="switchPage('home', this)">🏠<br>باش بەت</button>
         <button class="nav-item" onclick="switchPage('orders', this)">📋<br>تەلەپلىرىم</button>
@@ -322,88 +377,155 @@
     </nav>
 
     <script>
+        // بەت ئالماشتۇرۇش
         function switchPage(pageName, element) {
             document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
             document.getElementById(pageName + '-section').classList.add('active');
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             element.classList.add('active');
+            if(pageName === 'orders') loadOrders();
         }
 
-        function toggleForm(type) {
-            if (type === 'login') {
-                document.getElementById('register-form').style.display = 'none';
-                document.getElementById('login-form').style.display = 'block';
+        // تېما ئالماشتۇرۇش (Dark/Light Mode)
+        function toggleTheme() {
+            const root = document.getElementById('html-root');
+            const currentTheme = root.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                root.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
             } else {
-                document.getElementById('register-form').style.display = 'block';
-                document.getElementById('login-form').style.display = 'none';
+                root.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
             }
+        }
+
+        // تىل ئالماشتۇرۇش (ئۇيغۇرچە / ئەرەبچە)
+        let currentLang = 'ug';
+        function switchLanguage() {
+            const titleEl = document.querySelector('[data-i18n="services_title"]');
+            const btnEl = document.getElementById('lang-btn');
+            if (currentLang === 'ug') {
+                currentLang = 'ar';
+                btnEl.textContent = '🇸🇦 العربية';
+                titleEl.textContent = 'خدمات الألعاب والتصنيفات';
+            } else {
+                currentLang = 'ug';
+                btnEl.textContent = '🇺🇬 ئۇيغۇرچە';
+                titleEl.textContent = 'مۇلازىمەت ۋە ئويۇن تۈرلىرى';
+            }
+        }
+
+        // سېتىۋېلىش كۆزنىكىنى ئېچىش/تاقاش
+        let selectedGameName = '';
+        function openModal(gameName) {
+            selectedGameName = gameName;
+            document.getElementById('modal-game-title').textContent = gameName + ' سېتىۋېلىش';
+            document.getElementById('purchase-modal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('purchase-modal').style.display = 'none';
+        }
+
+        // زاكازنى جەزملەش ۋە ساقلاش
+        function confirmPurchase() {
+            const playerId = document.getElementById('player-id').value;
+            const packageVal = document.getElementById('product-package').value;
+            if(!playerId) {
+                alert('إرجاء إدخال آيدي اللاعب (Player ID)');
+                return;
+            }
+            let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
+            orders.push({game: selectedGameName, id: playerId, pkg: packageVal, status: 'كۈتۈلۈۋاتىدۇ (Pending)', date: new Date().toLocaleDateString()});
+            localStorage.setItem('user_orders', JSON.stringify(orders));
+            alert('زاكاز مۇۋەپپەقىيەتلىك ئەۋەتىلدى!');
+            closeModal();
+            document.getElementById('player-id').value = '';
+        }
+
+        // پۇل قاچىلاش تەلىپى
+        function sendTopupRequest() {
+            const amount = document.getElementById('topup-amount').value;
+            if(!amount) {
+                alert('پۇل سوممىسىنى كىرگۈزۈڭ!');
+                return;
+            }
+            let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
+            orders.push({game: 'قالدۇق تولۇقلاش', id: 'رەسىمچە', pkg: amount + '$', status: 'تەكشۈرۈلۈۋاتىدۇ', date: new Date().toLocaleDateString()});
+            localStorage.setItem('user_orders', JSON.stringify(orders));
+            alert('تولۇقلاش تەلىپى ئەۋەتىلدى!');
+            document.getElementById('topup-amount').value = '';
+        }
+
+        // زاكازلارنى يۈكلەش
+        function loadOrders() {
+            const listEl = document.getElementById('orders-list');
+            let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
+            if(orders.length === 0) {
+                listEl.innerHTML = '<p style="color: var(--text-dim); text-align: center;">ھېچقانداق زاكاز خاتىرىسى يوق.</p>';
+                return;
+            }
+            let html = '';
+            orders.forEach(o => {
+                html += `<div style="border-bottom: 1px solid var(--border-color); padding: 10px 0; font-size: 13px;">
+                    <strong>${o.game}</strong> - ${o.pkg}<br>
+                    <span style="color: var(--text-dim);">ID: ${o.id} | ھالىتى: <span style="color: #f59e0b;">${o.status}</span></span>
+                </div>`;
+            });
+            listEl.innerHTML = html;
+        }
+
+        // تىزىملاش / كىرىش سىستېمىسى
+        let isLoginView = false;
+        function toggleAuthMode() {
+            isLoginView = !isLoginView;
+            document.getElementById('register-form').style.display = isLoginView ? 'none' : 'block';
+            document.getElementById('login-form').style.display = isLoginView ? 'block' : 'none';
+            document.getElementById('auth-toggle-text').textContent = isLoginView ? 'ھېساباتىڭىز يوقمۇ؟ تىزىملىتىش' : 'ھېساباتىڭىز بارمۇ؟ كىرىش';
         }
 
         function registerUser() {
             const email = document.getElementById('reg-email').value;
-            const password = document.getElementById('reg-password').value;
-
-            if(!email || !password) {
-                alert('Gmail ۋە مەخپىي نومۇرنى تولۇق كىرگۈزۈڭ!');
-                return;
-            }
-
-            localStorage.setItem('saved_email', email);
-            localStorage.setItem('saved_password', password);
-            alert('ھېسابات مۇۋەپپەقىيەتلىك قۇرۇلدى!');
-            checkLoginState();
+            const pass = document.getElementById('reg-password').value;
+            if(!email || !pass) { alert('بارلىق بوشلۇقلارنى تولدۇرۇڭ!'); return; }
+            localStorage.setItem('s_email', email);
+            localStorage.setItem('s_pass', pass);
+            alert('مۇۋەپپەقىيەتلىك تىزىملىتىلدى!');
+            checkLogin();
         }
 
         function loginUser() {
             const email = document.getElementById('log-email').value;
-            const password = document.getElementById('log-password').value;
-            const savedEmail = localStorage.getItem('saved_email');
-            const savedPassword = localStorage.getItem('saved_password');
-
-            if (email === savedEmail && password === savedPassword) {
-                localStorage.setItem('is_logged_in', 'true');
+            const pass = document.getElementById('log-password').value;
+            if(email === localStorage.getItem('s_email') && pass === localStorage.getItem('s_pass')) {
+                localStorage.setItem('is_logged', 'true');
                 alert('مۇۋەپپەقىيەتلىك كىردىڭىز!');
-                checkLoginState();
+                checkLogin();
             } else {
                 alert('Gmail ياكى مەخپىي نومۇر خاتا!');
             }
         }
 
-        // تېلېگرامما ئارقىلىق كىرىش סיмуляция قىلىش (ئاددىي ئابونت ئىسمى بىلەن)
-        function loginWithTelegram() {
-            let tgUser = prompt("تېلېگرامما ئىشلەتكۈچى ئاتىڭىزنى (Username) كىرگۈزۈڭ:", "@nasrulla");
-            if (tgUser) {
-                localStorage.setItem('saved_email', tgUser + ' (Telegram)');
-                localStorage.setItem('is_logged_in', 'true');
-                alert('تېلېگرامما ئارقىلىق مۇۋەپپەقىيەتلىك كىردىڭىز!');
-                checkLoginState();
-            }
-        }
-
         function logoutUser() {
-            localStorage.removeItem('is_logged_in');
-            checkLoginState();
-            alert('ھېساباتتىن چىقتىڭىز.');
+            localStorage.removeItem('is_logged');
+            checkLogin();
         }
 
-        function checkLoginState() {
-            const isLoggedIn = localStorage.getItem('is_logged_in');
-            const savedEmail = localStorage.getItem('saved_email');
-
-            if (isLoggedIn === 'true' && savedEmail) {
+        function checkLogin() {
+            if(localStorage.getItem('is_logged') === 'true') {
                 document.getElementById('auth-box').style.display = 'none';
                 document.getElementById('user-profile').style.display = 'block';
-                document.getElementById('user-email-display').textContent = savedEmail;
+                document.getElementById('user-email-display').textContent = localStorage.getItem('s_email');
             } else {
                 document.getElementById('auth-box').style.display = 'block';
                 document.getElementById('user-profile').style.display = 'none';
-                document.getElementById('register-form').style.display = 'block';
-                document.getElementById('login-form').style.display = 'none';
             }
         }
 
         window.onload = function() {
-            checkLoginState();
+            if(localStorage.getItem('theme') === 'dark') {
+                document.getElementById('html-root').setAttribute('data-theme', 'dark');
+            }
+            checkLogin();
         }
     </script>
 </body>
