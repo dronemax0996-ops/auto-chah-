@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auto Chah - پۇل قاچىلاش سۇپىسى</title>
     <style>
-        /* ئاساسلىق سەھىپە ئۇسلۇبى */
         body {
             background-color: #F7F8FA;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -15,7 +14,6 @@
             padding-bottom: 70px;
         }
 
-        /* باش قىسىم (Navbar) */
         .navbar {
             background-color: #FFFFFF;
             padding: 15px 20px;
@@ -43,7 +41,6 @@
             font-weight: 600;
         }
 
-        /* ئاساسلىق مەزمۇن قىسمى */
         .container {
             max-width: 600px;
             margin: 0 auto;
@@ -57,7 +54,60 @@
             color: #333333;
         }
 
-        /* مەھسۇلات/ئويۇن كارتىلىرى ئورۇنلاشتۇرۇشى */
+        /* بەت ئالماشتۇرۇش سىستېمىسى */
+        .page-view {
+            display: none;
+        }
+        .page-view.active {
+            display: block;
+        }
+
+        /* ھېسابات بېتى ئۇسلۇبى */
+        .auth-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            margin: 15px;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #E5E7EB;
+            background: #FFFFFF;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: 0.2s;
+        }
+
+        .auth-btn:hover {
+            background: #F9FAFB;
+        }
+
+        .google-btn {
+            border-color: #DB4437;
+            color: #DB4437;
+        }
+
+        .telegram-btn {
+            background-color: #229ED9;
+            color: #FFFFFF;
+            border: none;
+        }
+        .telegram-btn:hover {
+            background-color: #1b8ac4;
+        }
+
+        /* تور كۆزنەكلەر */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
@@ -71,16 +121,9 @@
             padding: 10px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
-            transition: all 0.3s ease;
             cursor: pointer;
         }
 
-        .game-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(230, 0, 18, 0.15);
-        }
-
-        /* رەسىم چوڭلۇقى ۋە شەكلى */
         .game-card img {
             width: 60px;
             height: 60px;
@@ -97,32 +140,7 @@
             display: block;
         }
 
-        /* باھا ۋە ئالماس كۇنۇپكىلىرى ئۇسلۇبى */
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            padding: 15px;
-        }
-
-        .price-option {
-            border: 2px solid #E5E7EB;
-            border-radius: 10px;
-            background: #FFFFFF;
-            padding: 12px;
-            text-align: center;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .price-option.active {
-            border-color: #E60012;
-            background-color: #FFF0F1;
-            color: #E60012;
-        }
-
-        /* تۆۋەندىكى تىزىملىك (Bottom Nav) */
+        /* تۆۋەندىكى تىزىملىك */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -141,6 +159,8 @@
             color: #666666;
             text-decoration: none;
             cursor: pointer;
+            background: none;
+            border: none;
         }
 
         .nav-item.active {
@@ -158,65 +178,89 @@
     </header>
 
     <div class="container">
-        <!-- ئويۇن ۋە مۇلازىمەت تۈرلىرى (رەسىملىك) -->
-        <div class="section-title">مۇلازىمەت ۋە ئويۇن تۈرلىرى</div>
-        <div class="grid-container">
-            
-            <!-- 1-كۆزنەك (PUBG) -->
-            <div class="game-card">
-                <img src="https://img.icons8.com/color/96/pubg.png" alt="PUBG">
-                <span>PUBG Mobile</span>
-            </div>
 
-            <!-- 2-كۆزنەك (Mobile Legends) -->
-            <div class="game-card">
-                <img src="https://img.icons8.com/color/96/controller.png" alt="MLBB">
-                <span>Mobile Legends</span>
+        <!-- 1. باش بەت (Home) -->
+        <div id="home-section" class="page-view active">
+            <div class="section-title">مۇلازىمەت ۋە ئويۇن تۈرلىرى</div>
+            <div class="grid-container">
+                <div class="game-card">
+                    <img src="https://img.icons8.com/color/96/pubg.png" alt="PUBG">
+                    <span>PUBG Mobile</span>
+                </div>
+                <div class="game-card">
+                    <img src="https://img.icons8.com/color/96/controller.png" alt="MLBB">
+                    <span>Mobile Legends</span>
+                </div>
+                <div class="game-card">
+                    <img src="https://img.icons8.com/color/96/sword.png" alt="HOK">
+                    <span>Honor of Kings</span>
+                </div>
+                <div class="game-card">
+                    <img src="https://img.icons8.com/color/96/telegram-app.png" alt="Telegram">
+                    <span>تېلېگرام</span>
+                </div>
             </div>
-
-            <!-- 3-كۆزنەك (Honor of Kings) -->
-            <div class="game-card">
-                <img src="https://img.icons8.com/color/96/sword.png" alt="HOK">
-                <span>Honor of Kings</span>
-            </div>
-
-            <!-- 4-كۆزنەك (Arena Breakout) -->
-            <div class="game-card">
-                <img src="https://img.icons8.com/color/96/experimental-target-color.png" alt="Arena">
-                <span>Arena Breakout</span>
-            </div>
-
-            <!-- 5-كۆزنەك (ھېسابات تولۇقلاش) -->
-            <div class="game-card">
-                <img src="https://img.icons8.com/color/96/sim-card-chip.png" alt="Topup">
-                <span>ھېسابات تولۇقلاش</span>
-            </div>
-
-            <!-- 6-كۆزنەك (تېلېگرام مۇلازىمىتى) -->
-            <div class="game-card">
-                <img src="https://img.icons8.com/color/96/telegram-app.png" alt="Telegram">
-                <span>تېلېگرام</span>
-            </div>
-
         </div>
 
-        <!-- باھا تاللاش بۆلۈمى -->
-        <div class="section-title">باھا تاللاش ئۆرنەكى</div>
-        <div class="options-grid">
-            <div class="price-option active">60 UC (1.00$)</div>
-            <div class="price-option">325 UC (5.00$)</div>
-            <div class="price-option">660 UC (10.00$)</div>
-            <div class="price-option">1800 UC (25.00$)</div>
+        <!-- 2. تەلەپلىرىم (Orders) -->
+        <div id="orders-section" class="page-view">
+            <div class="section-title">سىزنىڭ تەلەپلىرىڭىز</div>
+            <div class="auth-card" style="color: #666;">
+                <p>ھېچقانداق تەلەپ بايقالمىدى.</p>
+            </div>
         </div>
+
+        <!-- 3. پۇل قاچىلاش (Topup) -->
+        <div id="topup-section" class="page-view">
+            <div class="section-title">پۇل قاچىلاش ئۇسۇللىرى</div>
+            <div class="auth-card">
+                <p style="font-weight: 600; margin-bottom: 10px;">نۆۋەتتىكى قالدۇق: 0.00$</p>
+                <button class="auth-btn" style="background: #E60012; color: white; border: none;">پۇل قاچىلاش تەلىپى ئەۋەتىش</button>
+            </div>
+        </div>
+
+        <!-- 4. ھېساباتىم ۋە كىرىش (Account / Login) -->
+        <div id="account-section" class="page-view">
+            <div class="section-title">ئابونت ھېساباتى</div>
+            <div class="auth-card">
+                <h3 style="margin-top: 0; color: #222;">سۇپىغا كىرىش</h3>
+                <p style="font-size: 13px; color: #666; margin-bottom: 20px;">ھېساباتىڭىزغا كىرىش ئۈچۈن تۆۋەندىكىلەرنىڭ بىرىنى تاللاڭ:</p>
+                
+                <!-- Google (Gmail) ئارقىلىق كىرىش كۇنۇپكىسى -->
+                <button class="auth-btn google-btn">
+                    <span>🌐</span> Google (Gmail) ئارقىلىق كىرىش
+                </button>
+
+                <!-- Telegram ئارقىلىق كىرىش كۇنۇپكىسى -->
+                <button class="auth-btn telegram-btn">
+                    <span>✈️</span> Telegram ئارقىلىق كىرىش
+                </button>
+            </div>
+        </div>
+
     </div>
 
-    <!-- تۆۋەندىكى مەنىيۇ -->
+    <!-- تۆۋەندىكى مەنىيۇ (Tab Navigation) -->
     <nav class="bottom-nav">
-        <a class="nav-item active">🏠<br>باش بەت</a>
-        <a class="nav-item">📋<br>تەلەپلىرىم</a>
-        <a class="nav-item">💳<br>پۇل قاچىلاش</a>
-        <a class="nav-item">👤<br>ھېساباتىم</a>
+        <button class="nav-item active" onclick="switchPage('home', this)">🏠<br>باش بەت</button>
+        <button class="nav-item" onclick="switchPage('orders', this)">📋<br>تەلەپلىرىم</button>
+        <button class="nav-item" onclick="switchPage('topup', this)">💳<br>پۇل قاچىلاش</button>
+        <button class="nav-item" onclick="switchPage('account', this)">👤<br>ھېساباتىم</button>
     </nav>
+
+    <script>
+        // بەتلەرنى ئالماشتۇرۇش ئىقتىدارى
+        function switchPage(pageName, element) {
+            // بارلىق بەتلەرنى يوشۇرۇش
+            document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
+            // تاللانغان بەەتنى ئېچىش
+            document.getElementById(pageName + '-section').classList.add('active');
+
+            // تىزىملىكتىكى ئاكتىپ ھالەتنى يۆتكەش
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+        }
+    </script>
 
 </body>
 </html>
