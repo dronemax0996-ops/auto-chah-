@@ -1,136 +1,71 @@
-<!DOCTYPE html>
-<html lang="ug" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Chah - پۇل قاچىلاش ۋە رەقەملىك مۇلازىمەت</title>
-    <!-- Tailwind CSS ئارقىلىق لايىھەلەندى -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brandDark: '#0b0f19',
-                        cardDark: '#131826',
-                        accentBlue: '#3b82f6',
-                        accentGlow: '#60a5fa'
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            background-color: #0b0f19;
-            color: #ffffff;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-        .glow-card {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
-        }
-    </style>
-</head>
-<body class="bg-brandDark min-h-screen pb-20">
+/* ئاساسلىق سەھىپە ئۇسلۇبى */
+body {
+    background-color: #F7F8FA;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #222222;
+    margin: 0;
+    padding: 0;
+}
 
-    <!-- ئۈستۈنكى قىسىم (Header) -->
-    <header class="bg-cardDark border-b border-gray-800 p-4 sticky top-0 z-50 flex justify-between items-center">
-        <div class="flex items-center gap-3">
-            <div class="bg-blue-600 px-3 py-1.5 rounded-xl text-white font-bold text-sm">⚡ Auto Chah</div>
-        </div>
-        <div class="flex items-center gap-2 bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-full">
-            <span class="text-xs text-gray-400">قالدۇق:</span>
-            <span class="font-bold text-green-400">0.00 $</span>
-        </div>
-    </header>
+/* باش قىسىم (Navbar) */
+.navbar {
+    background-color: #FFFFFF;
+    padding: 15px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    <!-- ئاساسلىق مەزمۇن -->
-    <main class="p-4 max-w-md mx-auto space-y-6">
+.logo {
+    color: #E60012;
+    font-weight: 700;
+    font-size: 20px;
+}
 
-        <!-- قارشى ئېلىش كارتىسى -->
-        <div class="glow-card border border-blue-500/30 rounded-2xl p-5 text-center space-y-3">
-            <h1 class="text-xl font-extrabold text-white">Auto Chah غا خۇش كەپسىز</h1>
-            <p class="text-xs text-gray-300">ئويۇنلارغا پۇل قاچىلاش، رەقەملىك مۇلازىمەت ۋە ھېسابات تولۇقلاشتىكى ئەڭ تېز ھەم ئىشەنچلىك سۇپىڭىز.</p>
-            <button class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg transition duration-200">
-                ھازىرلا پۇل قاچىلاش ⚡
-            </button>
-        </div>
+/* مەھسۇلات/ئويۇن كارتىلىرى ئورۇنلاشتۇرۇشى */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
 
-        <!-- مۇلازىمەت تۈرلىرى (Grid) -->
-        <section>
-            <h2 class="text-sm font-semibold text-gray-400 mb-3">مۇلازىمەت تۈرلىرىنى تاللاڭ</h2>
-            <div class="grid grid-cols-3 gap-3">
-                
-                <!-- 1 -->
-                <div class="bg-cardDark border border-gray-800 p-3 rounded-2xl text-center space-y-2 hover:border-blue-500 transition cursor-pointer">
-                    <div class="w-12 h-12 bg-blue-500/10 rounded-xl mx-auto flex items-center justify-center text-xl">🎮</div>
-                    <span class="text-xs font-medium block">PUBG Mobile</span>
-                </div>
+.game-card {
+    background: #FFFFFF;
+    border-radius: 14px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
 
-                <!-- 2 -->
-                <div class="bg-cardDark border border-gray-800 p-3 rounded-2xl text-center space-y-2 hover:border-blue-500 transition cursor-pointer">
-                    <div class="w-12 h-12 bg-blue-500/10 rounded-xl mx-auto flex items-center justify-center text-xl">⚔️</div>
-                    <span class="text-xs font-medium block">Mobile Legends</span>
-                </div>
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(230, 0, 18, 0.15);
+}
 
-                <!-- 3 -->
-                <div class="bg-cardDark border border-gray-800 p-3 rounded-2xl text-center space-y-2 hover:border-blue-500 transition cursor-pointer">
-                    <div class="w-12 h-12 bg-blue-500/10 rounded-xl mx-auto flex items-center justify-center text-xl">👑</div>
-                    <span class="text-xs font-medium block">Honor of Kings</span>
-                </div>
+.game-card img {
+    width: 100%;
+    border-radius: 10px;
+}
 
-                <!-- 4 -->
-                <div class="bg-cardDark border border-gray-800 p-3 rounded-2xl text-center space-y-2 hover:border-blue-500 transition cursor-pointer">
-                    <div class="w-12 h-12 bg-blue-500/10 rounded-xl mx-auto flex items-center justify-center text-xl">🎯</div>
-                    <span class="text-xs font-medium block">Arena Breakout</span>
-                </div>
+/* باھا ۋە ئالماس كۇنۇپكىلىرى ئۇسلۇبى */
+.price-option {
+    border: 2px solid #E5E7EB;
+    border-radius: 10px;
+    background: #FFFFFF;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
 
-                <!-- 5 -->
-                <div class="bg-cardDark border border-gray-800 p-3 rounded-2xl text-center space-y-2 hover:border-blue-500 transition cursor-pointer">
-                    <div class="w-12 h-12 bg-blue-500/10 rounded-xl mx-auto flex items-center justify-center text-xl">📱</div>
-                    <span class="text-xs font-medium block">ھېسابات تولۇقلاش</span>
-                </div>
-
-                <!-- 6 -->
-                <div class="bg-cardDark border border-gray-800 p-3 rounded-2xl text-center space-y-2 hover:border-blue-500 transition cursor-pointer">
-                    <div class="w-12 h-12 bg-blue-500/10 rounded-xl mx-auto flex items-center justify-center text-xl">💬</div>
-                    <span class="text-xs font-medium block">تېلېگرام مۇلازىمىتى</span>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ئويۇن ID كىرگۈزۈش بۆلۈمى -->
-        <section class="bg-cardDark border border-gray-800 rounded-2xl p-4 space-y-3">
-            <h3 class="text-xs font-bold text-gray-300">ئويۇن كىملىكىنى (Player ID) كىرگۈزۈڭ</h3>
-            <div class="flex gap-2">
-                <input type="text" placeholder="بۇ يەرگە ID نى يېزىڭ..." class="w-full bg-gray-900 border border-gray-700 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500">
-                <button class="bg-blue-600 px-4 rounded-xl text-sm font-bold">تەكشۈرۈش</button>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- تۆۋەندىكى تىزىملىك (Bottom Navigation) -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-cardDark border-t border-gray-800 py-2 px-6 flex justify-between items-center text-xs text-gray-400">
-        <button class="flex flex-col items-center text-blue-500">
-            <span>🏠</span>
-            <span>باش بەت</span>
-        </button>
-        <button class="flex flex-col items-center hover:text-white">
-            <span>📋</span>
-            <span>تەلەپلىرىم</span>
-        </button>
-        <button class="flex flex-col items-center hover:text-white">
-            <span>💳</span>
-            <span>پۇل قاچىلاش</span>
-        </button>
-        <button class="flex flex-col items-center hover:text-white">
-            <span>👤</span>
-            <span>ھېساباتىم</span>
-        </button>
-    </nav>
-
-</body>
-</html>
+/* تاللانغان مەھسۇلات ھالىتى (Active state) */
+.price-option.active {
+    border-color: #E60012;
+    background-color: #FFF0F1;
+    color: #E60012;
+}
