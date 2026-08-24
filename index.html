@@ -935,13 +935,13 @@
             if (adminList) {
                 let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
                 if (orders.length === 0) {
-                    adminList.innerHTML = '<p>لا توجد طلبات</p>';
+                    adminList.innerHTML = '<p style="color:var(--text-dim); text-align:center;">لا توجد طلبات</p>';
                 } else {
                     let html = '';
                     orders.forEach((o) => {
-                        html += `<div style="border-bottom: 1px solid var(--border-color); padding: 5px 0;">
+                        html += `<div style="border-bottom: 1px solid var(--border-color); padding: 8px 0; font-size: 13px;">
                             <b>${o.game}</b> (${o.pkg})<br>ID: ${o.playerId} | Status: <b>${o.status}</b><br>
-                            <button onclick="approveOrder(${o.id})" style="background:#10B981; color:white; border:none; padding:2px 6px; border-radius:4px; cursor:pointer;">موافقة</button>
+                            <button onclick="approveOrder(${o.id})" style="background:#10B981; color:white; border:none; padding:4px 10px; border-radius:4px; cursor:pointer; margin-top:5px;">موافقة (Approve)</button>
                         </div>`;
                     });
                     adminList.innerHTML = html;
@@ -952,14 +952,14 @@
             if (adminUsersList) {
                 let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
                 if (users.length === 0) {
-                    adminUsersList.innerHTML = '<p>لا توجد مستخدمين مسجلين</p>';
+                    adminUsersList.innerHTML = '<p style="color:var(--text-dim); text-align:center;">لا توجد مستخدمين مسجلين</p>';
                 } else {
                     let uHtml = '';
                     users.forEach((u, index) => {
-                        let avatarContent = u.avatar ? `<img src="${u.avatar}" style="width:35px; height:35px; border-radius:50%; object-fit:cover; vertical-align:middle; margin-left:8px;">` : '👤';
-                        uHtml += `<div style="border-bottom: 1px solid var(--border-color); padding: 8px 0; display:flex; align-items:center; gap:12px;">
+                        let avatarContent = u.avatar ? `<img src="${u.avatar}" style="width:35px; height:35px; border-radius:50%; object-fit:cover; vertical-align:middle; margin-left:8px;">` : '<span style="font-size:24px; margin-left:8px;">👤</span>';
+                        uHtml += `<div style="border-bottom: 1px solid var(--border-color); padding: 8px 0; display:flex; align-items:center;">
                             ${avatarContent}
-                            <div><b>${index + 1}. ${u.name}</b><br><span style="color:var(--text-dim);">${u.email || 'No email'}</span></div>
+                            <div><b>${index + 1}. ${u.name}</b><br><span style="color:var(--text-dim); font-size:12px;">${u.email || 'No email'}</span></div>
                         </div>`;
                     });
                     adminUsersList.innerHTML = uHtml;
@@ -1067,6 +1067,8 @@
                 localStorage.setItem('s_email', 'dronemax0996@gmail.com');
                 alert('تم تسجيل الدخول بنجاح (Admin)!');
                 checkLogin();
+                // Admin غا كىرگەندە بىۋاسىتە باشقۇرۇش بېتىگە يۆتكەش
+                switchPage('admin-dashboard', document.getElementById('nav-admin-btn'));
                 return;
             }
 
@@ -1084,6 +1086,7 @@
 
                 alert('تم تسجيل الدخول بنجاح!');
                 checkLogin();
+                switchPage('home', document.querySelectorAll('.nav-item')[1]);
             } else {
                 alert('خطأ في الاسم أو كلمة المرور! (Admin: nasrulla / 0996)');
             }
@@ -1118,6 +1121,7 @@
             localStorage.removeItem('is_logged');
             localStorage.removeItem('is_admin');
             checkLogin();
+            switchPage('home', document.querySelectorAll('.nav-item')[1]);
         }
 
         function checkLogin() {
@@ -1147,7 +1151,7 @@
 
                 updateAnalyticsDisplay();
                 
-                // پەقەت nasrulla غىلا باشقۇرۇش كۇنۇپكىسىنى كۆرسىتىش
+                // پەقەت nasrulla (admin) غىلا باشقۇرۇش كۇنۇپكىسىنى كۆرسىتىش
                 if (localStorage.getItem('is_admin') === 'true') {
                     if (adminNavBtn) adminNavBtn.style.display = 'block';
                 } else {
