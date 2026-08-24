@@ -183,6 +183,7 @@
             padding: 10px;
         }
 
+        /* ئايلانما ئېلان رەسىمى (Slider) */
         .banner-card {
             background: var(--card-bg);
             border-radius: 12px;
@@ -190,24 +191,33 @@
             margin: 10px 0;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             border: 1px solid var(--border-color);
+            overflow: hidden;
         }
 
         .banner-card img {
             width: 100%;
-            height: 130px;
+            height: 140px;
             object-fit: cover;
             border-radius: 8px;
+            transition: opacity 0.5s ease;
         }
 
+        /* مېڭىپ ئايلىنىدىغان خەت (Marquee) */
         .notice-bar {
             background: var(--card-bg);
             padding: 12px 15px;
             border-radius: 8px;
-            font-size: 13px;
-            text-align: center;
-            color: var(--text-dim);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
             margin-bottom: 12px;
             border: 1px solid var(--border-color);
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .notice-bar marquee {
+            width: 100%;
         }
 
         .search-box {
@@ -237,6 +247,7 @@
             transition: 0.2s;
             text-align: center;
             box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            position: relative;
         }
 
         .category-card:hover {
@@ -462,32 +473,18 @@
         <!-- 1. باش بەت -->
         <div id="home-section" class="page-view active">
             <div class="banner-card">
-                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=60" alt="Banner">
+                <img id="slider-img" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=60" alt="Banner">
             </div>
 
-            <div class="notice-bar" data-i18n="support_notice">
-                الدعم الفني: 00963958498149, خدمة العملاء
+            <!-- مېڭىپ ئايلىنىدىغان خەت (Marquee) -->
+            <div class="notice-bar">
+                <marquee id="marquee-text" behavior="scroll" direction="right">خۇش كەپسىز! Auto Chah پۇل قاچىلاش مۇلازىمەت سۇپىسى.</marquee>
             </div>
 
             <input type="text" class="search-box" data-i18n-placeholder="search_placeholder" placeholder="بحث...">
 
             <div class="categories-grid" id="dynamic-categories-grid">
-                <div class="category-card" onclick="openModal('PUBG Mobile')">
-                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=300&auto=format&fit=crop&q=60" alt="Games">
-                    <span data-i18n="cat_games">قسم الألعاب</span>
-                </div>
-                <div class="category-card" onclick="openModal('Telegram Premium')">
-                    <img src="https://images.unsplash.com/photo-1614680376593-902f749f7ffc?w=300&auto=format&fit=crop&q=60" alt="Chat">
-                    <span data-i18n="cat_chat">تطبيقات الشات</span>
-                </div>
-                <div class="category-card" onclick="openModal('Digital Banks')">
-                    <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=300&auto=format&fit=crop&q=60" alt="Banks">
-                    <span data-i18n="cat_banks">البنوك الرقمية</span>
-                </div>
-                <div class="category-card" onclick="openModal('Balance Topup')">
-                    <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=300&auto=format&fit=crop&q=60" alt="Balance">
-                    <span data-i18n="cat_balance">قسم الرصيد</span>
-                </div>
+                <!-- ئاساسلىق ۋە قوشۇلغان بۆلەكلەر بۇ يەرگە چىقىدۇ -->
             </div>
         </div>
 
@@ -510,7 +507,7 @@
 
         <!-- 3. پۇل قاچىلاش (ئابونت) / تەلەپ قىلىش (باشقۇرغۇچى) -->
         <div id="topup-section" class="page-view">
-            <!-- ئابونت ئۈچۈن پۇل قاچىلاش (يېڭى شەكىل) -->
+            <!-- ئابونت ئۈچۈن پۇل قاچىلاش -->
             <div id="user-topup-view" class="card" style="text-align: center;">
                 <p style="font-weight: 600; margin-bottom: 15px;"><span data-i18n="current_balance">رصيدك الحالي:</span> <span style="color: #10B981;" id="user-balance-display">0.00$</span></p>
                 <div class="input-group">
@@ -525,29 +522,52 @@
                     </select>
                 </div>
                 <div class="input-group">
-                    <label>3. ئىسپات نومۇرى (رەقەمنى كىرگۈزۈڭ)</label>
+                    <label>3. ئىسپات نومۇرى</label>
                     <input type="text" id="topup-proof-num" placeholder="مەسىلەن: TXN123456789">
                 </div>
                 <div class="input-group">
-                    <label>4. ئىسپات رەسىمى (مەجبۇرىي! بولمىسا تەلەپ قوبول قىلىنمايدۇ)</label>
+                    <label>4. ئىسپات رەسىمى (مەجبۇرىي!)</label>
                     <input type="file" id="topup-proof-img" accept="image/*" style="font-size: 12px;">
                 </div>
                 <button class="btn-main" onclick="sendTopupRequest()">تەلەپ ئەۋەتىش (إرسال الطلب)</button>
             </div>
-            <!-- باشقۇرغۇچى ئۈچۈن ئابونت تەلەپلىرى ۋە بۆلەك قوشۇش -->
+
+            <!-- باشقۇرغۇچى ئۈچۈن باشقۇرۇش بېتى (تەلەپلەر، بۆلەك قوشۇش، ئېلان رەسىمى ۋە ئايلانما خەت) -->
             <div id="admin-topup-view" class="card" style="display: none;">
                 <h3 style="color: var(--primary); margin-top: 0; text-align: center;">📦 ئابونت تەلەپلىرى</h3>
-                <div id="admin-orders-list" style="max-height: 300px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: 10px; margin-bottom: 20px;"></div>
+                <div id="admin-orders-list" style="max-height: 250px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: 10px; margin-bottom: 20px;"></div>
 
-                <h3 style="color: var(--primary); margin-top: 0; text-align: center;">➕ يېڭى بۆلەك/ئويۇن قوشۇش</h3>
+                <h3 style="color: var(--primary); margin-top: 0; text-align: center;">⚙️ باش بەت مەزمۇنلىرىنى تەڭشەش</h3>
+                <div style="background: var(--bg-color); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                    <div class="input-group">
+                        <label>ئايلانما ئېلان رەسىمى قوشۇش (Banner Image)</label>
+                        <input type="file" id="admin-banner-img" accept="image/*" style="font-size: 12px; margin-bottom: 5px;">
+                        <button class="btn-main" onclick="addBannerImage()" style="background:#0284c7; padding:8px;">رەسىم قوشۇش</button>
+                    </div>
+                    <div class="input-group">
+                        <label>مېڭىپ ئايلىنىدىغان خەتنى ئۆزگەرتىش (Marquee Text)</label>
+                        <textarea id="admin-marquee-input" rows="2" placeholder="خەتلەرنى بۇ يەرگە كىرگۈزۈڭ..."></textarea>
+                        <button class="btn-main" onclick="updateMarqueeText()" style="background:#0284c7; padding:8px; margin-top:5px;">خەتنى يېڭىلاش</button>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--primary); margin-top: 0; text-align: center;">➕ يېڭى بۆلەك / ئويۇن قوشۇش (مەھسۇلات جەدۋىلى بىلەن)</h3>
                 <div style="background: var(--bg-color); padding: 15px; border-radius: 10px;">
                     <div class="input-group">
-                        <label>بۆلەك ئىسمى (اسم القسم / اللعبة)</label>
+                        <label>بۆلەك ئىسمى (نامى)</label>
                         <input type="text" id="new-cat-name" placeholder="مەسىلەن: Mobile Legends">
                     </div>
                     <div class="input-group">
-                        <label>بۆلەك رەسىمىنى تاللاش (اختر صورة القسم)</label>
+                        <label>ئويۇن كىملىكى / ID نامى</label>
+                        <input type="text" id="new-cat-pid" placeholder="مەسىلەن: User ID / Server ID">
+                    </div>
+                    <div class="input-group">
+                        <label>بۆلەك رەسىمى</label>
                         <input type="file" id="new-cat-img" accept="image/*" style="font-size: 12px;">
+                    </div>
+                    <div class="input-group">
+                        <label>مەھسۇلات جەدۋىلى (مەسىلەن: 60 UC - 1.00$ ، 325 UC - 5.00$ قاتارلىق ھەر بىرىنى يېڭى قۇرغا يېزىڭ)</label>
+                        <textarea id="new-cat-packages" rows="3" placeholder="60 UC | 1.00&#10;325 UC | 5.00&#10;660 UC | 10.00"></textarea>
                     </div>
                     <button class="btn-main" onclick="addNewCategory()">بۆلەك قوشۇش (إضافة القسم)</button>
                 </div>
@@ -630,15 +650,13 @@
             <button class="close-btn" onclick="closeModal()">✕</button>
             <h3 id="modal-game-title" style="margin-top: 0; text-align: center;">شراء</h3>
             <div class="input-group">
-                <label data-i18n="player_id_label">آيدي اللاعب (Player ID)</label>
+                <label id="modal-pid-label">آيدي اللاعب (Player ID)</label>
                 <input type="text" id="player-id" placeholder="ID...">
             </div>
             <div class="input-group">
                 <label data-i18n="package_label">اختر الباقة</label>
                 <select id="product-package">
-                    <option value="60|1.00">60 UC (1.00$)</option>
-                    <option value="325|5.00">325 UC (5.00$)</option>
-                    <option value="660|10.00">660 UC (10.00$)</option>
+                    <!-- دينامىك جەدۋەل چىقىدۇ -->
                 </select>
             </div>
             <button class="btn-main" onclick="confirmPurchase()" data-i18n="confirm_btn">تأكيد الطلب</button>
@@ -665,9 +683,9 @@
                 support_notice: "قوللاش مەركىزى: 00963958498149، خېرىدارلار مۇلازىمىتى",
                 search_placeholder: "ئىزدەش...",
                 cat_games: "ئويۇنلار بۆلىكى",
-                cat_chat: "چات ئەپلىرى",
-                cat_banks: "رەقەملىك بانكىلار",
-                cat_balance: "قالدۇق بۆلىكى",
+                cat_chat: "تطبيقات الشات",
+                cat_banks: "البنوك الرقمية",
+                cat_balance: "قسم الرصيد",
                 no_orders: "ھېچقانداق زاكاز خاتىرىسى يوق",
                 current_balance: "نۆۋەتتىكى قالدىقىڭىز:",
                 amount_label: "پۇل سوممىسى ($)",
@@ -901,17 +919,41 @@
             }
         }
 
-        let selectedGameName = '';
-        function openModal(gameName) {
+        // بۆلەك كۆزنىكىنى ئېچىش ۋە جەدۋەلنى توغرىلاش
+        let currentCategoryObj = null;
+        function openModal(catName) {
             if (localStorage.getItem('is_logged') !== 'true') {
                 alert('ئالدى بىلەن ھېساباتىڭىزغا كىرىڭ ياكى تىزىملىتىڭ!');
                 switchPage('account', document.querySelectorAll('.nav-item')[3]);
                 return;
             }
-            selectedGameName = gameName;
+
+            let customCats = JSON.parse(localStorage.getItem('custom_categories') || '[]');
+            let cat = customCats.find(c => c.name === catName);
+
+            selectedGameName = catName;
             const titleEl = document.getElementById('modal-game-title');
+            const pidLabel = document.getElementById('modal-pid-label');
+            const packageSelect = document.getElementById('product-package');
             const modalEl = document.getElementById('purchase-modal');
-            if (titleEl) titleEl.textContent = gameName;
+
+            if (titleEl) titleEl.textContent = catName;
+            if (pidLabel) pidLabel.textContent = cat && cat.pidName ? cat.pidName : 'آيدي اللاعب (Player ID)';
+
+            // مەھسۇلات جەدۋىلىنى يۈكلەش
+            let pkgsHtml = '';
+            if (cat && cat.packages && cat.packages.length > 0) {
+                cat.packages.forEach(p => {
+                    pkgsHtml += `<option value="${p.name}|${p.price}">${p.name} (${p.price}$)</option>`;
+                });
+            } else {
+                pkgsHtml = `
+                    <option value="60 UC|1.00">60 UC (1.00$)</option>
+                    <option value="325 UC|5.00">325 UC (5.00$)</option>
+                    <option value="660 UC|10.00">660 UC (10.00$)</option>
+                `;
+            }
+            if (packageSelect) packageSelect.innerHTML = pkgsHtml;
             if (modalEl) modalEl.style.display = 'flex';
         }
 
@@ -926,11 +968,11 @@
             if (!playerIdEl || !packageEl) return;
             const playerId = playerIdEl.value.trim();
             const packageData = packageEl.value.split('|');
-            const pkgName = packageData[0] + ' UC';
+            const pkgName = packageData[0];
             const pkgPrice = parseFloat(packageData[1]);
             
             if (!playerId) {
-                alert('آيدي اللاعب كىرگۈزۈڭ!');
+                alert('كىملىك (ID) نى كىرگۈزۈڭ!');
                 return;
             }
 
@@ -988,7 +1030,7 @@
                 return;
             }
             if (!proofImgEl.files || !proofImgEl.files[0]) {
-                alert('مەجبۇرىي شەرت: ئىسپات رەسىمىنى يۈكلەشىڭىز كېرەك! رەسىمسىز تەلەپ قوبول قىلىنمايدۇ.');
+                alert('مەجبۇرىي شەرت: ئىسپات رەسىمىنى يۈكلەشىڭىز كېرەك!');
                 return;
             }
 
@@ -1009,7 +1051,7 @@
                     game: 'پۇل قاچىلاش (' + gateway + ')', 
                     playerId: activeUser, 
                     pkg: amountStr, 
-                    priceUSD: parseFloat(amountStr) || 0,
+                    priceUSD: parseFloat(amountStr) || 10,
                     proofNum: proofNum,
                     proofImg: proofImgData,
                     type: 'topup', 
@@ -1111,7 +1153,7 @@
                             </div>
                             <div style="display:flex; gap:5px; align-items:center;">
                                 <input type="number" id="add-bal-${index}" placeholder="سومما" style="width:65px; padding:6px; font-size:12px; border:1px solid var(--border-color); border-radius:6px;">
-                                <button onclick="adminAddBalance('${u.name}', ${index}, 'add')" style="background:#0284c7; color:white; border:none; padding:6px 8px; border-radius:6px; cursor:pointer; font-size:11px; font-weight:600;">قوچۇش</button>
+                                <button onclick="adminAddBalance('${u.name}', ${index}, 'add')" style="background:#0284c7; color:white; border:none; padding:6px 8px; border-radius:6px; cursor:pointer; font-size:11px; font-weight:600;">قوشۇش</button>
                                 <button onclick="adminAddBalance('${u.name}', ${index}, 'sub')" style="background:#f59e0b; color:white; border:none; padding:6px 8px; border-radius:6px; cursor:pointer; font-size:11px; font-weight:600;">ئازايتىش</button>
                                 <button onclick="adminDeleteUser('${u.name}')" style="background:#EF4444; color:white; border:none; padding:6px 8px; border-radius:6px; cursor:pointer; font-size:11px; font-weight:600;">يۇيۇۋېتىش</button>
                             </div>
@@ -1120,6 +1162,168 @@
                     adminUsersList.innerHTML = uHtml;
                 }
             }
+        }
+
+        function loadAdminData() {
+            loadAdminOrdersList();
+            loadAdminUsersList();
+        }
+
+        // بۆلەك ۋە مەھسۇلات جەدۋىلىنى قوشۇش
+        function addNewCategory() {
+            const nameInput = document.getElementById('new-cat-name');
+            const pidInput = document.getElementById('new-cat-pid');
+            const imgInput = document.getElementById('new-cat-img');
+            const pkgInput = document.getElementById('new-cat-packages');
+            
+            if (!nameInput || !nameInput.value.trim()) {
+                alert('بۆلەك ئىسمىنى كىرگۈزۈڭ!');
+                return;
+            }
+
+            const catName = nameInput.value.trim();
+            const pidName = pidInput && pidInput.value.trim() ? pidInput.value.trim() : 'آيدي اللاعب (Player ID)';
+            
+            // مەھسۇلات ئورالمىلىرىنى پارچىلاش
+            let packages = [];
+            if (pkgInput && pkgInput.value.trim()) {
+                let lines = pkgInput.value.trim().split('\n');
+                lines.forEach(line => {
+                    let parts = line.split('|');
+                    if (parts.length >= 2) {
+                        packages.push({name: parts[0].trim(), price: parseFloat(parts[1].trim()) || 1.00});
+                    }
+                });
+            }
+
+            if (imgInput.files && imgInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    saveCategoryToStorage(catName, pidName, e.target.result, packages);
+                };
+                reader.readAsDataURL(imgInput.files[0]);
+            } else {
+                saveCategoryToStorage(catName, pidName, 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&auto=format&fit=crop&q=60', packages);
+            }
+        }
+
+        function saveCategoryToStorage(name, pidName, imgUrl, packages) {
+            let customCats = JSON.parse(localStorage.getItem('custom_categories') || '[]');
+            customCats.push({name: name, pidName: pidName, img: imgUrl, packages: packages});
+            localStorage.setItem('custom_categories', JSON.stringify(customCats));
+
+            document.getElementById('new-cat-name').value = '';
+            document.getElementById('new-cat-pid').value = '';
+            document.getElementById('new-cat-img').value = '';
+            document.getElementById('new-cat-packages').value = '';
+            loadCategories();
+            alert('يېڭى بۆلەك ۋە مەھسۇلات جەدۋىلى قوشۇلدى!');
+        }
+
+        // بۆلەكنى يۇيۇۋېتىش (ئۆچۈرۈش)
+        function deleteCategory(catName) {
+            if (confirm(`راستلا "${catName}" بۆلىكىنى ئۆچۈرۈۋېتەمسىز؟`)) {
+                let customCats = JSON.parse(localStorage.getItem('custom_categories') || '[]');
+                customCats = customCats.filter(c => c.name !== catName);
+                localStorage.setItem('custom_categories', JSON.stringify(customCats));
+                loadCategories();
+                alert('بۆلەك ئۆچۈرۈلدى!');
+            }
+        }
+
+        function loadCategories() {
+            const grid = document.getElementById('dynamic-categories-grid');
+            if (!grid) return;
+
+            let isAdmin = localStorage.getItem('is_admin') === 'true';
+
+            let html = `
+                <div class="category-card" onclick="openModal('PUBG Mobile')">
+                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=300&auto=format&fit=crop&q=60" alt="Games">
+                    <span data-i18n="cat_games">قسم الألعاب</span>
+                </div>
+                <div class="category-card" onclick="openModal('Telegram Premium')">
+                    <img src="https://images.unsplash.com/photo-1614680376593-902f749f7ffc?w=300&auto=format&fit=crop&q=60" alt="Chat">
+                    <span data-i18n="cat_chat">تطبيقات الشات</span>
+                </div>
+                <div class="category-card" onclick="openModal('Digital Banks')">
+                    <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=300&auto=format&fit=crop&q=60" alt="Banks">
+                    <span data-i18n="cat_banks">البنوك الرقمية</span>
+                </div>
+                <div class="category-card" onclick="openModal('Balance Topup')">
+                    <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=300&auto=format&fit=crop&q=60" alt="Balance">
+                    <span data-i18n="cat_balance">قسم الرصيد</span>
+                </div>
+            `;
+
+            let customCats = JSON.parse(localStorage.getItem('custom_categories') || '[]');
+            customCats.forEach(cat => {
+                let deleteBtn = isAdmin ? `<button onclick="event.stopPropagation(); deleteCategory('${cat.name}')" style="position:absolute; top:5px; left:5px; background:red; color:white; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">يۇيۇش</button>` : '';
+                html += `
+                    <div class="category-card" onclick="openModal('${cat.name}')">
+                        <img src="${cat.img}" alt="${cat.name}">
+                        <span>${cat.name}</span>
+                        ${deleteBtn}
+                    </div>
+                `;
+            });
+
+            grid.innerHTML = html;
+        }
+
+        // ئېلان رەسىمىنى قوشۇش (Slider)
+        function addBannerImage() {
+            const bannerInput = document.getElementById('admin-banner-img');
+            if (bannerInput.files && bannerInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    let banners = JSON.parse(localStorage.getItem('banner_images') || '[]');
+                    banners.push(e.target.result);
+                    localStorage.setItem('banner_images', JSON.stringify(banners));
+                    bannerInput.value = '';
+                    loadBanners();
+                    alert('ئېلان رەسىمى قوشۇلدى!');
+                };
+                reader.readAsDataURL(bannerInput.files[0]);
+            } else {
+                alert('رەسىم تاللاڭ!');
+            }
+        }
+
+        function loadBanners() {
+            let banners = JSON.parse(localStorage.getItem('banner_images') || '[]');
+            if (banners.length > 0) {
+                let imgEl = document.getElementById('slider-img');
+                if (imgEl) {
+                    let index = 0;
+                    imgEl.src = banners[0];
+                    if (window.bannerInterval) clearInterval(window.bannerInterval);
+                    window.bannerInterval = setInterval(() => {
+                        index = (index + 1) % banners.length;
+                        imgEl.src = banners[index];
+                    }, 3000);
+                }
+            }
+        }
+
+        // مېڭىپ ئايلىنىدىغان خەتنى يېڭىلاش
+        function updateMarqueeText() {
+            const input = document.getElementById('admin-marquee-input');
+            if (!input) return;
+            const text = input.value.trim();
+            if (text) {
+                localStorage.setItem('marquee_text', text);
+                loadMarqueeText();
+                alert('خەت يېڭىلاندى!');
+            }
+        }
+
+        function loadMarqueeText() {
+            const marquee = document.getElementById('marquee-text');
+            const input = document.getElementById('admin-marquee-input');
+            let savedText = localStorage.getItem('marquee_text') || 'خۇش كەپسىز! Auto Chah پۇل قاچىلاش مۇلازىمەت سۇپىسى.';
+            if (marquee) marquee.textContent = savedText;
+            if (input && !input.value) input.value = savedText;
         }
 
         function adminAddBalance(userName, index, action) {
@@ -1162,81 +1366,6 @@
                 loadAdminUsersList();
                 alert('ئابونت مۇۋەپپەقىيەتلىك ئۆچۈرۈلدى!');
             }
-        }
-
-        function loadAdminData() {
-            loadAdminOrdersList();
-            loadAdminUsersList();
-        }
-
-        function addNewCategory() {
-            const nameInput = document.getElementById('new-cat-name');
-            const imgInput = document.getElementById('new-cat-img');
-            
-            if (!nameInput || !nameInput.value.trim()) {
-                alert('بۆلەك ئىسمىنى كىرگۈزۈڭ!');
-                return;
-            }
-
-            const catName = nameInput.value.trim();
-
-            if (imgInput.files && imgInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const imgData = e.target.result;
-                    saveCategoryToStorage(catName, imgData);
-                };
-                reader.readAsDataURL(imgInput.files[0]);
-            } else {
-                saveCategoryToStorage(catName, 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&auto=format&fit=crop&q=60');
-            }
-        }
-
-        function saveCategoryToStorage(name, imgUrl) {
-            let customCats = JSON.parse(localStorage.getItem('custom_categories') || '[]');
-            customCats.push({name: name, img: imgUrl});
-            localStorage.setItem('custom_categories', JSON.stringify(customCats));
-
-            document.getElementById('new-cat-name').value = '';
-            document.getElementById('new-cat-img').value = '';
-            loadCategories();
-            alert('يېڭى بۆلەك مۇۋەپپەقىيەتلىك قوشۇلدى!');
-        }
-
-        function loadCategories() {
-            const grid = document.getElementById('dynamic-categories-grid');
-            if (!grid) return;
-
-            let html = `
-                <div class="category-card" onclick="openModal('PUBG Mobile')">
-                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=300&auto=format&fit=crop&q=60" alt="Games">
-                    <span data-i18n="cat_games">قسم الألعاب</span>
-                </div>
-                <div class="category-card" onclick="openModal('Telegram Premium')">
-                    <img src="https://images.unsplash.com/photo-1614680376593-902f749f7ffc?w=300&auto=format&fit=crop&q=60" alt="Chat">
-                    <span data-i18n="cat_chat">تطبيقات الشات</span>
-                </div>
-                <div class="category-card" onclick="openModal('Digital Banks')">
-                    <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=300&auto=format&fit=crop&q=60" alt="Banks">
-                    <span data-i18n="cat_banks">البنوك الرقمية</span>
-                </div>
-                <div class="category-card" onclick="openModal('Balance Topup')">
-                    <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=300&auto=format&fit=crop&q=60" alt="Balance">
-                    <span data-i18n="cat_balance">قسم الرصيد</span>
-                </div>
-            `;
-
-            let customCats = JSON.parse(localStorage.getItem('custom_categories') || '[]');
-            customCats.forEach(cat => {
-                html += `
-                    <div class="category-card" onclick="openModal('${cat.name}')">
-                        <img src="${cat.img}" alt="${cat.name}">
-                        <span>${cat.name}</span>
-                    </div>
-                `;
-            });
-
-            grid.innerHTML = html;
         }
 
         function approveOrder(orderId) {
@@ -1345,7 +1474,7 @@
             let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
             let duplicate = users.find(u => u.name.toLowerCase() === name.toLowerCase() || u.email === email || u.pass === pass);
             if (duplicate) {
-                alert('بۇ ئىسىم، Gmail ئادرىسى ياكى مەخپىي نومۇر باشقا ئابونت تەرىپىدىن ئاللىقاچان ئىشلىتىلگەن! باشقىسىنى تاللاڭ.');
+                alert('بۇ ئىسىم، Gmail ئادرىسى ياكى مەخپىي نومۇر باشقا ئابونت تەرىپىدىن ئاللىقاچان ئىشلىتىلگەن!');
                 return;
             }
 
@@ -1509,6 +1638,8 @@
             const savedLang = localStorage.getItem('selected_lang') || 'ug';
             changeLanguage(savedLang);
             loadCategories();
+            loadBanners();
+            loadMarqueeText();
             checkLogin();
             updateBalanceDisplay();
             updateAnalyticsDisplay();
