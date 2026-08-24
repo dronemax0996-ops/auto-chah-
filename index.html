@@ -1041,12 +1041,14 @@
                     localStorage.setItem('s_avatar', imgData);
                     
                     let currentName = localStorage.getItem('s_name');
-                    let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
-                    users = users.map(u => {
-                        if(u.name === currentName) u.avatar = imgData;
-                        return u;
-                    });
-                    localStorage.setItem('registered_users', JSON.stringify(users));
+                    if (currentName !== 'nasrulla') {
+                        let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
+                        users = users.map(u => {
+                            if(u.name === currentName) u.avatar = imgData;
+                            return u;
+                        });
+                        localStorage.setItem('registered_users', JSON.stringify(users));
+                    }
 
                     updateAvatarDisplay(imgData);
                     alert('تم تحديث الصورة الشخصية بنجاح!');
@@ -1087,15 +1089,18 @@
                 return;
             }
 
+            // باشقۇرغۇچىنىڭ ئاتى ياكى ئېلخەت ئادرىسىنى تىزىملىتىشتىن قوغداش
             if (name.toLowerCase() === 'nasrulla' || email === 'dronemax0996@gmail.com') {
                 alert('بۇ ئىسىم ياكى Gmail ئادرىسى باشقۇرغۇچىغا تەۋە، ئىشلەتكىلى بولمايدۇ!');
                 return;
             }
             
             let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
+            
+            // ھەر قانداق ئوخشاش ئىسىم، Gmail ياكى مەخپىي نومۇر بارمۇ يوق قاتتىق تەكشۈرۈش
             let duplicate = users.find(u => u.name.toLowerCase() === name.toLowerCase() || u.email === email || u.pass === pass);
             if (duplicate) {
-                alert('بۇ ئىسىم، Gmail ئادرىسى ياكى مەخپىي نومۇر ئاللىقاچان ئىشلىتىلگەن! باشقىسىنى تاللاڭ.');
+                alert('بۇ ئىسىم، Gmail ئادرىسى ياكى مەخپىي نومۇر باشقا ئابونت تەرىپىدىن ئاللىقاچان ئىشلىتىلگەن! باشقىسىنى تاللاڭ.');
                 return;
             }
 
@@ -1123,6 +1128,7 @@
             const nameInput = nameInputEl.value.trim().toLowerCase();
             const passInput = passInputEl.value.trim();
             
+            // باشقۇرغۇچى ئۈچۈن مەخسۇس كىرىش شەرتى
             if ((nameInput === 'nasrulla' || nameInput === 'dronemax0996@gmail.com') && passInput === '0996') {
                 localStorage.setItem('is_admin', 'true');
                 localStorage.setItem('is_logged', 'true');
@@ -1219,13 +1225,6 @@
         }
 
         window.onload = function() {
-            // سىستېما تۇنجى قېتىم ئېچىلغاندا بارلىق كونا تىزىملاتقان ئابونتلارنى تازىلاپ، پەقەت پاكىز ھالەتتە قالدۇرۇش
-            if (!localStorage.getItem('system_initialized')) {
-                localStorage.removeItem('registered_users');
-                localStorage.removeItem('user_orders');
-                localStorage.setItem('system_initialized', 'true');
-            }
-
             const savedLang = localStorage.getItem('selected_lang') || 'ug';
             changeLanguage(savedLang);
             checkLogin();
