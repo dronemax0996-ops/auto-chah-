@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Chah - پۇل قاچىلاش سۇپىسى</title>
+    <title>Auto Chah - مۇكەممەل پۇل قاچىلاش سۇپىسى</title>
     <style>
         :root {
             --bg-color: #F7F8FA;
@@ -263,23 +263,20 @@
 </head>
 <body>
 
-    <!-- باش قىسىم -->
     <header class="navbar">
         <div class="logo">⚡ Auto Chah</div>
         <div class="nav-actions">
-            <!-- تىل تاللاش (تۈركىستان بايرىقى قوشۇلدى) -->
+            <!-- تىل تاللاش (شەرقىي تۈركىستان كۆك بايرىقى شەكلىدە) -->
             <select class="lang-select" id="lang-selector" onchange="changeLanguage(this.value)">
-                <option value="ug">☪️ Uyghur</option>
+                <option value="ug">🇹🇼 Uyghur (تۈركىستان)</option>
                 <option value="ar">🇸🇦 العربية</option>
                 <option value="en">🇬🇧 English</option>
                 <option value="uz">🇺🇿 O'zbek</option>
             </select>
-            <!-- تېما ئالماشتۇرۇش -->
             <button class="badge-btn" onclick="toggleTheme()" data-i18n="theme_btn">تېما</button>
         </div>
     </header>
 
-    <!-- تېلېگرامما ئالاقە توپچىسى -->
     <a href="https://t.me/nasrulla0996" target="_blank" class="floating-telegram">✈️</a>
 
     <div class="container">
@@ -314,20 +311,28 @@
             </div>
         </div>
 
-        <!-- 3. پۇل قاچىلاش -->
+        <!-- 3. پۇل قاچىلاش ۋە تۆلەش -->
         <div id="topup-section" class="page-view">
             <div class="section-title" data-i18n="topup_title">قالدۇق تولۇقلاش (Top-up)</div>
             <div class="card" style="text-align: center;">
-                <p style="font-weight: 600; margin-bottom: 15px;"><span data-i18n="current_balance">نۆۋەتتىكى قالدىقىڭىز:</span> <span style="color: #10B981;">0.00$</span></p>
+                <p style="font-weight: 600; margin-bottom: 15px;"><span data-i18n="current_balance">نۆۋەتتىكى قالدىقىڭىز:</span> <span style="color: #10B981;" id="user-balance-display">0.00$</span></p>
                 <div class="input-group">
                     <label data-i18n="amount_label">پۇل سوممىسى ($)</label>
                     <input type="number" id="topup-amount" placeholder="10">
+                </div>
+                <div class="input-group">
+                    <label data-i18n="payment_method">تۆلەش ئۇسۇلى</label>
+                    <select id="payment-gateway">
+                        <option value="USDT / Crypto">USDT / Crypto</option>
+                        <option value="Syriatel / Sham Cash">Syriatel / Sham Cash</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
+                    </select>
                 </div>
                 <button class="btn-main" onclick="sendTopupRequest()" data-i18n="topup_btn">تولۇقلاش تەلىپى ئەۋەتىش</button>
             </div>
         </div>
 
-        <!-- 4. ھېساباتىم -->
+        <!-- 4. ھېساباتىم ۋە Admin تۈرى -->
         <div id="account-section" class="page-view">
             <div class="section-title" data-i18n="account_title">ئابونت ھېساباتى</div>
             <div id="auth-box" class="card">
@@ -357,10 +362,18 @@
                 </div>
                 <p style="text-align: center; font-size: 13px; margin-top: 15px; color: var(--text-dim); cursor: pointer;" onclick="toggleAuthMode()" id="auth-toggle-text">ھېساباتىڭىز بارمۇ؟ كىرىش</p>
             </div>
+
+            <!-- ئەگەر كىرگەن بولسا -->
             <div id="user-profile" class="card" style="display: none; text-align: center;">
                 <h3 style="margin-bottom: 5px;" data-i18n="welcome_msg">خۇش كەپسىز!</h3>
-                <p id="user-email-display" style="color: var(--text-dim); font-size: 14px; margin-bottom: 20px;"></p>
-                <button class="btn-main" style="background: #ef4444;" onclick="logoutUser()" data-i18n="logout_btn">ھېساباتتىن چىقىش</button>
+                <p id="user-email-display" style="color: var(--text-dim); font-size: 14px; margin-bottom: 10px;"></p>
+                
+                <div id="admin-panel" style="display: none; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                    <h4 style="color: var(--primary); margin-bottom: 10px;">⚙️ Admin Panel (باشقۇرغۇچى)</h4>
+                    <div id="admin-orders-list" style="max-height: 200px; overflow-y: auto; text-align: right; font-size: 12px;"></div>
+                </div>
+
+                <button class="btn-main" style="background: #ef4444; margin-top: 15px;" onclick="logoutUser()" data-i18n="logout_btn">ھېساباتتىن چىقىش</button>
             </div>
         </div>
     </div>
@@ -382,11 +395,14 @@
                     <option value="660 UC - 10.00$">660 UC (10.00$)</option>
                 </select>
             </div>
+            <div class="input-group">
+                <label data-i18n="promo_label">چېگىشلىك كود (Promo Code)</label>
+                <input type="text" id="promo-code" placeholder="NASRULLA">
+            </div>
             <button class="btn-main" onclick="confirmPurchase()" data-i18n="confirm_btn">زاكازنى جەزملەش</button>
         </div>
     </div>
 
-    <!-- تۆۋەندىكى مەنىيۇ -->
     <nav class="bottom-nav">
         <button class="nav-item active" onclick="switchPage('home', this)">🏠<br><span data-i18n="nav_home">باش بەت</span></button>
         <button class="nav-item" onclick="switchPage('orders', this)">📋<br><span data-i18n="nav_orders">تەلەپلىرىم</span></button>
@@ -405,6 +421,7 @@
                 topup_title: "قالدۇق تولۇقلاش (Top-up)",
                 current_balance: "نۆۋەتتىكى قالدىقىڭىز:",
                 amount_label: "پۇل سوممىسى ($)",
+                payment_method: "تۆلەش ئۇسۇلى",
                 topup_btn: "تولۇقلاش تەلىپى ئەۋەتىش",
                 account_title: "ئابونت ھېساباتى",
                 register_heading: "يېڭى ھېسابات ئېچىش",
@@ -417,6 +434,7 @@
                 logout_btn: "ھېساباتتىن چىقىش",
                 player_id_label: "ئويۇن كىملىكى (Player ID)",
                 package_label: "مەھسۇلاتنى تاللاڭ",
+                promo_label: "چېگىشلىك كود (Promo Code)",
                 confirm_btn: "زاكازنى جەزملەش",
                 nav_home: "باش بەت",
                 nav_orders: "تەلەپلىرىم",
@@ -434,6 +452,7 @@
                 topup_title: "شحن الرصيد",
                 current_balance: "رصيدك الحالي:",
                 amount_label: "مبلغ الشحن ($)",
+                payment_method: "طريقة الدفع",
                 topup_btn: "إرسال طلب الشحن",
                 account_title: "حساب المستخدم",
                 register_heading: "إنشاء حساب جديد",
@@ -446,6 +465,7 @@
                 logout_btn: "تسجيل الخروج",
                 player_id_label: "آيدي اللاعب (Player ID)",
                 package_label: "اختر الباقة",
+                promo_label: "كود الخصم (Promo Code)",
                 confirm_btn: "تأكيد الطلب",
                 nav_home: "الرئيسية",
                 nav_orders: "طلباتي",
@@ -463,6 +483,7 @@
                 topup_title: "Top-up Balance",
                 current_balance: "Current Balance:",
                 amount_label: "Amount ($)",
+                payment_method: "Payment Method",
                 topup_btn: "Send Top-up Request",
                 account_title: "User Account",
                 register_heading: "Create New Account",
@@ -475,6 +496,7 @@
                 logout_btn: "Logout",
                 player_id_label: "Player ID",
                 package_label: "Select Package",
+                promo_label: "Promo Code",
                 confirm_btn: "Confirm Order",
                 nav_home: "Home",
                 nav_orders: "Orders",
@@ -486,12 +508,12 @@
             uz: {
                 theme_btn: "Mavzu",
                 services_title: "O'yinlar va xizmatlar",
-                telegram_service: "Telegram",
                 orders_title: "Buyurtmalar tarixi",
                 no_orders: "Buyurtmalar topilmadi.",
                 topup_title: "Balansni to'ldirish",
                 current_balance: "Joriy balans:",
                 amount_label: "Miqdor ($)",
+                payment_method: "To'lov usuli",
                 topup_btn: "To'ldirish so'rovini yuborish",
                 account_title: "Foydalanuvchi hisobi",
                 register_heading: "Yangi hisob ochish",
@@ -504,6 +526,7 @@
                 logout_btn: "Chiqish",
                 player_id_label: "O'yin ID raqami (Player ID)",
                 package_label: "Paketni tanlang",
+                promo_label: "Promo kod",
                 confirm_btn: "Buyurtmani tasdiqlash",
                 nav_home: "Bosh sahifa",
                 nav_orders: "Buyurtmalarim",
@@ -517,21 +540,18 @@
         function changeLanguage(lang) {
             localStorage.setItem('selected_lang', lang);
             document.getElementById('lang-selector').value = lang;
-            
             const htmlRoot = document.getElementById('html-root');
             if (lang === 'en' || lang === 'uz') {
                 htmlRoot.setAttribute('dir', 'ltr');
             } else {
                 htmlRoot.setAttribute('dir', 'rtl');
             }
-
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang][key]) {
                     el.textContent = translations[lang][key];
                 }
             });
-
             updateAuthToggleText(lang);
         }
 
@@ -559,6 +579,7 @@
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             element.classList.add('active');
             if(pageName === 'orders') loadOrders();
+            if(pageName === 'account') checkLogin();
         }
 
         function toggleTheme() {
@@ -586,77 +607,137 @@
         function confirmPurchase() {
             const playerId = document.getElementById('player-id').value;
             const packageVal = document.getElementById('product-package').value;
-            const currentLang = localStorage.getItem('selected_lang') || 'ug';
+            const promo = document.getElementById('promo-code').value.trim();
+            
             if(!playerId) {
-                alert(currentLang === 'ar' ? 'يرجى إدخال آيدي اللاعب' : (currentLang === 'en' ? 'Please enter Player ID' : (currentLang === 'uz' ? 'O\'yin ID raqamini kiriting' : 'ئويۇن ID نى كىرگۈزۈڭ')));
+                alert('Player ID كىرگۈزۈڭ!');
                 return;
             }
+
+            let discountMsg = '';
+            if(promo === 'NASRULLA' || promo === 'VIP') {
+                discountMsg = ' (Promo Code قوللىنىلدى: 10% چېگىش!)';
+            }
+
             let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-            orders.push({game: selectedGameName, id: playerId, pkg: packageVal, status: 'Pending', date: new Date().toLocaleDateString()});
+            orders.push({id: Date.now(), game: selectedGameName, playerId: playerId, pkg: packageVal + discountMsg, status: 'كۈتۈلۈۋاتىدۇ (Pending)', date: new Date().toLocaleDateString()});
             localStorage.setItem('user_orders', JSON.stringify(orders));
-            alert(currentLang === 'ar' ? 'تم إرسال الطلب بنجاح!' : (currentLang === 'en' ? 'Order sent successfully!' : (currentLang === 'uz' ? 'Buyurtma muvaffaqiyatli yuborildi!' : 'زاكاز مۇۋەپپەقىيەتلىك ئەۋەتىلدى!')));
+            
+            alert('زاكاز مۇۋەپپەقىيەتلىك ئەۋەتىلدى!');
             closeModal();
             document.getElementById('player-id').value = '';
+            document.getElementById('promo-code').value = '';
         }
 
         function sendTopupRequest() {
             const amount = document.getElementById('topup-amount').value;
-            const currentLang = localStorage.getItem('selected_lang') || 'ug';
+            const gateway = document.getElementById('payment-gateway').value;
             if(!amount) {
-                alert(currentLang === 'ar' ? 'أدخل المبلغ!' : (currentLang === 'en' ? 'Enter amount!' : (currentLang === 'uz' ? 'Miqdorni kiriting!' : 'پۇل سوممىسىنى كىرگۈزۈڭ!')));
+                alert('پۇل سوممىسىنى كىرگۈزۈڭ!');
                 return;
             }
             let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-            orders.push({game: 'Top-up', id: '-', pkg: amount + '$', status: 'Pending', date: new Date().toLocaleDateString()});
+            orders.push({id: Date.now(), game: 'قالدۇق تولۇقلاش (' + gateway + ')', playerId: '-', pkg: amount + '$', status: 'تەكشۈرۈلۈۋاتىدۇ', date: new Date().toLocaleDateString()});
             localStorage.setItem('user_orders', JSON.stringify(orders));
-            alert(currentLang === 'ar' ? 'تم إرسال طلب الشحن!' : (currentLang === 'en' ? 'Top-up request sent!' : (currentLang === 'uz' ? 'To\'ldirish so\'rovi yuborildi!' : 'تولۇقلاش تەلىپى ئەۋەتىلدى!')));
+            
+            alert('تولۇقلاش تەلىپى ئەۋەتىلدى! Admin تەستىقلىشىنى كۈتۈڭ.');
             document.getElementById('topup-amount').value = '';
         }
 
         function loadOrders() {
             const listEl = document.getElementById('orders-list');
             let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-            const currentLang = localStorage.getItem('selected_lang') || 'ug';
             if(orders.length === 0) {
-                listEl.innerHTML = `<p style="color: var(--text-dim); text-align: center;">${translations[currentLang]['no_orders']}</p>`;
+                listEl.innerHTML = '<p style="color: var(--text-dim); text-align: center;">ھېچقانداق زاكاز خاتىرىسى يوق.</p>';
                 return;
             }
             let html = '';
             orders.forEach(o => {
                 html += `<div style="border-bottom: 1px solid var(--border-color); padding: 10px 0; font-size: 13px;">
                     <strong>${o.game}</strong> - ${o.pkg}<br>
-                    <span style="color: var(--text-dim);">ID: ${o.id} | Status: <span style="color: #f59e0b;">${o.status}</span></span>
+                    <span style="color: var(--text-dim);">ID: ${o.playerId} | ھالىتى: <span style="color: #f59e0b;">${o.status}</span></span>
                 </div>`;
             });
             listEl.innerHTML = html;
         }
 
+        function loadAdminOrders() {
+            const adminList = document.getElementById('admin-orders-list');
+            let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
+            if(orders.length === 0) {
+                adminList.innerHTML = '<p>زاكازلار يوق.</p>';
+                return;
+            }
+            let html = '';
+            orders.forEach((o) => {
+                html += `<div style="border-bottom: 1px solid var(--border-color); padding: 5px 0;">
+                    <b>${o.game}</b> (${o.pkg})<br>ID: ${o.playerId} | Status: <b>${o.status}</b><br>
+                    <button onclick="approveOrder(${o.id})" style="background:#10B981; color:white; border:none; padding:2px 6px; border-radius:4px; cursor:pointer;">تەستىقلاش</button>
+                </div>`;
+            });
+            adminList.innerHTML = html;
+        }
+
+        function approveOrder(orderId) {
+            let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
+            orders = orders.map(o => {
+                if(o.id === orderId) {
+                    o.status = 'مۇۋەپپەقىيەتلىك (Approved)';
+                    if(o.game.includes('قالدۇق تولۇقلاش')) {
+                        let currentBal = parseFloat(localStorage.getItem('user_balance') || '0');
+                        let addedVal = parseFloat(o.pkg);
+                        localStorage.setItem('user_balance', (currentBal + addedVal).toFixed(2));
+                    }
+                }
+                return o;
+            });
+            localStorage.setItem('user_orders', JSON.stringify(orders));
+            loadAdminOrders();
+            updateBalanceDisplay();
+            alert('زاكاز تەستىقلەندى!');
+        }
+
+        function updateBalanceDisplay() {
+            let bal = localStorage.getItem('user_balance') || '0.00';
+            document.getElementById('user-balance-display').textContent = bal + '$';
+        }
+
         function registerUser() {
             const email = document.getElementById('reg-email').value;
             const pass = document.getElementById('reg-password').value;
-            const currentLang = localStorage.getItem('selected_lang') || 'ug';
-            if(!email || !pass) { alert(currentLang === 'ar' ? 'املأ الحقول!' : 'بارلىق بوشلۇقلارنى تولدۇرۇڭ!'); return; }
+            if(!email || !pass) { alert('بارلىق بوشلۇقلارنى تولدۇرۇڭ!'); return; }
             localStorage.setItem('s_email', email);
             localStorage.setItem('s_pass', pass);
-            alert(currentLang === 'ar' ? 'تم التسجيل بنجاح!' : 'مۇۋەپپەقىيەتلىك تىزىملىتىلدى!');
+            alert('مۇۋەپپەقىيەتلىك تىزىملىتىلدى!');
             checkLogin();
         }
 
         function loginUser() {
             const email = document.getElementById('log-email').value;
             const pass = document.getElementById('log-password').value;
-            const currentLang = localStorage.getItem('selected_lang') || 'ug';
+            
+            if(email === 'admin@autochah.com' && pass === 'admin123') {
+                localStorage.setItem('is_admin', 'true');
+                localStorage.setItem('is_logged', 'true');
+                localStorage.setItem('s_email', email);
+                alert('Admin سۈپىتىدە كىردىڭىز!');
+                checkLogin();
+                return;
+            }
+
             if(email === localStorage.getItem('s_email') && pass === localStorage.getItem('s_pass')) {
                 localStorage.setItem('is_logged', 'true');
-                alert(currentLang === 'ar' ? 'تم تسجيل الدخول!' : 'مۇۋەپپەقىيەتلىك كىردىڭىز!');
+                localStorage.removeItem('is_admin');
+                alert('مۇۋەپپەقىيەتلىك كىردىڭىز!');
                 checkLogin();
             } else {
-                alert(currentLang === 'ar' ? 'خطأ في البريد أو كلمة المرور!' : 'Gmail ياكى مەخپىي نومۇر خاتا!');
+                alert('Gmail ياكى مەخپىي نومۇر خاتا!');
             }
         }
 
         function logoutUser() {
             localStorage.removeItem('is_logged');
+            localStorage.removeItem('is_admin');
             checkLogin();
         }
 
@@ -665,6 +746,13 @@
                 document.getElementById('auth-box').style.display = 'none';
                 document.getElementById('user-profile').style.display = 'block';
                 document.getElementById('user-email-display').textContent = localStorage.getItem('s_email');
+                
+                if(localStorage.getItem('is_admin') === 'true') {
+                    document.getElementById('admin-panel').style.display = 'block';
+                    loadAdminOrders();
+                } else {
+                    document.getElementById('admin-panel').style.display = 'none';
+                }
             } else {
                 document.getElementById('auth-box').style.display = 'block';
                 document.getElementById('user-profile').style.display = 'none';
@@ -678,6 +766,7 @@
             const savedLang = localStorage.getItem('selected_lang') || 'ug';
             changeLanguage(savedLang);
             checkLogin();
+            updateBalanceDisplay();
         }
     </script>
 </body>
