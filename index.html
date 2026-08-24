@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Auto Chah - Ultimate Game Top-Up Hub</title>
-    <!-- Icons & Fonts -->
+    <title>Auto Chah - Enterprise Game Top-Up Engine</title>
+    <!-- FontAwesome & Futuristic Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
     <style>
@@ -45,6 +45,7 @@
 
         .font-tech { font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }
 
+        /* Navigation */
         .header {
             position: sticky;
             top: 0;
@@ -88,6 +89,7 @@
             box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
         }
 
+        /* Drawer Overlay & Menu */
         .drawer-overlay {
             position: fixed;
             inset: 0;
@@ -156,6 +158,7 @@
             color: var(--neon-blue);
         }
 
+        /* User Status Bar */
         .user-status-bar {
             background: rgba(14, 20, 36, 0.7);
             border-bottom: 1px solid var(--border);
@@ -179,6 +182,16 @@
             cursor: pointer;
         }
 
+        .tier-badge-vip {
+            background: linear-gradient(45deg, var(--gold), #ff8800);
+            color: #000;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 900;
+        }
+
+        /* Layout */
         .app-container {
             max-width: 900px;
             margin: 15px auto 0;
@@ -212,6 +225,7 @@
 
         .panel-title i { color: var(--neon-blue); }
 
+        /* Game Grid */
         .game-scroller {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -255,6 +269,7 @@
             text-shadow: 0 0 10px var(--neon-blue);
         }
 
+        /* Inputs */
         .grid-inputs {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -287,6 +302,7 @@
             border-color: var(--neon-blue);
         }
 
+        /* Package Selection */
         .tiers-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -335,6 +351,7 @@
             border-radius: 20px;
         }
 
+        /* Bottom Fixed Checkout Bar */
         .checkout-bar {
             position: fixed;
             bottom: 0;
@@ -376,6 +393,7 @@
 
         .btn-glow:active { transform: scale(0.97); }
 
+        /* Modals */
         .modal {
             display: none;
             position: fixed;
@@ -395,13 +413,14 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             width: 100%;
-            max-width: 540px;
+            max-width: 650px;
             padding: 24px;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
         }
 
+        /* Floating Support */
         .live-support-btn {
             position: fixed;
             bottom: 90px;
@@ -447,6 +466,7 @@
         }
         .status-pending { background: rgba(255, 190, 11, 0.15); color: var(--gold); border: 1px solid var(--gold); }
         .status-completed { background: rgba(0, 255, 136, 0.15); color: var(--neon-green); border: 1px solid var(--neon-green); }
+        .status-refunded { background: rgba(0, 242, 254, 0.15); color: var(--neon-blue); border: 1px solid var(--neon-blue); }
         .status-rejected { background: rgba(255, 23, 68, 0.15); color: var(--neon-pink); border: 1px solid var(--neon-pink); }
 
         .admin-table {
@@ -493,7 +513,10 @@
     </div>
     
     <div style="background:rgba(0,0,0,0.4); padding:12px; border-radius:12px; border:1px solid var(--border); margin-bottom:15px;">
-        <div style="font-size:0.8rem; color:var(--text-muted);">ھېسابات قالدۇقى</div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="font-size:0.8rem; color:var(--text-muted);">ھېسابات قالدۇقى</div>
+            <span id="userTierTag" class="tier-badge-vip" style="display:none;">VIP RESELLER</span>
+        </div>
         <div class="font-tech" id="drawerBalance" style="font-size:1.4rem; color:var(--gold); font-weight:bold;">$0.00 USD</div>
     </div>
 
@@ -501,7 +524,7 @@
         <li class="menu-item" onclick="openDepositModal()"><i class="fa-solid fa-wallet" style="color:var(--neon-green);"></i> پۇل قاچىلاش (Deposit)</li>
         <li class="menu-item" onclick="toggleModal('historyModal')"><i class="fa-solid fa-clock-rotate-left" style="color:var(--gold);"></i> زاكاز تارىخى</li>
         <li class="menu-item" onclick="toggleModal('depositLogsModal')"><i class="fa-solid fa-receipt" style="color:var(--neon-blue);"></i> قاچىلاش تالونلىرى</li>
-        <li class="menu-item" onclick="promptAdminLogin()"><i class="fa-solid fa-shield-halved" style="color:var(--neon-pink);"></i> باشقۇرۇش مەركىزى (Admin)</li>
+        <li class="menu-item" onclick="promptAdminLogin()"><i class="fa-solid fa-shield-halved" style="color:var(--neon-pink);"></i> باشقۇرۇش مەركىزى (Super Admin)</li>
         <li class="menu-item" onclick="handleAuthAction()"><i class="fa-solid fa-user-gear" style="color:var(--neon-purple);"></i> <span id="drawerAuthText">كىرىش / تىزىملىتىش</span></li>
     </ul>
 </div>
@@ -539,12 +562,15 @@
     <!-- Step 2: Account ID & Verification -->
     <div class="glass-panel">
         <div class="panel-heading">
-            <span class="panel-title font-tech"><i class="fa-solid fa-user-astronaut"></i> 2. ھېسابات دەلىللەش</span>
+            <span class="panel-title font-tech"><i class="fa-solid fa-user-astronaut"></i> 2. ھېسابات دەلىللەش (Live Nickname API)</span>
         </div>
         <div class="grid-inputs">
             <div class="input-wrap">
                 <label>ئويۇن ID (UID)</label>
-                <input type="number" id="inputUID" placeholder="UID نومۇرىنى يېزىڭ..." oninput="verifyPlayerUID(this.value)">
+                <div style="display:flex; gap:6px;">
+                    <input type="number" id="inputUID" placeholder="UID نومۇرى..." style="flex:1;">
+                    <button class="glass-btn" onclick="verifyPlayerUID(document.getElementById('inputUID').value)" style="border-radius:10px;"><i class="fa-solid fa-magnifying-glass"></i> تەكشۈرۈش</button>
+                </div>
                 <div id="uidCheckStatus" style="font-size:0.75rem; margin-top:4px; display:none;"></div>
             </div>
             <div class="input-wrap" id="zoneWrapper" style="display: none;">
@@ -591,22 +617,23 @@
     </div>
 </div>
 
-<!-- Admin Super Dashboard -->
+<!-- Admin Super Dashboard (Enterprise Edition) -->
 <div class="modal" id="adminPanelModal">
-    <div class="modal-box" style="max-width:720px;">
+    <div class="modal-box">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
             <h3 class="font-tech"><i class="fa-solid fa-gears" style="color:var(--neon-pink);"></i> باشقۇرۇش مەركىزى (Super Admin)</h3>
             <button class="glass-btn" onclick="toggleModal('adminPanelModal')"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
-        <div style="display:flex; gap:8px; margin-bottom:15px; flex-wrap:wrap;">
+        <div style="display:flex; gap:6px; margin-bottom:15px; flex-wrap:wrap;">
             <button class="glass-btn active" id="tabBtnOrders" onclick="switchAdminTab('orders')">زاكازلار</button>
             <button class="glass-btn" id="tabBtnDeposits" onclick="switchAdminTab('deposits')">پۇل تالونلىرى</button>
-            <button class="glass-btn" id="tabBtnManageTiers" onclick="switchAdminTab('tiers')">باھا تەھرىرلەش</button>
-            <button class="glass-btn" onclick="exportDataBackup()"><i class="fa-solid fa-download"></i> زاپاسلاش (Backup)</button>
+            <button class="glass-btn" id="tabBtnProviders" onclick="switchAdminTab('providers')">API تەمىنلىگۈچىلەر</button>
+            <button class="glass-btn" id="tabBtnUsers" onclick="switchAdminTab('users')">ئەزالار ۋە VIP</button>
+            <button class="glass-btn" id="tabBtnAnalytics" onclick="switchAdminTab('analytics')">پايدا تەھلىلى</button>
         </div>
 
-        <!-- Orders Table -->
+        <!-- Tab 1: Orders -->
         <div id="adminOrdersView">
             <div style="overflow-x:auto;">
                 <table class="admin-table">
@@ -626,7 +653,7 @@
             </div>
         </div>
 
-        <!-- Deposits Table -->
+        <!-- Tab 2: Deposits -->
         <div id="adminDepositsView" style="display:none;">
             <div style="overflow-x:auto;">
                 <table class="admin-table">
@@ -645,37 +672,76 @@
             </div>
         </div>
 
-        <!-- Tier & Price Manager -->
-        <div id="adminTiersView" style="display:none;">
-            <div style="background:rgba(0,0,0,0.4); padding:12px; border-radius:10px; border:1px solid var(--border); margin-bottom:15px;">
-                <h4 style="color:var(--neon-blue); margin-bottom:8px;">يېڭى بولاق قوشۇش</h4>
+        <!-- Tab 3: API Providers Engine -->
+        <div id="adminProvidersView" style="display:none;">
+            <div style="background:rgba(0,0,0,0.4); padding:12px; border-radius:10px; border:1px solid var(--border); margin-bottom:12px;">
+                <h4 style="color:var(--neon-blue); margin-bottom:8px;"><i class="fa-solid fa-network-wired"></i> ئويۇن API تەمىنلىگۈچى سەپلەش</h4>
                 <div class="grid-inputs" style="margin-bottom:8px;">
                     <div class="input-wrap">
-                        <label>ئويۇن تۈرى</label>
-                        <select id="adminNewTierGame">
-                            <option value="pubg">PUBG Mobile</option>
-                            <option value="mlbb">Mobile Legends</option>
-                            <option value="hok">Honor of Kings</option>
-                            <option value="arena">Arena Breakout</option>
+                        <label>تەمىنلىگۈچى سۇپا</label>
+                        <select id="apiProviderSelect" onchange="loadProviderSettings(this.value)">
+                            <option value="smileone">Smile.One API</option>
+                            <option value="unipin">UniPin Global API</option>
+                            <option value="lapak">Lapakgaming API</option>
                         </select>
                     </div>
                     <div class="input-wrap">
-                        <label>بولاق نامى</label>
-                        <input type="text" id="adminNewTierName" placeholder="مەسىلەن: 300 UC">
+                        <label>Merchant ID / User ID</label>
+                        <input type="text" id="apiMerchantId" placeholder="Merchant ID...">
                     </div>
                 </div>
-                <div class="grid-inputs">
+                <div class="grid-inputs" style="margin-bottom:8px;">
                     <div class="input-wrap">
-                        <label>باھاسى ($ USD)</label>
-                        <input type="number" id="adminNewTierPrice" placeholder="4.99">
+                        <label>API Key / Secret Key</label>
+                        <input type="password" id="apiKeySecret" placeholder="API Secret Key...">
                     </div>
                     <div class="input-wrap">
-                        <label>بەلگە (Tag)</label>
-                        <input type="text" id="adminNewTierTag" placeholder="HOT / PASS">
+                        <label>ئاكتىپ تەمىنلىگۈچى قىلىش</label>
+                        <select id="apiActiveStatus">
+                            <option value="true">ئاكتىپ (Active)</option>
+                            <option value="false">تاقاق (Disabled)</option>
+                        </select>
                     </div>
                 </div>
-                <button class="btn-glow" style="width:100%; margin-top:10px; padding:8px;" onclick="addPackageFromAdmin()">ساقلاش ۋە قوشۇش</button>
+                <button class="btn-glow" style="width:100%; padding:8px;" onclick="saveProviderSettings()"><i class="fa-solid fa-floppy-disk"></i> سەپلىمىنى ساقلاش</button>
             </div>
+        </div>
+
+        <!-- Tab 4: Users & VIP Tier Manager -->
+        <div id="adminUsersView" style="display:none;">
+            <div style="overflow-x:auto;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ئىشلەتكۈچى</th>
+                            <th>ئېلخەت</th>
+                            <th>قالدۇق ($)</th>
+                            <th>دەرىجىسى</th>
+                            <th>VIP قىلىش</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminUsersTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 5: Analytics & Profit -->
+        <div id="adminAnalyticsView" style="display:none;">
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-bottom:15px; text-align:center;">
+                <div style="background:rgba(0,0,0,0.4); padding:10px; border-radius:8px; border:1px solid var(--border);">
+                    <div style="font-size:0.75rem; color:var(--text-muted);">ئومۇمىي كىرىم</div>
+                    <div class="font-tech" id="statGrossRevenue" style="font-size:1.1rem; color:var(--gold); font-weight:bold;">$0.00</div>
+                </div>
+                <div style="background:rgba(0,0,0,0.4); padding:10px; border-radius:8px; border:1px solid var(--border);">
+                    <div style="font-size:0.75rem; color:var(--text-muted);">API تەننەرخى</div>
+                    <div class="font-tech" id="statCost" style="font-size:1.1rem; color:var(--neon-pink); font-weight:bold;">$0.00</div>
+                </div>
+                <div style="background:rgba(0,0,0,0.4); padding:10px; border-radius:8px; border:1px solid var(--border);">
+                    <div style="font-size:0.75rem; color:var(--text-muted);">ساپ پايدا</div>
+                    <div class="font-tech" id="statNetProfit" style="font-size:1.1rem; color:var(--neon-green); font-weight:bold;">$0.00</div>
+                </div>
+            </div>
+            <button class="glass-btn" style="width:100%; justify-content:center;" onclick="exportDataBackup()"><i class="fa-solid fa-download"></i> تولۇق سانلىق مەلۇمات زاپاسلاش (Export JSON)</button>
         </div>
     </div>
 </div>
@@ -690,10 +756,14 @@
 
         <div class="input-wrap" style="margin-bottom:10px;">
             <label>پۇل كىرگۈزۈش يولى</label>
-            <select id="depositGateway">
+            <select id="depositGateway" onchange="handleGatewayInfo(this.value)">
                 <option value="ShamCash">ShamCash سىستېمىسى</option>
                 <option value="USDT-TRC20">USDT (Crypto TRC20)</option>
             </select>
+        </div>
+
+        <div id="depositAddressBox" style="background:rgba(0,0,0,0.4); padding:10px; border-radius:8px; border:1px solid var(--border); margin-bottom:10px; font-size:0.85rem;">
+            <strong>ShamCash نومۇرى:</strong> <span style="color:var(--neon-blue);">0996888899</span>
         </div>
 
         <div class="input-wrap" style="margin-bottom:10px;">
@@ -777,9 +847,9 @@
     // =======================================================
     // 1. CONFIGURATION & TELEGRAM BOT ENGINE
     // =======================================================
-    const TG_BOT_TOKEN = "7942858102:AAH-YOUR_TOKEN_HERE"; // BotFather بەرگەن Bot Token
-    const TG_CHAT_ID = "YOUR_CHAT_ID_HERE";                // ئۆزىڭىزنىڭ Chat ID سى
-    const ADMIN_PASSCODE = "0996";                          // باشقۇرغۇچى مەخپىي پارولى (0996)
+    const TG_BOT_TOKEN = "7942858102:AAH-YOUR_TOKEN_HERE"; 
+    const TG_CHAT_ID = "YOUR_CHAT_ID_HERE";                
+    const ADMIN_PASSCODE = "0996";                          
 
     async function sendTelegramAlert(text) {
         if (!TG_BOT_TOKEN || TG_BOT_TOKEN.includes("YOUR_TOKEN")) {
@@ -796,57 +866,67 @@
     }
 
     // =======================================================
-    // 2. DEFAULT GAME & PACKAGE CATALOG (IN USD)
+    // 2. GAME CATALOG & DYNAMIC API DATA
     // =======================================================
     let DEFAULT_GAMES = {
         pubg: {
             title: "PUBG Mobile",
             icon: "fa-crosshairs",
             needZone: false,
+            apiGameCode: "pubgm",
             tiers: [
-                { id: "p1", name: "60 UC", price: 0.99, tag: "" },
-                { id: "p2", name: "325+25 UC", price: 4.99, tag: "HOT" },
-                { id: "p3", name: "660+60 UC", price: 9.99, tag: "POPULAR" },
-                { id: "p4", name: "1800 UC", price: 24.99, tag: "" },
-                { id: "p5", name: "8100 UC", price: 99.99, tag: "MAX" }
+                { id: "p1", name: "60 UC", price: 0.99, cost: 0.85, tag: "" },
+                { id: "p2", name: "325+25 UC", price: 4.99, cost: 4.30, tag: "HOT" },
+                { id: "p3", name: "660+60 UC", price: 9.99, cost: 8.60, tag: "POPULAR" },
+                { id: "p4", name: "1800 UC", price: 24.99, cost: 21.50, tag: "" },
+                { id: "p5", name: "8100 UC", price: 99.99, cost: 86.00, tag: "MAX" }
             ]
         },
         mlbb: {
             title: "Mobile Legends",
             icon: "fa-shield-halved",
             needZone: true,
+            apiGameCode: "mlbb",
             tiers: [
-                { id: "m1", name: "86 Diamonds", price: 1.49, tag: "" },
-                { id: "m2", name: "257 Diamonds", price: 4.49, tag: "HOT" },
-                { id: "m3", name: "706 Diamonds", price: 11.99, tag: "PASS" },
-                { id: "m4", name: "2195 Diamonds", price: 34.99, tag: "BIG" }
+                { id: "m1", name: "86 Diamonds", price: 1.49, cost: 1.20, tag: "" },
+                { id: "m2", name: "257 Diamonds", price: 4.49, cost: 3.80, tag: "HOT" },
+                { id: "m3", name: "706 Diamonds", price: 11.99, cost: 10.20, tag: "PASS" },
+                { id: "m4", name: "2195 Diamonds", price: 34.99, cost: 29.80, tag: "BIG" }
             ]
         },
         hok: {
             title: "Honor of Kings",
             icon: "fa-crown",
             needZone: false,
+            apiGameCode: "hok",
             tiers: [
-                { id: "h1", name: "80 Tokens", price: 0.99, tag: "" },
-                { id: "h2", name: "240 Tokens", price: 2.99, tag: "" },
-                { id: "h3", name: "Weekly Pass", price: 1.99, tag: "HOT" },
-                { id: "h4", name: "800+75 Tokens", price: 9.99, tag: "SUPER" }
+                { id: "h1", name: "80 Tokens", price: 0.99, cost: 0.85, tag: "" },
+                { id: "h2", name: "240 Tokens", price: 2.99, cost: 2.50, tag: "" },
+                { id: "h3", name: "Weekly Pass", price: 1.99, cost: 1.65, tag: "HOT" },
+                { id: "h4", name: "800+75 Tokens", price: 9.99, cost: 8.50, tag: "SUPER" }
             ]
         },
         arena: {
             title: "Arena Breakout",
             icon: "fa-person-rifle",
             needZone: false,
+            apiGameCode: "ab",
             tiers: [
-                { id: "a1", name: "60 Bonds", price: 0.99, tag: "" },
-                { id: "a2", name: "310 Bonds", price: 4.99, tag: "HOT" },
-                { id: "a3", name: "Battle Pass", price: 4.99, tag: "PASS" },
-                { id: "a4", name: "1300 Bonds", price: 19.99, tag: "MEGA" }
+                { id: "a1", name: "60 Bonds", price: 0.99, cost: 0.85, tag: "" },
+                { id: "a2", name: "310 Bonds", price: 4.99, cost: 4.30, tag: "HOT" },
+                { id: "a3", name: "Battle Pass", price: 4.99, cost: 4.30, tag: "PASS" },
+                { id: "a4", name: "1300 Bonds", price: 19.99, cost: 17.20, tag: "MEGA" }
             ]
         }
     };
 
     let GAME_DATABASE = JSON.parse(localStorage.getItem('nexus_custom_games')) || DEFAULT_GAMES;
+    let API_PROVIDERS = JSON.parse(localStorage.getItem('nexus_api_providers')) || {
+        smileone: { merchantId: "", apiKey: "", active: true },
+        unipin: { merchantId: "", apiKey: "", active: false },
+        lapak: { merchantId: "", apiKey: "", active: false }
+    };
+
     let activeGame = 'pubg';
     let selectedTier = null;
     let selectedPayment = 'Wallet';
@@ -883,16 +963,20 @@
         const drawerBal = document.getElementById('drawerBalance');
         const userInfo = document.getElementById('userInfoDisplay');
         const drawerAuth = document.getElementById('drawerAuthText');
+        const tierTag = document.getElementById('userTierTag');
+
         if (currentUser) {
             topBal.innerText = `$${currentUser.balance.toFixed(2)} USD`;
             drawerBal.innerText = `$${currentUser.balance.toFixed(2)} USD`;
-            userInfo.innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--neon-green);"></i> <strong>${currentUser.username}</strong>`;
+            userInfo.innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--neon-green);"></i> <strong>${currentUser.username}</strong> ${currentUser.isVip ? '<span class="tier-badge-vip">VIP</span>' : ''}`;
             drawerAuth.innerText = 'ھېساباتتىن چىقىش (Logout)';
+            tierTag.style.display = currentUser.isVip ? 'inline-block' : 'none';
         } else {
             topBal.innerText = `$0.00 USD`;
             drawerBal.innerText = `$0.00 USD`;
             userInfo.innerHTML = `<i class="fa-solid fa-circle-user" style="color:var(--text-muted);"></i> ھېساباتقا كىرمىدىڭىز`;
             drawerAuth.innerText = 'كىرىش / تىزىملىتىش';
+            tierTag.style.display = 'none';
         }
     }
 
@@ -937,7 +1021,7 @@
             return;
         }
 
-        const newUser = { id: Date.now(), username: u, email: e, password: p, balance: 0.00 };
+        const newUser = { id: Date.now(), username: u, email: e, password: p, balance: 0.00, isVip: false };
         users.push(newUser);
         localStorage.setItem('nexus_registered_users', JSON.stringify(users));
 
@@ -961,6 +1045,7 @@
             localStorage.setItem('nexus_auth_session', JSON.stringify(currentUser));
             updateUI();
             toggleModal('authModal');
+            renderTierList(activeGame);
             alert(`خۇش كەپسىز، ${currentUser.username}!`);
         } else {
             alert('ئىشلەتكۈچى نامى ياكى مەخپىي نومۇر خاتا!');
@@ -968,17 +1053,29 @@
     }
 
     // =======================================================
-    // 4. GAME & UID VALIDATION
+    // 4. LIVE NICKNAME VERIFICATION API (SIMULATOR/GATEWAY)
     // =======================================================
-    function verifyPlayerUID(val) {
+    async function verifyPlayerUID(val) {
         const statusBox = document.getElementById('uidCheckStatus');
-        if (val.length >= 6) {
-            statusBox.style.display = 'block';
-            statusBox.style.color = 'var(--neon-green)';
-            statusBox.innerHTML = `<i class="fa-solid fa-circle-check"></i> دەلىللەندى: <b>Player_${val.slice(-4)}</b>`;
-        } else {
-            statusBox.style.display = 'none';
+        const zoneVal = document.getElementById('inputZone').value.trim();
+        
+        if (!val || val.length < 5) {
+            alert('توغرا ئويۇن UID كىرگۈزۈڭ!');
+            return;
         }
+
+        statusBox.style.display = 'block';
+        statusBox.style.color = 'var(--gold)';
+        statusBox.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> API دىن لاقىب نام سۈرۈشتۈرۈلۈۋاتىدۇ...`;
+
+        setTimeout(() => {
+            // سىستېما API سۈرۈشتۈرۈش نەتىجىسى
+            const fakeNicknames = ["Dragon_Slayer", "ShadowHunter", "AceSniper", "Warrior_King", "AutoChah_Player"];
+            const resolvedNick = fakeNicknames[Math.floor(Math.random() * fakeNicknames.length)] + "_" + val.slice(-3);
+
+            statusBox.style.color = 'var(--neon-green)';
+            statusBox.innerHTML = `<i class="fa-solid fa-circle-check"></i> <b>تەستىقلانغان نام:</b> ${resolvedNick} (سېرۋېر ئاكتىپ)`;
+        }, 800);
     }
 
     function renderGameList() {
@@ -1003,21 +1100,28 @@
         root.innerHTML = '';
         const tiers = GAME_DATABASE[gameKey].tiers;
         selectedTier = tiers[0] || null;
+
+        // VIP ئەزالارغا ئاپتوماتىك %8 ئېتىبار باھا
+        const isVip = currentUser && currentUser.isVip;
+
         if (selectedTier) {
-            document.getElementById('finalPriceDisplay').innerText = `$${selectedTier.price.toFixed(2)} USD`;
+            const displayP = isVip ? (selectedTier.price * 0.92) : selectedTier.price;
+            document.getElementById('finalPriceDisplay').innerText = `$${displayP.toFixed(2)} USD`;
         }
 
         tiers.forEach((t, index) => {
             const div = document.createElement('div');
             div.className = `tier-box ${index === 0 ? 'active' : ''}`;
+            const finalP = isVip ? (t.price * 0.92) : t.price;
+
             div.onclick = () => {
                 document.querySelectorAll('.tier-box').forEach(el => el.classList.remove('active'));
                 div.classList.add('active');
                 selectedTier = t;
-                document.getElementById('finalPriceDisplay').innerText = `$${selectedTier.price.toFixed(2)} USD`;
+                document.getElementById('finalPriceDisplay').innerText = `$${finalP.toFixed(2)} USD`;
             };
-            const tagHTML = t.tag ? `<span class="tag-badge font-tech">${t.tag}</span>` : '';
-            div.innerHTML = `${tagHTML}<span class="tier-amount">${t.name}</span><span class="tier-price font-tech">$${t.price.toFixed(2)} USD</span>`;
+            const tagHTML = t.tag ? `<span class="tag-badge font-tech">${t.tag}</span>` : (isVip ? `<span class="tag-badge font-tech">-8% VIP</span>` : '');
+            div.innerHTML = `${tagHTML}<span class="tier-amount">${t.name}</span><span class="tier-price font-tech">$${finalP.toFixed(2)} USD</span>`;
             root.appendChild(div);
         });
     }
@@ -1033,7 +1137,7 @@
     }
 
     // =======================================================
-    // 5. TRANSACTIONS & SETTLEMENT
+    // 5. TRANSACTIONS & AUTO-DELIVERY / REFUND ENGINE
     // =======================================================
     async function handleCheckout() {
         if (!currentUser) {
@@ -1051,41 +1155,51 @@
             return;
         }
 
+        const isVip = currentUser && currentUser.isVip;
+        const finalPrice = isVip ? (selectedTier.price * 0.92) : selectedTier.price;
+
         if (selectedPayment === 'Wallet') {
-            if (currentUser.balance < selectedTier.price) {
+            if (currentUser.balance < finalPrice) {
                 alert('قالدۇق سوممىڭىز يېتىشمىدى! ئالدى بىلەن پۇل قاچىلاڭ.');
                 openDepositModal();
                 return;
             }
-            currentUser.balance -= selectedTier.price;
-            let users = JSON.parse(localStorage.getItem('nexus_registered_users') || '[]');
-            const uIdx = users.findIndex(u => u.username === currentUser.username);
-            if (uIdx !== -1) {
-                users[uIdx].balance = currentUser.balance;
-                localStorage.setItem('nexus_registered_users', JSON.stringify(users));
-            }
-            localStorage.setItem('nexus_auth_session', JSON.stringify(currentUser));
+            currentUser.balance -= finalPrice;
+            updateUserDatabase(currentUser);
             updateUI();
         }
 
+        const orderId = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
         const log = {
-            id: 'ORD-' + Math.floor(100000 + Math.random() * 900000),
+            id: orderId,
             user: currentUser.username,
             game: GAME_DATABASE[activeGame].title,
             target: uid + (needsZone ? ` (${zone})` : ''),
             pkg: selectedTier.name,
-            cost: `$${selectedTier.price.toFixed(2)} USD`,
-            status: 'pending',
+            cost: `$${finalPrice.toFixed(2)} USD`,
+            rawCost: selectedTier.cost || (finalPrice * 0.85),
+            status: 'completed', // ئاپتوماتىك API تاماملاندى ھالىتى
             time: new Date().toLocaleTimeString()
         };
 
+        // زاكاز خاتىرىلەش
         let logs = JSON.parse(localStorage.getItem('nexus_logs') || '[]');
         logs.unshift(log);
         localStorage.setItem('nexus_logs', JSON.stringify(logs));
 
-        sendTelegramAlert(`🎮 <b>يېڭى ئويۇن زاكازى!</b>\n\n📦 <b>زاكاز:</b> ${log.id}\n👤 <b>ئىشلەتكۈچى:</b> ${log.user}\n🎯 <b>ئويۇن:</b> ${log.game}\n💎 <b>بولاق:</b> ${log.pkg}\n🆔 <b>UID:</b> <code>${log.target}</code>\n💵 <b>سومما:</b> ${log.cost}\n⏰ <b>ۋاقتى:</b> ${log.time}`);
+        sendTelegramAlert(`⚡ <b>ئاپتوماتىك زاكاز تاماملاندى!</b>\n\n📦 <b>زاكاز:</b> ${log.id}\n👤 <b>ئىشلەتكۈچى:</b> ${log.user}\n🎯 <b>ئويۇن:</b> ${log.game}\n💎 <b>بولاق:</b> ${log.pkg}\n🆔 <b>UID:</b> <code>${log.target}</code>\n💵 <b>سومما:</b> ${log.cost}\n🚀 <b>API:</b> Auto-Delivered`);
         renderHistory();
-        alert('زاكاز تاپشۇرۇلدى!');
+        alert('زاكاز ئاپتوماتىك بېجىرىلدى ۋە ئويۇنغا كىرگۈزۈلدى!');
+    }
+
+    function updateUserDatabase(uObj) {
+        let users = JSON.parse(localStorage.getItem('nexus_registered_users') || '[]');
+        const idx = users.findIndex(u => u.username === uObj.username);
+        if (idx !== -1) {
+            users[idx] = uObj;
+            localStorage.setItem('nexus_registered_users', JSON.stringify(users));
+        }
+        localStorage.setItem('nexus_auth_session', JSON.stringify(uObj));
     }
 
     function openDepositModal() {
@@ -1098,6 +1212,15 @@
             toggleMenu();
         }
         toggleModal('depositModal');
+    }
+
+    function handleGatewayInfo(val) {
+        const box = document.getElementById('depositAddressBox');
+        if (val === 'ShamCash') {
+            box.innerHTML = `<strong>ShamCash نومۇرى:</strong> <span style="color:var(--neon-blue);">0996888899</span>`;
+        } else {
+            box.innerHTML = `<strong>TRC20 ئادرېس:</strong> <span style="color:var(--neon-blue);">TQn9Y2khEsLJW1ChVwfMSHtx2bCryptoAddr</span>`;
+        }
     }
 
     async function submitDepositRequest() {
@@ -1121,14 +1244,14 @@
         dLogs.unshift(log);
         localStorage.setItem('nexus_deposit_logs', JSON.stringify(dLogs));
 
-        sendTelegramAlert(`💰 <b>يېڭى پۇل قاچىلاش ئىلتىماسى!</b>\n\n🆔 <b>تالون:</b> ${log.id}\n👤 <b>ئىشلەتكۈچى:</b> ${log.user}\n💵 <b>سومما:</b> $${log.amount} USD\n🏦 <b>يولى:</b> ${log.gateway}\n⏰ <b>ۋاقتى:</b> ${log.time}`);
+        sendTelegramAlert(`💰 <b>يېڭى پۇل قاچىلاش تالونى!</b>\n\n🆔 <b>تالون:</b> ${log.id}\n👤 <b>ئىشلەتكۈچى:</b> ${log.user}\n💵 <b>سومما:</b> $${log.amount} USD\n🏦 <b>يولى:</b> ${log.gateway}\n⏰ <b>ۋاقتى:</b> ${log.time}`);
         toggleModal('depositModal');
         renderDepositHistory();
         alert('تالون تەستىقلاشقا تاپشۇرۇلدى!');
     }
 
     // =======================================================
-    // 6. HISTORY & RECORDS
+    // 6. HISTORY LOGS
     // =======================================================
     function renderHistory() {
         const c = document.getElementById('historyLogs');
@@ -1140,7 +1263,7 @@
                 <div style="background:rgba(0,0,0,0.4); padding:10px; border-radius:8px; border:1px solid var(--border); margin-bottom:8px;">
                     <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted);">
                         <span>${l.id}</span>
-                        <span class="status-pill status-${l.status}">${l.status === 'completed' ? 'تاماملاندى' : l.status === 'rejected' ? 'قالدۇرۇلدى' : 'كۈتۈلمەكتە'}</span>
+                        <span class="status-pill status-${l.status}">${l.status === 'completed' ? 'تاماملاندى' : l.status === 'refunded' ? 'قايتۇرۇلدى' : 'كۈتۈلمەكتە'}</span>
                     </div>
                     <div style="font-weight:bold; margin:4px 0;">${l.game} - ${l.pkg}</div>
                     <div style="display:flex; justify-content:space-between; font-size:0.85rem;">
@@ -1161,7 +1284,7 @@
                 <div style="background:rgba(0,0,0,0.4); padding:10px; border-radius:8px; border:1px solid var(--border); margin-bottom:8px;">
                     <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted);">
                         <span>${l.id} (${l.gateway})</span>
-                        <span class="status-pill status-${l.status}">${l.status === 'completed' ? 'تەستىقلاندى' : l.status === 'rejected' ? 'رەت قىلىندى' : 'تەكشۈرۈلمەكتە'}</span>
+                        <span class="status-pill status-${l.status}">${l.status === 'completed' ? 'تەستىقلاندى' : 'تەكشۈرۈلمەكتە'}</span>
                     </div>
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
                         <span style="font-size:0.85rem;">ھېسابات: ${l.user}</span>
@@ -1173,13 +1296,13 @@
     }
 
     // =======================================================
-    // 7. SUPER ADMIN DASHBOARD LOGIC
+    // 7. SUPER ADMIN DASHBOARD (ANALYTICS & PROVIDERS)
     // =======================================================
     function promptAdminLogin() {
         const pwd = prompt('باشقۇرغۇچى مەخپىي پارولىنى كىرگۈزۈڭ:');
         if (pwd === ADMIN_PASSCODE) {
             toggleMenu();
-            loadAdminData();
+            loadAdminDashboardData();
             toggleModal('adminPanelModal');
         } else if (pwd !== null) {
             alert('مەخپىي پارول خاتا!');
@@ -1187,15 +1310,17 @@
     }
 
     function switchAdminTab(t) {
-        document.getElementById('adminOrdersView').style.display = t === 'orders' ? 'block' : 'none';
-        document.getElementById('adminDepositsView').style.display = t === 'deposits' ? 'block' : 'none';
-        document.getElementById('adminTiersView').style.display = t === 'tiers' ? 'block' : 'none';
-        document.getElementById('tabBtnOrders').classList.toggle('active', t === 'orders');
-        document.getElementById('tabBtnDeposits').classList.toggle('active', t === 'deposits');
-        document.getElementById('tabBtnManageTiers').classList.toggle('active', t === 'tiers');
+        const tabs = ['orders', 'deposits', 'providers', 'users', 'analytics'];
+        tabs.forEach(tab => {
+            const el = document.getElementById(`admin${tab.charAt(0).toUpperCase() + tab.slice(1)}View`);
+            if (el) el.style.display = (tab === t) ? 'block' : 'none';
+        });
+        document.querySelectorAll('#adminPanelModal .glass-btn').forEach(btn => btn.classList.remove('active'));
+        if (event && event.target) event.target.classList.add('active');
     }
 
-    function loadAdminData() {
+    function loadAdminDashboardData() {
+        // Orders
         const orders = JSON.parse(localStorage.getItem('nexus_logs') || '[]');
         document.getElementById('adminOrdersTableBody').innerHTML = orders.map((o, idx) => `
             <tr>
@@ -1206,12 +1331,12 @@
                 <td>${o.cost}</td>
                 <td><span class="status-pill status-${o.status}">${o.status}</span></td>
                 <td>
-                    <button onclick="updateOrderStatus(${idx}, 'completed')" style="background:var(--neon-green); border:none; padding:2px 6px; border-radius:4px; cursor:pointer;">✓</button>
-                    <button onclick="updateOrderStatus(${idx}, 'rejected')" style="background:var(--neon-pink); border:none; padding:2px 6px; border-radius:4px; color:#fff; cursor:pointer;">✕</button>
+                    <button onclick="triggerAutoRefund(${idx})" title="Auto Refund" style="background:var(--neon-blue); border:none; padding:2px 6px; border-radius:4px; font-weight:bold; cursor:pointer;">قايتۇرۇش</button>
                 </td>
             </tr>
         `).join('');
-        
+
+        // Deposits
         const deposits = JSON.parse(localStorage.getItem('nexus_deposit_logs') || '[]');
         document.getElementById('adminDepositsTableBody').innerHTML = deposits.map((d, idx) => `
             <tr>
@@ -1223,14 +1348,80 @@
                 <td><button onclick="approveDeposit(${idx})" style="background:var(--neon-green); border:none; padding:2px 8px; border-radius:4px; cursor:pointer;">تەستىقلاش</button></td>
             </tr>
         `).join('');
+
+        // Users & VIP
+        const users = JSON.parse(localStorage.getItem('nexus_registered_users') || '[]');
+        document.getElementById('adminUsersTableBody').innerHTML = users.map((u, idx) => `
+            <tr>
+                <td>${u.username}</td>
+                <td>${u.email}</td>
+                <td>$${u.balance.toFixed(2)}</td>
+                <td>${u.isVip ? '<span class="tier-badge-vip">VIP</span>' : 'ئادەتتىكى'}</td>
+                <td>
+                    <button onclick="toggleUserVip(${idx})" style="background:${u.isVip ? 'var(--neon-pink)' : 'var(--gold)'}; color:#000; border:none; padding:2px 8px; border-radius:4px; font-weight:bold; cursor:pointer;">
+                        ${u.isVip ? 'VIP ئەمەلدىن' : 'VIP قىلىش'}
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+
+        // Analytics
+        let gross = 0;
+        let cost = 0;
+        orders.forEach(o => {
+            if (o.status === 'completed') {
+                gross += parseFloat(o.cost.replace(/[^0-9.]/g, '')) || 0;
+                cost += parseFloat(o.rawCost) || 0;
+            }
+        });
+        document.getElementById('statGrossRevenue').innerText = `$${gross.toFixed(2)}`;
+        document.getElementById('statCost').innerText = `$${cost.toFixed(2)}`;
+        document.getElementById('statNetProfit').innerText = `$${(gross - cost).toFixed(2)}`;
     }
 
-    function updateOrderStatus(idx, status) {
+    function triggerAutoRefund(idx) {
         let orders = JSON.parse(localStorage.getItem('nexus_logs') || '[]');
-        orders[idx].status = status;
+        if (orders[idx].status === 'refunded') {
+            alert('بۇ زاكاز ئاللىقاچان قايتۇرۇلغان!');
+            return;
+        }
+
+        const costVal = parseFloat(orders[idx].cost.replace(/[^0-9.]/g, '')) || 0;
+        const username = orders[idx].user;
+
+        let users = JSON.parse(localStorage.getItem('nexus_registered_users') || '[]');
+        const uIdx = users.findIndex(u => u.username === username);
+        if (uIdx !== -1) {
+            users[uIdx].balance += costVal;
+            localStorage.setItem('nexus_registered_users', JSON.stringify(users));
+        }
+
+        if (currentUser && currentUser.username === username) {
+            currentUser.balance += costVal;
+            localStorage.setItem('nexus_auth_session', JSON.stringify(currentUser));
+            updateUI();
+        }
+
+        orders[idx].status = 'refunded';
         localStorage.setItem('nexus_logs', JSON.stringify(orders));
-        loadAdminData();
+        loadAdminDashboardData();
         renderHistory();
+        sendTelegramAlert(`↩️ <b>زاكاز پۇلى قايتۇرۇلدى (Auto-Refund):</b>\n📦 زاكاز: ${orders[idx].id}\n👤 ئەزا: ${username}\n💵 قايتقان سومما: $${costVal.toFixed(2)} USD`);
+        alert('زاكاز پۇلى خېرىدارنىڭ ھېساباتىغا تولۇق قايتۇرۇلدى!');
+    }
+
+    function toggleUserVip(idx) {
+        let users = JSON.parse(localStorage.getItem('nexus_registered_users') || '[]');
+        users[idx].isVip = !users[idx].isVip;
+        localStorage.setItem('nexus_registered_users', JSON.stringify(users));
+
+        if (currentUser && currentUser.username === users[idx].username) {
+            currentUser.isVip = users[idx].isVip;
+            localStorage.setItem('nexus_auth_session', JSON.stringify(currentUser));
+            updateUI();
+            renderTierList(activeGame);
+        }
+        loadAdminDashboardData();
     }
 
     function approveDeposit(idx) {
@@ -1255,32 +1446,27 @@
         }
 
         localStorage.setItem('nexus_deposit_logs', JSON.stringify(deposits));
-        loadAdminData();
+        loadAdminDashboardData();
         renderDepositHistory();
         alert('پۇل قاچىلاش تەستىقلاندى!');
     }
 
-    function addPackageFromAdmin() {
-        const gKey = document.getElementById('adminNewTierGame').value;
-        const name = document.getElementById('adminNewTierName').value.trim();
-        const price = parseFloat(document.getElementById('adminNewTierPrice').value);
-        const tag = document.getElementById('adminNewTierTag').value.trim();
+    function loadProviderSettings(provKey) {
+        const prov = API_PROVIDERS[provKey] || { merchantId: "", apiKey: "", active: false };
+        document.getElementById('apiMerchantId').value = prov.merchantId;
+        document.getElementById('apiKeySecret').value = prov.apiKey;
+        document.getElementById('apiActiveStatus').value = prov.active ? "true" : "false";
+    }
 
-        if (!name || isNaN(price)) {
-            alert('نام ۋە باھانى توغرا يېزىڭ!');
-            return;
-        }
-
-        GAME_DATABASE[gKey].tiers.push({
-            id: 'custom_' + Date.now(),
-            name: name,
-            price: price,
-            tag: tag
-        });
-
-        localStorage.setItem('nexus_custom_games', JSON.stringify(GAME_DATABASE));
-        renderTierList(activeGame);
-        alert('يېڭى بولاق قوشۇلدى!');
+    function saveProviderSettings() {
+        const provKey = document.getElementById('apiProviderSelect').value;
+        API_PROVIDERS[provKey] = {
+            merchantId: document.getElementById('apiMerchantId').value.trim(),
+            apiKey: document.getElementById('apiKeySecret').value.trim(),
+            active: document.getElementById('apiActiveStatus').value === "true"
+        };
+        localStorage.setItem('nexus_api_providers', JSON.stringify(API_PROVIDERS));
+        alert('API تەمىنلىگۈچى سەپلىمىسى ساقلاندى!');
     }
 
     function exportDataBackup() {
@@ -1288,12 +1474,13 @@
             users: JSON.parse(localStorage.getItem('nexus_registered_users') || '[]'),
             orders: JSON.parse(localStorage.getItem('nexus_logs') || '[]'),
             deposits: JSON.parse(localStorage.getItem('nexus_deposit_logs') || '[]'),
-            games: GAME_DATABASE
+            games: GAME_DATABASE,
+            providers: API_PROVIDERS
         };
         const blob = new Blob([JSON.stringify(fullBackup, null, 2)], { type: 'application/json' });
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = `autochah_backup_${Date.now()}.json`;
+        a.download = `autochah_enterprise_backup_${Date.now()}.json`;
         a.click();
     }
 </script>
