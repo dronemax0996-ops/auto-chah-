@@ -14,6 +14,7 @@
             --primary: #10B981;
             --primary-light: rgba(16, 185, 129, 0.1);
             --nav-blue: #0284c7;
+            --telegram-blue: #229ED9;
         }
 
         body {
@@ -370,6 +371,25 @@
             transition: 0.2s;
         }
 
+        .btn-telegram {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            background: var(--telegram-blue);
+            color: #FFFFFF;
+            border: none;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
         .bottom-nav {
             position: fixed;
             bottom: 0; left: 0; right: 0;
@@ -507,7 +527,7 @@
                         <input type="text" id="reg-name" placeholder="Killer 0996">
                     </div>
                     <div class="input-group">
-                        <label>البريد الإلكتروني (Gmail)</label>
+                        <label>رەسمىي Gmail ئادرىسى (dronemax0996@gmail.com قاتارلىق)</label>
                         <input type="email" id="reg-email" placeholder="example@gmail.com">
                     </div>
                     <div class="input-group">
@@ -515,19 +535,25 @@
                         <input type="password" id="reg-password" placeholder="********">
                     </div>
                     <button class="btn-main" onclick="registerUser()" data-i18n="reg_btn">تسجيل</button>
+                    <a href="https://t.me/nasrulla0996" target="_blank" class="btn-telegram">
+                        <span>✈️</span> Telegram بىلەن كىرىش / تىزىملىتىش
+                    </a>
                 </div>
 
                 <div id="login-form" style="display: none;">
                     <h3 style="margin-top: 0; text-align: center;" data-i18n="login_title">تسجيل الدخول</h3>
                     <div class="input-group">
-                        <label>اسم المستخدم (Admin: nasrulla)</label>
-                        <input type="text" id="log-email" placeholder="nasrulla">
+                        <label>Gmail ئادرىسى ياكى Admin (nasrulla)</label>
+                        <input type="text" id="log-email" placeholder="nasrulla ياكى email@gmail.com">
                     </div>
                     <div class="input-group">
                         <label>كلمة المرور (Admin: 0996)</label>
                         <input type="password" id="log-password" placeholder="0996">
                     </div>
                     <button class="btn-main" onclick="loginUser()" data-i18n="login_btn">دخول</button>
+                    <a href="https://t.me/nasrulla0996" target="_blank" class="btn-telegram">
+                        <span>✈️</span> Telegram ئارقىلىق كىرىش
+                    </a>
                 </div>
                 <p style="text-align: center; font-size: 13px; margin-top: 15px; color: var(--text-dim); cursor: pointer;" onclick="toggleAuthMode()" id="auth-toggle-text">لديك حساب؟ تسجيل الدخول</p>
             </div>
@@ -564,7 +590,7 @@
                     <input type="text" id="profile-lname" placeholder="0996">
                 </div>
                 <div class="input-group">
-                    <label>البريد الالكتروني</label>
+                    <label>البريد الالكتروني (Gmail)</label>
                     <input type="email" id="profile-email" placeholder="dronemax0996@gmail.com">
                 </div>
                 <button class="btn-main" onclick="saveProfile()" style="background: #0284c7; margin-bottom: 15px;" data-i18n="save_btn">حفظ</button>
@@ -1030,12 +1056,21 @@
             const nameEl = document.getElementById('reg-name');
             const emailEl = document.getElementById('reg-email');
             const passEl = document.getElementById('reg-password');
-            if (!nameEl || !passEl) return;
+            if (!nameEl || !passEl || !emailEl) return;
             const name = nameEl.value.trim();
-            const email = emailEl ? emailEl.value.trim() : '';
+            const email = emailEl.value.trim().toLowerCase();
             const pass = passEl.value.trim();
 
-            if (!name || !pass) { alert('املأ الحقول المطلوبة!'); return; }
+            if (!name || !email || !pass) { 
+                alert('Барلىق بۆلەكلەرنى טولدۇرۇڭ!'); 
+                return; 
+            }
+
+            // رەسمىي Gmail ئادرىسى ئىكەنلىكىنى تەكشۈرۈش شەرتى
+            if (!email.endsWith('@gmail.com')) {
+                alert('چوقۇم رەسمىي Gmail ئادرىسى (@gmail.com) كىرگۈزۈشىڭىز كېرەك!');
+                return;
+            }
             
             let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
             if(!users.some(u => u.name === name)) {
@@ -1069,7 +1104,6 @@
                 localStorage.setItem('s_email', 'dronemax0996@gmail.com');
                 alert('تم تسجيل الدخول بنجاح (Admin)!');
                 checkLogin();
-                // باشقۇرۇش بېتىگە بىۋاسىتە ئۆتۈش
                 switchPage('admin-dashboard', document.getElementById('nav-admin-btn'));
                 return;
             }
@@ -1079,7 +1113,7 @@
 
             if (foundUser) {
                 localStorage.setItem('is_logged', 'true');
-                localStorage.removeItem('is_admin'); // ئادەم ئاددىي ئابونت بولسا admin نى ئۆچۈرۈۋېتىش
+                localStorage.removeItem('is_admin');
                 localStorage.setItem('s_name', foundUser.name);
                 localStorage.setItem('s_email', foundUser.email || '');
                 localStorage.setItem('s_pass', foundUser.pass);
@@ -1097,7 +1131,12 @@
         function saveProfile() {
             const fname = document.getElementById('profile-fname').value.trim();
             const lname = document.getElementById('profile-lname').value.trim();
-            const email = document.getElementById('profile-email').value.trim();
+            const email = document.getElementById('profile-email').value.trim().toLowerCase();
+
+            if (email && !email.endsWith('@gmail.com')) {
+                alert('چوقۇم رەسمىي Gmail ئادرىسى (@gmail.com) بولۇشى كېرەك!');
+                return;
+            }
 
             const fullName = (fname + ' ' + lname).trim();
             if (fullName) localStorage.setItem('s_name', fullName);
@@ -1153,7 +1192,6 @@
 
                 updateAnalyticsDisplay();
                 
-                // پەقەت is_admin == true بولغاندلا باشقۇرۇش كۇنۇپكىسىنى كۆرسىتىش
                 if (localStorage.getItem('is_admin') === 'true') {
                     if (adminNavBtn) adminNavBtn.style.display = 'block';
                 } else {
