@@ -456,6 +456,13 @@
             color: white;
             border-color: var(--primary);
         }
+
+        .pkg-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
@@ -563,6 +570,40 @@
 
                 <div id="admin-orders-list" style="max-height: 250px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: 10px; margin-bottom: 20px;"></div>
 
+                <h3 style="color: var(--primary); margin-top: 0; text-align: center;">➕ يېڭى بۆلەك قوشۇش</h3>
+                <div style="background: var(--bg-color); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                    <div class="input-group">
+                        <label>1. بۆلەك نامى (مەسىلەن: PUBG Mobile):</label>
+                        <input type="text" id="new-cat-name" placeholder="بۆلەك نامى">
+                    </div>
+                    <div class="input-group">
+                        <label>2. ئويۇن كىملىكى 1-نامى (مەسىلەن: Player ID / User ID):</label>
+                        <input type="text" id="new-cat-pid1" placeholder="ئاساسلىق ID نامى">
+                    </div>
+                    <div class="input-group">
+                        <label>3. ئويۇن كىملىكى 2-نامى (تاللاش بويىچە، مەسىلەن: Server ID / Zone ID):</label>
+                        <input type="text" id="new-cat-pid2" placeholder="ئىككىنچى كىملىك نامى (بولمىسا بوش قالدۇرۇڭ)">
+                    </div>
+                    <div class="input-group">
+                        <label>4. بۆلەك رەسىمى:</label>
+                        <input type="file" id="new-cat-img" accept="image/*" style="font-size: 12px;">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>5. مەھسۇلات / باھا جەدۋىلى:</label>
+                        <div id="pkg-builder-container">
+                            <div class="pkg-row">
+                                <input type="text" placeholder="مەھسۇلات نامى (مەسىلەن: 60 UC)" class="pkg-name-input" style="flex:2;">
+                                <input type="number" placeholder="باھاسى ($)" class="pkg-price-input" style="flex:1;">
+                                <button type="button" onclick="removePkgRow(this)" style="background:#EF4444; color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">✕</button>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addPkgRow()" style="background:#0284c7; color:white; border:none; padding:6px 12px; border-radius:6px; font-size:12px; cursor:pointer; margin-top:5px;">+ تېخىمۇ كۆپ باھا قوشۇش</button>
+                    </div>
+
+                    <button type="button" class="btn-main" onclick="addNewCategory()" style="margin-top:10px;">بۆلەكنى پۈتۈنلەي ساقلاش</button>
+                </div>
+
                 <h3 style="color: var(--primary); margin-top: 0; text-align: center;">🤖 Telegram Bot ئۇقتۇرۇش تەڭشىكى</h3>
                 <div style="background: var(--bg-color); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
                     <div class="input-group">
@@ -570,17 +611,10 @@
                         <input type="text" id="tg-bot-token" placeholder="مەسىلەن: 123456:ABC-DEF...">
                     </div>
                     <div class="input-group">
-                        <label>Chat ID (ئۆزىڭىزنىڭ ID سى):</label>
+                        <label>Chat ID:</label>
                         <input type="text" id="tg-chat-id" placeholder="مەسىلەن: 987654321">
                     </div>
                     <button type="button" class="btn-main" onclick="saveTelegramSettings()" style="background: var(--telegram-blue); padding: 8px;">تەڭشەكنى ساقلاش</button>
-                </div>
-
-                <h3 style="color: var(--primary); margin-top: 0; text-align: center;">💾 سانلىق مەلۇمات زاپاسلاش (Backup / Restore)</h3>
-                <div style="background: var(--bg-color); padding: 15px; border-radius: 10px; margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap;">
-                    <button type="button" class="btn-main" onclick="exportDataBackup()" style="background:#0284c7; flex:1; padding:10px;">📥 ھەممىنى زاپاسلاش</button>
-                    <button type="button" class="btn-main" onclick="document.getElementById('import-file-input').click()" style="background:#f59e0b; flex:1; padding:10px;">📤 ئەسلىگە كەلتۈرۈش</button>
-                    <input type="file" id="import-file-input" accept=".json" onchange="importDataBackup(this)" style="display:none;">
                 </div>
 
                 <h3 style="color: var(--primary); margin-top: 0; text-align: center;">🖼️ باش بەت ئېلان رەسىملىرى (3 ~ 5 تال)</h3>
@@ -588,7 +622,7 @@
                     <div class="input-group">
                         <label>ئېلان رەسىمى يۈكلەش:</label>
                         <input type="file" id="admin-banner-img" accept="image/*" style="font-size: 12px; margin-bottom: 5px;">
-                        <button type="button" class="btn-main" onclick="addBannerImage()" style="background:#0284c7; padding:8px;">رەسىم قوشۇش (Max 5)</button>
+                        <button type="button" class="btn-main" onclick="addBannerImage()" style="background:#0284c7; padding:8px;">رەسىم قوشۇش</button>
                     </div>
                     <div id="admin-banners-preview" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;"></div>
                 </div>
@@ -599,27 +633,6 @@
                         <textarea id="admin-marquee-input" rows="2" placeholder="بۇ يەرگە خەت كىرگۈزۈڭ..."></textarea>
                         <button type="button" class="btn-main" onclick="updateMarqueeText()" style="background:#0284c7; padding:8px; margin-top:5px;">خەتنى يېڭىلاش</button>
                     </div>
-                </div>
-
-                <h3 style="color: var(--primary); margin-top: 0; text-align: center;">➕ يېڭى بۆلەك قوشۇش</h3>
-                <div style="background: var(--bg-color); padding: 15px; border-radius: 10px;">
-                    <div class="input-group">
-                        <label>بۆلەك ئىسمى (نامى)</label>
-                        <input type="text" id="new-cat-name" placeholder="مەسىلەن: Mobile Legends">
-                    </div>
-                    <div class="input-group">
-                        <label>ئويۇن كىملىكى / ID نامى</label>
-                        <input type="text" id="new-cat-pid" placeholder="مەسىلەن: User ID / Server ID">
-                    </div>
-                    <div class="input-group">
-                        <label>بۆلەك رەسىمى</label>
-                        <input type="file" id="new-cat-img" accept="image/*" style="font-size: 12px;">
-                    </div>
-                    <div class="input-group">
-                        <label>مەھسۇلات جەدۋىلى (ھەر قۇردا: نامى | باھاسى)</label>
-                        <textarea id="new-cat-packages" rows="3" placeholder="60 UC | 1.00&#10;325 UC | 5.00&#10;660 UC | 10.00"></textarea>
-                    </div>
-                    <button type="button" class="btn-main" onclick="addNewCategory()">بۆلەك قوشۇش</button>
                 </div>
             </div>
         </div>
@@ -694,14 +707,18 @@
         </div>
     </div>
 
-    <!-- سېتىۋېلىش كۆزنىكى -->
+    <!-- سېتىۋېلىش كۆزنىكى (ئىككى كىملىك كۆزنىكى بىلەن) -->
     <div id="purchase-modal" class="modal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal()">✕</button>
             <h3 id="modal-game-title" style="margin-top: 0; text-align: center;">شراء</h3>
             <div class="input-group">
-                <label id="modal-pid-label">آيدي اللاعب (Player ID)</label>
-                <input type="text" id="player-id" placeholder="ID...">
+                <label id="modal-pid1-label">ئويۇن كىملىكى (Player ID)</label>
+                <input type="text" id="player-id-1" placeholder="ID...">
+            </div>
+            <div class="input-group" id="modal-pid2-group" style="display:none;">
+                <label id="modal-pid2-label">ئىككىنچى كىملىك (Zone / Server ID)</label>
+                <input type="text" id="player-id-2" placeholder="Server ID...">
             </div>
             <div class="input-group">
                 <label data-i18n="package_label">اختر الباقة</label>
@@ -711,7 +728,7 @@
         </div>
     </div>
 
-    <!-- رەسىمنى چوڭايتىپ كۆرۈش كۆزنىكى (Lightbox) -->
+    <!-- رەسىمنى پۈتۈن ئېكراندا چوڭايتىپ كۆرۈش كۆزنىكى (Lightbox) -->
     <div id="lightbox-modal" class="modal" onclick="closeLightbox()">
         <div style="max-width:90%; max-height:90%; position:relative;" onclick="event.stopPropagation()">
             <img id="lightbox-img" src="" style="width:100%; height:auto; max-height:80vh; object-fit:contain; border-radius:12px; box-shadow: 0 5px 25px rgba(0,0,0,0.5);">
@@ -978,7 +995,7 @@
         async function sendTelegramNotification(text) {
             const token = localStorage.getItem('tg_bot_token');
             const chatId = localStorage.getItem('tg_chat_id');
-            if (!token || !chatId) return;
+            if (!token || !chatId || token === 'بۇ_يەرگە_BOT_TOKEN_قويۇڭ') return;
 
             try {
                 const url = `https://api.telegram.org/bot${token}/sendMessage`;
@@ -1021,12 +1038,21 @@
 
             selectedGameName = catName;
             const titleEl = document.getElementById('modal-game-title');
-            const pidLabel = document.getElementById('modal-pid-label');
+            const pid1Label = document.getElementById('modal-pid1-label');
+            const pid2Group = document.getElementById('modal-pid2-group');
+            const pid2Label = document.getElementById('modal-pid2-label');
             const packageSelect = document.getElementById('product-package');
             const modalEl = document.getElementById('purchase-modal');
 
             if (titleEl) titleEl.textContent = catName;
-            if (pidLabel) pidLabel.textContent = cat && cat.pidName ? cat.pidName : 'آيدي اللاعب (Player ID)';
+            if (pid1Label) pid1Label.textContent = cat && cat.pid1 ? cat.pid1 : 'ئويۇن كىملىكى (Player ID)';
+            
+            if (cat && cat.pid2 && cat.pid2.trim() !== '') {
+                pid2Group.style.display = 'block';
+                pid2Label.textContent = cat.pid2;
+            } else {
+                pid2Group.style.display = 'none';
+            }
 
             let pkgsHtml = '';
             if (cat && cat.packages && cat.packages.length > 0) {
@@ -1046,17 +1072,25 @@
         }
 
         function confirmPurchase() {
-            const playerIdEl = document.getElementById('player-id');
+            const pid1El = document.getElementById('player-id-1');
+            const pid2El = document.getElementById('player-id-2');
             const packageEl = document.getElementById('product-package');
-            if (!playerIdEl || !packageEl) return;
-            const playerId = playerIdEl.value.trim();
+            if (!pid1El || !packageEl) return;
+
+            const pid1Val = pid1El.value.trim();
+            const pid2Val = pid2El ? pid2El.value.trim() : '';
             const packageData = packageEl.value.split('|');
             const pkgName = packageData[0];
             const pkgPrice = parseFloat(packageData[1]);
             
-            if (!playerId) {
-                alert('كىملىك (ID) نى كىرگۈزۈڭ!');
+            if (!pid1Val) {
+                alert('كىملىك (ID) نى تولدۇرۇڭ!');
                 return;
+            }
+
+            let fullPlayerId = pid1Val;
+            if (pid2Val) {
+                fullPlayerId += ` (ID2: ${pid2Val})`;
             }
 
             let activeUser = localStorage.getItem('s_name') || 'Guest';
@@ -1080,7 +1114,7 @@
                 username: activeUser, 
                 avatar: userAvatar,
                 game: selectedGameName, 
-                playerId: playerId, 
+                playerId: fullPlayerId, 
                 pkg: pkgName + ' (' + pkgPrice.toFixed(2) + '$)', 
                 priceUSD: pkgPrice, 
                 type: 'spent', 
@@ -1089,11 +1123,12 @@
             });
             localStorage.setItem('user_orders', JSON.stringify(orders));
             
-            sendTelegramNotification(`🛒 <b>يېڭى ئويۇن زاكاز تەلىپى!</b>\n👤 ئابونت: <b>${activeUser}</b>\n🎮 ئويۇن: <b>${selectedGameName}</b>\n🆔 ID: <code>${playerId}</code>\n📦 باقە: <b>${pkgName} (${pkgPrice}$)</b>\n📅 ۋاقتى: ${new Date().toLocaleString()}`);
+            sendTelegramNotification(`🛒 <b>يېڭى ئويۇن زاكاز تەلىپى!</b>\n👤 ئابونت: <b>${activeUser}</b>\n🎮 ئويۇن: <b>${selectedGameName}</b>\n🆔 ID: <code>${fullPlayerId}</code>\n📦 باقە: <b>${pkgName} (${pkgPrice}$)</b>\n📅 ۋاقتى: ${new Date().toLocaleString()}`);
 
             alert('زاكاز تەلىپى مۇۋەپپەقىيەتلىك ئەۋەتىلدى!');
             closeModal();
-            playerIdEl.value = '';
+            pid1El.value = '';
+            if (pid2El) pid2El.value = '';
             loadAdminOrdersList();
         }
 
@@ -1237,6 +1272,7 @@
             }
         }
 
+        // --- ئابونتلارنىڭ قالدۇقىنى ئەركىن ئۆزگەرتىش / قوشۇش / ئازايتىش ---
         function loadAdminUsersList() {
             const adminUsersList = document.getElementById('admin-users-list');
             const searchInput = document.getElementById('user-search-input');
@@ -1255,20 +1291,26 @@
                     users.forEach((u, index) => {
                         let avatarContent = u.avatar ? `<img src="${u.avatar}" style="width:40px; height:40px; border-radius:50%; object-fit:cover; vertical-align:middle; margin-left:8px; border:2px solid var(--primary);">` : '<span style="font-size:28px; margin-left:8px; vertical-align:middle;">👤</span>';
                         let userBalance = u.balance !== undefined ? u.balance : 0.00;
-                        uHtml += `<div style="border-bottom: 1px solid var(--border-color); padding: 12px 0; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
-                            <div style="display:flex; align-items:center; gap:8px;">
-                                ${avatarContent}
+                        uHtml += `<div style="border-bottom: 1px solid var(--border-color); padding: 12px 0;">
+                            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    ${avatarContent}
+                                    <div>
+                                        <b>${index + 1}. ${u.name}</b><br>
+                                        <span style="color:var(--text-dim); font-size:11px;">${u.email || 'No email'}</span><br>
+                                        <span style="color:#10B981; font-weight:700; font-size:13px;">ھازىرقى قالدىقى: ${userBalance.toFixed(2)} $</span>
+                                    </div>
+                                </div>
                                 <div>
-                                    <b>${index + 1}. ${u.name}</b><br>
-                                    <span style="color:var(--text-dim); font-size:11px;">${u.email || 'No email'}</span><br>
-                                    <span style="color:#10B981; font-weight:700; font-size:13px;">قالدىقى: ${userBalance.toFixed(2)} $</span>
+                                    <button type="button" onclick="adminDeleteUser('${u.name}')" style="background:#EF4444; color:white; border:none; padding:5px 8px; border-radius:6px; cursor:pointer; font-size:11px; font-weight:700;">🗑️ يۇيۇش</button>
                                 </div>
                             </div>
-                            <div style="display:flex; gap:5px; align-items:center;">
-                                <input type="number" id="add-bal-${index}" placeholder="سومما" style="width:70px; padding:6px; font-size:13px; border:1px solid var(--border-color); border-radius:6px; background:#fff; text-align:center;">
-                                <button type="button" onclick="adminAddBalance('${u.name}', ${index}, 'add')" style="background:#0284c7; color:white; border:none; padding:7px 10px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:700;">+ قوشۇش</button>
-                                <button type="button" onclick="adminAddBalance('${u.name}', ${index}, 'sub')" style="background:#f59e0b; color:white; border:none; padding:7px 10px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:700;">- ئازايتىش</button>
-                                <button type="button" onclick="adminDeleteUser('${u.name}')" style="background:#EF4444; color:white; border:none; padding:7px 10px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:700;">🗑️ يۇيۇش</button>
+                            <!-- پۇل تەڭشەش بۆلىكى -->
+                            <div style="display:flex; gap:5px; align-items:center; margin-top:8px; background:#fff; padding:6px; border-radius:8px; border:1px solid #ddd;">
+                                <input type="number" id="add-bal-${index}" placeholder="سومما" style="width:70px; padding:5px; font-size:12px; border:1px solid var(--border-color); border-radius:6px; text-align:center;">
+                                <button type="button" onclick="adminModifyBalance('${u.name}', ${index}, 'add')" style="background:#0284c7; color:white; border:none; padding:5px 8px; border-radius:6px; cursor:pointer; font-size:11px; font-weight:700;">+ قوشۇش</button>
+                                <button type="button" onclick="adminModifyBalance('${u.name}', ${index}, 'sub')" style="background:#f59e0b; color:white; border:none; padding:5px 8px; border-radius:6px; cursor:pointer; font-size:11px; font-weight:700;">- ياندۇرۇش</button>
+                                <button type="button" onclick="adminModifyBalance('${u.name}', ${index}, 'set')" style="background:#8B5CF6; color:white; border:none; padding:5px 8px; border-radius:6px; cursor:pointer; font-size:11px; font-weight:700;">= قالدۇققا تەڭشەش</button>
                             </div>
                         </div>`;
                     });
@@ -1277,11 +1319,11 @@
             }
         }
 
-        function adminAddBalance(userName, index, action) {
+        function adminModifyBalance(userName, index, action) {
             const inputEl = document.getElementById(`add-bal-${index}`);
             if (!inputEl) return;
             const amount = parseFloat(inputEl.value);
-            if (isNaN(amount) || amount <= 0) {
+            if (isNaN(amount) || amount < 0) {
                 alert('سومما سانىنى توغرا كىرگۈزۈڭ!');
                 return;
             }
@@ -1291,8 +1333,10 @@
                 if (u.name === userName) {
                     if (action === 'add') {
                         u.balance = (u.balance || 0) + amount;
-                    } else {
+                    } else if (action === 'sub') {
                         u.balance = Math.max(0, (u.balance || 0) - amount);
+                    } else if (action === 'set') {
+                        u.balance = amount;
                     }
                 }
                 return u;
@@ -1306,7 +1350,7 @@
 
             inputEl.value = '';
             loadAdminUsersList();
-            alert(`${userName} نىڭ قالدىقى ئۆزگەرتىلدى!`);
+            alert(`${userName} نىڭ قالدىقى مۇۋەپپەقىيەتلىك تەڭشەلدى!`);
         }
 
         function adminDeleteUser(userName) {
@@ -1324,53 +1368,81 @@
             loadAdminUsersList();
         }
 
+        // --- بۆلەك قوشۇش ۋە مەھسۇلات جەدۋىلى تۈزگۈچى ---
+        function addPkgRow() {
+            const container = document.getElementById('pkg-builder-container');
+            const row = document.createElement('div');
+            row.className = 'pkg-row';
+            row.innerHTML = `
+                <input type="text" placeholder="مەھسۇلات نامى" class="pkg-name-input" style="flex:2;">
+                <input type="number" placeholder="باھاسى ($)" class="pkg-price-input" style="flex:1;">
+                <button type="button" onclick="removePkgRow(this)" style="background:#EF4444; color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">✕</button>
+            `;
+            container.appendChild(row);
+        }
+
+        function removePkgRow(btn) {
+            const row = btn.parentElement;
+            if (document.querySelectorAll('.pkg-row').length > 1) {
+                row.remove();
+            } else {
+                alert('كەم دېگەندە بىر باھا بولۇشى كېرەك!');
+            }
+        }
+
         function addNewCategory() {
             const nameInput = document.getElementById('new-cat-name');
-            const pidInput = document.getElementById('new-cat-pid');
+            const pid1Input = document.getElementById('new-cat-pid1');
+            const pid2Input = document.getElementById('new-cat-pid2');
             const imgInput = document.getElementById('new-cat-img');
-            const pkgInput = document.getElementById('new-cat-packages');
             
             if (!nameInput || !nameInput.value.trim()) {
-                alert('بۆلەك ئىسمىنى كىرگۈزۈڭ!');
+                alert('بۆلەك نامىنى كىرگۈزۈڭ!');
                 return;
             }
 
             const catName = nameInput.value.trim();
-            const pidName = pidInput && pidInput.value.trim() ? pidInput.value.trim() : 'آيدي اللاعب (Player ID)';
-            
+            const pid1Name = pid1Input && pid1Input.value.trim() ? pid1Input.value.trim() : 'ئويۇن كىملىكى (Player ID)';
+            const pid2Name = pid2Input ? pid2Input.value.trim() : '';
+
+            // باھا جەدۋىلىنى توپلاش
             let packages = [];
-            if (pkgInput && pkgInput.value.trim()) {
-                let lines = pkgInput.value.trim().split('\n');
-                lines.forEach(line => {
-                    let parts = line.split('|');
-                    if (parts.length >= 2) {
-                        packages.push({name: parts[0].trim(), price: parseFloat(parts[1].trim()) || 1.00});
-                    }
-                });
+            const rows = document.querySelectorAll('.pkg-row');
+            rows.forEach(r => {
+                const pName = r.querySelector('.pkg-name-input').value.trim();
+                const pPrice = parseFloat(r.querySelector('.pkg-price-input').value);
+                if (pName && !isNaN(pPrice)) {
+                    packages.push({name: pName, price: pPrice});
+                }
+            });
+
+            if (packages.length === 0) {
+                alert('كەم دېگەندە بىر مەھسۇلات ۋە باھا كىرگۈزۈڭ!');
+                return;
             }
 
             if (imgInput.files && imgInput.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    saveCategoryToStorage(catName, pidName, e.target.result, packages);
+                    saveCategoryToStorage(catName, pid1Name, pid2Name, e.target.result, packages);
                 };
                 reader.readAsDataURL(imgInput.files[0]);
             } else {
-                saveCategoryToStorage(catName, pidName, 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&auto=format&fit=crop&q=60', packages);
+                saveCategoryToStorage(catName, pid1Name, pid2Name, 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&auto=format&fit=crop&q=60', packages);
             }
         }
 
-        function saveCategoryToStorage(name, pidName, imgUrl, packages) {
+        function saveCategoryToStorage(name, pid1, pid2, imgUrl, packages) {
             let allCats = JSON.parse(localStorage.getItem('all_categories') || '[]');
-            allCats.push({name: name, pidName: pidName, img: imgUrl, packages: packages});
+            allCats.push({name: name, pid1: pid1, pid2: pid2, img: imgUrl, packages: packages});
             localStorage.setItem('all_categories', JSON.stringify(allCats));
 
             document.getElementById('new-cat-name').value = '';
-            document.getElementById('new-cat-pid').value = '';
+            document.getElementById('new-cat-pid1').value = '';
+            document.getElementById('new-cat-pid2').value = '';
             document.getElementById('new-cat-img').value = '';
-            document.getElementById('new-cat-packages').value = '';
             loadCategories();
-            alert('يېڭى بۆلەك قوشۇلدى!');
+            alert('يېڭى بۆلەك ۋە مەھسۇلات باھا جەدۋىلى قوشۇلدى!');
         }
 
         function deleteCategory(catName) {
@@ -1392,8 +1464,8 @@
             let allCats = JSON.parse(localStorage.getItem('all_categories') || '[]');
             if (allCats.length === 0) {
                 allCats = [
-                    {name: "PUBG Mobile", pidName: "Player ID", img: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=300&auto=format&fit=crop&q=60", packages: [{name: "60 UC", price: 1.00}, {name: "325 UC", price: 5.00}, {name: "660 UC", price: 10.00}]},
-                    {name: "Telegram Premium", pidName: "تېلېگرامما ئادرېس", img: "https://images.unsplash.com/photo-1614680376593-902f749f7ffc?w=300&auto=format&fit=crop&q=60", packages: [{name: "1 ئايلىق", price: 4.00}, {name: "3 ئايلىق", price: 12.00}]}
+                    {name: "PUBG Mobile", pid1: "Player ID", pid2: "", img: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=300&auto=format&fit=crop&q=60", packages: [{name: "60 UC", price: 1.00}, {name: "325 UC", price: 5.00}, {name: "660 UC", price: 10.00}]},
+                    {name: "Mobile Legends", pid1: "User ID", pid2: "Zone ID", img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300&auto=format&fit=crop&q=60", packages: [{name: "86 Diamonds", price: 1.50}, {name: "257 Diamonds", price: 4.50}]}
                 ];
                 localStorage.setItem('all_categories', JSON.stringify(allCats));
             }
@@ -1572,48 +1644,6 @@
         function closeLightbox() {
             const modal = document.getElementById('lightbox-modal');
             if (modal) modal.style.display = 'none';
-        }
-
-        function exportDataBackup() {
-            const backupData = {
-                registered_users: JSON.parse(localStorage.getItem('registered_users') || '[]'),
-                user_orders: JSON.parse(localStorage.getItem('user_orders') || '[]'),
-                all_categories: JSON.parse(localStorage.getItem('all_categories') || '[]'),
-                banner_images: JSON.parse(localStorage.getItem('banner_images') || '[]'),
-                marquee_text: localStorage.getItem('marquee_text') || '',
-                tg_bot_token: localStorage.getItem('tg_bot_token') || '',
-                tg_chat_id: localStorage.getItem('tg_chat_id') || ''
-            };
-
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupData, null, 2));
-            const dlAnchor = document.createElement('a');
-            dlAnchor.setAttribute("href", dataStr);
-            dlAnchor.setAttribute("download", `auto_chah_backup_${Date.now()}.json`);
-            dlAnchor.click();
-        }
-
-        function importDataBackup(input) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    try {
-                        const data = JSON.parse(e.target.result);
-                        if (data.registered_users) localStorage.setItem('registered_users', JSON.stringify(data.registered_users));
-                        if (data.user_orders) localStorage.setItem('user_orders', JSON.stringify(data.user_orders));
-                        if (data.all_categories) localStorage.setItem('all_categories', JSON.stringify(data.all_categories));
-                        if (data.banner_images) localStorage.setItem('banner_images', JSON.stringify(data.banner_images));
-                        if (data.marquee_text) localStorage.setItem('marquee_text', data.marquee_text);
-                        if (data.tg_bot_token) localStorage.setItem('tg_bot_token', data.tg_bot_token);
-                        if (data.tg_chat_id) localStorage.setItem('tg_chat_id', data.tg_chat_id);
-
-                        alert('بارلىق سانلىق مەلۇماتلار مۇۋەپپەقىيەتلىك ئەسلىگە كەلتۈرۈلدى!');
-                        location.reload();
-                    } catch (err) {
-                        alert('ھۆججەت خاتا ياكى بۇزۇلغان!');
-                    }
-                };
-                reader.readAsText(input.files[0]);
-            }
         }
 
         function uploadProfileImage(input) {
@@ -1852,14 +1882,6 @@
         }
 
         window.onload = function() {
-            // سىز تېلېگراممىدىن ئالغان مەخسۇس API كودلىرىنى تۆۋەندىكى تىرناق ئىچىگە قويسىڭىزمۇ بولىدۇ:
-            if (!localStorage.getItem('tg_bot_token')) {
-                localStorage.setItem('tg_bot_token', 'بۇ_يەرگە_BOT_TOKEN_قويۇڭ');
-            }
-            if (!localStorage.getItem('tg_chat_id')) {
-                localStorage.setItem('tg_chat_id', 'بۇ_يەرگە_CHAT_ID_قويۇڭ');
-            }
-
             const savedLang = localStorage.getItem('selected_lang') || 'ug';
             changeLanguage(savedLang);
             loadCategories();
