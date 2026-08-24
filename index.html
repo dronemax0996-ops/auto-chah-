@@ -25,7 +25,6 @@
             padding-bottom: 90px;
         }
 
-        /* يېشىل رەڭلىك باش قىسىم */
         .navbar {
             background: linear-gradient(135deg, #10B981 0%, #059669 100%);
             padding: 12px 15px;
@@ -205,7 +204,6 @@
             text-align: right;
         }
 
-        /* كاتېگورىيە تورى */
         .categories-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -258,7 +256,6 @@
             border: 1px solid var(--border-color);
         }
 
-        /* رەڭلىك كارتا ساندۇقلىرى (Wallet Stats) */
         .wallet-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -356,7 +353,6 @@
             transition: 0.2s;
         }
 
-        /* رەسىمدىكىگە ئوخشاش كۆك رەڭلىك ئاستى مېنيۇ (Bottom Navigation) */
         .bottom-nav {
             position: fixed;
             bottom: 0; left: 0; right: 0;
@@ -392,25 +388,24 @@
 </head>
 <body>
 
-    <!-- باش قىسىم -->
     <header class="navbar">
         <a href="#" class="brand-logo">
             <img src="logo.png" alt="Logo" onerror="this.src='https://img.icons8.com/color/96/lightning-bolt.png'">
         </a>
         <div class="nav-actions">
-            <button class="nav-icon-btn" onclick="switchPage('account', document.querySelectorAll('.nav-item')[4])">👤</button>
+            <button class="nav-icon-btn" onclick="switchPage('account', document.querySelectorAll('.nav-item')[3])">👤</button>
             <button class="nav-icon-btn" onclick="toggleLanguage()">🌐</button>
             <button class="nav-icon-btn" onclick="toggleMenu()">☰</button>
         </div>
     </header>
 
-    <!-- سىيرىلىپ چىقىدىغان تىزىملىك (Drawer Menu) -->
+    <!-- Drawer Menu -->
     <div class="drawer-overlay" id="drawer-overlay" onclick="toggleMenu()"></div>
     <div class="drawer" id="side-drawer">
         <div class="drawer-header">
             <button class="drawer-close" onclick="toggleMenu()">✕</button>
             <div class="drawer-avatar">👤</div>
-            <div class="drawer-name" id="drawer-username">Killer 0996</div>
+            <div class="drawer-name" id="drawer-username">ميھمان (Guest)</div>
             <div class="drawer-balance" id="drawer-balance">0.00$</div>
         </div>
         <div class="drawer-links">
@@ -481,39 +476,49 @@
             </div>
         </div>
 
-        <!-- 4. ھېساباتىم (رەسىمدىكى ساندۇقلار بىلەن) -->
+        <!-- 4. ھېساباتىم ۋە تىزىملاش / كىرىش سىستېمىسى -->
         <div id="account-section" class="page-view">
+            <!-- ئەگەر كىرمىگەن بولسا تىزىملاش كۆزنىكى -->
             <div id="auth-box" class="card">
                 <div id="register-form">
-                    <h3 style="margin-top: 0; text-align: center;">إنشاء حساب جديد</h3>
+                    <h3 style="margin-top: 0; text-align: center;">إنشاء حساب جديد (تىزىملىتىش)</h3>
                     <div class="input-group">
-                        <label>اسم المستخدم (Admin: auto chah)</label>
-                        <input type="text" id="reg-email" placeholder="auto chah">
+                        <label>اسم المستخدم (ئىسمىڭىز)</label>
+                        <input type="text" id="reg-name" placeholder="Killer 0996">
                     </div>
                     <div class="input-group">
-                        <label>كلمة المرور</label>
+                        <label>البريد الإلكتروني (Gmail)</label>
+                        <input type="email" id="reg-email" placeholder="example@gmail.com">
+                    </div>
+                    <div class="input-group">
+                        <label>كلمة المرور (مەخپىي نومۇر)</label>
                         <input type="password" id="reg-password" placeholder="********">
                     </div>
-                    <button class="btn-main" onclick="registerUser()">تسجيل</button>
-                </div>
-                <div id="login-form" style="display: none;">
-                    <h3 style="margin-top: 0; text-align: center;">تسجيل الدخول</h3>
                     <div class="input-group">
-                        <label>اسم المستخدم (Admin: auto chah)</label>
+                        <label>رقم الهاتف (تېلېفون نومۇرى)</label>
+                        <input type="text" id="reg-phone" placeholder="+963...">
+                    </div>
+                    <button class="btn-main" onclick="registerUser()">تسجيل (تىزىملىتىش)</button>
+                </div>
+
+                <div id="login-form" style="display: none;">
+                    <h3 style="margin-top: 0; text-align: center;">تسجيل الدخول (كىرىش)</h3>
+                    <div class="input-group">
+                        <label>اسم المستخدم أو البريد (Admin: auto chah)</label>
                         <input type="text" id="log-email" placeholder="auto chah">
                     </div>
                     <div class="input-group">
                         <label>كلمة المرور (Admin: 0996)</label>
                         <input type="password" id="log-password" placeholder="0996">
                     </div>
-                    <button class="btn-main" onclick="loginUser()">دخول</button>
+                    <button class="btn-main" onclick="loginUser()">دخول (كىرىش)</button>
                 </div>
                 <p style="text-align: center; font-size: 13px; margin-top: 15px; color: var(--text-dim); cursor: pointer;" onclick="toggleAuthMode()" id="auth-toggle-text">لديك حساب؟ تسجيل الدخول</p>
             </div>
 
-            <!-- رەسىمدىكىگە ئوخشاش ساندۇقلار (Wallet Section) -->
+            <!-- رەسىمدىكىگە ئوخشاش پروفىل ۋە ساقلاش (حفظ) كۇنۇپكىسى -->
             <div id="user-profile" class="card" style="display: none;">
-                <h3 style="margin-bottom: 15px; text-align: center;" id="user-email-display">Killer 0996</h3>
+                <h3 style="margin-bottom: 15px; text-align: center;" id="user-profile-title">تەھرىرلەش</h3>
                 
                 <div class="wallet-grid">
                     <div class="wallet-box green">
@@ -530,7 +535,25 @@
                     </div>
                 </div>
 
-                <div class="input-group" style="text-align: right; background: var(--bg-color); padding: 10px; border-radius: 10px; border: 1px dashed var(--primary); margin-top: 15px;">
+                <div class="input-group">
+                    <label>الاسم الاول (ئىسمى)</label>
+                    <input type="text" id="profile-fname" placeholder="Killer">
+                </div>
+                <div class="input-group">
+                    <label>الاسم الاخير (فامىلىسى)</label>
+                    <input type="text" id="profile-lname" placeholder="0996">
+                </div>
+                <div class="input-group">
+                    <label>البريد الالكتروني (Gmail)</label>
+                    <input type="email" id="profile-email" placeholder="email@gmail.com">
+                </div>
+                <div class="input-group">
+                    <label>هاتف (تېلېفون نومۇرى)</label>
+                    <input type="text" id="profile-phone" placeholder="+963...">
+                </div>
+                <button class="btn-main" onclick="saveProfile()" style="background: #0284c7; margin-bottom: 15px;">حفظ (ساقلاش)</button>
+
+                <div class="input-group" style="text-align: right; background: var(--bg-color); padding: 10px; border-radius: 10px; border: 1px dashed var(--primary);">
                     <label style="color: var(--primary);">🎁 رابط الإحالة (Referral Link)</label>
                     <input type="text" id="ref-link" readonly style="font-size: 12px; background: transparent;" value="https://autochah.com/?ref=nasrulla">
                     <button class="btn-main" style="margin-top: 5px; font-size: 12px; padding: 6px;" onclick="copyRefLink()">کۆچۈرۈش</button>
@@ -547,7 +570,7 @@
                     <div id="admin-orders-list" style="max-height: 180px; overflow-y: auto; text-align: right; font-size: 12px;"></div>
                 </div>
 
-                <button class="btn-main" style="background: #ef4444; margin-top: 15px;" onclick="logoutUser()">تسجيل الخروج</button>
+                <button class="btn-main" style="background: #ef4444; margin-top: 15px;" onclick="logoutUser()">تسجيل الخروج (چыقىش)</button>
             </div>
         </div>
     </div>
@@ -573,9 +596,8 @@
         </div>
     </div>
 
-    <!-- رەسىمدىكىگە ئوخشاش كۆك رەڭلىك ئاستى مېنيۇ (Bottom Navigation) -->
     <nav class="bottom-nav">
-        <button class="nav-item" onclick="switchPage('home', this)"><span>🏠</span>الرئيسية</button>
+        <button class="nav-item active" onclick="switchPage('home', this)"><span>🏠</span>الرئيسية</button>
         <button class="nav-item" onclick="switchPage('topup', this)"><span>💳</span>الشحن</button>
         <button class="nav-item" onclick="switchPage('orders', this)"><span>🛒</span>طلباتي</button>
         <button class="nav-item" onclick="switchPage('account', this)"><span>👤</span>حسابي</button>
@@ -644,7 +666,7 @@
             const msg = msgInput.value.trim();
             if (!msg) { alert('اكتب رسالة!'); return; }
             let tickets = JSON.parse(localStorage.getItem('support_tickets') || '[]');
-            tickets.push({user: localStorage.getItem('s_email') || 'Guest', message: msg, date: new Date().toLocaleDateString()});
+            tickets.push({user: localStorage.getItem('s_name') || 'Guest', message: msg, date: new Date().toLocaleDateString()});
             localStorage.setItem('support_tickets', JSON.stringify(tickets));
             alert('تم إرسال الرسالة بنجاح!');
             msgInput.value = '';
@@ -783,14 +805,24 @@
         }
 
         function registerUser() {
+            const nameEl = document.getElementById('reg-name');
             const emailEl = document.getElementById('reg-email');
             const passEl = document.getElementById('reg-password');
-            if (!emailEl || !passEl) return;
-            const email = emailEl.value.trim();
+            const phoneEl = document.getElementById('reg-phone');
+            if (!nameEl || !passEl) return;
+            const name = nameEl.value.trim();
+            const email = emailEl ? emailEl.value.trim() : '';
             const pass = passEl.value.trim();
-            if (!email || !pass) { alert('املأ الحقول!'); return; }
+            const phone = phoneEl ? phoneEl.value.trim() : '';
+
+            if (!name || !pass) { alert('املأ الحقول المطلوبة!'); return; }
+            
+            localStorage.setItem('s_name', name);
             localStorage.setItem('s_email', email);
             localStorage.setItem('s_pass', pass);
+            localStorage.setItem('s_phone', phone);
+            localStorage.setItem('is_logged', 'true');
+            
             alert('تم التسجيل بنجاح!');
             checkLogin();
         }
@@ -805,19 +837,53 @@
             if (nameInput === 'auto chah' && passInput === '0996') {
                 localStorage.setItem('is_admin', 'true');
                 localStorage.setItem('is_logged', 'true');
-                localStorage.setItem('s_email', 'auto chah');
+                localStorage.setItem('s_name', 'Auto Chah Admin');
                 alert('تم تسجيل الدخول بنجاح (Admin)!');
                 checkLogin();
                 return;
             }
 
-            if (nameInput === localStorage.getItem('s_email') && passInput === localStorage.getItem('s_pass')) {
+            const savedName = (localStorage.getItem('s_name') || '').toLowerCase();
+            const savedEmail = (localStorage.getItem('s_email') || '').toLowerCase();
+            const savedPass = localStorage.getItem('s_pass') || '';
+
+            if ((nameInput === savedName || nameInput === savedEmail) && passInput === savedPass) {
                 localStorage.setItem('is_logged', 'true');
                 localStorage.removeItem('is_admin');
                 alert('تم تسجيل الدخول بنجاح!');
                 checkLogin();
             } else {
                 alert('خطأ في الاسم أو كلمة المرور! (Admin: auto chah / 0996)');
+            }
+        }
+
+        function saveProfile() {
+            const fname = document.getElementById('profile-fname').value.trim();
+            const lname = document.getElementById('profile-lname').value.trim();
+            const email = document.getElementById('profile-email').value.trim();
+            const phone = document.getElementById('profile-phone').value.trim();
+
+            const fullName = (fname + ' ' + lname).trim();
+            if (fullName) localStorage.setItem('s_name', fullName);
+            if (email) localStorage.setItem('s_email', email);
+            if (phone) localStorage.setItem('s_phone', phone);
+
+            alert('تم حفظ التغييرات بنجاح!');
+            checkLogin();
+        }
+
+        function toggleAuthMode() {
+            const regForm = document.getElementById('register-form');
+            const logForm = document.getElementById('login-form');
+            const toggleText = document.getElementById('auth-toggle-text');
+            if (regForm.style.display === 'none') {
+                regForm.style.display = 'block';
+                logForm.style.display = 'none';
+                toggleText.textContent = 'لديك حساب؟ تسجيل الدخول';
+            } else {
+                regForm.style.display = 'none';
+                logForm.style.display = 'block';
+                toggleText.textContent = 'ليس لديك حساب؟ إنشاء حساب';
             }
         }
 
@@ -831,15 +897,22 @@
             const drawerName = document.getElementById('drawer-username');
             const authBox = document.getElementById('auth-box');
             const userProfile = document.getElementById('user-profile');
-            const userEmailDisplay = document.getElementById('user-email-display');
             const adminPanel = document.getElementById('admin-panel');
 
             if (localStorage.getItem('is_logged') === 'true') {
                 if (authBox) authBox.style.display = 'none';
                 if (userProfile) userProfile.style.display = 'block';
-                const currentEmail = localStorage.getItem('s_email') || 'User';
-                if (userEmailDisplay) userEmailDisplay.textContent = currentEmail;
-                if (drawerName) drawerName.textContent = currentEmail;
+                
+                const currentName = localStorage.getItem('s_name') || 'User';
+                if (drawerName) drawerName.textContent = currentName;
+
+                // پروفىل ئۆيلىرىنى تولدۇرۇش
+                const nameParts = currentName.split(' ');
+                document.getElementById('profile-fname').value = nameParts[0] || '';
+                document.getElementById('profile-lname').value = nameParts.slice(1).join(' ') || '';
+                document.getElementById('profile-email').value = localStorage.getItem('s_email') || '';
+                document.getElementById('profile-phone').value = localStorage.getItem('s_phone') || '';
+
                 updateAnalyticsDisplay();
                 
                 if (localStorage.getItem('is_admin') === 'true') {
