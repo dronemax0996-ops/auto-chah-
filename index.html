@@ -3,194 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MaxStore - كۆچمە دۇكىنى</title>
+    <title>Auto Chah - شحن الرصيد والخدمات الرقمية</title>
+    <!-- Tailwind CSS ئارقىلىق لايىھەلەندى -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'dark-bg': '#0f111a',
-                        'card-bg': '#1a1d29',
-                        'accent-purple': '#6e57e0',
-                        'text-dim': '#a0aab5'
+                        brandDark: '#0b0f19',
+                        cardDark: '#131826',
+                        accentBlue: '#3b82f6',
+                        accentGlow: '#60a5fa'
                     }
                 }
             }
         }
     </script>
     <style>
-        /* ئۆزگىچە ئۇسلۇبلار */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0f111a;
-            color: white;
-            padding-bottom: 80px; /* تۆۋەندىكى مېنىيۇ ئۈچۈن */
+            background-color: #0b0f19;
+            color: #ffffff;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-        .category-icon {
-            width: 60px;
-            height: 60px;
-            object-fit: contain;
-        }
-        .bottom-nav-item.active {
-            color: #6e57e0;
-        }
-        /* Scrollbar نى يوشۇرۇش */
-        ::-webkit-scrollbar {
-            display: none;
-        }
-        /* كۆزنەك ئالماشتۇرۇش ئۈنچۈن (جاۋابكارلىق بېرىلگەن بۆلەك) */
-        .page-section {
-            display: none;
-        }
-        .page-section.active-page {
-            display: block;
+        .glow-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
         }
     </style>
 </head>
-<body class="bg-dark-bg">
+<body class="bg-brandDark min-h-screen pb-20">
 
-<!-- ئۈستۈنكى قىسىم (Header) -->
-<header class="bg-card-bg p-4 sticky top-0 z-50 flex items-center justify-between border-b border-gray-700">
-    <div class="flex items-center gap-3">
-        <button class="text-gray-400">✕</button>
-        <h1 class="font-bold text-lg">MaxStore - للمنتجات الرقمية</h1>
-    </div>
-    <div class="flex items-center gap-3">
-        <button class="text-gray-400">⌄</button>
-        <div class="bg-accent-purple text-white px-3 py-1 rounded-full text-sm font-mono flex items-center gap-1">
-            <span>+</span>
-            <span>0.064$</span>
-            <span class="text-yellow-400">🟡</span>
+    <!-- ئۈستۈنكى قىسىم (Header) -->
+    <header class="bg-cardDark border-b border-gray-800 p-4 sticky top-0 z-50 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="bg-blue-600 p-2 rounded-xl text-white font-bold text-lg">⚡ Auto Chah</div>
         </div>
-        <img src="https://api.dicebear.com/9.x/thumbs/svg?seed=Nuri" alt="Avatar" class="w-10 h-10 rounded-full border-2 border-accent-purple">
-    </div>
-</header>
-
-<!-- ئاساسلىق بەت (Home Page - image_6.png) -->
-<main id="home-page" class="page-section active-page p-4 space-y-6">
-    <!-- ئىزدەش رامكىسى -->
-    <div class="relative">
-        <input type="search" placeholder="ابحث عن منتج..." class="w-full bg-card-bg text-white p-4 rounded-2xl pr-12 border border-gray-700 focus:ring-2 focus:ring-accent-purple focus:border-accent-purple outline-none">
-        <svg class="w-6 h-6 text-gray-400 absolute right-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-    </div>
-
-    <!-- تۈرلەر بۆلىكى -->
-    <section>
-        <h2 class="text-xl font-semibold mb-4">تصنيفات المتجر <span class="text-accent-purple bg-card-bg px-2 py-0.5 rounded-md text-sm">10</span></h2>
-        <div class="grid grid-cols-4 gap-4 text-center text-sm">
-            <!-- 1-تۈر -->
-            <a href="#" class="space-y-2">
-                <img src="https://img.icons8.com/?size=100&id=55587&format=png&color=6e57e0" alt="البطاقات" class="category-icon mx-auto bg-card-bg p-3 rounded-3xl border border-gray-700">
-                <p>البطاقات</p>
-            </a>
-            <!-- 2-تۈر -->
-             <a href="#" class="space-y-2">
-                <img src="https://img.icons8.com/?size=100&id=13883&format=png&color=6e57e0" alt="الرصيد" class="category-icon mx-auto bg-card-bg p-3 rounded-3xl border border-gray-700">
-                <p>الرصيد</p>
-            </a>
-            <!-- 3-تۈر -->
-             <a href="#" class="space-y-2">
-                <img src="https://img.icons8.com/?size=100&id=111088&format=png&color=6e57e0" alt="التطبيقات" class="category-icon mx-auto bg-card-bg p-3 rounded-3xl border border-gray-700">
-                <p>التطبيقات</p>
-            </a>
-            <!-- 4-تۈر -->
-             <a href="#" class="space-y-2">
-                <img src="https://img.icons8.com/?size=100&id=60317&format=png&color=6e57e0" alt="العاب" class="category-icon mx-auto bg-card-bg p-3 rounded-3xl border border-gray-700">
-                <p>العاب</p>
-            </a>
-            <!-- 5-تۈر -->
-             <a href="#" class="space-y-2">
-                <img src="https://img.icons8.com/?size=100&id=118544&format=png&color=6e57e0" alt="خدمات تيليجرام" class="category-icon mx-auto bg-card-bg p-3 rounded-3xl border border-gray-700">
-                <p>خدمات تيليجرام</p>
-            </a>
-            <!-- 6-تۈر -->
-             <a href="#" class="space-y-2">
-                <img src="https://img.icons8.com/?size=100&id=Hn0s9qX0C70B&format=png&color=6e57e0" alt="الاشتراكات والحسابات" class="category-icon mx-auto bg-card-bg p-3 rounded-3xl border border-gray-700">
-                <p>الاشتراكات والحسابات</p>
-            </a>
-            <!-- 7-تۈر -->
-             <a href="#" class="space-y-2">
-                <img src="https://img.icons8.com/?size=100&id=32580&format=png&color=6e57e0" alt="الارقام الافتراضية" class="category-icon mx-auto bg-card-bg p-3 rounded-3xl border border-gray-700">
-                <p>الارقام الافتراضية</p>
-            </a>
-            <!-- 8-تۈر -->
-             <a href="#" class="space-y-2">
-                <img src="https://img.icons8.com/?size=100&id=m7V1c2aZ5o06&format=png&color=6e57e0" alt="سوشل ميديا" class="category-icon mx-auto bg-card-bg p-3 rounded-3xl border border-gray-700">
-                <p>سوشل ميديا</p>
-            </a>
-             <!-- 9-تۈر -->
-             <a href="#" class="space-y-2">
-                <img src="https://img.icons8.com/?size=100&id=48762&format=png&color=6e57e0" alt="فواتير الانترنت" class="category-icon mx-auto bg-card-bg p-3 rounded-3xl border border-gray-700">
-                <p>فواتير الانترنت</p>
-            </a>
-            <!-- 10-تۈر -->
-            <a href="#" class="space-y-2">
-                <img src="https://img.icons8.com/?size=100&id=122728&format=png&color=6e57e0" alt="مستلزمات Gaming" class="category-icon mx-auto bg-card-bg p-3 rounded-3xl border border-gray-700">
-                <p>مستلزمات Gaming</p>
-            </a>
-
+        <div class="flex items-center gap-2 bg-gray-900 border border-gray-700 px-3 py-1.5 rounded-full">
+            <span class="text-xs text-gray-400">الرصيد:</span>
+            <span class="font-bold text-green-400">0.00 $</span>
         </div>
-    </section>
-</main>
+    </header>
 
-<!-- زاكازلار بېتى (Orders Page - image_7.png) -->
-<section id="orders-page" class="page-section p-4 space-y-5 hidden">
-    <button onclick="showPage('home-page')" class="text-accent-purple text-sm flex items-center gap-1">
-        <span>←</span> العودة للرئيسية
-    </button>
-    <h2 class="text-3xl font-extrabold text-gray-500">طلباتي</h2>
-    
-    <!-- سىتاتىستىكا كارتلىرى -->
-    <div class="grid grid-cols-3 gap-3 text-center">
-        <div class="bg-card-bg p-4 rounded-xl border border-gray-700 space-y-1">
-            <p class="text-red-500 font-bold text-2xl">0</p>
-            <p class="text-xs text-text-dim">إجمالي الطلبات</p>
+    <!-- ئاساسلىق مەزمۇن -->
+    <main class="p-4 max-w-md mx-auto space-y-6">
+
+        <!-- قارشى ئېلىش ۋە تەشۋىقات كارتىسى -->
+        <div class="glow-card border border-blue-500/30 rounded-2xl p-5 text-center space-y-3">
+            <h1 class="text-xl font-extrabold text-white">مرحباً بك في Auto Chah</h1>
+            <p class="text-xs text-gray-300">أسرع وأضمن منصة لشحن الألعاب والخدمات الرقمية وتعبئة الرصيد الفوري.</p>
+            <button class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg transition duration-200">
+                اشحن رصيدك الآن ⚡
+            </button>
         </div>
-        <div class="bg-card-bg p-4 rounded-xl border border-gray-700 space-y-1">
-            <p class="text-green-500 font-bold text-2xl">0</p>
-            <p class="text-xs text-text-dim">مكتمل</p>
-        </div>
-        <div class="bg-card-bg p-4 rounded-xl border border-gray-700 space-y-1">
-            <p class="text-gray-400 font-bold text-2xl">0</p>
-            <p class="text-xs text-text-dim">ملغى / فاشل</p>
-        </div>
-    </div>
-     <div class="bg-card-bg p-5 rounded-xl border border-gray-700 space-y-1 text-center">
-        <p class="text-accent-purple font-bold text-2xl font-mono">0$</p>
-        <p class="text-xs text-text-dim">قيمة الطلبات المكتملة</p>
-    </div>
 
-    <!-- ئىزدەش ۋە سۈزگۈچ -->
-     <div class="relative">
-        <input type="search" placeholder="رقم الطلب • المنتج • آيدي اللاعب" class="w-full bg-card-bg text-white p-3 rounded-2xl pr-10 border border-gray-700 focus:ring-1 focus:ring-accent-purple outline-none text-sm">
-        <svg class="w-5 h-5 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-    </div>
-    <div class="grid grid-cols-2 gap-3">
-         <select class="bg-card-bg p-3 rounded-xl border border-gray-700 text-sm focus:outline-none text-gray-400"><option>كل الحالات</option></select>
-         <select class="bg-card-bg p-3 rounded-xl border border-gray-700 text-sm focus:outline-none text-gray-400"><option>فلتر</option></select>
-    </div>
-    <div class="flex gap-2 overflow-x-auto text-xs text-gray-400 pb-2">
-        <span class="bg-accent-purple text-white px-3 py-1 rounded-full whitespace-nowrap">الكل</span>
-        <span class="bg-card-bg border border-gray-700 px-3 py-1 rounded-full whitespace-nowrap">قيد التنفيذ</span>
-        <span class="bg-card-bg border border-gray-700 px-3 py-1 rounded-full whitespace-nowrap">مكتمل</span>
-         <span class="bg-card-bg border border-gray-700 px-3 py-1 rounded-full whitespace-nowrap">فشل</span>
-         <span class="bg-card-bg border border-gray-700 px-3 py-1 rounded-full whitespace-nowrap">كل المصادر</span>
-    </div>
+        <!-- ئويۇن ۋە مۇلازىمەت تۈرلىرى (Grid) -->
+        <section>
+            <h2 class="text-sm font-semibold text-gray-400 mb-3">اختر خدمة الشحن</h2>
+            <div class="grid grid-cols-3 gap-3">
+                
+                <!-- 1 -->
+                <div class="bg-cardDark border border-gray-800 p-3 rounded-2xl text-center space-y-2 hover:border-blue-500 transition cursor-pointer">
+                    <div class="w-12 h-12 bg-blue-500/10 rounded-xl mx-auto flex items-center justify-center text-xl">🎮</div>
+                    <span class="text-xs font-medium block">PUBG Mobile</span>
+                </div>
 
-    <!-- ھېچنەرسە يوق -->
-    <div class="text-center pt-10 space-y-3 text-text-dim">
-        <img src="https://img.icons8.com/?size=100&id=11225&format=png&color=4a5568" alt="Empty" class="w-20 h-20 mx-auto opacity-50">
-        <p class="font-semibold">لا توجد طلبات</p>
-        <p class="text-sm px-10">لم تقم بإجراء أي طلبات بعد - استعرض منتجاتنا وابدأ التسوق</p>
-    </div>
-</section>
+                <!-- 2 -->
+                <div class="bg-cardDark border border-gray-800 p-3 rounded-2xl text-center space-y-2 hover:border-blue-500 transition cursor-pointer">
+                    <div class="w-12 h-12 bg-blue-500/10 rounded-xl mx-auto flex items-center justify-center text-xl">⚔️</div>
+                    <span class="text-xs font-medium block">Mobile Legends</span>
+                </div>
 
-<!-- تولۇقلاش بېتى (Top-up Page - image_8.png) -->
-<section id="topup-page" class="page-section p-4 space-y-6 hidden">
-    <button onclick="showPage('home-page')" class="text-accent-purple text-sm flex items-center gap-1">
-        <span>←</span> رجوع
-    </button>
-    <h2 class="text-xl font-bold">شحن الرصيد</h2>
+                <!-- 3 -->
+                <div class="bg-cardDark border border-gray-800 p-3 rounded-2xl text-center space-y-2 hover:border-blue-500 transition cursor-pointer">
+                    <div class="w-12 h-12 bg-blue-500/10 rounded-xl mx-auto flex items-center justify-center text-xl">👑</div>
+                    <span class="text-xs font-medium block">Honor of Kings</span>
+                </div>
 
-    <!-- ر
+                <!-- 4 -->
+                <div class="bg-cardDark border border-gray-800 p-3 rounded-2xl text-center space-y-2 hover:border-blue-500 transition cursor-pointer">
+                    <div class="w-12 h-12 bg-blue-500/10 rounded-xl mx-auto flex items-center justify-center text-xl">🎯</div>
+                    <span class="text-xs font-medium block">Arena Breakout</span>
+                </div>
+
+                <!-- 5 -->
+                <div class="bg-cardDark border border-gray-800 p-3 rounded-2xl text-center space-y-2 hover:border-blue-500 transition cursor-pointer">
+                    <div class="w-12 h-12 bg-blue-500/10 rounded-xl mx-auto flex items-center justify-center text-xl">📱</div>
+                    <span class="text-xs font-medium block">تعبئة رصيد</span>
+                </div>
+
+                <!-- 6 -->
+                <div class="bg-cardDark border border-gray-800 p-3 rounded-2xl text-center space-y-2 hover:border-blue-500 transition cursor-pointer">
+                    <div class="w-12 h-12 bg-blue-500/10 rounded-xl mx-auto flex items-center justify-center text-xl">💬</div>
+                    <span class="text-xs font-medium block">خدمات تيليجرام</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ئويۇن ID كىرگۈزۈش بۆلۈمى -->
+        <section class="bg-cardDark border border-gray-800 rounded-2xl p-4 space-y-3">
+            <h3 class="text-xs font-bold text-gray-300">أدخل معرّف اللاعب (Player ID)</h3>
+            <div class="flex gap-2">
+                <input type="text" placeholder="أدخل آيدي اللاعب هنا..." class="w-full bg-gray-900 border border-gray-700 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-blue-500">
+                <button class="bg-blue-600 px-4 rounded-xl text-sm font-bold">تحقق</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- تۆۋەندىكى تىزىملىك (Bottom Navigation) -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-cardDark border-t border-gray-800 py-2 px-6 flex justify-between items-center text-xs text-gray-400">
+        <button class="flex flex-col items-center text-blue-500">
+            <span>🏠</span>
+            <span>الرئيسية</span>
+        </button>
+        <button class="flex flex-col items-center hover:text-white">
+            <span>📋</span>
+            <span>طلباتي</span>
+        </button>
+        <button class="flex flex-col items-center hover:text-white">
+            <span>💳</span>
+            <span>الشحن</span>
+        </button>
+        <button class="flex flex-col items-center hover:text-white">
+            <span>👤</span>
+            <span>حسابي</span>
+        </button>
+    </nav>
+
+</body>
+</html>
