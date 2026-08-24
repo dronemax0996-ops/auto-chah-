@@ -47,17 +47,16 @@
             z-index: 100;
         }
 
-        /* سۈرەتلىك لوگو ئۇسلۇبى */
         .brand-logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             text-decoration: none;
         }
 
         .brand-logo img {
-            width: 42px;
-            height: 42px;
+            width: 38px;
+            height: 38px;
             object-fit: contain;
             border-radius: 50%;
         }
@@ -72,16 +71,16 @@
 
         .nav-actions {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
         }
 
         .badge-btn {
             background-color: var(--primary-light);
             color: var(--primary);
-            padding: 6px 10px;
+            padding: 5px 8px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             border: none;
             cursor: pointer;
@@ -90,9 +89,9 @@
         .lang-select {
             background-color: var(--primary-light);
             color: var(--primary);
-            padding: 6px 12px;
+            padding: 5px 8px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             border: none;
             outline: none;
@@ -280,14 +279,17 @@
 </head>
 <body>
 
-    <!-- باش قىسىم (لوگو ئورنىتىلدى) -->
     <header class="navbar">
-        <div class="brand-logo">
-            <!-- بۇ يەرگە رەسىمڭىزنىڭ ئادرىسى ياكى فايىل ئىسمى يېزىلىدۇ -->
-            <img src="logo.png" alt="Auto Chah Logo" onerror="this.src='https://img.icons8.com/color/96/lightning-bolt.png'">
+        <a href="#" class="brand-logo">
+            <img src="logo.png" alt="Logo" onerror="this.src='https://img.icons8.com/color/96/lightning-bolt.png'">
             <span>Auto Chah</span>
-        </div>
+        </a>
         <div class="nav-actions">
+            <!-- پۇل بىرلىكى ئالماشتۇرۇش ($ / SYP) -->
+            <select class="lang-select" id="currency-selector" onchange="changeCurrency(this.value)">
+                <option value="USD">USD ($)</option>
+                <option value="SYP">SYP (ل.س)</option>
+            </select>
             <select class="lang-select" id="lang-selector" onchange="changeLanguage(this.value)">
                 <option value="ug">ئۇيغۇرچە</option>
                 <option value="ar">العربية</option>
@@ -304,23 +306,8 @@
         <!-- 1. باش بەت -->
         <div id="home-section" class="page-view active">
             <div class="section-title" data-i18n="services_title">مۇلازىمەت ۋە ئويۇن تۈرلىرى</div>
-            <div class="grid-container">
-                <div class="game-card" onclick="openModal('PUBG Mobile')">
-                    <img src="https://img.icons8.com/color/96/pubg.png" alt="PUBG">
-                    <span>PUBG Mobile</span>
-                </div>
-                <div class="game-card" onclick="openModal('Mobile Legends')">
-                    <img src="https://img.icons8.com/color/96/controller.png" alt="MLBB">
-                    <span>Mobile Legends</span>
-                </div>
-                <div class="game-card" onclick="openModal('Honor of Kings')">
-                    <img src="https://img.icons8.com/color/96/sword.png" alt="HOK">
-                    <span>Honor of Kings</span>
-                </div>
-                <div class="game-card" onclick="openModal('Telegram Premium')">
-                    <img src="https://img.icons8.com/color/96/telegram-app.png" alt="Telegram">
-                    <span data-i18n="telegram_service">تېلېگرامما</span>
-                </div>
+            <div class="grid-container" id="games-grid-container">
+                <!-- Javascript ئارقىلىق ئويۇنلار يۈكلىنىدۇ -->
             </div>
         </div>
 
@@ -332,28 +319,32 @@
             </div>
         </div>
 
-        <!-- 3. پۇل قاچىلاش ۋە تۆلەش -->
+        <!-- 3. پۇل قاچىلاش (شامكەش ۋە باشقىلار) -->
         <div id="topup-section" class="page-view">
             <div class="section-title" data-i18n="topup_title">قالدۇق تولۇقلاش (Top-up)</div>
             <div class="card" style="text-align: center;">
                 <p style="font-weight: 600; margin-bottom: 15px;"><span data-i18n="current_balance">نۆۋەتتىكى قالدىقىڭىز:</span> <span style="color: #10B981;" id="user-balance-display">0.00$</span></p>
                 <div class="input-group">
-                    <label data-i18n="amount_label">پۇل سوممىسى ($)</label>
+                    <label data-i18n="amount_label">پۇل سوممىسى</label>
                     <input type="number" id="topup-amount" placeholder="10">
                 </div>
                 <div class="input-group">
                     <label data-i18n="payment_method">تۆلەش ئۇسۇلى</label>
-                    <select id="payment-gateway">
+                    <select id="payment-gateway" onchange="toggleReceiptInput(this.value)">
+                        <option value="Sham Cash">شامكەش (Sham Cash)</option>
                         <option value="USDT / Crypto">USDT / Crypto</option>
-                        <option value="Syriatel / Sham Cash">Syriatel / Sham Cash</option>
-                        <option value="Bank Transfer">Bank Transfer</option>
+                        <option value="Syriatel Cash">Syriatel Cash</option>
                     </select>
+                </div>
+                <div class="input-group" id="receipt-group">
+                    <label>چەك فايىلى ياكى رەسىمى (Receipt Image/File)</label>
+                    <input type="file" id="topup-receipt">
                 </div>
                 <button class="btn-main" onclick="sendTopupRequest()" data-i18n="topup_btn">تولۇقلاش تەلىپى ئەۋەتىش</button>
             </div>
         </div>
 
-        <!-- 4. ھېساباتىم ۋە Admin تۈرى -->
+        <!-- 4. ھېساباتىم ۋە پروفىل تەڭشەكلىرى / Admin -->
         <div id="account-section" class="page-view">
             <div class="section-title" data-i18n="account_title">ئابونت ھېساباتى</div>
             <div id="auth-box" class="card">
@@ -384,14 +375,27 @@
                 <p style="text-align: center; font-size: 13px; margin-top: 15px; color: var(--text-dim); cursor: pointer;" onclick="toggleAuthMode()" id="auth-toggle-text">ھېساباتىڭىز بارمۇ؟ كىرىش</p>
             </div>
 
-            <!-- ئەگەر كىرگەن بولسا -->
+            <!-- پروفىل ۋە تەڭشەكلەر -->
             <div id="user-profile" class="card" style="display: none; text-align: center;">
                 <h3 style="margin-bottom: 5px;" data-i18n="welcome_msg">خۇش كەپسىز!</h3>
                 <p id="user-email-display" style="color: var(--text-dim); font-size: 14px; margin-bottom: 10px;"></p>
                 
+                <div class="input-group" style="text-align: right;">
+                    <label>پارولنى ئۆزگەرتىش</label>
+                    <input type="password" id="new-password" placeholder="يېڭى مەخپىي نومۇر...">
+                </div>
+                <button class="btn-main" style="background: #3b82f6; margin-bottom: 15px;" onclick="updatePassword()">مەخپىي نومۇرنى يېڭىلاش</button>
+
+                <!-- Admin Panel -->
                 <div id="admin-panel" style="display: none; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px;">
                     <h4 style="color: var(--primary); margin-bottom: 10px;">⚙️ Admin Panel (باشقۇرغۇچى)</h4>
-                    <div id="admin-orders-list" style="max-height: 200px; overflow-y: auto; text-align: right; font-size: 12px;"></div>
+                    <div class="input-group" style="text-align: right;">
+                        <label>يېڭى ئويۇن/مۇلازىمەت قوشۇش</label>
+                        <input type="text" id="admin-game-name" placeholder="مەسلەن: Free Fire">
+                        <input type="text" id="admin-game-img" placeholder="رەسىم URL ئادرىسى" style="margin-top: 5px;">
+                        <button class="btn-main" style="margin-top: 8px; background: #10B981;" onclick="adminAddGame()">ئويۇن قوشۇش</button>
+                    </div>
+                    <div id="admin-orders-list" style="max-height: 200px; overflow-y: auto; text-align: right; font-size: 12px; margin-top: 15px;"></div>
                 </div>
 
                 <button class="btn-main" style="background: #ef4444; margin-top: 15px;" onclick="logoutUser()" data-i18n="logout_btn">ھېساباتتىن چىقىش</button>
@@ -411,9 +415,9 @@
             <div class="input-group">
                 <label data-i18n="package_label">مەھسۇلاتنى تاللاڭ</label>
                 <select id="product-package">
-                    <option value="60 UC - 1.00$">60 UC (1.00$)</option>
-                    <option value="325 UC - 5.00$">325 UC (5.00$)</option>
-                    <option value="660 UC - 10.00$">660 UC (10.00$)</option>
+                    <option value="60">60 UC (1.00$)</option>
+                    <option value="325">325 UC (5.00$)</option>
+                    <option value="660">660 UC (10.00$)</option>
                 </select>
             </div>
             <div class="input-group">
@@ -432,6 +436,10 @@
     </nav>
 
     <script>
+        // پۇل بىرلىكى ۋە باھا نىسبىتى (1 USD = 15000 SYP دەپ مۆلچەرلەندى)
+        let currentCurrency = 'USD';
+        const sypRate = 15000;
+
         const translations = {
             ug: {
                 theme_btn: "تېما",
@@ -439,10 +447,10 @@
                 telegram_service: "تېلېگرامما",
                 orders_title: "زاكاز ۋە تەلەپ تارىخىم",
                 no_orders: "ھېچقانداق زاكاز خاتىرىسى يوق.",
-                topup_title: "قالدۇق تولۇقلاش (Top-up)",
+                topup_title: "قالدۇق تولۇقلاش (Sham Cash)",
                 current_balance: "نۆۋەتتىكى قالدىقىڭىز:",
-                amount_label: "پۇل سوممىسى ($)",
-                payment_method: "تۆلەش ئۇسۇلى",
+                amount_label: "پۇل سوممىسى",
+                payment_method: "تۆلەش ئۇسۇلى (شامكەش)",
                 topup_btn: "تولۇقلاش تەلىپى ئەۋەتىش",
                 account_title: "ئابونت ھېساباتى",
                 register_heading: "يېڭى ھېسابات ئېچىش",
@@ -470,10 +478,10 @@
                 telegram_service: "تيليجرام",
                 orders_title: "سجل الطلبات والخدمات",
                 no_orders: "لا توجد طلبات سابقة.",
-                topup_title: "شحن الرصيد",
+                topup_title: "شحن الرصيد (Sham Cash)",
                 current_balance: "رصيدك الحالي:",
-                amount_label: "مبلغ الشحن ($)",
-                payment_method: "طريقة الدفع",
+                amount_label: "المبلغ",
+                payment_method: "طريقة الدفع (شامكش)",
                 topup_btn: "إرسال طلب الشحن",
                 account_title: "حساب المستخدم",
                 register_heading: "إنشاء حساب جديد",
@@ -501,9 +509,9 @@
                 telegram_service: "Telegram",
                 orders_title: "My Orders History",
                 no_orders: "No orders found.",
-                topup_title: "Top-up Balance",
+                topup_title: "Top-up Balance (Sham Cash)",
                 current_balance: "Current Balance:",
-                amount_label: "Amount ($)",
+                amount_label: "Amount",
                 payment_method: "Payment Method",
                 topup_btn: "Send Top-up Request",
                 account_title: "User Account",
@@ -531,9 +539,9 @@
                 services_title: "O'yinlar va xizmatlar",
                 orders_title: "Buyurtmalar tarixi",
                 no_orders: "Buyurtmalar topilmadi.",
-                topup_title: "Balansni to'ldirish",
+                topup_title: "Balansni to'ldirish (Sham Cash)",
                 current_balance: "Joriy balans:",
-                amount_label: "Miqdor ($)",
+                amount_label: "Miqdor",
                 payment_method: "To'lov usuli",
                 topup_btn: "To'ldirish so'rovini yuborish",
                 account_title: "Foydalanuvchi hisobi",
@@ -558,10 +566,58 @@
             }
         };
 
+        // باشلانغۇچ ئويۇن تۈرلىرى
+        const defaultGames = [
+            {name: 'PUBG Mobile', img: 'https://img.icons8.com/color/96/pubg.png'},
+            {name: 'Mobile Legends', img: 'https://img.icons8.com/color/96/controller.png'},
+            {name: 'Honor of Kings', img: 'https://img.icons8.com/color/96/sword.png'},
+            {name: 'Telegram Premium', img: 'https://img.icons8.com/color/96/telegram-app.png'}
+        ];
+
+        function loadGames() {
+            let games = JSON.parse(localStorage.getItem('platform_games') || JSON.stringify(defaultGames));
+            let gridHtml = '';
+            games.forEach(g => {
+                gridHtml += `<div class="game-card" onclick="openModal('${g.name}')">
+                    <img src="${g.img}" alt="${g.name}">
+                    <span>${g.name}</span>
+                </div>`;
+            });
+            document.getElementById('games-grid-container').innerHTML = gridHtml;
+        }
+
+        function adminAddGame() {
+            let name = document.getElementById('admin-game-name').value;
+            let img = document.getElementById('admin-game-img').value;
+            if(!name || !img) { alert('بارلىق بوشلۇقلارنى تولدۇرۇڭ!'); return; }
+            let games = JSON.parse(localStorage.getItem('platform_games') || JSON.stringify(defaultGames));
+            games.push({name: name, img: img});
+            localStorage.setItem('platform_games', JSON.stringify(games));
+            alert('يېڭى ئويۇن قوشۇلدى!');
+            document.getElementById('admin-game-name').value = '';
+            document.getElementById('admin-game-img').value = '';
+            loadGames();
+        }
+
+        function changeCurrency(curr) {
+            currentCurrency = curr;
+            updateBalanceDisplay();
+        }
+
+        function updateBalanceDisplay() {
+            let balUSD = parseFloat(localStorage.getItem('user_balance') || '0');
+            let displayEl = document.getElementById('user-balance-display');
+            if(currentCurrency === 'SYP') {
+                let balSYP = balUSD * sypRate;
+                displayEl.textContent = balSYP.toLocaleString() + ' ل.س';
+            } else {
+                displayEl.textContent = balUSD.toFixed(2) + '$';
+            }
+        }
+
         function changeLanguage(lang) {
             localStorage.setItem('selected_lang', lang);
             document.getElementById('lang-selector').value = lang;
-
             const htmlRoot = document.getElementById('html-root');
             if (lang === 'en' || lang === 'uz') {
                 htmlRoot.setAttribute('dir', 'ltr');
@@ -638,11 +694,11 @@
 
             let discountMsg = '';
             if(promo === 'NASRULLA' || promo === 'VIP') {
-                discountMsg = ' (Promo Code قوللىنىلدى: 10% چېگىش!)';
+                discountMsg = ' (Promo Code: 10% Off!)';
             }
 
             let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-            orders.push({id: Date.now(), game: selectedGameName, playerId: playerId, pkg: packageVal + discountMsg, status: 'كۈتۈلۈۋاتىدۇ (Pending)', date: new Date().toLocaleDateString()});
+            orders.push({id: Date.now(), game: selectedGameName, playerId: playerId, pkg: packageVal + ' UC' + discountMsg, status: 'كۈتۈلۈۋاتىدۇ (Pending)', date: new Date().toLocaleDateString()});
             localStorage.setItem('user_orders', JSON.stringify(orders));
             
             alert('زاكاز مۇۋەپپەقىيەتلىك ئەۋەتىلدى!');
@@ -658,11 +714,13 @@
                 alert('پۇل سوممىسىنى كىرگۈزۈڭ!');
                 return;
             }
+            let usdAmount = currentCurrency === 'SYP' ? (amount / sypRate).toFixed(2) : amount;
+
             let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-            orders.push({id: Date.now(), game: 'قالدۇق تولۇقلاش (' + gateway + ')', playerId: '-', pkg: amount + '$', status: 'تەكشۈرۈلۈۋاتىدۇ', date: new Date().toLocaleDateString()});
+            orders.push({id: Date.now(), game: 'تولۇقلاش (' + gateway + ')', playerId: '-', pkg: usdAmount + '$ (' + amount + ' ' + currentCurrency + ')', status: 'تەكشۈرۈلۈۋاتىدۇ', date: new Date().toLocaleDateString()});
             localStorage.setItem('user_orders', JSON.stringify(orders));
             
-            alert('تولۇقلاش تەلىپى ئەۋەتىلدى! Admin تەستىقلىشىنى كۈتۈڭ.');
+            alert('تولۇقلاش تەلىپى شامكەش ئارقىلىق ئەۋەتىلدى!');
             document.getElementById('topup-amount').value = '';
         }
 
@@ -705,9 +763,10 @@
             orders = orders.map(o => {
                 if(o.id === orderId) {
                     o.status = 'مۇۋەپپەقىيەتلىك (Approved)';
-                    if(o.game.includes('قالدۇق تولۇقلاش')) {
+                    if(o.game.includes('تولۇقلاش')) {
                         let currentBal = parseFloat(localStorage.getItem('user_balance') || '0');
-                        let addedVal = parseFloat(o.pkg);
+                        let rawPkg = o.pkg.split('$')[0];
+                        let addedVal = parseFloat(rawPkg);
                         localStorage.setItem('user_balance', (currentBal + addedVal).toFixed(2));
                     }
                 }
@@ -719,9 +778,12 @@
             alert('زاكاز تەستىقلەندى!');
         }
 
-        function updateBalanceDisplay() {
-            let bal = localStorage.getItem('user_balance') || '0.00';
-            document.getElementById('user-balance-display').textContent = bal + '$';
+        function updatePassword() {
+            let newPass = document.getElementById('new-password').value;
+            if(!newPass) { alert('يېڭى مەخپىي نومۇرنى يېزىڭ!'); return; }
+            localStorage.setItem('s_pass', newPass);
+            alert('مەخپىي نومۇر مۇۋەپپەقىيەتلىك ئۆزگەرتىلدى!');
+            document.getElementById('new-password').value = '';
         }
 
         function registerUser() {
@@ -787,6 +849,7 @@
             }
             const savedLang = localStorage.getItem('selected_lang') || 'ug';
             changeLanguage(savedLang);
+            loadGames();
             checkLogin();
             updateBalanceDisplay();
         }
