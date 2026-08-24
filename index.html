@@ -199,7 +199,7 @@
             height: 140px;
             object-fit: cover;
             border-radius: 8px;
-            transition: opacity 0.5s ease-in-out;
+            transition: opacity 0.3s ease;
         }
 
         .notice-bar {
@@ -494,7 +494,7 @@
             <div id="admin-users-view" style="display: none;">
                 <div class="card">
                     <h3 style="color: var(--primary); margin-top: 0; text-align: center;">👥 تىزىملاتقان ئابونتلار</h3>
-                    <div id="admin-users-list" style="max-height: 450px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: 10px;"></div>
+                    <div id="admin-users-list" style="max-height: 480px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: 10px;"></div>
                 </div>
             </div>
         </div>
@@ -522,7 +522,7 @@
                     <label>4. ئىسپات رەسىمى (مەجبۇرىي!)</label>
                     <input type="file" id="topup-proof-img" accept="image/*" style="font-size: 12px;">
                 </div>
-                <button class="btn-main" onclick="sendTopupRequest()">تەلەپ ئەۋەتىش (إرسال الطلب)</button>
+                <button type="button" class="btn-main" onclick="sendTopupRequest()">تەلەپ ئەۋەتىش (إرسال الطلب)</button>
             </div>
 
             <div id="admin-topup-view" class="card" style="display: none;">
@@ -1114,7 +1114,7 @@
             if (adminUsersList) {
                 let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
                 if (users.length === 0) {
-                    adminUsersList.innerHTML = '<p style="color:var(--text-dim); text-align:center;">لا توجد مستخدمين مسجلين</p>';
+                    adminUsersList.innerHTML = '<p style="color:var(--text-dim); text-align:center; padding:15px;">ھېچقانداق ئابونت تىزىملاتمىدى</p>';
                 } else {
                     let uHtml = '';
                     users.forEach((u, index) => {
@@ -1601,6 +1601,7 @@
                     if (adminTopupView) adminTopupView.style.display = 'block';
 
                     loadAdminData();
+                    loadCategories();
                 } else {
                     if (navTopupText) navTopupText.textContent = "پۇل قاچىلاش";
                     if (navOrdersText) navOrdersText.textContent = "تەلەپلىرىم";
@@ -1611,6 +1612,7 @@
                     if (adminUsersView) adminUsersView.style.display = 'none';
                     if (userTopupView) userTopupView.style.display = 'block';
                     if (adminTopupView) adminTopupView.style.display = 'none';
+                    loadCategories();
                 }
             } else {
                 if (authBox) authBox.style.display = 'block';
@@ -1626,6 +1628,7 @@
 
                 updateAvatarDisplay(null);
                 updateBalanceDisplay();
+                loadCategories();
             }
         }
 
@@ -1638,12 +1641,6 @@
             checkLogin();
             updateBalanceDisplay();
             updateAnalyticsDisplay();
-
-            setInterval(() => {
-                if (localStorage.getItem('is_admin') === 'true') {
-                    loadAdminData();
-                }
-            }, 1000);
         }
     </script>
 </body>
