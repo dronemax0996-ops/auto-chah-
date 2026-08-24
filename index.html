@@ -149,7 +149,6 @@
             display: block;
         }
 
-        /* Modal (سېتىۋېلىش كۆزنىكى) */
         .modal {
             display: none;
             position: fixed;
@@ -268,9 +267,9 @@
     <header class="navbar">
         <div class="logo">⚡ Auto Chah</div>
         <div class="nav-actions">
-            <!-- تىل تاللاش -->
+            <!-- تىل تاللاش (تۈركىستان بايرىقى قوشۇلدى) -->
             <select class="lang-select" id="lang-selector" onchange="changeLanguage(this.value)">
-                <option value="ug">🇺🇬 Uyghur</option>
+                <option value="ug">☪️ Uyghur</option>
                 <option value="ar">🇸🇦 العربية</option>
                 <option value="en">🇬🇧 English</option>
                 <option value="uz">🇺🇿 O'zbek</option>
@@ -333,7 +332,7 @@
             <div class="section-title" data-i18n="account_title">ئابونت ھېساباتى</div>
             <div id="auth-box" class="card">
                 <div id="register-form">
-                    <h3 style="margin-top: 0; text-align: center;" data-i18n="register_heading">يېڭى ھېسابات ئېچىş</h3>
+                    <h3 style="margin-top: 0; text-align: center;" data-i18n="register_heading">يېڭى ھېسابات ئېچىش</h3>
                     <div class="input-group">
                         <label data-i18n="email_label">Gmail ئادرىسى</label>
                         <input type="email" id="reg-email" placeholder="example@gmail.com">
@@ -396,7 +395,6 @@
     </nav>
 
     <script>
-        // تىل فوندلىرى (Translations)
         const translations = {
             ug: {
                 theme_btn: "تېما",
@@ -516,12 +514,10 @@
             }
         };
 
-        // تىل ئالماشتۇرۇش ئىقتىدارى
         function changeLanguage(lang) {
             localStorage.setItem('selected_lang', lang);
             document.getElementById('lang-selector').value = lang;
             
-            // يۆنىلىشنى تەڭشەش (ئۇيغۇرچە، ئەرەبچە ئوڭدىن سولغا - rtl؛ ئىنگلىزچە، ئۆزبېكچە سولدىن ئوڭغا - ltr)
             const htmlRoot = document.getElementById('html-root');
             if (lang === 'en' || lang === 'uz') {
                 htmlRoot.setAttribute('dir', 'ltr');
@@ -529,7 +525,6 @@
                 htmlRoot.setAttribute('dir', 'rtl');
             }
 
-            // بارلىق data-i18n تۈگۈنلىرىنى ئالماشتۇرۇش
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang][key]) {
@@ -537,7 +532,6 @@
                 }
             });
 
-            // كىرىش/تىزىملاش تoggle تېكىستىنى ئالماشتۇرۇش
             updateAuthToggleText(lang);
         }
 
@@ -559,7 +553,6 @@
             updateAuthToggleText(currentLang);
         }
 
-        // بەت ئالماشتۇرۇش
         function switchPage(pageName, element) {
             document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
             document.getElementById(pageName + '-section').classList.add('active');
@@ -568,7 +561,6 @@
             if(pageName === 'orders') loadOrders();
         }
 
-        // تېما ئالماشتۇرۇش (Dark/Light Mode)
         function toggleTheme() {
             const root = document.getElementById('html-root');
             const currentTheme = root.getAttribute('data-theme');
