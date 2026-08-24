@@ -71,39 +71,126 @@
 
         .nav-actions {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             align-items: center;
         }
 
-        .balance-btn {
-            background-color: var(--primary-light);
-            color: #10B981;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
+        /* Menu كۇنۇپكىسى ئۇسلۇبى */
+        .menu-btn {
+            background: var(--primary-light);
+            color: var(--primary);
             border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
             cursor: pointer;
+        }
+
+        /* سىيرىلىپ چىقىدىغان تىزىملىك (Drawer Menu) */
+        .drawer-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .drawer {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100%;
+            background-color: var(--card-bg);
+            box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .drawer.open {
+            right: 0;
+        }
+
+        .drawer-header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .drawer-close {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: var(--text-dim);
+        }
+
+        .drawer-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            margin: 0 auto 10px auto;
             display: flex;
             align-items: center;
-            gap: 4px;
+            justify-content: center;
+            font-size: 30px;
+            overflow: hidden;
+            border: 2px solid var(--primary);
+        }
+
+        .drawer-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .drawer-name {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text-color);
+        }
+
+        .drawer-balance {
+            color: #10B981;
+            font-weight: 800;
+            font-size: 18px;
+            margin: 8px 0;
+        }
+
+        .drawer-links {
+            padding: 10px 0;
+            flex-grow: 1;
+        }
+
+        .drawer-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
             transition: 0.2s;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: right;
         }
 
-        .balance-btn:hover {
-            opacity: 0.85;
-        }
-
-        .lang-select {
+        .drawer-item:hover {
             background-color: var(--primary-light);
             color: var(--primary);
-            padding: 5px 8px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            border: none;
-            outline: none;
-            cursor: pointer;
         }
 
         .container {
@@ -329,11 +416,30 @@
                 <option value="en">English</option>
                 <option value="uz">O'zbek</option>
             </select>
-            <button class="balance-btn" onclick="openTopupPage()">
-                💳 <span id="navbar-balance-text">0.00$</span>
-            </button>
+            <!-- Menu كۇنۇپكىسى -->
+            <button class="menu-btn" onclick="toggleMenu()">☰</button>
         </div>
     </header>
+
+    <!-- سىيرىلىپ چىقىدىغان تىزىملىك (Drawer Menu) -->
+    <div class="drawer-overlay" id="drawer-overlay" onclick="toggleMenu()"></div>
+    <div class="drawer" id="side-drawer">
+        <div class="drawer-header">
+            <button class="drawer-close" onclick="toggleMenu()">✕</button>
+            <div class="drawer-avatar">
+                👤
+            </div>
+            <div class="drawer-name" id="drawer-username">ميھمان (Guest)</div>
+            <div class="drawer-balance" id="drawer-balance">0.00$</div>
+        </div>
+        <div class="drawer-links">
+            <button class="drawer-item" onclick="navigateMenu('home')">🏠 الرئيسية (باش بەت)</button>
+            <button class="drawer-item" onclick="navigateMenu('topup')">💳 إضافة رصيد (پۇل قاچىلاش)</button>
+            <button class="drawer-item" onclick="navigateMenu('orders')">🛒 طلباتي (تەلەپلىرىم)</button>
+            <button class="drawer-item" onclick="navigateMenu('account')">👤 حسابي (ھېساباتىم)</button>
+            <a href="https://t.me/nasrulla0996" target="_blank" class="drawer-item">✈️ حساب تيليجرام (تېلېگرامما)</a>
+        </div>
+    </div>
 
     <a href="https://t.me/nasrulla0996" target="_blank" class="floating-telegram">✈️</a>
 
@@ -623,6 +729,25 @@
             {name: 'Telegram Premium', img: 'https://img.icons8.com/color/96/telegram-app.png'}
         ];
 
+        function toggleMenu() {
+            const drawer = document.getElementById('side-drawer');
+            const overlay = document.getElementById('drawer-overlay');
+            drawer.classList.toggle('open');
+            if (drawer.classList.contains('open')) {
+                overlay.style.display = 'block';
+            } else {
+                overlay.style.display = 'none';
+            }
+        }
+
+        function navigateMenu(page) {
+            toggleMenu();
+            if(page === 'home') switchPage('home', document.querySelectorAll('.nav-item')[0]);
+            if(page === 'topup') switchPage('topup', document.querySelectorAll('.nav-item')[2]);
+            if(page === 'orders') switchPage('orders', document.querySelectorAll('.nav-item')[1]);
+            if(page === 'account') switchPage('account', document.querySelectorAll('.nav-item')[3]);
+        }
+
         function loadGames() {
             let games = JSON.parse(localStorage.getItem('platform_games') || JSON.stringify(defaultGames));
             let gridHtml = '';
@@ -658,6 +783,7 @@
             let balUSD = parseFloat(localStorage.getItem('user_balance') || '0');
             let displayEl = document.getElementById('user-balance-display');
             let navbarBalEl = document.getElementById('navbar-balance-text');
+            let drawerBalEl = document.getElementById('drawer-balance');
             
             let formattedBal = '';
             if(currentCurrency === 'SYP') {
@@ -669,6 +795,7 @@
             
             if(displayEl) displayEl.textContent = formattedBal;
             if(navbarBalEl) navbarBalEl.textContent = formattedBal;
+            if(drawerBalEl) drawerBalEl.textContent = formattedBal;
         }
 
         function updateAnalyticsDisplay() {
@@ -924,10 +1051,13 @@
         }
 
         function checkLogin() {
-            if(localStorage.getItem('is_logged') === 'true') {
+            const drawerName = document.getElementById('drawer-username');
+            if(localStorage.getItem('is_logged'] === 'true') {
                 document.getElementById('auth-box').style.display = 'none';
                 document.getElementById('user-profile').style.display = 'block';
-                document.getElementById('user-email-display').textContent = localStorage.getItem('s_email');
+                const currentEmail = localStorage.getItem('s_email');
+                document.getElementById('user-email-display').textContent = currentEmail;
+                if(drawerName) drawerName.textContent = currentEmail;
                 updateAnalyticsDisplay();
                 
                 if(localStorage.getItem('is_admin') === 'true') {
@@ -939,6 +1069,7 @@
             } else {
                 document.getElementById('auth-box').style.display = 'block';
                 document.getElementById('user-profile').style.display = 'none';
+                if(drawerName) drawerName.textContent = 'ميھمان (Guest)';
             }
         }
 
