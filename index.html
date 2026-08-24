@@ -519,11 +519,11 @@
                 <div id="login-form" style="display: none;">
                     <h3 style="margin-top: 0; text-align: center;" data-i18n="login_title">تسجيل الدخول</h3>
                     <div class="input-group">
-                        <label data-i18n="name_label">اسم المستخدم (Admin: auto chah)</label>
-                        <input type="text" id="log-email" placeholder="auto chah">
+                        <label>اسم المستخدم (Admin: nasrulla)</label>
+                        <input type="text" id="log-email" placeholder="nasrulla">
                     </div>
                     <div class="input-group">
-                        <label data-i18n="pass_label">كلمة المرور (Admin: 0996)</label>
+                        <label>كلمة المرور (Admin: 0996)</label>
                         <input type="password" id="log-password" placeholder="0996">
                     </div>
                     <button class="btn-main" onclick="loginUser()" data-i18n="login_btn">دخول</button>
@@ -563,15 +563,15 @@
                 </div>
                 <button class="btn-main" onclick="saveProfile()" style="background: #0284c7; margin-bottom: 15px;" data-i18n="save_btn">حفظ</button>
 
-                <div class="input-group" style="text-align: right; background: var(--bg-color); padding: 10px; border-radius: 10px; border: 1px dashed var(--primary); margin-top: 15px;">
-                    <label style="color: var(--primary);" data-i18n="ref_label">رابط الإحالة</label>
-                    <input type="text" id="ref-link" readonly style="font-size: 12px; background: transparent;" value="https://autochah.com/?ref=nasrulla">
-                    <button class="btn-main" style="margin-top: 5px; font-size: 12px; padding: 6px;" onclick="copyRefLink()" data-i18n="copy_btn">كۆچۈرۈش</button>
-                </div>
-
+                <!-- Admin Panel (ئابونتلار تىزىملىكى ۋە زاكازلار) -->
                 <div id="admin-panel" style="display: none; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px;">
-                    <h4 style="color: var(--primary); margin-bottom: 10px;">⚙️ Admin Panel</h4>
-                    <div id="admin-orders-list" style="max-height: 180px; overflow-y: auto; text-align: right; font-size: 12px;"></div>
+                    <h4 style="color: var(--primary); margin-bottom: 10px;">⚙️ Admin Panel (إدارة المستخدمين والطلبات)</h4>
+                    
+                    <h5 style="margin: 10px 0 5px 0; color: var(--text-color);">👥 تىزىملاتقان ئابونتلار (المستخدمين المسجلين):</h5>
+                    <div id="admin-users-list" style="max-height: 150px; overflow-y: auto; text-align: right; font-size: 12px; background: var(--bg-color); padding: 8px; border-radius: 8px; margin-bottom: 15px;"></div>
+
+                    <h5 style="margin: 10px 0 5px 0; color: var(--text-color);">📦 زاكازلار ۋە پۇل قاچىلاشلار (الطلبات):</h5>
+                    <div id="admin-orders-list" style="max-height: 180px; overflow-y: auto; text-align: right; font-size: 12px; background: var(--bg-color); padding: 8px; border-radius: 8px;"></div>
                 </div>
 
                 <button class="btn-main" style="background: #ef4444; margin-top: 15px;" onclick="logoutUser()" data-i18n="logout_btn">تسجيل الخروج</button>
@@ -926,22 +926,41 @@
             listEl.innerHTML = html;
         }
 
-        function loadAdminOrders() {
+        function loadAdminData() {
+            // زاكازلارنى يۈكلەش
             const adminList = document.getElementById('admin-orders-list');
-            if (!adminList) return;
-            let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-            if (orders.length === 0) {
-                adminList.innerHTML = '<p>لا توجد طلبات</p>';
-                return;
+            if (adminList) {
+                let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
+                if (orders.length === 0) {
+                    adminList.innerHTML = '<p>لا توجد طلبات</p>';
+                } else {
+                    let html = '';
+                    orders.forEach((o) => {
+                        html += `<div style="border-bottom: 1px solid var(--border-color); padding: 5px 0;">
+                            <b>${o.game}</b> (${o.pkg})<br>ID: ${o.playerId} | Status: <b>${o.status}</b><br>
+                            <button onclick="approveOrder(${o.id})" style="background:#10B981; color:white; border:none; padding:2px 6px; border-radius:4px; cursor:pointer;">موافقة</button>
+                        </div>`;
+                    });
+                    adminList.innerHTML = html;
+                }
             }
-            let html = '';
-            orders.forEach((o) => {
-                html += `<div style="border-bottom: 1px solid var(--border-color); padding: 5px 0;">
-                    <b>${o.game}</b> (${o.pkg})<br>ID: ${o.playerId} | Status: <b>${o.status}</b><br>
-                    <button onclick="approveOrder(${o.id})" style="background:#10B981; color:white; border:none; padding:2px 6px; border-radius:4px; cursor:pointer;">موافقة</button>
-                </div>`;
-            });
-            adminList.innerHTML = html;
+
+            // تىزىملاتقان ئابونتلارنى يۈكلەش
+            const adminUsersList = document.getElementById('admin-users-list');
+            if (adminUsersList) {
+                let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
+                if (users.length === 0) {
+                    adminUsersList.innerHTML = '<p>لا توجد مستخدمين مسجلين</p>';
+                } else {
+                    let uHtml = '';
+                    users.forEach((u, index) => {
+                        uHtml += `<div style="border-bottom: 1px solid var(--border-color); padding: 5px 0;">
+                            <b>${index + 1}. ${u.name}</b> (${u.email})
+                        </div>`;
+                    });
+                    adminUsersList.innerHTML = uHtml;
+                }
+            }
         }
 
         function approveOrder(orderId) {
@@ -962,7 +981,7 @@
                 return o;
             });
             localStorage.setItem('user_orders', JSON.stringify(orders));
-            loadAdminOrders();
+            loadAdminData();
             updateBalanceDisplay();
             updateAnalyticsDisplay();
             alert('تمت الموافقة بنجاح!');
@@ -979,6 +998,13 @@
 
             if (!name || !pass) { alert('املأ الحقول المطلوبة!'); return; }
             
+            // ئابونتنى تىزىملار تىزىملىكىگە قوشۇش
+            let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
+            if(!users.some(u => u.name === name)) {
+                users.push({name: name, email: email, pass: pass});
+                localStorage.setItem('registered_users', JSON.stringify(users));
+            }
+
             localStorage.setItem('s_name', name);
             localStorage.setItem('s_email', email);
             localStorage.setItem('s_pass', pass);
@@ -995,10 +1021,11 @@
             const nameInput = nameInputEl.value.trim().toLowerCase();
             const passInput = passInputEl.value.trim();
             
-            if (nameInput === 'auto chah' && passInput === '0996') {
+            // Admin (nasrulla / 0996) تەكشۈرۈش
+            if (nameInput === 'nasrulla' && passInput === '0996') {
                 localStorage.setItem('is_admin', 'true');
                 localStorage.setItem('is_logged', 'true');
-                localStorage.setItem('s_name', 'Auto Chah Admin');
+                localStorage.setItem('s_name', 'Nasrulla Admin');
                 alert('تم تسجيل الدخول بنجاح (Admin)!');
                 checkLogin();
                 return;
@@ -1014,7 +1041,7 @@
                 alert('تم تسجيل الدخول بنجاح!');
                 checkLogin();
             } else {
-                alert('خطأ في الاسم أو كلمة المرور! (Admin: auto chah / 0996)');
+                alert('خطأ في الاسم أو كلمة المرور! (Admin: nasrulla / 0996)');
             }
         }
 
@@ -1075,7 +1102,7 @@
                 
                 if (localStorage.getItem('is_admin') === 'true') {
                     if (adminPanel) adminPanel.style.display = 'block';
-                    loadAdminOrders();
+                    loadAdminData();
                 } else {
                     if (adminPanel) adminPanel.style.display = 'none';
                 }
