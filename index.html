@@ -354,7 +354,7 @@
 
         <!-- 3. پۇل قاچىلاش -->
         <div id="topup-section" class="page-view">
-            <div class="section-title" data-i18n="topup_title">قالدۇق تولۇقلاش (Top-up)</div>
+            <div class="section-title" data-i18n="topup_title">قالدۇق تولۇقلاش (Sham Cash)</div>
             <div class="card" style="text-align: center;">
                 <p style="font-weight: 600; margin-bottom: 15px;"><span data-i18n="current_balance">نۆۋەتتىكى قالدىقىڭىز:</span> <span style="color: #10B981;" id="user-balance-display">0.00$</span></p>
                 <div class="input-group">
@@ -377,7 +377,7 @@
             </div>
         </div>
 
-        <!-- 4. ھېساباتىم (Analytics, Support, Referral قوشۇلدى) -->
+        <!-- 4. ھېساباتىم -->
         <div id="account-section" class="page-view">
             <div class="section-title" data-i18n="account_title">ئابونت ھېساباتى</div>
             <div id="auth-box" class="card">
@@ -408,12 +408,11 @@
                 <p style="text-align: center; font-size: 13px; margin-top: 15px; color: var(--text-dim); cursor: pointer;" onclick="toggleAuthMode()" id="auth-toggle-text">ھېساباتىڭىز بارمۇ؟ كىرىش</p>
             </div>
 
-            <!-- پروفىل ۋە يېڭى ئىقتىدارلار -->
+            <!-- پروفىل -->
             <div id="user-profile" class="card" style="display: none; text-align: center;">
                 <h3 style="margin-bottom: 5px;" data-i18n="welcome_msg">خۇش كەپسىز!</h3>
                 <p id="user-email-display" style="color: var(--text-dim); font-size: 14px; margin-bottom: 15px;"></p>
                 
-                <!-- 1. تارىخىي ئومۇمىي سومما (Analytics) -->
                 <div class="stats-grid">
                     <div class="stat-box">
                         <span>جەمئىي قاچىلانغىنى</span>
@@ -425,14 +424,12 @@
                     </div>
                 </div>
 
-                <!-- 2. Referral (دەۋەت قىلىش) سىستېمىسى -->
                 <div class="input-group" style="text-align: right; background: var(--bg-color); padding: 10px; border-radius: 10px; border: 1px dashed var(--primary);">
                     <label style="color: var(--primary);">🎁 دەۋەت قىلىش (Referral Link)</label>
                     <input type="text" id="ref-link" readonly style="font-size: 12px; background: transparent;" value="https://autochah.com/?ref=nasrulla">
                     <button class="btn-main" style="margin-top: 5px; font-size: 12px; padding: 6px;" onclick="copyRefLink()">🔗 ئۇلانمىنى كۆچۈرۈش</button>
                 </div>
 
-                <!-- 3. باشقۇرغۇچى بىلەن ئالاقە (Support Ticket) -->
                 <div class="input-group" style="text-align: right; margin-top: 15px;">
                     <label>💬 باشقۇرغۇچىغا ئۇچۇر / شىكايەت يوللاش</label>
                     <textarea id="support-msg" rows="3" placeholder="مەسىلىڭىزنى بۇ يەرگە يېزىڭ..."></textarea>
@@ -681,12 +678,14 @@
             let topupEl = document.getElementById('total-topup-stat');
             let spentEl = document.getElementById('total-spent-stat');
 
-            if(currentCurrency === 'SYP') {
-                topupEl.textContent = (totalTopupUSD * sypRate).toLocaleString() + ' ل.س';
-                spentEl.textContent = (totalSpentUSD * sypRate).toLocaleString() + ' ل.س';
-            } else {
-                topupEl.textContent = totalTopupUSD.toFixed(2) + '$';
-                spentEl.textContent = totalSpentUSD.toFixed(2) + '$';
+            if(topupEl && spentEl) {
+                if(currentCurrency === 'SYP') {
+                    topupEl.textContent = (totalTopupUSD * sypRate).toLocaleString() + ' ل.س';
+                    spentEl.textContent = (totalSpentUSD * sypRate).toLocaleString() + ' ل.س';
+                } else {
+                    topupEl.textContent = totalTopupUSD.toFixed(2) + '$';
+                    spentEl.textContent = totalSpentUSD.toFixed(2) + '$';
+                }
             }
         }
 
@@ -925,7 +924,7 @@
         }
 
         function checkLogin() {
-            if(localStorage.getItem('is_logged'] === 'true') {
+            if(localStorage.getItem('is_logged') === 'true') {
                 document.getElementById('auth-box').style.display = 'none';
                 document.getElementById('user-profile').style.display = 'block';
                 document.getElementById('user-email-display').textContent = localStorage.getItem('s_email');
