@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auto Chah - مۇكەممەل پۇل قاچىلاش سۇپىسى</title>
-    <!-- Firebase SDK بىلەن بۇلۇت سىستېمىسى ئۇلىنىشى -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
     <style>
         :root {
             --bg-color: #F4F6F8;
@@ -487,7 +484,7 @@
             <div class="categories-grid" id="dynamic-categories-grid"></div>
         </div>
 
-        <!-- 2. تەلەپلىرىم (ئابونت) / تىزىملاتقان ئابونتلار (باشقۇرغۇچى) -->
+        <!-- 2. تەلەپلىرىم / تىزىملاتقان ئابونتلار -->
         <div id="orders-section" class="page-view">
             <div id="user-orders-view">
                 <div class="card" id="orders-list">
@@ -502,7 +499,7 @@
             </div>
         </div>
 
-        <!-- 3. پۇل قاچىلاش (ئابونت) / تەلەپ قىلىش (باشقۇرغۇچى) -->
+        <!-- 3. پۇل قاچىلاش / تەلەپ قىلىش -->
         <div id="topup-section" class="page-view">
             <div id="user-topup-view" class="card" style="text-align: center;">
                 <p style="font-weight: 600; margin-bottom: 15px;"><span data-i18n="current_balance">رصيدك الحالي:</span> <span style="color: #10B981;" id="user-balance-display">0.00$</span></p>
@@ -669,29 +666,6 @@
     </nav>
 
     <script>
-        // --- Firebase بۇلۇت ئۇلىنىش تەڭشىكى ---
-        const firebaseConfig = {
-            databaseURL: "https://auto-chah-default-rtdb.firebaseio.com/" // بۇ يەرگە ئۆزىڭىزنىڭ ھەقسىز Firebase URL نى قويسىڭىز تېخىمۇ ياخشى بولىدۇ
-        };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        // سانلىق مەلۇماتلارنى localStorage ۋە Firebase ئارىسىدا ماسلاشتۇرۇش
-        function cloudGet(key, callback) {
-            db.ref(key).on('value', (snapshot) => {
-                const val = snapshot.val();
-                if (val !== null) {
-                    localStorage.setItem(key, JSON.stringify(val));
-                }
-                callback(val || JSON.parse(localStorage.getItem(key) || '[]'));
-            });
-        }
-
-        function cloudSet(key, data) {
-            localStorage.setItem(key, JSON.stringify(data));
-            db.ref(key).set(data);
-        }
-
         const translations = {
             ug: {
                 nav_home: "باش بەت",
@@ -1008,8 +982,8 @@
                 status: 'Pending', 
                 date: new Date().toLocaleDateString()
             });
+            localStorage.setItem('user_orders', JSON.stringify(orders));
             
-            cloudSet('user_orders', orders);
             alert('تم إرسال الطلب بنجاح!');
             closeModal();
             playerIdEl.value = '';
@@ -1063,8 +1037,8 @@
                     status: 'Pending', 
                     date: new Date().toLocaleDateString()
                 });
+                localStorage.setItem('user_orders', JSON.stringify(orders));
                 
-                cloudSet('user_orders', orders);
                 alert('تەلەپ مۇۋەپپەقىيەتلىك ئەۋەتىلدى!');
                 amountEl.value = '';
                 proofNumEl.value = '';
@@ -1157,9 +1131,9 @@
                             </div>
                             <div style="display:flex; gap:5px; align-items:center;">
                                 <input type="number" id="add-bal-${index}" placeholder="سومما" style="width:70px; padding:6px; font-size:13px; border:1px solid var(--border-color); border-radius:6px; background:#fff; text-align:center;">
-                                <button onclick="adminAddBalance('${u.name}', ${index}, 'add')" style="background:#0284c7; color:white; border:none; padding:7px 10px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:700;">+ قوشۇش</button>
-                                <button onclick="adminAddBalance('${u.name}', ${index}, 'sub')" style="background:#f59e0b; color:white; border:none; padding:7px 10px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:700;">- ئازايتىش</button>
-                                <button onclick="adminDeleteUser('${u.name}')" style="background:#EF4444; color:white; border:none; padding:7px 10px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:700;">🗑️ يۇيۇش</button>
+                                <button type="button" onclick="adminAddBalance('${u.name}', ${index}, 'add')" style="background:#0284c7; color:white; border:none; padding:7px 10px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:700;">+ قوشۇش</button>
+                                <button type="button" onclick="adminAddBalance('${u.name}', ${index}, 'sub')" style="background:#f59e0b; color:white; border:none; padding:7px 10px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:700;">- ئازايتىش</button>
+                                <button type="button" onclick="adminDeleteUser('${u.name}')" style="background:#EF4444; color:white; border:none; padding:7px 10px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:700;">🗑️ يۇيۇش</button>
                             </div>
                         </div>`;
                     });
@@ -1188,7 +1162,13 @@
                 }
                 return u;
             });
-            cloudSet('registered_users', users);
+            localStorage.setItem('registered_users', JSON.stringify(users));
+
+            let currentName = localStorage.getItem('s_name');
+            if (currentName === userName) {
+                updateBalanceDisplay();
+            }
+
             inputEl.value = '';
             loadAdminUsersList();
             alert(`${userName} نىڭ قالدىقى ئۆزگەرتىلدى!`);
@@ -1198,7 +1178,7 @@
             if (confirm(`راستلا "${userName}" نى سىستېمىدىن يۇيۇۋېتەمسىز؟`)) {
                 let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
                 users = users.filter(u => u.name !== userName);
-                cloudSet('registered_users', users);
+                localStorage.setItem('registered_users', JSON.stringify(users));
                 loadAdminUsersList();
                 alert('ئابونت پۈتۈنلەي ئۆچۈرۈلدى!');
             }
@@ -1248,7 +1228,7 @@
         function saveCategoryToStorage(name, pidName, imgUrl, packages) {
             let allCats = JSON.parse(localStorage.getItem('all_categories') || '[]');
             allCats.push({name: name, pidName: pidName, img: imgUrl, packages: packages});
-            cloudSet('all_categories', allCats);
+            localStorage.setItem('all_categories', JSON.stringify(allCats));
 
             document.getElementById('new-cat-name').value = '';
             document.getElementById('new-cat-pid').value = '';
@@ -1262,41 +1242,40 @@
             if (confirm(`راستلا "${catName}" بۆلىكىنى پۈتۈنلەي ئۆچۈرۈۋېتەمسىز؟`)) {
                 let allCats = JSON.parse(localStorage.getItem('all_categories') || '[]');
                 allCats = allCats.filter(c => c.name !== catName);
-                cloudSet('all_categories', allCats);
+                localStorage.setItem('all_categories', JSON.stringify(allCats));
                 loadCategories();
                 alert('بۆلەك مۇۋەپپەقىيەتلىك ئۆچۈرۈلدى!');
             }
         }
 
         function loadCategories() {
-            cloudGet('all_categories', (allCats) => {
-                const grid = document.getElementById('dynamic-categories-grid');
-                if (!grid) return;
+            let allCats = JSON.parse(localStorage.getItem('all_categories') || '[]');
+            if (allCats.length === 0) {
+                allCats = [
+                    {name: "PUBG Mobile", pidName: "Player ID", img: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=300&auto=format&fit=crop&q=60", packages: [{name: "60 UC", price: 1.00}, {name: "325 UC", price: 5.00}, {name: "660 UC", price: 10.00}]},
+                    {name: "Telegram Premium", pidName: "تېلېگرامما ئادرېس", img: "https://images.unsplash.com/photo-1614680376593-902f749f7ffc?w=300&auto=format&fit=crop&q=60", packages: [{name: "1 ئايلىق", price: 4.00}, {name: "3 ئايلىق", price: 12.00}]}
+                ];
+                localStorage.setItem('all_categories', JSON.stringify(allCats));
+            }
 
-                if (!allCats || allCats.length === 0) {
-                    allCats = [
-                        {name: "PUBG Mobile", pidName: "Player ID", img: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=300&auto=format&fit=crop&q=60", packages: [{name: "60 UC", price: 1.00}, {name: "325 UC", price: 5.00}]},
-                        {name: "Telegram Premium", pidName: "تېلېگرامما ئادرېس", img: "https://images.unsplash.com/photo-1614680376593-902f749f7ffc?w=300&auto=format&fit=crop&q=60", packages: [{name: "1 ئايلىق", price: 4.00}]}
-                    ];
-                    cloudSet('all_categories', allCats);
-                }
+            const grid = document.getElementById('dynamic-categories-grid');
+            if (!grid) return;
 
-                let isAdmin = localStorage.getItem('is_admin') === 'true';
-                let html = '';
+            let isAdmin = localStorage.getItem('is_admin') === 'true';
+            let html = '';
 
-                allCats.forEach(cat => {
-                    let deleteBtn = isAdmin ? `<button onclick="event.stopPropagation(); deleteCategory('${cat.name}')" style="position:absolute; top:6px; left:6px; background:#EF4444; color:white; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer; font-weight:700;">يۇيۇش</button>` : '';
-                    html += `
-                        <div class="category-card" onclick="openModal('${cat.name}')">
-                            <img src="${cat.img}" alt="${cat.name}">
-                            <span>${cat.name}</span>
-                            ${deleteBtn}
-                        </div>
-                    `;
-                });
-
-                grid.innerHTML = html;
+            allCats.forEach(cat => {
+                let deleteBtn = isAdmin ? `<button type="button" onclick="event.stopPropagation(); deleteCategory('${cat.name}')" style="position:absolute; top:6px; left:6px; background:#EF4444; color:white; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer; font-weight:700;">يۇيۇش</button>` : '';
+                html += `
+                    <div class="category-card" onclick="openModal('${cat.name}')">
+                        <img src="${cat.img}" alt="${cat.name}">
+                        <span>${cat.name}</span>
+                        ${deleteBtn}
+                    </div>
+                `;
             });
+
+            grid.innerHTML = html;
         }
 
         function addBannerImage() {
@@ -1311,7 +1290,7 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     banners.push(e.target.result);
-                    cloudSet('banner_images', banners);
+                    localStorage.setItem('banner_images', JSON.stringify(banners));
                     bannerInput.value = '';
                     loadBanners();
                     alert('ئېلان رەسىمى قوشۇلدى!');
@@ -1325,45 +1304,44 @@
         function deleteBannerImage(index) {
             let banners = JSON.parse(localStorage.getItem('banner_images') || '[]');
             banners.splice(index, 1);
-            cloudSet('banner_images', banners);
+            localStorage.setItem('banner_images', JSON.stringify(banners));
             loadBanners();
             alert('ئېلان رەسىمى ئۆچۈرۈلدى!');
         }
 
         function loadBanners() {
-            cloudGet('banner_images', (banners) => {
-                if (!banners || banners.length === 0) {
-                    banners = [
-                        "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=60",
-                        "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&auto=format&fit=crop&q=60"
-                    ];
-                }
+            let banners = JSON.parse(localStorage.getItem('banner_images') || '[]');
+            if (banners.length === 0) {
+                banners = [
+                    "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=60",
+                    "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&auto=format&fit=crop&q=60"
+                ];
+            }
 
-                let imgEl = document.getElementById('slider-img');
-                if (imgEl && banners.length > 0) {
-                    let index = 0;
-                    imgEl.src = banners[0];
-                    if (window.bannerInterval) clearInterval(window.bannerInterval);
-                    window.bannerInterval = setInterval(() => {
-                        index = (index + 1) % banners.length;
-                        imgEl.src = banners[index];
-                    }, 3000);
-                }
+            let imgEl = document.getElementById('slider-img');
+            if (imgEl && banners.length > 0) {
+                let index = 0;
+                imgEl.src = banners[0];
+                if (window.bannerInterval) clearInterval(window.bannerInterval);
+                window.bannerInterval = setInterval(() => {
+                    index = (index + 1) % banners.length;
+                    imgEl.src = banners[index];
+                }, 3000);
+            }
 
-                const previewContainer = document.getElementById('admin-banners-preview');
-                if (previewContainer) {
-                    let phtml = '';
-                    banners.forEach((b, i) => {
-                        phtml += `
-                            <div style="position:relative; width:65px; height:45px; border-radius:6px; overflow:hidden; border:1px solid #ccc;">
-                                <img src="${b}" style="width:100%; height:100%; object-fit:cover;">
-                                <button onclick="deleteBannerImage(${i})" style="position:absolute; top:0; right:0; background:red; color:white; border:none; font-size:10px; padding:2px 4px; cursor:pointer;">✕</button>
-                            </div>
-                        `;
-                    });
-                    previewContainer.innerHTML = phtml;
-                }
-            });
+            const previewContainer = document.getElementById('admin-banners-preview');
+            if (previewContainer) {
+                let phtml = '';
+                banners.forEach((b, i) => {
+                    phtml += `
+                        <div style="position:relative; width:65px; height:45px; border-radius:6px; overflow:hidden; border:1px solid #ccc;">
+                            <img src="${b}" style="width:100%; height:100%; object-fit:cover;">
+                            <button type="button" onclick="deleteBannerImage(${i})" style="position:absolute; top:0; right:0; background:red; color:white; border:none; font-size:10px; padding:2px 4px; cursor:pointer;">✕</button>
+                        </div>
+                    `;
+                });
+                previewContainer.innerHTML = phtml;
+            }
         }
 
         function updateMarqueeText() {
@@ -1371,20 +1349,18 @@
             if (!input) return;
             const text = input.value.trim();
             if (text) {
-                cloudSet('marquee_text', text);
+                localStorage.setItem('marquee_text', text);
                 loadMarqueeText();
                 alert('خەت يېڭىلاندى!');
             }
         }
 
         function loadMarqueeText() {
-            cloudGet('marquee_text', (savedText) => {
-                const marquee = document.getElementById('marquee-text');
-                const input = document.getElementById('admin-marquee-input');
-                let text = savedText || 'خۇش كەپسىز! Auto Chah پۇل قاچىلاش مۇلازىمەت سۇپىسى.';
-                if (marquee) marquee.textContent = text;
-                if (input && !input.value) input.value = text;
-            });
+            const marquee = document.getElementById('marquee-text');
+            const input = document.getElementById('admin-marquee-input');
+            let savedText = localStorage.getItem('marquee_text') || 'خۇش كەپسىز! Auto Chah پۇل قاچىلاش مۇلازىمەت سۇپىسى.';
+            if (marquee) marquee.textContent = savedText;
+            if (input && !input.value) input.value = savedText;
         }
 
         function approveOrder(orderId) {
@@ -1407,10 +1383,10 @@
                     }
                     return u;
                 });
-                cloudSet('registered_users', users);
+                localStorage.setItem('registered_users', JSON.stringify(users));
             }
 
-            cloudSet('user_orders', orders);
+            localStorage.setItem('user_orders', JSON.stringify(orders));
             loadAdminData();
             updateBalanceDisplay();
             updateAnalyticsDisplay();
@@ -1423,7 +1399,7 @@
             if (!targetOrder) return;
 
             targetOrder.status = 'Rejected';
-            cloudSet('user_orders', orders);
+            localStorage.setItem('user_orders', JSON.stringify(orders));
             loadAdminData();
             alert('تەلەپ بىكار قىلىندى!');
         }
@@ -1442,7 +1418,7 @@
                             if(u.name === currentName) u.avatar = imgData;
                             return u;
                         });
-                        cloudSet('registered_users', users);
+                        localStorage.setItem('registered_users', JSON.stringify(users));
                     }
 
                     updateAvatarDisplay(imgData);
@@ -1499,7 +1475,7 @@
 
             let newUser = {name: name, email: email, pass: pass, avatar: '', balance: 0.00};
             users.push(newUser);
-            cloudSet('registered_users', users);
+            localStorage.setItem('registered_users', JSON.stringify(users));
 
             localStorage.setItem('s_name', name);
             localStorage.setItem('s_email', email);
@@ -1663,7 +1639,6 @@
             updateBalanceDisplay();
             updateAnalyticsDisplay();
 
-            // بۇلۇت ئامبىرىدىن ھەر سېكۇنتتا يېڭى ئۇچۇرلارنى ئېلىپ تۇرۇش
             setInterval(() => {
                 if (localStorage.getItem('is_admin') === 'true') {
                     loadAdminData();
