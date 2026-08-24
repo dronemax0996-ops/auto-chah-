@@ -75,7 +75,7 @@
             align-items: center;
         }
 
-        /* كىچىك ھەم بېسىشقا بولىدىغان قالدۇق كۇنۇپكىسى (تېمىنىڭ ئورنىدا) */
+        /* قالدۇق كۇنۇپكىسى (تېمىنىڭ ئورنىدا) */
         .balance-btn {
             background-color: var(--primary-light);
             color: #10B981;
@@ -624,7 +624,6 @@
             if(navbarBalEl) navbarBalEl.textContent = formattedBal;
         }
 
-        // قالدۇق كۇنۇپكىسىنى باسقاندا پۇل قاچىلاش بېتىگە ئۆتۈش
         function openTopupPage() {
             const topupNavBtn = document.querySelectorAll('.nav-item')[2];
             switchPage('topup', topupNavBtn);
@@ -848,7 +847,7 @@
                 document.getElementById('user-profile').style.display = 'block';
                 document.getElementById('user-email-display').textContent = localStorage.getItem('s_email');
                 
-                if(localStorage.getItem('is_admin'] === 'true') {
+                if(localStorage.getItem('is_admin') === 'true') {
                     document.getElementById('admin-panel').style.display = 'block';
                     loadAdminOrders();
                 } else {
