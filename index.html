@@ -137,8 +137,8 @@
 </div>
 
 <script>
-    // مۇلازىمېتىر ئادرېسى (Pydroid 3 دىكى Python مۇلازىمېتىرىغا ئۇلىنىدۇ)
-    const API_BASE = "http://127.0.0.1:5000/api";
+    // مۇلازىمېتىر ئادرېسى (Render.com دىكى ھەقىقىي مۇلازىمېتىرىڭىزغا ئۇلاندى)
+    const API_BASE = "https://autochah-api.onrender.com/api";
     
     let isLoginMode = true;
     let currentUser = JSON.parse(localStorage.getItem('secure_user_session')) || null;
@@ -249,7 +249,7 @@
                 alert(data.msg);
             }
         } catch (error) {
-            alert('مۇلازىمېتىرغا ئۇلىنالمىدى! Python كودىنىڭ ئىجرا قىلىنىۋاتقانلىقىنى تەكشۈرۈڭ.');
+            alert('مۇلازىمېتىرغا ئۇلىنالمىدى! تور مۇھىتىنى تەكشۈرۈپ بېقىڭ.');
         } finally {
             loader.classList.remove('active');
         }
