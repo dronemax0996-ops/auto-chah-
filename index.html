@@ -608,7 +608,7 @@
         </div>
     </div>
 
-    <!-- استىدىكى نېۋىگاتسىيە (ئادەم admin بولغاندلا كۆرۈنىدىغان باشقۇرۇش كۇنۇپكىسى قوشۇلدى) -->
+    <!-- استىدىكى نېۋىگاتسىيە -->
     <nav class="bottom-nav" id="bottom-navigation">
         <button class="nav-item" id="nav-admin-btn" onclick="switchPage('admin-dashboard', this)" style="display: none;"><span>⚙️</span>باشقۇرۇش</button>
         <button class="nav-item active" onclick="switchPage('home', this)"><span>🏠</span><span data-i18n="nav_home">الرئيسية</span></button>
@@ -1048,6 +1048,7 @@
             localStorage.setItem('s_pass', pass);
             localStorage.removeItem('s_avatar');
             localStorage.setItem('is_logged', 'true');
+            localStorage.removeItem('is_admin');
             
             alert('تم التسجيل بنجاح!');
             checkLogin();
@@ -1060,6 +1061,7 @@
             const nameInput = nameInputEl.value.trim().toLowerCase();
             const passInput = passInputEl.value.trim();
             
+            // Admin دەلىكىنى تەكشۈرۈش
             if ((nameInput === 'nasrulla' || nameInput === 'dronemax0996@gmail.com') && passInput === '0996') {
                 localStorage.setItem('is_admin', 'true');
                 localStorage.setItem('is_logged', 'true');
@@ -1067,7 +1069,7 @@
                 localStorage.setItem('s_email', 'dronemax0996@gmail.com');
                 alert('تم تسجيل الدخول بنجاح (Admin)!');
                 checkLogin();
-                // Admin غا كىرگەندە بىۋاسىتە باشقۇرۇش بېتىگە يۆتكەش
+                // باشقۇرۇش بېتىگە بىۋاسىتە ئۆتۈش
                 switchPage('admin-dashboard', document.getElementById('nav-admin-btn'));
                 return;
             }
@@ -1077,7 +1079,7 @@
 
             if (foundUser) {
                 localStorage.setItem('is_logged', 'true');
-                localStorage.removeItem('is_admin');
+                localStorage.removeItem('is_admin'); // ئادەم ئاددىي ئابونت بولسا admin نى ئۆچۈرۈۋېتىش
                 localStorage.setItem('s_name', foundUser.name);
                 localStorage.setItem('s_email', foundUser.email || '');
                 localStorage.setItem('s_pass', foundUser.pass);
@@ -1151,7 +1153,7 @@
 
                 updateAnalyticsDisplay();
                 
-                // پەقەت nasrulla (admin) غىلا باشقۇرۇش كۇنۇپكىسىنى كۆرسىتىش
+                // پەقەت is_admin == true بولغاندلا باشقۇرۇش كۇنۇپكىسىنى كۆرسىتىش
                 if (localStorage.getItem('is_admin') === 'true') {
                     if (adminNavBtn) adminNavBtn.style.display = 'block';
                 } else {
