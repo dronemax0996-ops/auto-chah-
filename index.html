@@ -1,323 +1,546 @@
 <!DOCTYPE html>
-<html lang="ug" dir="rtl">
+<html lang="ug" dir="rtl" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Auto Chah - Professional Gaming Hub</title>
+    <title>Auto Chah - Ultimate Global Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #03050b;
-            --surface: rgba(12, 17, 30, 0.94);
-            --border: rgba(0, 242, 254, 0.28);
+            --bg: #070913;
+            --surface: rgba(16, 22, 38, 0.75);
+            --surface-solid: #101626;
+            --border: rgba(0, 242, 254, 0.18);
             --neon-blue: #00f2fe;
             --neon-purple: #9d00ff;
-            --neon-pink: #ff007f;
             --neon-green: #00ff88;
             --gold: #ffbe0b;
-            --text-main: #f0f4fc;
-            --text-muted: #798ba3;
+            --text-main: #ffffff;
+            --text-muted: #8a9bb8;
+            --radius-lg: 20px;
             --radius-md: 14px;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Rajdhani', sans-serif; }
-        body { background: var(--bg); color: var(--text-main); padding-bottom: 105px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Rajdhani', sans-serif; transition: background 0.25s ease, color 0.25s ease; }
+        body { background: var(--bg); color: var(--text-main); padding-bottom: 110px; background-image: radial-gradient(circle at 10% 20%, rgba(157, 0, 255, 0.08) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(0, 242, 254, 0.08) 0%, transparent 40%); min-height: 100vh; }
         .font-tech { font-family: 'Orbitron', sans-serif; }
 
         .header {
-            position: sticky; top: 0; z-index: 200; background: rgba(3, 5, 11, 0.96);
+            position: sticky; top: 0; z-index: 200; background: rgba(7, 9, 19, 0.85);
             backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
-            padding: 12px 18px; display: flex; align-items: center; justify-content: space-between;
+            padding: 8px 20px; display: flex; align-items: center; justify-content: space-between;
         }
 
-        .brand { font-size: 1.35rem; font-weight: 900; color: var(--neon-blue); text-shadow: 0 0 12px rgba(0,242,254,0.5); }
-
-        .header-actions { display: flex; gap: 6px; align-items: center; }
-        .glass-btn {
-            background: var(--surface); border: 1px solid var(--border); color: #fff;
-            padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer; font-size: 0.85rem;
-            display: flex; align-items: center; gap: 5px; transition: 0.2s;
+        .header-brand-box { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .cyber-orb {
+            width: 42px; height: 42px; border-radius: 50%;
+            background: conic-gradient(from 0deg, #00f2fe, #9d00ff, #ffbe0b, #00f2fe);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.6);
         }
-        .glass-btn:hover { border-color: var(--neon-blue); box-shadow: 0 0 10px rgba(0, 242, 254, 0.3); }
+        .cyber-orb-inner {
+            width: 36px; height: 36px; border-radius: 50%; background: #070913;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--neon-blue); font-size: 1.1rem; text-shadow: 0 0 10px var(--neon-blue);
+        }
+        .user-avatar-img {
+            width: 42px; height: 42px; border-radius: 50%; object-fit: cover;
+            border: 2px solid var(--neon-blue); box-shadow: 0 0 12px rgba(0, 242, 254, 0.5); display: none;
+        }
 
-        .app-container { max-width: 900px; margin: 15px auto; padding: 0 15px; }
-        .glass-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 18px; margin-bottom: 15px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+        .header-actions { display: flex; gap: 8px; align-items: center; }
         
-        .panel-heading { font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; color: #fff; display: flex; align-items: center; justify-content: space-between; }
-        .panel-heading i { color: var(--neon-blue); margin-left: 6px; }
+        .balance-pill {
+            background: var(--surface); border: 1px solid var(--border); padding: 5px 12px; border-radius: 20px;
+            display: flex; align-items: center; gap: 6px; cursor: pointer; backdrop-filter: blur(10px); transition: 0.2s;
+        }
+        .balance-pill:hover { border-color: var(--gold); box-shadow: 0 0 10px rgba(255,190,11,0.3); }
+        .balance-add-btn {
+            background: var(--gold); color: #000; width: 20px; height: 20px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;
+        }
+
+        .app-container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
+        
+        .promo-banner {
+            background: linear-gradient(135deg, rgba(0,242,254,0.15), rgba(157,0,255,0.15)), var(--surface);
+            border: 1px solid var(--border); border-radius: var(--radius-lg);
+            padding: 24px; color: #fff; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); backdrop-filter: blur(15px);
+        }
+
+        .categories-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+        .category-card {
+            background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);
+            padding: 15px 10px; text-align: center; cursor: pointer; backdrop-filter: blur(10px);
+        }
+        .category-card:hover { border-color: var(--neon-blue); transform: translateY(-3px); box-shadow: 0 5px 20px rgba(0,242,254,0.2); }
+        .category-icon { font-size: 1.8rem; color: var(--neon-blue); margin-bottom: 6px; }
+        .category-title { font-weight: bold; font-size: 0.85rem; }
+
+        .glass-panel { 
+            background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); 
+            padding: 20px; margin-bottom: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); backdrop-filter: blur(15px); 
+        }
+        .panel-heading { font-size: 1.1rem; font-weight: 700; margin-bottom: 15px; color: var(--text-main); display: flex; align-items: center; justify-content: space-between; }
+        .panel-heading i { color: var(--neon-blue); margin-left: 8px; }
 
         .search-box {
-            width: 100%; background: rgba(3, 6, 14, 0.95); border: 1px solid var(--border);
-            border-radius: 10px; padding: 10px 14px; color: #fff; margin-bottom: 12px; outline: none; font-size: 0.9rem;
+            width: 100%; background: rgba(3, 5, 12, 0.6); border: 1px solid var(--border);
+            border-radius: 12px; padding: 12px 16px; color: var(--text-main); margin-bottom: 15px; outline: none; font-size: 0.95rem;
         }
 
-        .game-scroller { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-        .tiers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .game-scroller { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .tiers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 
         .game-box, .tier-box {
-            background: rgba(8, 12, 22, 0.8); border: 1px solid var(--border);
-            border-radius: var(--radius-md); padding: 12px 6px; text-align: center; cursor: pointer; transition: 0.2s;
+            background: rgba(10, 15, 28, 0.6); border: 1px solid var(--border);
+            border-radius: var(--radius-md); padding: 14px 8px; text-align: center; cursor: pointer;
         }
-        .game-box.active { border-color: var(--neon-blue); color: var(--neon-blue); background: rgba(0, 242, 254, 0.12); box-shadow: 0 0 15px rgba(0,242,254,0.2); }
-        .tier-box.active { border-color: var(--neon-pink); background: rgba(255, 0, 127, 0.12); box-shadow: 0 0 15px rgba(255,0,127,0.2); }
+        .game-box.active { border-color: var(--neon-blue); color: var(--neon-blue); background: rgba(0, 242, 254, 0.12); box-shadow: 0 0 15px rgba(0,242,254,0.25); }
+        .tier-box.active { border-color: var(--neon-green); background: rgba(0, 255, 136, 0.12); box-shadow: 0 0 15px rgba(0,255,136,0.25); }
 
         input, select {
-            width: 100%; background: rgba(3, 6, 14, 0.95); border: 1px solid var(--border);
-            border-radius: 10px; padding: 12px; color: #fff; margin-top: 6px; outline: none; font-size: 0.95rem;
+            width: 100%; background: rgba(3, 5, 12, 0.6); border: 1px solid var(--border);
+            border-radius: 12px; padding: 14px; color: var(--text-main); margin-top: 8px; outline: none; font-size: 1rem;
         }
-        input:focus { border-color: var(--neon-blue); box-shadow: 0 0 8px rgba(0,242,254,0.3); }
+
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; right: 0; background: rgba(7, 9, 19, 0.9);
+            border-top: 1px solid var(--border); height: 70px; z-index: 150;
+            display: flex; justify-content: space-around; align-items: center; backdrop-filter: blur(20px);
+        }
+        .nav-item { text-align: center; color: var(--text-muted); cursor: pointer; font-size: 0.75rem; font-weight: 600; flex: 1; }
+        .nav-item i { font-size: 1.35rem; display: block; margin-bottom: 3px; }
+        .nav-item.active { color: var(--neon-blue); text-shadow: 0 0 10px rgba(0,242,254,0.5); }
 
         .checkout-bar {
-            position: fixed; bottom: 0; left: 0; right: 0; background: rgba(3, 5, 11, 0.96);
-            border-top: 1px solid var(--border); padding: 14px 20px; z-index: 150;
-            display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(15px);
+            position: fixed; bottom: 70px; left: 0; right: 0; background: rgba(7, 9, 19, 0.9);
+            border-top: 1px solid var(--border); padding: 12px 20px; z-index: 140;
+            display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(20px);
         }
         .btn-glow {
-            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
-            border: none; color: #fff; padding: 12px 28px; border-radius: 12px; font-weight: bold; cursor: pointer;
-            box-shadow: 0 0 15px rgba(0,242,254,0.3); transition: 0.2s;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            border: none; color: #fff; padding: 12px 30px; border-radius: 14px; font-weight: bold; cursor: pointer;
+            box-shadow: 0 0 20px rgba(0,242,254,0.4);
         }
-        .btn-glow:active { transform: scale(0.97); }
 
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; z-index: 1000; padding: 15px; backdrop-filter: blur(8px); }
+        .sidebar-menu {
+            position: fixed; top: 0; right: -320px; width: 310px; height: 100%; background: rgba(10, 14, 26, 0.95);
+            border-left: 1px solid var(--border); z-index: 1000; box-shadow: -15px 0 50px rgba(0,0,0,0.6);
+            transition: right 0.35s ease; display: flex; flex-direction: column; padding: 22px; overflow-y: auto; backdrop-filter: blur(25px);
+        }
+        .sidebar-menu.active { right: 0; }
+        .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 999; display: none; backdrop-filter: blur(8px); }
+        .sidebar-overlay.active { display: block; }
+
+        .sidebar-header { text-align: center; border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 15px; }
+        .sidebar-avatar-box { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 10px auto; display: flex; align-items: center; justify-content: center; }
+        .sidebar-avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid var(--neon-blue); box-shadow: 0 0 15px rgba(0,242,254,0.3); display: none; }
+        .sidebar-avatar-default { width: 100%; height: 100%; border-radius: 50%; background: #070913; border: 2px solid var(--neon-blue); display: flex; align-items: center; justify-content: center; color: var(--neon-blue); font-size: 2rem; }
+        
+        .sidebar-link {
+            display: flex; align-items: center; justify-content: space-between; padding: 12px 16px;
+            border-radius: 12px; margin-bottom: 8px; cursor: pointer; color: var(--text-main); font-weight: 600; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+        }
+        .sidebar-link:hover { border-color: var(--neon-blue); background: rgba(0,242,254,0.08); }
+        .sidebar-link i { color: var(--neon-blue); margin-left: 10px; }
+
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; z-index: 1100; padding: 15px; backdrop-filter: blur(10px); }
         .modal.active { display: flex; }
-        .modal-box { background: var(--bg); border: 1px solid var(--border); border-radius: 18px; width: 100%; max-width: 440px; padding: 22px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+        .modal-box { background: var(--surface-solid); border: 1px solid var(--border); border-radius: var(--radius-lg); width: 100%; max-width: 440px; padding: 25px; position: relative; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .close-manager { position: absolute; top: 18px; left: 18px; color: var(--text-muted); cursor: pointer; font-size: 1.3rem; }
 
-        .close-modal { position: absolute; top: 15px; left: 15px; color: var(--text-muted); cursor: pointer; font-size: 1.2rem; }
-        .loading-spinner { display: none; color: var(--neon-green); font-size: 0.85rem; margin-top: 8px; text-align: center; }
-        .loading-spinner.active { display: block; }
-        
-        .tab-buttons { display: flex; gap: 10px; margin-bottom: 15px; }
-        .tab-btn { flex: 1; background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); padding: 8px; border-radius: 8px; cursor: pointer; font-weight: bold; text-align: center; }
-        .tab-btn.active { background: var(--neon-blue); color: #000; border-color: var(--neon-blue); }
-
-        .menu-item {
-            background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-            padding: 12px 15px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;
-            cursor: pointer; transition: 0.2s;
-        }
-        .menu-item:hover { border-color: var(--neon-blue); background: rgba(0,242,254,0.06); }
-        .menu-item i { color: var(--neon-blue); font-size: 1.1rem; }
-        
-        .admin-badge { background: linear-gradient(45deg, var(--gold), #ff4500); color: #000; padding: 2px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 900; }
+        .wallet-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 15px; }
+        .wallet-card { padding: 18px; border-radius: var(--radius-md); color: #fff; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+        .wallet-card.green { background: linear-gradient(135deg, #00c853, #1b5e20); }
+        .wallet-card.red { background: linear-gradient(135deg, #ff1744, #b71c1c); }
+        .wallet-card.blue { background: linear-gradient(135deg, #2979ff, #0d47a1); }
+        .wallet-card.purple { background: linear-gradient(135deg, #aa00ff, #4a148c); }
+        .wallet-card-value { font-size: 1.3rem; font-weight: bold; font-family: 'Orbitron', sans-serif; margin-top: 4px; }
+        .admin-badge { background: linear-gradient(135deg, var(--gold), #ff4500); color: #000; padding: 2px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 900; }
     </style>
 </head>
 <body>
 
 <header class="header">
     <div style="display:flex; align-items:center; gap:10px;">
-        <button class="glass-btn" onclick="toggleMenuModal()"><i class="fa-solid fa-bars"></i> Menu</button>
-        <div class="brand font-tech">AUTO CHAH</div>
+        <div class="header-brand-box" onclick="toggleSidebar()">
+            <div id="headerLogoDefault" class="cyber-orb">
+                <div class="cyber-orb-inner"><i class="fa-solid fa-bolt"></i></div>
+            </div>
+            <img id="headerUserAvatarImg" src="" alt="Avatar" class="user-avatar-img">
+            <div class="brand font-tech">AUTO CHAH</div>
+        </div>
     </div>
     <div class="header-actions">
-        <span id="userBalance" style="color:var(--gold); font-weight:bold; font-size:0.95rem;">$0.00</span>
-        <button class="glass-btn" onclick="handleAuthButtonClick()" id="authBtn">كىرىش</button>
+        <div class="balance-pill" onclick="openDepositModal()">
+            <span id="userBalance" style="color:var(--gold); font-weight:bold; font-size:0.95rem;">$0.00</span>
+            <div class="balance-add-btn"><i class="fa-solid fa-plus"></i></div>
+        </div>
     </div>
 </header>
 
+<!-- Sidebar Menu -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<div class="sidebar-menu" id="sidebarMenu">
+    <div class="sidebar-header">
+        <div class="sidebar-avatar-box">
+            <div id="sidebarLogoDefault" class="cyber-orb" style="width:75px; height:75px;">
+                <div class="cyber-orb-inner" style="width:65px; height:65px; font-size:1.6rem;"><i class="fa-solid fa-bolt"></i></div>
+            </div>
+            <img id="sidebarUserAvatarImg" src="" alt="Avatar" class="sidebar-avatar-img" style="width:75px; height:75px;">
+        </div>
+        <div id="sidebarUsername" style="font-weight:bold; font-size:1.15rem; margin-top:5px;">مېھمان (Guest)</div>
+        <div style="font-size:0.8rem; color:var(--gold); margin-top:4px;" id="sidebarVipRank"><i class="fa-solid fa-crown"></i> ئالتۇن دەرىجە (Gold) #126</div>
+        <div id="sidebarBalance" style="font-size:1.1rem; font-weight:bold; color:var(--neon-green); margin-top:6px;">$ 0.000</div>
+    </div>
+
+    <div style="margin-bottom:12px;">
+        <select id="langSelector" onchange="changeLanguage(this.value)" style="background:rgba(255,255,255,0.05); border:1px solid var(--border); color:var(--text-main); padding:10px; border-radius:10px; font-size:0.9rem; width:100%; text-align:center;">
+            <option value="ug" style="background:#070913;"> ئۇيغۇرچە</option>
+            <option value="ar" style="background:#070913;"> العربية</option>
+            <option value="en" style="background:#070913;"> English</option>
+        </select>
+    </div>
+
+    <div class="sidebar-link" onclick="openWalletModal(); toggleSidebar();"><div style="display:flex; align-items:center;"><i class="fa-solid fa-wallet"></i> <span id="t_wallet">ھەميان (Wallet)</span></div><i class="fa-solid fa-chevron-left" style="font-size:0.75rem;"></i></div>
+    <div class="sidebar-link" onclick="openProfileModal(); toggleSidebar();"><div style="display:flex; align-items:center;"><i class="fa-solid fa-user-gear"></i> <span id="t_profile">پروفىل ۋە تەڭشەك</span></div><i class="fa-solid fa-chevron-left" style="font-size:0.75rem;"></i></div>
+    <div class="sidebar-link" onclick="openDepositModal(); toggleSidebar();"><div style="display:flex; align-items:center;"><i class="fa-solid fa-file-invoice-dollar"></i> <span id="t_deposit">پۇل قاچىلاش (Deposit)</span></div><i class="fa-solid fa-chevron-left" style="font-size:0.75rem;"></i></div>
+    <div class="sidebar-link" onclick="openVipModal(); toggleSidebar();"><div style="display:flex; align-items:center;"><i class="fa-solid fa-crown" style="color:var(--gold);"></i> <span id="t_tier">ئەزالىق دەرىجەم (VIP)</span></div><i class="fa-solid fa-chevron-left" style="font-size:0.75rem;"></i></div>
+    <div class="sidebar-link" onclick="openHistoryModal(); toggleSidebar();"><div style="display:flex; align-items:center;"><i class="fa-solid fa-clock-rotate-left"></i> <span id="t_orders">زاكازلىرىم (Orders)</span></div><i class="fa-solid fa-chevron-left" style="font-size:0.75rem;"></i></div>
+    <div class="sidebar-link" id="adminSidebarOpt" style="display:none; border-color:var(--gold);" onclick="openAdminModal(); toggleSidebar();"><div style="display:flex; align-items:center;"><i class="fa-solid fa-shield-halved" style="color:var(--gold);"></i> <span><span class="admin-badge">ADMIN</span> <span id="t_adminPanel">باشقۇرۇش سۇپىسى</span></span></div><i class="fa-solid fa-chevron-left" style="font-size:0.75rem;"></i></div>
+    <div class="sidebar-link" onclick="window.open('https://t.me/HOK_UYGHUR1', '_blank');"><div style="display:flex; align-items:center;"><i class="fa-brands fa-telegram"></i> <span id="t_support">تېلېگرامما ئارقىلىق ئالاقە</span></div><i class="fa-solid fa-chevron-left" style="font-size:0.75rem;"></i></div>
+</div>
+
 <div class="app-container">
+    <div class="promo-banner">
+        <div>
+            <h3 style="font-size:1.2rem; margin-bottom:5px;" class="font-tech" id="t_bannerTitle">ئاپتوماتىك سودا سۇپىسى</h3>
+            <p style="font-size:0.85rem; opacity:0.85;" id="t_bannerSub">بارلىق ئويۇنلارنى تېز ۋە بىخەتەر تولۇقلاڭ!</p>
+        </div>
+        <i class="fa-solid fa-bolt-lightning" style="font-size:2.8rem; color:var(--neon-blue); text-shadow:0 0 15px var(--neon-blue);"></i>
+    </div>
+
+    <div class="categories-grid">
+        <div class="category-card" onclick="filterCategory('games')"><i class="fa-solid fa-gamepad category-icon"></i><div class="category-title" id="cat_games">ئويۇنلار</div></div>
+        <div class="category-card" onclick="filterCategory('chats')"><i class="fa-solid fa-comments category-icon"></i><div class="category-title" id="cat_chats">چات ئەپلىرى</div></div>
+        <div class="category-card" onclick="filterCategory('banks')"><i class="fa-solid fa-building-columns category-icon"></i><div class="category-title" id="cat_banks">رەقەملىك بانكا</div></div>
+        <div class="category-card" onclick="filterCategory('balance')"><i class="fa-solid fa-mobile-screen category-icon"></i><div class="category-title" id="cat_balance">رەقەم/تاراتقۇ</div></div>
+    </div>
+
     <div class="glass-panel">
-        <div class="panel-heading"><i class="fa-solid fa-layer-group"></i> ئويۇن تاللاڭ</div>
-        <input type="text" class="search-box" id="gameSearchInput" placeholder="ئويۇن ئىسمىنى ئىزدەش..." onkeyup="filterGames()">
+        <div class="panel-heading"><i class="fa-solid fa-layer-group"></i> <span id="t_selectGame">ئويۇن ياكى مۇلازىمەت تاللاڭ</span></div>
+        <input type="text" class="search-box" id="gameSearchInput" placeholder="ئىزدەش..." onkeyup="filterGames()">
         <div class="game-scroller" id="gameGrid"></div>
     </div>
 
     <div class="glass-panel">
-        <div class="panel-heading"><i class="fa-solid fa-user-astronaut"></i> ھېسابات ئۇچۇرى</div>
-        <input type="text" id="inputUID" placeholder="UID نومۇرى ياكى Server نى يېزىڭ...">
+        <div class="panel-heading"><i class="fa-solid fa-user-astronaut"></i> <span id="t_userInfo">ھېسابات ئۇچۇرى</span></div>
+        <div id="accountInputArea" style="display:grid; gap:8px;">
+            <input type="text" id="inputUID" placeholder="UID نومۇرى...">
+            <input type="text" id="inputZoneID" placeholder="Zone ID (Server ID)..." style="display:none;">
+        </div>
     </div>
 
     <div class="glass-panel">
-        <div class="panel-heading"><i class="fa-solid fa-bolt-lightning"></i> بولاق تاللاڭ</div>
+        <div class="panel-heading"><i class="fa-solid fa-bolt-lightning"></i> <span id="t_selectPkg">بولاق تاللاڭ</span></div>
         <div class="tiers-grid" id="tierGrid"></div>
-    </div>
-    
-    <div class="glass-panel">
-        <div class="panel-heading"><i class="fa-solid fa-credit-card"></i> چىقىم شەكلى</div>
-        <div class="game-box active" style="text-align: right; padding: 12px; display:flex; align-items:center; gap:10px;">
-            <i class="fa-solid fa-wallet" style="color:var(--gold); font-size:1.2rem;"></i> 
-            <div><strong>ھېسابات قالدۇقى ($ USD)</strong><div style="font-size:0.75rem; color:var(--text-muted);">مۇلازىمېتىردىن بىۋاسىتە تۇتۇلىدۇ</div></div>
-        </div>
     </div>
 </div>
 
 <div class="checkout-bar">
     <div>
-        <div style="font-size:0.75rem; color:var(--text-muted);">جەمئىي چىقىم</div>
-        <div id="finalPriceDisplay" style="color:var(--gold); font-size:1.3rem; font-weight:bold;">$0.00</div>
+        <div style="font-size:0.75rem; color:var(--text-muted);" id="t_totalPay">جەمئىي چىقىم</div>
+        <div id="finalPriceDisplay" style="color:var(--gold); font-size:1.3rem; font-weight:bold; font-family:'Orbitron',sans-serif;">$0.00</div>
     </div>
-    <button class="btn-glow" onclick="submitSecureOrder()">سېتىۋېلىش</button>
+    <button class="btn-glow" onclick="submitSecureOrder()" id="t_buyBtn">سېتىۋېلىش</button>
 </div>
 
-<!-- Main Menu Modal -->
-<div class="modal" id="menuModal">
+<nav class="bottom-nav">
+    <div class="nav-item active" onclick="window.scrollTo({top:0, behavior:'smooth'})"><i class="fa-solid fa-house"></i><span id="nav_home">باش بەت</span></div>
+    <div class="nav-item" onclick="openWalletModal()"><i class="fa-solid fa-wallet"></i><span id="nav_wallet">ھەميان</span></div>
+    <div class="nav-item" onclick="openDepositModal()"><i class="fa-solid fa-file-invoice-dollar"></i><span id="nav_deposit">پۇل قاچىلاش</span></div>
+    <div class="nav-item" onclick="openHistoryModal()"><i class="fa-solid fa-cart-shopping"></i><span id="nav_orders">زاكازلار</span></div>
+    <div class="nav-item" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i><span id="nav_menu">تىزىملىك</span></div>
+</nav>
+
+<!-- Modals -->
+<div class="modal" id="walletModal">
     <div class="modal-box">
-        <i class="fa-solid fa-xmark close-modal" onclick="toggleMenuModal()"></i>
-        <h3 style="text-align:center; color:var(--neon-blue); margin-bottom:20px;" class="font-tech">AUTO CHAH MENU</h3>
-        
-        <div class="menu-item" onclick="openDepositModal(); toggleMenuModal();">
-            <div style="display:flex; align-items:center; gap:12px;"><i class="fa-solid fa-wallet"></i> <span>پۇل توللاش (Deposit)</span></div>
-            <i class="fa-solid fa-chevron-left" style="font-size:0.8rem; color:var(--text-muted);"></i>
-        </div>
-
-        <div class="menu-item" onclick="openPromoModal(); toggleMenuModal();">
-            <div style="display:flex; align-items:center; gap:12px;"><i class="fa-solid fa-ticket"></i> <span>پروما كود ئىشلىتىش (Promo Code)</span></div>
-            <i class="fa-solid fa-chevron-left" style="font-size:0.8rem; color:var(--text-muted);"></i>
-        </div>
-        
-        <div class="menu-item" onclick="openHistoryModal(); toggleMenuModal();">
-            <div style="display:flex; align-items:center; gap:12px;"><i class="fa-solid fa-clock-rotate-left"></i> <span>مېنىڭ زاكازلىرىم</span></div>
-            <i class="fa-solid fa-chevron-left" style="font-size:0.8rem; color:var(--text-muted);"></i>
-        </div>
-
-        <div class="menu-item" id="adminMenuOpt" style="display:none; border-color:var(--gold);" onclick="openAdminModal(); toggleMenuModal();">
-            <div style="display:flex; align-items:center; gap:12px;"><i class="fa-solid fa-shield-halved" style="color:var(--gold);"></i> <span><span class="admin-badge">ADMIN</span> پۇل ماقۇللاش سۇپىسى</span></div>
-            <i class="fa-solid fa-chevron-left" style="font-size:0.8rem; color:var(--text-muted);"></i>
-        </div>
-
-        <div class="menu-item" onclick="window.open('https://t.me/HOK_UYGHUR1', '_blank');">
-            <div style="display:flex; align-items:center; gap:12px;"><i class="fa-brands fa-telegram" style="color:var(--neon-blue);"></i> <span>تېلېگرامما ئارقىلىق ئالاقە</span></div>
-            <i class="fa-solid fa-chevron-left" style="font-size:0.8rem; color:var(--text-muted);"></i>
+        <i class="fa-solid fa-xmark close-manager" onclick="openWalletModal()"></i>
+        <h3 style="text-align:center; color:var(--neon-blue); margin-bottom:20px;" class="font-tech" id="m_walletTitle">مېنىڭ ھەميانىم</h3>
+        <div class="wallet-grid">
+            <div class="wallet-card green"><div class="wallet-card-value" id="walletCurrentBalance">$ 0.000</div><div style="font-size:0.75rem; margin-top:5px; opacity:0.9;" id="m_curBal">نۆۋەتتىكى قالدۇق</div></div>
+            <div class="wallet-card red"><div class="wallet-card-value">$ 0.000</div><div style="font-size:0.75rem; margin-top:5px; opacity:0.9;" id="m_totalBuy">ئومۇمىي سېتىۋېلىش</div></div>
+            <div class="wallet-card blue"><div class="wallet-card-value">$ 0.000</div><div style="font-size:0.75rem; margin-top:5px; opacity:0.9;" id="m_debt">قەرز / پەرق</div></div>
+            <div class="wallet-card purple"><div class="wallet-card-value" id="walletTotalIncome">$ 0.000</div><div style="font-size:0.75rem; margin-top:5px; opacity:0.9;" id="m_income">ئومۇمىي كىرىم</div></div>
         </div>
     </div>
 </div>
 
-<!-- Auth Modal -->
-<div class="modal" id="authModal">
-    <div class="modal-box">
-        <i class="fa-solid fa-xmark close-modal" onclick="toggleAuthModal()"></i>
-        <h3 style="text-align:center; color:var(--neon-blue); margin-bottom:15px;" id="authTitle">ھېساباتقا كىرىش</h3>
-        
-        <div class="tab-buttons">
-            <div class="tab-btn active" id="loginTabBtn" onclick="setAuthMode(true)">كىرىش</div>
-            <div class="tab-btn" id="regTabBtn" onclick="setAuthMode(false)">تىزىملىتىش</div>
-        </div>
-
-        <input type="text" id="authUsername" placeholder="ئىشلەتكۈچى نامى">
-        <input type="email" id="authEmail" placeholder="ئېلخەت ئادرېسى" style="display:none;">
-        <input type="password" id="authPassword" placeholder="مەخپىي نومۇر">
-        
-        <div id="authLoading" class="loading-spinner"><i class="fa-solid fa-spinner fa-spin"></i> ئۇلىنىۋاتىدۇ...</div>
-        
-        <button class="btn-glow" style="width:100%; margin-top:15px;" onclick="processAuth()" id="authSubmitBtn">كىرىش</button>
+<div class="modal" id="profileModal">
+    <div class="modal-box" style="text-align:center;">
+        <i class="fa-solid fa-xmark close-manager" onclick="openProfileModal()"></i>
+        <h3 style="color:var(--neon-blue); margin-bottom:15px;" class="font-tech" id="m_profTitle">ئابونت پروفىلى</h3>
+        <input type="text" id="profileUsername" readonly style="text-align:center; color:var(--gold); font-weight:bold;">
+        <input type="email" id="profileEmail" placeholder="ئېلخەت ئادرېسى" style="text-align:center;">
+        <input type="text" id="profilePhone" placeholder="تېلېفون نومۇرى" style="text-align:center;">
+        <button class="btn-glow" style="width:100%; margin-top:20px; background:var(--neon-green); color:#000;" onclick="saveProfileChanges()" id="m_saveBtn">تەھرىرلەشنى ساقلاش</button>
     </div>
 </div>
 
-<!-- Deposit Modal -->
+<!-- شامكەش پۇل قاچىلاش كۆزنىكى (يېڭى تەڭشەك) -->
 <div class="modal" id="depositModal">
     <div class="modal-box">
-        <i class="fa-solid fa-xmark close-modal" onclick="openDepositModal()"></i>
-        <h3 style="text-align:center; color:var(--neon-green); margin-bottom:15px;">ھېساباتقا پۇل توللاش</h3>
-        <input type="number" id="depositAmount" placeholder="مىقدارى ($ USD) مەسىلەن: 10">
-        <select id="depositGateway">
-            <option value="ShamCash">ShamCash</option>
-            <option value="USDT">USDT (Crypto)</option>
-            <option value="BankTransfer">بانكا كارتىسى</option>
+        <i class="fa-solid fa-xmark close-manager" onclick="openDepositModal()"></i>
+        <h3 style="color:var(--neon-green); margin-bottom:12px; text-align:right;" id="m_depTitle">شامكەش ئاپتۇماتىك پۇل قاچىلاش</h3>
+        
+        <label style="font-size:0.85rem; color:var(--text-muted);" id="lbl_currency">پۇل تاللاش (ۋاليۇتا):</label>
+        <select id="depositCurrency" style="margin-bottom:12px;">
+            <option value="USD">USD ($)</option>
+            <option value="SYP">SYP (ل.س)</option>
         </select>
-        <button class="btn-glow" style="width:100%; margin-top:15px; background:linear-gradient(45deg, var(--neon-green), var(--neon-blue)); color:#000;" onclick="submitDeposit()">تالون يوللاش</button>
+
+        <label style="font-size:0.85rem; color:var(--text-muted);" id="lbl_amount">قاچىلىماقچى بولغان سومما:</label>
+        <input type="number" id="depositAmount" placeholder="مىقدارى (مەسلەن: 10)" style="direction:ltr; text-align:left; margin-bottom:12px;">
+
+        <label style="font-size:0.85rem; color:var(--text-muted);" id="lbl_receiptId">تالون نومۇرى (Transaction ID):</label>
+        <input type="text" id="depositReceiptId" placeholder="تالون نومۇرىنى كىرگۈزۈڭ..." style="margin-bottom:12px;">
+
+        <label style="font-size:0.85rem; color:var(--text-muted);" id="lbl_receiptImg">تالون رەسىمى (Screenshot):</label>
+        <input type="file" id="depositReceiptImgFile" accept="image/*" style="margin-bottom:15px; padding:10px; background:rgba(3,5,12,0.6); border:1px solid var(--border); border-radius:12px; color:var(--text-main);">
+
+        <button class="btn-glow" style="width:100%; background:#00c853; color:#fff;" onclick="submitDeposit()"><i class="fa-solid fa-file-invoice"></i> <span id="m_createInvoice">تەلەپ ئەۋەتىش</span></button>
     </div>
 </div>
 
-<!-- Promo Code Modal -->
-<div class="modal" id="promoModal">
+<div class="modal" id="vipModal">
     <div class="modal-box">
-        <i class="fa-solid fa-xmark close-modal" onclick="openPromoModal()"></i>
-        <h3 style="text-align:center; color:var(--gold); margin-bottom:15px;">پروما كود</h3>
-        <input type="text" id="promoCodeInput" placeholder="كودنى يېزىڭ (مەسىلەن: AUTO2026)">
-        <button class="btn-glow" style="width:100%; margin-top:15px;" onclick="applyPromoCode()">كودنى تەكشۈرۈش</button>
+        <i class="fa-solid fa-xmark close-manager" onclick="openVipModal()"></i>
+        <div style="text-align:center; margin-bottom:15px;"><div style="font-size:1.4rem; font-weight:bold; color:var(--gold);" class="font-tech" id="m_vipTitle">نۆۋەتتىكى دەرىجىڭىز : ئالتۇن</div></div>
+        <div style="background:rgba(255,190,11,0.08); border:1px solid var(--gold); border-radius:14px; padding:18px; font-size:0.9rem;" id="m_vipDesc">ھېسابات دەرىجىڭىزنى ئۆستۈرۈش ئۈچۈن سودا مىقدارىڭىزنى ئاشۇرۇڭ.</div>
     </div>
 </div>
 
-<!-- Order History Modal -->
 <div class="modal" id="historyModal">
     <div class="modal-box">
-        <i class="fa-solid fa-xmark close-modal" onclick="openHistoryModal()"></i>
-        <h3 style="text-align:center; color:var(--neon-blue); margin-bottom:15px;">مېنىڭ زاكازلىرىم</h3>
-        <div id="historyList" style="font-size:0.9rem; color:var(--text-muted); text-align:center;">تىزىملىك قۇرۇق...</div>
+        <i class="fa-solid fa-xmark close-manager" onclick="openHistoryModal()"></i>
+        <h3 style="text-align:center; color:var(--neon-blue); margin-bottom:15px;" class="font-tech" id="m_histTitle">مېنىڭ زاكازلىرىم</h3>
+        <div id="historyList" style="font-size:0.9rem; color:var(--text-muted); text-align:center;">ھازىرچە زاكازلار يوق...</div>
     </div>
 </div>
 
-<!-- Admin Panel Modal -->
 <div class="modal" id="adminModal">
-    <div class="modal-box" style="max-width:500px;">
-        <i class="fa-solid fa-xmark close-modal" onclick="openAdminModal()"></i>
-        <h3 style="text-align:center; color:var(--gold); margin-bottom:15px;"><span class="admin-badge">ADMIN</span> پۇل ماقۇللاش سۇپىسى</h3>
-        <div style="margin-bottom:10px; font-size:0.85rem; color:var(--text-muted);">خېرىدارلار تەرىپىدىن كەلگەن پۇل توللاش تەلەپلىرى:</div>
-        <div id="adminDepositsList" style="background:rgba(0,0,0,0.5); padding:10px; border-radius:8px; font-size:0.9rem; max-height:300px; overflow-y:auto;">يۈكلىنىۋاتىدۇ...</div>
+    <div class="modal-box" style="max-width:550px;">
+        <i class="fa-solid fa-xmark close-manager" onclick="openAdminModal()"></i>
+        <h3 style="text-align:center; color:var(--gold); margin-bottom:15px;" class="font-tech"><span class="admin-badge">ADMIN</span> <span id="m_adminTitle">باشقۇرۇش ۋە پۇل ماقۇللاش سۇپىسى</span></h3>
+        <div id="adminDepositsList" style="background:rgba(0,0,0,0.3); padding:12px; border-radius:12px; font-size:0.9rem; max-height:350px; overflow-y:auto;">يۈكلىنىۋاتىدۇ...</div>
     </div>
 </div>
 
 <script>
     const API_BASE = "https://autochah-api.onrender.com/api";
     
-    let isLoginMode = true;
+    let currentLang = localStorage.getItem('site_lang') || 'ug';
     let currentUser = JSON.parse(localStorage.getItem('secure_user_session')) || null;
     let selectedTier = null;
     let activeGame = 'PUBG Mobile';
 
-    const DEMO_GAMES = [
-        { id: 'pubg', title: 'PUBG Mobile', icon: 'fa-crosshairs', tiers: [{name: '60 UC', price: 0.99}, {name: '325 UC', price: 4.99}, {name: '660 UC', price: 9.99}] },
-        { id: 'mlbb', title: 'Mobile Legends', icon: 'fa-shield-halved', tiers: [{name: '86 Dia', price: 1.49}, {name: '257 Dia', price: 4.49}, {name: '706 Dia', price: 11.99}] },
-        { id: 'hok', title: 'Honor of Kings', icon: 'fa-crown', tiers: [{name: '80 Tok', price: 0.99}, {name: '400 Tok', price: 4.99}, {name: '880 Tok', price: 9.99}] },
-        { id: 'ab', title: 'Arena Breakout', icon: 'fa-gun', tiers: [{name: '60 Bond', price: 0.99}, {name: '300 Bond', price: 4.99}, {name: '680 Bond', price: 10.99}] }
+    const TRANSLATIONS = {
+        ug: {
+            wallet: "ھەميان", profile: "پروفىل", deposit: "پۇل قاچىلاش",
+            tier: "دەرىجەم", orders: "زاكازلار", admin: "باشقۇرۇش", support: "تېلېگرامما ياردەم",
+            selectGame: "ئويۇن ياكى مۇلازىمەت تاللاڭ", searchPlaceholder: "ئىزدەش...",
+            userInfo: "ھېسابات ئۇچۇرى", uidPlaceholder: "UID نومۇرى...", zonePlaceholder: "Zone ID (Server ID)...", selectPkg: "بولاق تاللاڭ",
+            totalPay: "جەمئىي چىقىم", buyBtn: "سېتىۋېلىش",
+            catGames: "ئويۇنلار", catChats: "چات ئەپلىرى", catBanks: "رەقەملىك بانكا", catBalance: "رەقەم/تاراتقۇ",
+            bannerTitle: "ئاپتوماتىك سودا سۇپىسى", bannerSub: "بارلىق ئويۇنلارنى تېز ۋە بىخەتەر تولۇقلاڭ!",
+            navHome: "باش بەت", navWallet: "ھەميان", navDeposit: "پۇل قاچىلاش", navOrders: "زاكازلار", navMenu: "تىزىملىك",
+            mWalletTitle: "مېنىڭ ھەميانىم", mCurBal: "نۆۋەتتىكى قالدۇق", mTotalBuy: "ئومۇمىي سېتىۋېلىش", mDebt: "قەرز / پەرق", mIncome: "ئومۇمىي كىرىم",
+            mProfTitle: "ئابونت پروفىلى", mSaveBtn: "تەھرىرلەشنى ساقلاش", mDepTitle: "شامكەش ئاپتۇماتىك پۇل قاچىلاش", 
+            mCreateInvoice: "تەلەپ ئەۋەتىش", mVipTitle: "نۆۋەتتىكى دەرىجىڭىز : ئالتۇن", mVipDesc: "ھېسابات دەرىجىڭىزنى ئۆستۈرۈش ئۈچۈن سودا مىقدارىڭىزنى ئاشۇرۇڭ.",
+            mHistTitle: "مېنىڭ زاكازلىرىم", mAdminTitle: "باشقۇرۇش ۋە پۇل ماقۇللاش سۇپىسى"
+        },
+        ar: {
+            wallet: "المحفظة", profile: "الملف الشخصي", deposit: "إضافة رصيد",
+            tier: "شريحتك", orders: "طلباتي", admin: "لوحة التحكم", support: "الدعم الفني",
+            selectGame: "اختر اللعبة أو الخدمة", searchPlaceholder: "بحث عن لعبة...",
+            userInfo: "معلومات الحساب", uidPlaceholder: "أدخل رقم الـ UID...", zonePlaceholder: "Zone ID (رقم السيرفر)...", selectPkg: "اختر الباقة المناسبة",
+            totalPay: "المجموع الكلي", buyBtn: "شراء الآن",
+            catGames: "قسم الألعاب", catChats: "تطبيقات الشات", catBanks: "البنوك الرقمية", catBalance: "قسم الرصيد",
+            bannerTitle: "سهل كاش بين يديك..", bannerSub: "بلا حدود.. بلا توقف اشحن مغامرتك الآن!",
+            navHome: "الرئيسية", navWallet: "المحفظة", navDeposit: "إضافة رصيد", navOrders: "طلباتي", navMenu: "القائمة",
+            mWalletTitle: "المحفظة", mCurBal: "رصيدك الحالي", mTotalBuy: "اجمالي مشتريات", mDebt: "رصيد مدين", mIncome: "الوارد",
+            mProfTitle: "الملف الشخصي", mSaveBtn: "حفظ التعديلات", mDepTitle: "شامكەش أوتوماتيك", 
+            mCreateInvoice: "إرسال الطلب", mVipTitle: "شريحتك الحالية : ذهبي", mVipDesc: "اگر ترغب بترقية حسابك إلى شريحة أعلى ما عليك إلا زيادة مبيعاتك.",
+            mHistTitle: "طلباتي", mAdminTitle: "لوحة التحكم والطلبات"
+        },
+        en: {
+            wallet: "Wallet", profile: "Profile", deposit: "Deposit",
+            tier: "VIP Tiers", orders: "Orders", admin: "Admin Panel", support: "Support",
+            selectGame: "Select Game", searchPlaceholder: "Search...",
+            userInfo: "Account Info", uidPlaceholder: "Enter UID...", zonePlaceholder: "Enter Zone ID (Server)...", selectPkg: "Select Package",
+            totalPay: "Total Payment", buyBtn: "Checkout",
+            catGames: "Games", catChats: "Chat Apps", catBanks: "Digital Banks", catBalance: "Balance",
+            bannerTitle: "Global Gaming Hub", bannerSub: "Fast and secure automated top-ups!",
+            navHome: "Home", navWallet: "Wallet", navDeposit: "Deposit", navOrders: "Orders", navMenu: "Menu",
+            mWalletTitle: "Wallet", mCurBal: "Current Balance", mTotalBuy: "Total Purchases", mDebt: "Debt", mIncome: "Total Income",
+            mProfTitle: "Profile Settings", mSaveBtn: "Save Changes", mDepTitle: "ShamCash Auto Deposit", 
+            mCreateInvoice: "Submit Request", mVipTitle: "Current Tier: Gold", mVipDesc: "Increase your sales to upgrade your VIP tier.",
+            mHistTitle: "My Orders", mAdminTitle: "Approval Panel"
+        }
+    };
+
+    const ALL_SERVICES = [
+        { id: 'pubg', cat: 'games', title: 'PUBG Mobile', icon: 'fa-crosshairs', tiers: [{name: '60 UC', price: 0.99}, {name: '325 UC', price: 4.99}, {name: '660 UC', price: 9.99}] },
+        { id: 'mlbb', cat: 'games', title: 'Mobile Legends', icon: 'fa-shield-halved', tiers: [{name: '86 Dia', price: 1.49}, {name: '257 Dia', price: 4.49}, {name: '706 Dia', price: 11.99}] },
+        { id: 'hok', cat: 'games', title: 'Honor of Kings', icon: 'fa-crown', tiers: [{name: '80 Tok', price: 0.99}, {name: '400 Tok', price: 4.99}, {name: '880 Tok', price: 9.99}] },
+        { id: 'ahlan', cat: 'chats', title: 'Ahlan Chat', icon: 'fa-comments', tiers: [{name: '100 Coins', price: 1.00}, {name: '500 Coins', price: 4.99}] },
+        { id: 'soulchill', cat: 'chats', title: 'SoulChill', icon: 'fa-heart', tiers: [{name: '160 Gems', price: 1.99}, {name: '520 Gems', price: 5.99}] },
+        { id: 'usdt', cat: 'banks', title: 'USDT Crypto', icon: 'fa-coins', tiers: [{name: '10 USDT', price: 10.0}, {name: '50 USDT', price: 50.0}] },
+        { id: 'mtn', cat: 'balance', title: 'MTN Balance', icon: 'fa-signal', tiers: [{name: '1000 SYP', price: 1.50}, {name: '5000 SYP', price: 7.00}] }
     ];
 
     window.onload = () => {
+        document.getElementById('langSelector').value = currentLang;
+        applyLanguage(currentLang);
         updateUI();
-        renderGames(DEMO_GAMES);
+        renderServices(ALL_SERVICES);
+        checkGameFields();
     };
 
+    function changeLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('site_lang', lang);
+        applyLanguage(lang);
+    }
+
+    function applyLanguage(lang) {
+        const t = TRANSLATIONS[lang];
+        const root = document.getElementById('htmlRoot');
+        root.setAttribute('dir', lang === 'en' ? 'ltr' : 'rtl');
+        
+        document.getElementById('t_wallet').innerText = t.wallet;
+        document.getElementById('t_profile').innerText = t.profile;
+        document.getElementById('t_deposit').innerText = t.deposit;
+        document.getElementById('t_tier').innerText = t.tier;
+        document.getElementById('t_orders').innerText = t.orders;
+        if(document.getElementById('t_adminPanel')) document.getElementById('t_adminPanel').innerText = t.admin;
+        document.getElementById('t_support').innerText = t.support;
+        document.getElementById('t_selectGame').innerText = t.selectGame;
+        document.getElementById('gameSearchInput').placeholder = t.searchPlaceholder;
+        document.getElementById('t_userInfo').innerText = t.userInfo;
+        document.getElementById('inputUID').placeholder = t.uidPlaceholder;
+        document.getElementById('inputZoneID').placeholder = t.zonePlaceholder;
+        document.getElementById('t_selectPkg').innerText = t.selectPkg;
+        document.getElementById('t_totalPay').innerText = t.totalPay;
+        document.getElementById('t_buyBtn').innerText = t.buyBtn;
+        document.getElementById('cat_games').innerText = t.catGames;
+        document.getElementById('cat_chats').innerText = t.catChats;
+        document.getElementById('cat_banks').innerText = t.catBanks;
+        document.getElementById('cat_balance').innerText = t.catBalance;
+        document.getElementById('t_bannerTitle').innerText = t.bannerTitle;
+        document.getElementById('t_bannerSub').innerText = t.bannerSub;
+        
+        document.getElementById('nav_home').innerText = t.navHome;
+        document.getElementById('nav_wallet').innerText = t.navWallet;
+        document.getElementById('nav_deposit').innerText = t.navDeposit;
+        document.getElementById('nav_orders').innerText = t.navOrders;
+        document.getElementById('nav_menu').innerText = t.navMenu;
+
+        document.getElementById('m_walletTitle').innerText = t.mWalletTitle;
+        document.getElementById('m_curBal').innerText = t.mCurBal;
+        document.getElementById('m_totalBuy').innerText = t.mTotalBuy;
+        document.getElementById('m_debt').innerText = t.mDebt;
+        document.getElementById('m_income').innerText = t.mIncome;
+        document.getElementById('m_profTitle').innerText = t.mProfTitle;
+        document.getElementById('m_saveBtn').innerText = t.mSaveBtn;
+        document.getElementById('m_depTitle').innerText = t.mDepTitle;
+        document.getElementById('m_createInvoice').innerText = t.mCreateInvoice;
+        document.getElementById('m_vipTitle').innerText = t.mVipTitle;
+        document.getElementById('m_vipDesc').innerText = t.mVipDesc;
+        document.getElementById('m_histTitle').innerText = t.mHistTitle;
+        if(document.getElementById('m_adminTitle')) document.getElementById('m_adminTitle').innerText = t.mAdminTitle;
+
+        updateUI();
+    }
+
+    function checkGameFields() {
+        const zoneInput = document.getElementById('inputZoneID');
+        if (activeGame === 'Mobile Legends') {
+            zoneInput.style.display = 'block';
+        } else {
+            zoneInput.style.display = 'none';
+        }
+    }
+
     function updateUI() {
+        if(currentUser && currentUser.avatar) {
+            document.getElementById('headerLogoDefault').style.display = 'none';
+            const headImg = document.getElementById('headerUserAvatarImg');
+            headImg.style.display = 'block';
+            headImg.src = currentUser.avatar;
+
+            document.getElementById('sidebarLogoDefault').style.display = 'none';
+            const sideImg = document.getElementById('sidebarUserAvatarImg');
+            sideImg.style.display = 'block';
+            sideImg.src = currentUser.avatar;
+        } else {
+            document.getElementById('headerLogoDefault').style.display = 'flex';
+            document.getElementById('headerUserAvatarImg').style.display = 'none';
+            document.getElementById('sidebarLogoDefault').style.display = 'flex';
+            document.getElementById('sidebarUserAvatarImg').style.display = 'none';
+        }
+
         if(currentUser) {
-            document.getElementById('authBtn').innerText = 'چىقىش';
-            document.getElementById('userBalance').innerText = `$${currentUser.balance.toFixed(2)}`;
+            document.getElementById('userBalance').innerText = `$${currentUser.balance.toFixed(3)}`;
+            document.getElementById('sidebarUsername').innerText = currentUser.username;
+            document.getElementById('sidebarBalance').innerText = `$ ${currentUser.balance.toFixed(3)}`;
+            document.getElementById('walletCurrentBalance').innerText = `$ ${currentUser.balance.toFixed(3)}`;
+            document.getElementById('walletTotalIncome').innerText = `$ ${currentUser.balance.toFixed(3)}`;
+
             if(currentUser.username === 'nasrulla' || currentUser.is_vip) {
-                document.getElementById('adminMenuOpt').style.display = 'flex';
+                document.getElementById('adminSidebarOpt').style.display = 'flex';
             }
         } else {
-            document.getElementById('authBtn').innerText = 'كىرىش';
             document.getElementById('userBalance').innerText = `$0.00`;
-            document.getElementById('adminMenuOpt').style.display = 'none';
+            document.getElementById('sidebarUsername').innerText = currentLang === 'ug' ? 'مېھمان (Guest)' : 'Guest';
+            document.getElementById('sidebarBalance').innerText = `$ 0.000`;
+            document.getElementById('adminSidebarOpt').style.display = 'none';
         }
     }
 
-    function handleAuthButtonClick() {
-        if(currentUser) {
-            if(confirm('ھېساباتتىن چىقامسىز؟')) {
-                currentUser = null;
-                localStorage.removeItem('secure_user_session');
-                updateUI();
-            }
-        } else {
-            toggleAuthModal();
-        }
-    }
+    function toggleSidebar() { document.getElementById('sidebarMenu').classList.toggle('active'); document.getElementById('sidebarOverlay').classList.toggle('active'); }
 
-    function renderGames(gamesArray) {
+    function renderServices(arr) {
         const grid = document.getElementById('gameGrid');
-        grid.innerHTML = gamesArray.map(g => `<div class="game-box ${g.title===activeGame?'active':''}" onclick="selectGame('${g.title}')"><i class="fa-solid ${g.icon}"></i><div style="font-size:0.8rem; margin-top:4px;">${g.title}</div></div>`).join('');
+        grid.innerHTML = arr.map(g => `<div class="game-box ${g.title===activeGame?'active':''}" onclick="selectGame('${g.title}')"><i class="fa-solid ${g.icon}" style="font-size:1.6rem; color:var(--neon-blue); margin-bottom:6px;"></i><div style="font-size:0.8rem; font-weight:bold;">${g.title}</div></div>`).join('');
         renderTiers();
+        checkGameFields();
+    }
+
+    function filterCategory(cat) {
+        const filtered = ALL_SERVICES.filter(s => s.cat === cat);
+        renderServices(filtered.length ? filtered : ALL_SERVICES);
     }
 
     function filterGames() {
         const query = document.getElementById('gameSearchInput').value.toLowerCase();
-        const filtered = DEMO_GAMES.filter(g => g.title.toLowerCase().includes(query));
-        renderGames(filtered);
+        const filtered = ALL_SERVICES.filter(g => g.title.toLowerCase().includes(query));
+        renderServices(filtered);
     }
 
-    function selectGame(name) {
-        activeGame = name;
-        renderGames(DEMO_GAMES);
-    }
+    function selectGame(name) { activeGame = name; renderServices(ALL_SERVICES); }
 
     function renderTiers() {
-        const game = DEMO_GAMES.find(g => g.title === activeGame) || DEMO_GAMES[0];
-        selectedTier = game.tiers[0];
+        const service = ALL_SERVICES.find(s => s.title === activeGame) || ALL_SERVICES[0];
+        selectedTier = service.tiers[0];
         document.getElementById('finalPriceDisplay').innerText = `$${selectedTier.price.toFixed(2)}`;
         
         const grid = document.getElementById('tierGrid');
-        grid.innerHTML = game.tiers.map((t, i) => `<div class="tier-box ${i===0?'active':''}" onclick="selectTier(this, ${t.price}, '${t.name}')"><strong>${t.name}</strong><br><span style="color:var(--gold); font-size:0.9rem;">$${t.price}</span></div>`).join('');
+        grid.innerHTML = service.tiers.map((t, i) => `<div class="tier-box ${i===0?'active':''}" onclick="selectTier(this, ${t.price}, '${t.name}')"><strong>${t.name}</strong><br><span style="color:var(--neon-green); font-size:0.9rem; font-family:'Orbitron',sans-serif;">$${t.price}</span></div>`).join('');
     }
 
     function selectTier(el, price, name) {
@@ -327,36 +550,36 @@
         document.getElementById('finalPriceDisplay').innerText = `$${price.toFixed(2)}`;
     }
 
-    function toggleMenuModal() { document.getElementById('menuModal').classList.toggle('active'); }
-    function toggleAuthModal() { document.getElementById('authModal').classList.toggle('active'); }
+    function openProfileModal() { if(!currentUser) return alert('ئالدى بىلەن كىرىڭ!'); document.getElementById('profileModal').classList.toggle('active'); document.getElementById('profileUsername').value = currentUser.username; document.getElementById('profileEmail').value = currentUser.email || ''; document.getElementById('profilePhone').value = currentUser.phone || ''; }
+    function openVipModal() { if(!currentUser) return alert('ئالدى بىلەن كىرىڭ!'); document.getElementById('vipModal').classList.toggle('active'); }
     function openDepositModal() { if(!currentUser) return alert('ئالدى بىلەن كىرىڭ!'); document.getElementById('depositModal').classList.toggle('active'); }
-    function openPromoModal() { if(!currentUser) return alert('ئالدى بىلەن كىرىڭ!'); document.getElementById('promoModal').classList.toggle('active'); }
-    function openHistoryModal() { if(!currentUser) return alert('ئالدى بىلەن كىرىڭ!'); document.getElementById('historyModal').classList.toggle('active'); document.getElementById('historyList').innerHTML = `<div style="color:var(--neon-blue);">ئابونت: ${currentUser.username}<br>قالدۇق: $${currentUser.balance.toFixed(2)}<br><br>زاكازلىرىڭىز بىر تەرەپ قىلىنىۋاتىدۇ.</div>`; }
+    function openWalletModal() { if(!currentUser) return alert('ئالدى بىلەن كىرىڭ!'); document.getElementById('walletModal').classList.toggle('active'); }
+    function openHistoryModal() { if(!currentUser) return alert('ئالدى بىلەن كىرىڭ!'); document.getElementById('historyModal').classList.toggle('active'); }
 
     async function openAdminModal() {
         document.getElementById('adminModal').classList.toggle('active');
         const container = document.getElementById('adminDepositsList');
         container.innerHTML = "يۈكلىنىۋاتىدۇ...";
-
         try {
             const res = await fetch(API_BASE + '/admin/deposits');
             const data = await res.json();
             if(data.success && data.requests.length > 0) {
                 container.innerHTML = data.requests.map(req => `
-                    <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:8px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
-                        <div>
-                            <b>${req.username}</b> - <span style="color:var(--gold);">$${req.amount}</span> (${req.gateway})<br>
-                            <span style="font-size:0.75rem; color:${req.status==='approved'?'var(--neon-green)':'var(--neon-pink)'};">${req.status==='approved'?'تەستىقلاندى':'كۈتۈلمەكتە'}</span>
+                    <div style="background:rgba(255,255,255,0.05); padding:12px; border-radius:10px; margin-bottom:10px; border:1px solid var(--border);">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                            <div>
+                                <b>ئابونت: ${req.username}</b><br>
+                                سومما: <span style="color:var(--gold); font-weight:bold;">${req.amount}</span> (${req.gateway})<br>
+                                تالون نومۇرى: <span style="color:var(--neon-blue);">${req.receipt_id || 'يوق'}</span>
+                            </div>
+                            <span style="font-size:0.75rem; padding:3px 8px; border-radius:6px; background:${req.status==='approved'?'rgba(0,255,136,0.2)':'rgba(255,23,68,0.2)'}; color:${req.status==='approved'?'var(--neon-green)':'var(--gold)'};">${req.status}</span>
                         </div>
-                        ${req.status === 'pending' ? `<button onclick="approveDepositReq(${req.id})" style="background:var(--neon-green); border:none; padding:6px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">ماقۇللاش</button>` : '<span>✔</span>'}
+                        ${req.receipt_image ? `<div style="margin-bottom:8px;"><a href="${req.receipt_image}" target="_blank"><img src="${req.receipt_image}" style="max-height:100px; border-radius:8px; border:1px solid var(--border);"></a></div>` : ''}
+                        ${req.status === 'pending' ? `<button onclick="approveDepositReq(${req.id})" style="background:var(--neon-green); border:none; padding:6px 14px; border-radius:8px; font-weight:bold; cursor:pointer; color:#000; width:100%;">ماقۇللاش (پۇل قوشۇش)</button>` : ''}
                     </div>
                 `).join('');
-            } else {
-                container.innerHTML = "تەلەپلەر يوق.";
-            }
-        } catch(e) {
-            container.innerHTML = "مۇلازىمېتىرغا ئۇلىنالمىدى!";
-        }
+            } else { container.innerHTML = "تەلەپلەر يوق."; }
+        } catch(e) { container.innerHTML = "مۇلازىمېتىرغا ئۇلىنالمىدى!"; }
     }
 
     async function approveDepositReq(reqId) {
@@ -368,114 +591,88 @@
             });
             const data = await res.json();
             alert(data.msg);
-            openAdminModal(); // تىزىملىكنى يېڭىلاش
-        } catch(e) {
-            alert('خاتالىق كۆرۈلدى!');
-        }
+            openAdminModal();
+            updateUI();
+        } catch(e) { alert('خاتالىق!'); }
     }
 
-    function setAuthMode(login) {
-        isLoginMode = login;
-        document.getElementById('loginTabBtn').classList.toggle('active', login);
-        document.getElementById('regTabBtn').classList.toggle('active', !login);
-        document.getElementById('authTitle').innerText = login ? 'ھېساباتقا كىرىش' : 'يېڭى ھېسابات قۇرۇش';
-        document.getElementById('authSubmitBtn').innerText = login ? 'كىرىش' : 'تىزىملىتىش';
-        document.getElementById('authEmail').style.display = login ? 'none' : 'block';
-    }
-
-    async function processAuth() {
-        const username = document.getElementById('authUsername').value;
-        const email = document.getElementById('authEmail').value;
-        const password = document.getElementById('authPassword').value;
-        const loader = document.getElementById('authLoading');
-        
-        if(!username || !password) return alert('ئۇچۇرنى تولۇق يېزىڭ!');
-        
-        loader.classList.add('active');
-        const endpoint = isLoginMode ? '/login' : '/register';
-        const payload = isLoginMode ? {username, password} : {username, email, password};
-
-        try {
-            const res = await fetch(API_BASE + endpoint, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            const data = await res.json();
-            if(data.success) {
-                if(!isLoginMode) {
-                    alert('تىزىملىتىش مۇۋەپپەقىيەتلىك!');
-                    setAuthMode(true);
-                } else {
-                    currentUser = data.user;
-                    localStorage.setItem('secure_user_session', JSON.stringify(currentUser));
-                    updateUI();
-                    toggleAuthModal();
-                    alert(data.msg);
-                }
-            } else { alert(data.msg); }
-        } catch (error) { alert('مۇلازىمېتىرغا ئۇلىنالمىدى!'); }
-        finally { loader.classList.remove('active'); }
+    function saveProfileChanges() {
+        currentUser.email = document.getElementById('profileEmail').value;
+        currentUser.phone = document.getElementById('profilePhone').value;
+        localStorage.setItem('secure_user_session', JSON.stringify(currentUser));
+        updateUI();
+        alert('ساقلاندى!');
+        openProfileModal();
     }
 
     async function submitSecureOrder() {
         if(!currentUser) return alert('ئالدى بىلەن كىرىڭ!');
-        const uid = document.getElementById('inputUID').value;
+        let uid = document.getElementById('inputUID').value;
+        const zone = document.getElementById('inputZoneID').value;
+        
         if(!uid) return alert('UID كىرگۈزۈڭ!');
+        if(activeGame === 'Mobile Legends') {
+            if(!zone) return alert('Zone ID (Server ID) كىرگۈزۈڭ!');
+            uid = `${uid} (${zone})`;
+        }
 
         try {
             const res = await fetch(API_BASE + '/checkout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    user_id: currentUser.id,
-                    game: activeGame,
-                    package: selectedTier.name,
-                    target_uid: uid,
-                    cost: selectedTier.price,
-                    payment_method: 'Wallet'
-                })
+                body: JSON.stringify({ user_id: currentUser.id, game: activeGame, package: selectedTier.name, target_uid: uid, cost: selectedTier.price, payment_method: 'Wallet' })
             });
             const data = await res.json();
-            if(data.success) {
-                currentUser.balance = data.new_balance;
-                localStorage.setItem('secure_user_session', JSON.stringify(currentUser));
-                updateUI();
-                alert('زاكاز مۇۋەپپەقىيەتلىك بېجىرىلدى!');
-            } else { alert(data.msg); }
+            if(data.success) { currentUser.balance = data.new_balance; localStorage.setItem('secure_user_session', JSON.stringify(currentUser)); updateUI(); alert('زاكاز مۇۋەپپەقىيەتلىك بېجىرىلدى!'); }
+            else { alert(data.msg); }
         } catch (err) { alert('ئۇلىنىش خاتالىقى!'); }
     }
 
+    // شامكەش ئاپتۇماتىك پۇل قاچىلاش تەلەپ ئەۋەتىش فۇنكسىيەسى
     async function submitDeposit() {
+        const currency = document.getElementById('depositCurrency').value;
         const amount = document.getElementById('depositAmount').value;
-        const gateway = document.getElementById('depositGateway').value;
-        if(!amount || amount <= 0) return alert('مىقدار يېزىڭ!');
+        const receiptId = document.getElementById('depositReceiptId').value;
+        const fileInput = document.getElementById('depositReceiptImgFile');
 
+        if(!amount || amount <= 0) return alert('توغرا سومما كىرگۈزۈڭ!');
+        if(!receiptId) return alert('تالون نومۇرىنى كىرگۈزۈڭ!');
+
+        let receiptImageBase64 = null;
+        if(fileInput.files && fileInput.files[0]) {
+            const reader = new FileReader();
+            reader.readAsDataURL(fileInput.files[0]);
+            reader.onload = async function() {
+                receiptImageBase64 = reader.result;
+                await sendDepositData(currency, amount, receiptId, receiptImageBase64);
+            };
+        } else {
+            await sendDepositData(currency, amount, receiptId, null);
+        }
+    }
+
+    async function sendDepositData(currency, amount, receiptId, imageBase64) {
         try {
             const res = await fetch(API_BASE + '/deposit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ user_id: currentUser.id, amount: parseFloat(amount), gateway })
+                body: JSON.stringify({ 
+                    user_id: currentUser.id, 
+                    amount: parseFloat(amount), 
+                    gateway: `ShamCash (${currency})`,
+                    receipt_id: receiptId,
+                    receipt_image: imageBase64
+                })
             });
             const data = await res.json();
             if(data.success) { 
-                alert(data.msg); 
+                alert('پۇل قاچىلاش تېلېپىڭىز ئەۋەتىلدى! باشقۇرغۇچى تەرىپىدىن تەكشۈرۈلۈپ تەستىقلىنىدۇ.'); 
                 openDepositModal(); 
-            } else { alert('خاتالىق!'); }
-        } catch(e) { alert('مۇلازىمېتىرغا ئۇلىنالمىدى!'); }
-    }
-
-    function applyPromoCode() {
-        const code = document.getElementById('promoCodeInput').value;
-        if(!code) return alert('كود كىرگۈزۈڭ!');
-        if(code === 'AUTO2026') {
-            currentUser.balance += 5.00;
-            localStorage.setItem('secure_user_session', JSON.stringify(currentUser));
-            updateUI();
-            alert('مۇۋەپپەقىيەتلىك! ھېساباتىڭىزغا $5.00 قوشۇلدى.');
-            openPromoModal();
-        } else {
-            alert('كود خاتالىقى ياكى ئىناۋەتسىز كود!');
+            } else { 
+                alert('خاتالىق يۈز بەردى!'); 
+            }
+        } catch(e) { 
+            alert('مۇلازىمېتىرغا ئۇلىنالمىدى!'); 
         }
     }
 </script>
