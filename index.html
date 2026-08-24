@@ -919,9 +919,14 @@
             });
             localStorage.setItem('user_orders', JSON.stringify(orders));
             
-            alert('تم إرسال الطلب بنجاح وسيتم معالجته من قبل الإدارة!');
+            alert('تم إرسال الطلب بنجاح!');
             closeModal();
             playerIdEl.value = '';
+            
+            // ئەگەر باشقۇرغۇچى ئوخشاش بىر برائۇزېردە ئوچۇق تۇرسا، دەرھال يېڭىلاش
+            if (localStorage.getItem('is_admin') === 'true') {
+                loadAdminData();
+            }
         }
 
         function sendTopupRequest() {
@@ -959,6 +964,10 @@
             
             alert('تم إرسال طلب الشحن بنجاح!');
             amountEl.value = '';
+
+            if (localStorage.getItem('is_admin') === 'true') {
+                loadAdminData();
+            }
         }
 
         function loadOrders() {
@@ -1070,25 +1079,18 @@
 
             if (targetOrder.type === 'topup' || targetOrder.type === 'spent') {
                 let targetUser = targetOrder.username;
-                if (targetUser === 'nasrulla') {
-                    let currentBal = parseFloat(localStorage.getItem('admin_balance') || '0');
-                    if (targetOrder.type === 'topup') {
-                        localStorage.setItem('admin_balance', (currentBal + targetOrder.priceUSD).toFixed(3));
-                    }
-                } else {
-                    let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
-                    users = users.map(u => {
-                        if (u.name === targetUser) {
-                            if (targetOrder.type === 'topup') {
-                                u.balance = (u.balance || 0) + targetOrder.priceUSD;
-                            } else if (targetOrder.type === 'spent') {
-                                u.balance = Math.max(0, (u.balance || 0) - targetOrder.priceUSD);
-                            }
+                let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
+                users = users.map(u => {
+                    if (u.name === targetUser) {
+                        if (targetOrder.type === 'topup') {
+                            u.balance = (u.balance || 0) + targetOrder.priceUSD;
+                        } else if (targetOrder.type === 'spent') {
+                            u.balance = Math.max(0, (u.balance || 0) - targetOrder.priceUSD);
                         }
-                        return u;
-                    });
-                    localStorage.setItem('registered_users', JSON.stringify(users));
-                }
+                    }
+                    return u;
+                });
+                localStorage.setItem('registered_users', JSON.stringify(users));
             }
 
             localStorage.setItem('user_orders', JSON.stringify(orders));
