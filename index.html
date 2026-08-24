@@ -107,10 +107,40 @@
             font-size: 14px;
             cursor: pointer;
             transition: 0.2s;
+            margin-bottom: 10px;
         }
 
         .auth-btn:hover {
             background: #c80010;
+        }
+
+        .telegram-login-btn {
+            background-color: #229ED9;
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            color: #FFFFFF;
+            border: none;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .telegram-login-btn:hover {
+            background-color: #1b8ac4;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 15px 0;
+            color: #888;
+            font-size: 12px;
+            position: relative;
         }
 
         .toggle-link {
@@ -226,7 +256,7 @@
             </div>
         </div>
 
-        <!-- 4. ھېساباتىم (تىزىملاش ۋە كىرىش) -->
+        <!-- 4. ھېساباتىم (Gmail & Telegram كىرىش) -->
         <div id="account-section" class="page-view">
             <div class="section-title">ئابونت ھېساباتى</div>
             
@@ -244,6 +274,12 @@
                         <input type="password" id="reg-password" placeholder="********">
                     </div>
                     <button class="auth-btn" onclick="registerUser()">تىزىملىتىش</button>
+                    
+                    <div class="divider">ياكى</div>
+                    <button class="telegram-login-btn" onclick="loginWithTelegram()">
+                        <span>✈️</span> تېلېگرامما ئارقىلىق كىرىش
+                    </button>
+
                     <div class="toggle-link" onclick="toggleForm('login')">ھېساباتىڭىز بارمۇ? <span>كىرىش</span></div>
                 </div>
 
@@ -259,6 +295,12 @@
                         <input type="password" id="log-password" placeholder="********">
                     </div>
                     <button class="auth-btn" onclick="loginUser()">كىرىش</button>
+                    
+                    <div class="divider">ياكى</div>
+                    <button class="telegram-login-btn" onclick="loginWithTelegram()">
+                        <span>✈️</span> تېلېگرامما ئارقىلىق كىرىش
+                    </button>
+
                     <div class="toggle-link" onclick="toggleForm('register')">ھېساباتىڭىز يوقمۇ? <span>تىزىملىتىش</span></div>
                 </div>
             </div>
@@ -280,7 +322,6 @@
     </nav>
 
     <script>
-        // بەت ئالماشتۇرۇش
         function switchPage(pageName, element) {
             document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
             document.getElementById(pageName + '-section').classList.add('active');
@@ -288,7 +329,6 @@
             element.classList.add('active');
         }
 
-        // تىزىملاش ۋە كىرىش فورمىسىنى ئالماشتۇرۇش
         function toggleForm(type) {
             if (type === 'login') {
                 document.getElementById('register-form').style.display = 'none';
@@ -299,13 +339,12 @@
             }
         }
 
-        // يېڭى ھېسابات تىزىملىتىش
         function registerUser() {
             const email = document.getElementById('reg-email').value;
             const password = document.getElementById('reg-password').value;
 
             if(!email || !password) {
-                alert('ئادرىس ۋە مەخپىي نومۇرنى تولۇق كىرگۈزۈڭ!');
+                alert('Gmail ۋە مەخپىي نومۇرنى تولۇق كىرگۈزۈڭ!');
                 return;
             }
 
@@ -315,7 +354,6 @@
             checkLoginState();
         }
 
-        // كىرىش
         function loginUser() {
             const email = document.getElementById('log-email').value;
             const password = document.getElementById('log-password').value;
@@ -331,14 +369,23 @@
             }
         }
 
-        // چىقىش
+        // تېلېگرامما ئارقىلىق كىرىش סיмуляция قىلىش (ئاددىي ئابونت ئىسمى بىلەن)
+        function loginWithTelegram() {
+            let tgUser = prompt("تېلېگرامما ئىشلەتكۈچى ئاتىڭىزنى (Username) كىرگۈزۈڭ:", "@nasrulla");
+            if (tgUser) {
+                localStorage.setItem('saved_email', tgUser + ' (Telegram)');
+                localStorage.setItem('is_logged_in', 'true');
+                alert('تېلېگرامما ئارقىلىق مۇۋەپپەقىيەتلىك كىردىڭىز!');
+                checkLoginState();
+            }
+        }
+
         function logoutUser() {
             localStorage.removeItem('is_logged_in');
             checkLoginState();
             alert('ھېساباتتىن چىقتىڭىز.');
         }
 
-        // كىرىش ھالىتىنى تەكشۈرۈش
         function checkLoginState() {
             const isLoggedIn = localStorage.getItem('is_logged_in');
             const savedEmail = localStorage.getItem('saved_email');
@@ -355,7 +402,6 @@
             }
         }
 
-        // بەت ئېچىلغاندا كىرىش ھالىتىنى تەكشۈرۈش
         window.onload = function() {
             checkLoginState();
         }
