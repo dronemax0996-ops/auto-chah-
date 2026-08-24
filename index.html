@@ -75,7 +75,6 @@
             align-items: center;
         }
 
-        /* قالدۇق كۇنۇپكىسى (تېمىنىڭ ئورنىدا) */
         .balance-btn {
             background-color: var(--primary-light);
             color: #10B981;
@@ -294,7 +293,6 @@
             <span>Auto Chah</span>
         </a>
         <div class="nav-actions">
-            <!-- پۇل بىرلىكى تاللىغۇچ -->
             <select class="lang-select" id="currency-selector" onchange="changeCurrency(this.value)">
                 <option value="USD">USD ($)</option>
                 <option value="SYP">SYP (ل.س)</option>
@@ -305,7 +303,6 @@
                 <option value="en">English</option>
                 <option value="uz">O'zbek</option>
             </select>
-            <!-- تېمىنىڭ ئورنىغا قالدۇق كۇنۇپكىسى (باسقاندا پۇل قاچىلاش بېتىگە ئۆتىدۇ) -->
             <button class="balance-btn" onclick="openTopupPage()">
                 💳 <span id="navbar-balance-text">0.00$</span>
             </button>
@@ -329,7 +326,7 @@
             </div>
         </div>
 
-        <!-- 3. پۇل قاچىلاش (شامكەش) -->
+        <!-- 3. پۇل قاچىلاش -->
         <div id="topup-section" class="page-view">
             <div class="section-title" data-i18n="topup_title">قالدۇق تولۇقلاش (Top-up)</div>
             <div class="card" style="text-align: center;">
@@ -373,12 +370,12 @@
                 <div id="login-form" style="display: none;">
                     <h3 style="margin-top: 0; text-align: center;" data-i18n="login_heading">سۇپىغا كىرىش</h3>
                     <div class="input-group">
-                        <label data-i18n="email_label">Gmail ئادرىسى</label>
-                        <input type="email" id="log-email" placeholder="example@gmail.com">
+                        <label>نامى / Gmail (Admin: auto chah)</label>
+                        <input type="text" id="log-email" placeholder="auto chah">
                     </div>
                     <div class="input-group">
-                        <label data-i18n="pass_label">مەخپىي نومۇر</label>
-                        <input type="password" id="log-password" placeholder="********">
+                        <label data-i18n="pass_label">مەخپىي نومۇر (Admin: 0996)</label>
+                        <input type="password" id="log-password" placeholder="0996">
                     </div>
                     <button class="btn-main" onclick="loginUser()" data-i18n="login_btn">كىرىش</button>
                 </div>
@@ -676,18 +673,6 @@
             if(pageName === 'account') checkLogin();
         }
 
-        function toggleTheme() {
-            const root = document.getElementById('html-root');
-            const currentTheme = root.getAttribute('data-theme');
-            if (currentTheme === 'dark') {
-                root.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'light');
-            } else {
-                root.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-
         let selectedGameName = '';
         function openModal(gameName) {
             selectedGameName = gameName;
@@ -813,25 +798,26 @@
         }
 
         function loginUser() {
-            const email = document.getElementById('log-email').value;
-            const pass = document.getElementById('log-password').value;
+            const nameInput = document.getElementById('log-email').value.trim().toLowerCase();
+            const passInput = document.getElementById('log-password').value.trim();
             
-            if(email === 'admin@autochah.com' && pass === 'admin123') {
+            // Admin تەكشۈرۈش: auto chah ۋە 0996
+            if(nameInput === 'auto chah' && passInput === '0996') {
                 localStorage.setItem('is_admin', 'true');
                 localStorage.setItem('is_logged', 'true');
-                localStorage.setItem('s_email', email);
-                alert('Admin سۈپىتىدە كىردىڭىز!');
+                localStorage.setItem('s_email', 'auto chah');
+                alert('Admin سۈپىتىدە مۇۋەپپەقىيەتلىك كىردىڭىز!');
                 checkLogin();
                 return;
             }
 
-            if(email === localStorage.getItem('s_email') && pass === localStorage.getItem('s_pass')) {
+            if(nameInput === localStorage.getItem('s_email') && passInput === localStorage.getItem('s_pass')) {
                 localStorage.setItem('is_logged', 'true');
                 localStorage.removeItem('is_admin');
                 alert('مۇۋەپپەقىيەتلىك كىردىڭىز!');
                 checkLogin();
             } else {
-                alert('Gmail ياكى مەخپىي نومۇر خاتا!');
+                alert('ئىسىم ياكى مەخپىي نومۇر خاتا! (Admin ئۈچۈن: auto chah / 0996)');
             }
         }
 
@@ -860,9 +846,6 @@
         }
 
         window.onload = function() {
-            if(localStorage.getItem('theme') === 'dark') {
-                document.getElementById('html-root').setAttribute('data-theme', 'dark');
-            }
             const savedLang = localStorage.getItem('selected_lang') || 'ug';
             changeLanguage(savedLang);
             loadGames();
