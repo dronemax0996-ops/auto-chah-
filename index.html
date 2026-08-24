@@ -416,7 +416,7 @@
                 <option value="en">English</option>
                 <option value="uz">O'zbek</option>
             </select>
-            <button class="nav-icon-btn" onclick="switchPage('account', document.querySelectorAll('.nav-item')[3])">👤</button>
+            <button class="nav-icon-btn" onclick="switchPage('account', document.querySelectorAll('.nav-item')[4])">👤</button>
             <button class="nav-icon-btn" onclick="toggleMenu()">☰</button>
         </div>
     </header>
@@ -608,7 +608,7 @@
         </div>
     </div>
 
-    <!-- استىدىكى نېۋىگاتسىيە (سول چەتتە باشقۇرۇش بېتى قوشۇلدى) -->
+    <!-- استىدىكى نېۋىگاتسىيە (ئادەم admin بولغاندلا كۆرۈنىدىغان باشقۇرۇش كۇنۇپكىسى قوشۇلدى) -->
     <nav class="bottom-nav" id="bottom-navigation">
         <button class="nav-item" id="nav-admin-btn" onclick="switchPage('admin-dashboard', this)" style="display: none;"><span>⚙️</span>باشقۇرۇش</button>
         <button class="nav-item active" onclick="switchPage('home', this)"><span>🏠</span><span data-i18n="nav_home">الرئيسية</span></button>
@@ -835,15 +835,6 @@
 
             if (topupEl) topupEl.textContent = totalTopupUSD.toFixed(3) + ' $';
             if (spentEl) spentEl.textContent = totalSpentUSD.toFixed(3) + ' $';
-        }
-
-        function copyRefLink() {
-            const refInput = document.getElementById('ref-link');
-            if (refInput) {
-                refInput.select();
-                navigator.clipboard.writeText(refInput.value);
-                alert('تم نسخ الرابط!');
-            }
         }
 
         function switchPage(pageName, element) {
