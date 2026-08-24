@@ -510,11 +510,11 @@
 
         <!-- 3. پۇل قاچىلاش (ئابونت) / تەلەپ قىلىش (باشقۇرغۇچى) -->
         <div id="topup-section" class="page-view">
-            <!-- ئابونت ئۈچۈن پۇل قاچىلاش -->
+            <!-- ئابونت ئۈچۈن پۇل قاچىلاش (پاتۇرا رەسىمى مەجبۇرىي) -->
             <div id="user-topup-view" class="card" style="text-align: center;">
                 <p style="font-weight: 600; margin-bottom: 15px;"><span data-i18n="current_balance">رصيدك الحالي:</span> <span style="color: #10B981;" id="user-balance-display">0.00$</span></p>
                 <div class="input-group">
-                    <label data-i18n="amount_label">المبلغ</label>
+                    <label data-i18n="amount_label">المبلغ (ئۇرغان پۇل سانى)</label>
                     <input type="number" id="topup-amount" placeholder="10">
                 </div>
                 <div class="input-group">
@@ -524,12 +524,16 @@
                         <option value="USDT / Crypto">USDT / Crypto</option>
                     </select>
                 </div>
+                <div class="input-group">
+                    <label>شامكەش / پاتۇرا ئىسپات رەسىمى (مەجبۇرىي)</label>
+                    <input type="file" id="topup-proof-img" accept="image/*" style="font-size: 12px;">
+                </div>
                 <button class="btn-main" onclick="sendTopupRequest()" data-i18n="topup_btn">إرسال طلب الشحن</button>
             </div>
             <!-- باشقۇرغۇچى ئۈچۈن ئابونت تەلەپلىرى ۋە بۆلەك قوشۇش -->
             <div id="admin-topup-view" class="card" style="display: none;">
                 <h3 style="color: var(--primary); margin-top: 0; text-align: center;">📦 ئابونت تەلەپلىرى</h3>
-                <div id="admin-orders-list" style="max-height: 250px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: 10px; margin-bottom: 20px;"></div>
+                <div id="admin-orders-list" style="max-height: 300px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: 10px; margin-bottom: 20px;"></div>
 
                 <h3 style="color: var(--primary); margin-top: 0; text-align: center;">➕ يېڭى بۆلەك/ئويۇن قوشۇش</h3>
                 <div style="background: var(--bg-color); padding: 15px; border-radius: 10px;">
@@ -927,11 +931,15 @@
             }
 
             let activeUser = localStorage.getItem('s_name') || 'Guest';
+            let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
+            let currentUser = users.find(u => u.name === activeUser);
+            let userAvatar = currentUser ? currentUser.avatar : '';
 
             let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
             orders.push({
                 id: Date.now(), 
                 username: activeUser, 
+                avatar: userAvatar,
                 game: selectedGameName, 
                 playerId: playerId, 
                 pkg: pkgName + ' (' + pkgPrice.toFixed(3) + '$)', 
@@ -946,7 +954,6 @@
             closeModal();
             playerIdEl.value = '';
             
-            // ئەگەر باشقۇرغۇچى ئوخشاش برائۇزېردە ئوچۇق بولسا دەرھال يېڭىلاش
             loadAdminOrdersList();
         }
 
@@ -959,34 +966,56 @@
 
             const amountEl = document.getElementById('topup-amount');
             const gatewayEl = document.getElementById('payment-gateway');
-            if (!amountEl || !gatewayEl) return;
+            const proofImgEl = document.getElementById('topup-proof-img');
+            if (!amountEl || !gatewayEl || !proofImgEl) return;
+
             const amount = amountEl.value.trim();
             const gateway = gatewayEl.value;
+
             if (!amount) {
                 alert('المبلغ كىرگۈزۈڭ!');
                 return;
             }
-            let usdAmount = parseFloat(amount);
-            let activeUser = localStorage.getItem('s_name') || 'Guest';
 
-            let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-            orders.push({
-                id: Date.now(), 
-                username: activeUser, 
-                game: 'شحن (' + gateway + ')', 
-                playerId: activeUser, 
-                pkg: usdAmount.toFixed(3) + '$', 
-                priceUSD: usdAmount, 
-                type: 'topup', 
-                status: 'Pending', 
-                date: new Date().toLocaleDateString()
-            });
-            localStorage.setItem('user_orders', JSON.stringify(orders));
-            
-            alert('تم إرسال طلب الشحن بنجاح!');
-            amountEl.value = '';
+            // پاتۇرا رەسىمى مەجبۇرىي تەكشۈرۈش
+            if (!proofImgEl.files || !proofImgEl.files[0]) {
+                alert('مەجھۇرىي شەرت: پاتۇرا / ئىسپات رەسىمىنى يۈكلەشىڭىز كېرەك! رەسىمسىز تەلەپ قوبول قىلىنمايدۇ.');
+                return;
+            }
 
-            loadAdminOrdersList();
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const proofImgData = e.target.result;
+                let usdAmount = parseFloat(amount);
+                let activeUser = localStorage.getItem('s_name') || 'Guest';
+
+                let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
+                let currentUser = users.find(u => u.name === activeUser);
+                let userAvatar = currentUser ? currentUser.avatar : '';
+
+                let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
+                orders.push({
+                    id: Date.now(), 
+                    username: activeUser, 
+                    avatar: userAvatar,
+                    game: 'شحن (' + gateway + ')', 
+                    playerId: activeUser, 
+                    pkg: usdAmount.toFixed(3) + '$', 
+                    priceUSD: usdAmount, 
+                    proofImg: proofImgData,
+                    type: 'topup', 
+                    status: 'Pending', 
+                    date: new Date().toLocaleDateString()
+                });
+                localStorage.setItem('user_orders', JSON.stringify(orders));
+                
+                alert('تم إرسال طلب الشحن بنجاح مع إسپات پاتۇرا!');
+                amountEl.value = '';
+                proofImgEl.value = '';
+
+                loadAdminOrdersList();
+            };
+            reader.readAsDataURL(proofImgEl.files[0]);
         }
 
         function loadOrders() {
@@ -1002,10 +1031,12 @@
             }
             let html = '';
             userOrders.forEach(o => {
-                let statusColor = o.status === 'Approved' ? '#10B981' : '#f59e0b';
+                let statusColor = o.status === 'Approved' ? '#10B981' : (o.status === 'Rejected' ? '#EF4444' : '#f59e0b');
+                let proofHtml = o.proofImg ? `<br><img src="${o.proofImg}" style="width:60px; height:60px; object-fit:cover; border-radius:6px; margin-top:5px;">` : '';
                 html += `<div style="border-bottom: 1px solid var(--border-color); padding: 10px 0; font-size: 13px;">
                     <strong>${o.game}</strong> - ${o.pkg}<br>
                     <span style="color: var(--text-dim);">ID/User: ${o.playerId} | Status: <span style="color: ${statusColor}; font-weight:700;">${o.status}</span></span>
+                    ${proofHtml}
                 </div>`;
             });
             listEl.innerHTML = html;
@@ -1021,10 +1052,23 @@
                 } else {
                     let html = '';
                     pendingOrders.forEach((o) => {
-                        html += `<div style="border-bottom: 1px solid var(--border-color); padding: 8px 0; font-size: 13px;">
-                            <b>ئابونت: ${o.username}</b><br>
-                            <b>${o.game}</b> (${o.pkg})<br>ID: ${o.playerId} | Status: <b>${o.status}</b><br>
-                            <button onclick="approveOrder(${o.id})" style="background:#10B981; color:white; border:none; padding:4px 10px; border-radius:4px; cursor:pointer; margin-top:5px;">موافقة (Approve)</button>
+                        let avatarMarkup = o.avatar ? `<img src="${o.avatar}" style="width:35px; height:35px; border-radius:50%; object-fit:cover; vertical-align:middle; margin-left:8px; border:2px solid var(--primary);">` : '<span style="font-size:24px; margin-left:8px; vertical-align:middle;">👤</span>';
+                        let proofMarkup = o.proofImg ? `<br><b>ئىسپات پاتۇراسى:</b><br><a href="${o.proofImg}" target="_blank"><img src="${o.proofImg}" style="width:80px; height:80px; object-fit:cover; border-radius:8px; margin-top:5px; border:1px solid #ccc;"></a>` : '<br><span style="color:red; font-size:11px;">⚠️ پاتۇرا يوق! (بىكار قىلىش تەۋسىيە قىلىنىدۇ)</span>';
+                        
+                        html += `<div style="border-bottom: 1px solid var(--border-color); padding: 10px 0; font-size: 13px; display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+                            <div style="display:flex; align-items:flex-start; gap:8px;">
+                                ${avatarMarkup}
+                                <div>
+                                    <b>ئابونت: ${o.username}</b><br>
+                                    <b>تەلەپ: ${o.game}</b> (${o.pkg})<br>
+                                    <span style="color:var(--text-dim);">ID: ${o.playerId} | Status: <b>${o.status}</b></span>
+                                    ${proofMarkup}
+                                </div>
+                            </div>
+                            <div style="display:flex; gap:6px; align-items:center;">
+                                <button onclick="approveOrder(${o.id})" style="background:#10B981; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; font-weight:600; font-size:12px;">قوبۇللاش</button>
+                                <button onclick="rejectOrder(${o.id})" style="background:#EF4444; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; font-weight:600; font-size:12px;">بىكار قىلىش</button>
+                            </div>
                         </div>`;
                     });
                     adminList.innerHTML = html;
@@ -1193,7 +1237,18 @@
             loadAdminData();
             updateBalanceDisplay();
             updateAnalyticsDisplay();
-            alert('تمت الموافقة وتحديث رصيد العضو بنجاح!');
+            alert('تەلەپ قوبۇل قىلىندى ۋە ئابونتنىڭ پۇلى بىر تەرەپ قىلىندى!');
+        }
+
+        function rejectOrder(orderId) {
+            let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
+            let targetOrder = orders.find(o => o.id === orderId);
+            if (!targetOrder) return;
+
+            targetOrder.status = 'Rejected';
+            localStorage.setItem('user_orders', JSON.stringify(orders));
+            loadAdminData();
+            alert('تەلەپ بىكار قىلىندى (رەت قىلىندى)!');
         }
 
         function uploadProfileImage(input) {
@@ -1429,7 +1484,7 @@
             updateBalanceDisplay();
             updateAnalyticsDisplay();
 
-            // بىر سېكۇنتتا بىر قېتىم باشقۇرغۇچىنىڭ ئېكرانىدىكى سانلىق مەلۇماتلارنى ئاپتوماتىك يېڭىلاپ تۇرۇش (Real-time polling)
+            // باشقۇرغۇچى ئۈچۈن Real-time دەرھال يېڭىلاپ تۇرۇش سىستېمىسى
             setInterval(() => {
                 if (localStorage.getItem('is_admin') === 'true') {
                     loadAdminData();
