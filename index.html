@@ -812,7 +812,7 @@
             let activeUser = localStorage.getItem('s_name');
             let balUSD = 0;
             if (activeUser === 'nasrulla') {
-                balUSD = parseFloat(localStorage.getItem('user_balance') || '0');
+                balUSD = parseFloat(localStorage.getItem('admin_balance') || '0');
             } else if (activeUser) {
                 let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
                 let u = users.find(item => item.name === activeUser);
@@ -830,8 +830,21 @@
         }
 
         function updateAnalyticsDisplay() {
-            let totalTopupUSD = parseFloat(localStorage.getItem('total_topup') || '0');
-            let totalSpentUSD = parseFloat(localStorage.getItem('total_spent') || '0');
+            let activeUser = localStorage.getItem('s_name');
+            let totalTopupUSD = 0;
+            let totalSpentUSD = 0;
+
+            if (activeUser) {
+                let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
+                let userOrders = orders.filter(o => o.username === activeUser);
+                userOrders.forEach(o => {
+                    if (o.status === 'Approved') {
+                        if (o.type === 'topup') totalTopupUSD += o.priceUSD;
+                        if (o.type === 'spent') totalSpentUSD += o.priceUSD;
+                    }
+                });
+            }
+
             let topupEl = document.getElementById('total-topup-stat');
             let spentEl = document.getElementById('total-spent-stat');
 
@@ -859,6 +872,11 @@
 
         let selectedGameName = '';
         function openModal(gameName) {
+            if (localStorage.getItem('is_logged') !== 'true') {
+                alert('ئالدى بىلەن ھېساباتىڭىزغا كىرىڭ ياكى تىزىملىتىڭ!');
+                switchPage('account', document.querySelectorAll('.nav-item')[4]);
+                return;
+            }
             selectedGameName = gameName;
             const titleEl = document.getElementById('modal-game-title');
             const modalEl = document.getElementById('purchase-modal');
@@ -885,16 +903,34 @@
                 return;
             }
 
+            let activeUser = localStorage.getItem('s_name') || 'Guest';
+
             let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-            orders.push({id: Date.now(), game: selectedGameName, playerId: playerId, pkg: pkgName + ' (' + pkgPrice.toFixed(3) + '$)', priceUSD: pkgPrice, type: 'spent', status: 'Pending', date: new Date().toLocaleDateString()});
+            orders.push({
+                id: Date.now(), 
+                username: activeUser, 
+                game: selectedGameName, 
+                playerId: playerId, 
+                pkg: pkgName + ' (' + pkgPrice.toFixed(3) + '$)', 
+                priceUSD: pkgPrice, 
+                type: 'spent', 
+                status: 'Pending', 
+                date: new Date().toLocaleDateString()
+            });
             localStorage.setItem('user_orders', JSON.stringify(orders));
             
-            alert('تم إرسال الطلب بنجاح!');
+            alert('تم إرسال الطلب بنجاح وسيتم معالجته من قبل الإدارة!');
             closeModal();
             playerIdEl.value = '';
         }
 
         function sendTopupRequest() {
+            if (localStorage.getItem('is_logged') !== 'true') {
+                alert('ئالدى بىلەن ھېساباتىڭىزغا كىرىڭ!');
+                switchPage('account', document.querySelectorAll('.nav-item')[4]);
+                return;
+            }
+
             const amountEl = document.getElementById('topup-amount');
             const gatewayEl = document.getElementById('payment-gateway');
             if (!amountEl || !gatewayEl) return;
@@ -905,9 +941,20 @@
                 return;
             }
             let usdAmount = parseFloat(amount);
+            let activeUser = localStorage.getItem('s_name') || 'Guest';
 
             let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-            orders.push({id: Date.now(), game: 'شحن (' + gateway + ')', playerId: '-', pkg: usdAmount.toFixed(3) + '$', priceUSD: usdAmount, type: 'topup', status: 'Pending', date: new Date().toLocaleDateString()});
+            orders.push({
+                id: Date.now(), 
+                username: activeUser, 
+                game: 'شحن (' + gateway + ')', 
+                playerId: activeUser, 
+                pkg: usdAmount.toFixed(3) + '$', 
+                priceUSD: usdAmount, 
+                type: 'topup', 
+                status: 'Pending', 
+                date: new Date().toLocaleDateString()
+            });
             localStorage.setItem('user_orders', JSON.stringify(orders));
             
             alert('تم إرسال طلب الشحن بنجاح!');
@@ -917,16 +964,20 @@
         function loadOrders() {
             const listEl = document.getElementById('orders-list');
             if (!listEl) return;
+            let activeUser = localStorage.getItem('s_name');
             let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-            if (orders.length === 0) {
+            let userOrders = orders.filter(o => o.username === activeUser);
+
+            if (userOrders.length === 0) {
                 listEl.innerHTML = '<p style="color: var(--text-dim); text-align: center;">لا توجد عناصر</p>';
                 return;
             }
             let html = '';
-            orders.forEach(o => {
+            userOrders.forEach(o => {
+                let statusColor = o.status === 'Approved' ? '#10B981' : '#f59e0b';
                 html += `<div style="border-bottom: 1px solid var(--border-color); padding: 10px 0; font-size: 13px;">
                     <strong>${o.game}</strong> - ${o.pkg}<br>
-                    <span style="color: var(--text-dim);">ID: ${o.playerId} | Status: <span style="color: #f59e0b;">${o.status}</span></span>
+                    <span style="color: var(--text-dim);">ID/User: ${o.playerId} | Status: <span style="color: ${statusColor}; font-weight:700;">${o.status}</span></span>
                 </div>`;
             });
             listEl.innerHTML = html;
@@ -936,12 +987,14 @@
             const adminList = document.getElementById('admin-orders-list');
             if (adminList) {
                 let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-                if (orders.length === 0) {
-                    adminList.innerHTML = '<p style="color:var(--text-dim); text-align:center;">لا توجد طلبات</p>';
+                let pendingOrders = orders.filter(o => o.status === 'Pending');
+                if (pendingOrders.length === 0) {
+                    adminList.innerHTML = '<p style="color:var(--text-dim); text-align:center;">لا توجد طلبات معلقة</p>';
                 } else {
                     let html = '';
-                    orders.forEach((o) => {
+                    pendingOrders.forEach((o) => {
                         html += `<div style="border-bottom: 1px solid var(--border-color); padding: 8px 0; font-size: 13px;">
+                            <b>ئابونت: ${o.username}</b><br>
                             <b>${o.game}</b> (${o.pkg})<br>ID: ${o.playerId} | Status: <b>${o.status}</b><br>
                             <button onclick="approveOrder(${o.id})" style="background:#10B981; color:white; border:none; padding:4px 10px; border-radius:4px; cursor:pointer; margin-top:5px;">موافقة (Approve)</button>
                         </div>`;
@@ -1000,7 +1053,6 @@
 
             let currentName = localStorage.getItem('s_name');
             if (currentName === userName) {
-                localStorage.setItem('user_balance', users.find(u => u.name === userName).balance);
                 updateBalanceDisplay();
             }
 
@@ -1011,26 +1063,39 @@
 
         function approveOrder(orderId) {
             let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-            orders = orders.map(o => {
-                if (o.id === orderId) {
-                    o.status = 'Approved';
-                    if (o.type === 'topup') {
-                        let currentBal = parseFloat(localStorage.getItem('user_balance') || '0');
-                        localStorage.setItem('user_balance', (currentBal + o.priceUSD).toFixed(3));
-                        let totalTopup = parseFloat(localStorage.getItem('total_topup') || '0');
-                        localStorage.setItem('total_topup', (totalTopup + o.priceUSD).toFixed(3));
-                    } else if (o.type === 'spent') {
-                        let totalSpent = parseFloat(localStorage.getItem('total_spent') || '0');
-                        localStorage.setItem('total_spent', (totalSpent + o.priceUSD).toFixed(3));
+            let targetOrder = orders.find(o => o.id === orderId);
+            if (!targetOrder) return;
+
+            targetOrder.status = 'Approved';
+
+            if (targetOrder.type === 'topup' || targetOrder.type === 'spent') {
+                let targetUser = targetOrder.username;
+                if (targetUser === 'nasrulla') {
+                    let currentBal = parseFloat(localStorage.getItem('admin_balance') || '0');
+                    if (targetOrder.type === 'topup') {
+                        localStorage.setItem('admin_balance', (currentBal + targetOrder.priceUSD).toFixed(3));
                     }
+                } else {
+                    let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
+                    users = users.map(u => {
+                        if (u.name === targetUser) {
+                            if (targetOrder.type === 'topup') {
+                                u.balance = (u.balance || 0) + targetOrder.priceUSD;
+                            } else if (targetOrder.type === 'spent') {
+                                u.balance = Math.max(0, (u.balance || 0) - targetOrder.priceUSD);
+                            }
+                        }
+                        return u;
+                    });
+                    localStorage.setItem('registered_users', JSON.stringify(users));
                 }
-                return o;
-            });
+            }
+
             localStorage.setItem('user_orders', JSON.stringify(orders));
             loadAdminData();
             updateBalanceDisplay();
             updateAnalyticsDisplay();
-            alert('تمت الموافقة بنجاح!');
+            alert('تمت الموافقة وتحديث رصيد العضو بنجاح!');
         }
 
         function uploadProfileImage(input) {
@@ -1095,7 +1160,6 @@
             }
             
             let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
-            
             let duplicate = users.find(u => u.name.toLowerCase() === name.toLowerCase() || u.email === email || u.pass === pass);
             if (duplicate) {
                 alert('بۇ ئىسىم، Gmail ئادرىسى ياكى مەخپىي نومۇر باشقا ئابونت تەرىپىدىن ئاللىقاچان ئىشلىتىلگەن! باشقىسىنى تاللاڭ.');
@@ -1110,7 +1174,6 @@
             localStorage.setItem('s_email', email);
             localStorage.setItem('s_pass', pass);
             localStorage.removeItem('s_avatar');
-            localStorage.setItem('user_balance', '0');
             localStorage.setItem('is_logged', 'true');
             localStorage.removeItem('is_admin');
             
@@ -1147,7 +1210,6 @@
                 localStorage.setItem('s_name', foundUser.name);
                 localStorage.setItem('s_email', foundUser.email || '');
                 localStorage.setItem('s_pass', foundUser.pass);
-                localStorage.setItem('user_balance', foundUser.balance || 0);
                 if(foundUser.avatar) localStorage.setItem('s_avatar', foundUser.avatar);
                 else localStorage.removeItem('s_avatar');
 
@@ -1177,7 +1239,6 @@
             localStorage.removeItem('s_name');
             localStorage.removeItem('s_email');
             localStorage.removeItem('s_avatar');
-            localStorage.setItem('user_balance', '0');
             checkLogin();
             switchPage('account', document.querySelectorAll('.nav-item')[4]);
         }
@@ -1201,7 +1262,13 @@
                 if (profileUsernameDisplay) profileUsernameDisplay.textContent = currentName;
                 if (profileEmailDisplay) profileEmailDisplay.textContent = currentEmail;
 
-                const savedAvatar = localStorage.getItem('s_avatar');
+                let savedAvatar = localStorage.getItem('s_avatar');
+                if (currentName !== 'nasrulla') {
+                    let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
+                    let u = users.find(item => item.name === currentName);
+                    if (u && u.avatar) savedAvatar = u.avatar;
+                }
+
                 updateAvatarDisplay(savedAvatar);
                 updateBalanceDisplay();
                 updateAnalyticsDisplay();
