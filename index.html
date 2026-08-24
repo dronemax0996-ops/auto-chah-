@@ -569,7 +569,7 @@
                 </div>
                 <button class="btn-main" onclick="saveProfile()" style="background: #0284c7; margin-bottom: 15px;" data-i18n="save_btn">حفظ</button>
 
-                <!-- Admin Panel (ئابونتلارنىڭ رەسىمى ۋە ئىسمى كۆرۈنىدىغان ئايرىم كۆزنەك) -->
+                <!-- Admin Panel -->
                 <div id="admin-panel" style="display: none; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px;">
                     <h4 style="color: var(--primary); margin-bottom: 10px;">⚙️ Admin Panel (إدارة المستخدمين والطلبات)</h4>
                     
@@ -950,7 +950,6 @@
                 }
             }
 
-            // ئابونتلارنىڭ رەسىمى ۋە ئىسمىنى Admin غا كۆرسىتىش
             const adminUsersList = document.getElementById('admin-users-list');
             if (adminUsersList) {
                 let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
@@ -1001,7 +1000,6 @@
                     const imgData = e.target.result;
                     localStorage.setItem('s_avatar', imgData);
                     
-                    // تىزىملاتقان ئابونتلار تىزىملىكىدىمۇ يېڭىلاش
                     let currentName = localStorage.getItem('s_name');
                     let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
                     users = users.map(u => {
@@ -1064,7 +1062,6 @@
             const nameInput = nameInputEl.value.trim().toLowerCase();
             const passInput = passInputEl.value.trim();
             
-            // Admin (nasrulla / 0996 / dronemax0996@gmail.com)
             if ((nameInput === 'nasrulla' || nameInput === 'dronemax0996@gmail.com') && passInput === '0996') {
                 localStorage.setItem('is_admin', 'true');
                 localStorage.setItem('is_logged', 'true');
@@ -1135,7 +1132,7 @@
                 if (authBox) authBox.style.display = 'none';
                 if (userProfile) userProfile.style.display = 'block';
                 
-                const currentName = localStorage.getItem('s_name'] || 'User';
+                const currentName = localStorage.getItem('s_name') || 'User';
                 if (drawerName) drawerName.textContent = currentName;
 
                 const nameParts = currentName.split(' ');
@@ -1145,7 +1142,7 @@
                 
                 if (fnameInput) fnameInput.value = nameParts[0] || '';
                 if (lnameInput) lnameInput.value = nameParts.slice(1).join(' ') || '';
-                if (emailInput) emailInput.value = localStorage.getItem('s_email'] || '';
+                if (emailInput) emailInput.value = localStorage.getItem('s_email') || '';
 
                 const savedAvatar = localStorage.getItem('s_avatar');
                 updateAvatarDisplay(savedAvatar);
@@ -1167,7 +1164,7 @@
         }
 
         window.onload = function() {
-            const savedLang = localStorage.getItem('selected_lang'] || 'ug';
+            const savedLang = localStorage.getItem('selected_lang') || 'ug';
             changeLanguage(savedLang);
             checkLogin();
             updateBalanceDisplay();
