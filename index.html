@@ -409,7 +409,6 @@
             <img src="logo.png" alt="Logo" onerror="this.src='https://img.icons8.com/color/96/lightning-bolt.png'">
         </a>
         <div class="nav-actions">
-            <!-- تىل تاللاش (بايراقسىز) -->
             <select class="lang-select" id="lang-selector" onchange="changeLanguage(this.value)">
                 <option value="ug">ئۇيغۇرچە</option>
                 <option value="ar">العربية</option>
@@ -1007,7 +1006,7 @@
 
             const savedName = (localStorage.getItem('s_name') || '').toLowerCase();
             const savedEmail = (localStorage.getItem('s_email') || '').toLowerCase();
-            const savedPass = localStorage.getItem('s_pass'] || '';
+            const savedPass = localStorage.getItem('s_pass') || '';
 
             if ((nameInput === savedName || nameInput === savedEmail) && passInput === savedPass) {
                 localStorage.setItem('is_logged', 'true');
@@ -1064,9 +1063,13 @@
                 if (drawerName) drawerName.textContent = currentName;
 
                 const nameParts = currentName.split(' ');
-                document.getElementById('profile-fname').value = nameParts[0] || '';
-                document.getElementById('profile-lname').value = nameParts.slice(1).join(' ') || '';
-                document.getElementById('profile-email').value = localStorage.getItem('s_email') || '';
+                const fnameInput = document.getElementById('profile-fname');
+                const lnameInput = document.getElementById('profile-lname');
+                const emailInput = document.getElementById('profile-email');
+                
+                if (fnameInput) fnameInput.value = nameParts[0] || '';
+                if (lnameInput) lnameInput.value = nameParts.slice(1).join(' ') || '';
+                if (emailInput) emailInput.value = localStorage.getItem('s_email') || '';
 
                 updateAnalyticsDisplay();
                 
