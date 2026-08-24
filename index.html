@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Chah - تېلېگرامما ئارقىلىق كىرىش</title>
+    <title>Auto Chah - پۇل قاچىلاش سۇپىسى</title>
     <style>
         body {
             background-color: #F7F8FA;
@@ -64,10 +64,66 @@
         .auth-card {
             background: #FFFFFF;
             border-radius: 16px;
-            padding: 25px;
-            text-align: center;
+            padding: 20px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
             margin: 15px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #444;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 10px;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: #E60012;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            background: #E60012;
+            color: #FFFFFF;
+            border: none;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .auth-btn:hover {
+            background: #c80010;
+        }
+
+        .toggle-link {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .toggle-link span {
+            color: #E60012;
+            font-weight: 600;
         }
 
         .grid-container {
@@ -156,7 +212,7 @@
         <!-- 2. تەلەپلىرىم -->
         <div id="orders-section" class="page-view">
             <div class="section-title">سىزنىڭ تەلەپلىرىڭىز</div>
-            <div class="auth-card" style="color: #666;">
+            <div class="auth-card" style="color: #666; text-align: center;">
                 <p>ھېچقانداق تەلەپ بايقالمىدى.</p>
             </div>
         </div>
@@ -164,28 +220,54 @@
         <!-- 3. پۇل قاچىلاش -->
         <div id="topup-section" class="page-view">
             <div class="section-title">پۇل قاچىلاش ئۇسۇللىرى</div>
-            <div class="auth-card">
+            <div class="auth-card" style="text-align: center;">
                 <p style="font-weight: 600; margin-bottom: 10px;">نۆۋەتتىكى قالدۇق: 0.00$</p>
-                <button style="background: #E60012; color: white; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 600; cursor: pointer;">پۇل قاچىلاش تەلىپى ئەۋەتىش</button>
+                <button class="auth-btn">پۇل قاچىلاش تەلىپى ئەۋەتىش</button>
             </div>
         </div>
 
-        <!-- 4. ھېساباتىم (Telegram كىرىش نۇسخىسى) -->
+        <!-- 4. ھېساباتىم (تىزىملاش ۋە كىرىش) -->
         <div id="account-section" class="page-view">
             <div class="section-title">ئابونت ھېساباتى</div>
-            <div class="auth-card">
-                <h3 style="margin-top: 0; color: #222;">تېلېگرامما ئارقىلىق كىرىش</h3>
-                <p style="font-size: 13px; color: #666; margin-bottom: 20px;">سۇپىمىزغا كىرىش ئۈچۈن تۆۋەندىكى تېلېگرامما كۇنۇپكىسىنى بېسىڭ:</p>
-                
-                <!-- Telegram Login Widget كۇنۇپكىسى ئورنى -->
-                <div id="telegram-login-container" style="display: flex; justify-content: center;">
-                    <script async src="https://telegram.org/js/telegram-widget.js?22" 
-                            data-telegram-login="YOUR_BOT_USERNAME" 
-                            data-size="large" 
-                            data-auth-url="YOUR_WEBSITE_URL" 
-                            data-request-access="write">
-                    </script>
+            
+            <!-- ئەگەر كىرمىگەن بولسا -->
+            <div id="auth-box" class="auth-card">
+                <!-- تىزىملاش فورمىسى -->
+                <div id="register-form">
+                    <h3 style="margin-top: 0; color: #222; text-align: center;">يېڭى ھېسابات ئېچىش</h3>
+                    <div class="input-group">
+                        <label>Gmail ئادرىسىڭىز</label>
+                        <input type="email" id="reg-email" placeholder="example@gmail.com">
+                    </div>
+                    <div class="input-group">
+                        <label>مەخپىي نومۇر (Parol)</label>
+                        <input type="password" id="reg-password" placeholder="********">
+                    </div>
+                    <button class="auth-btn" onclick="registerUser()">تىزىملىتىش</button>
+                    <div class="toggle-link" onclick="toggleForm('login')">ھېساباتىڭىز بارمۇ? <span>كىرىش</span></div>
                 </div>
+
+                <!-- كىرىش فورمىسى -->
+                <div id="login-form" style="display: none;">
+                    <h3 style="margin-top: 0; color: #222; text-align: center;">سۇپىغا كىرىش</h3>
+                    <div class="input-group">
+                        <label>Gmail ئادرىسىڭىز</label>
+                        <input type="email" id="log-email" placeholder="example@gmail.com">
+                    </div>
+                    <div class="input-group">
+                        <label>مەخپىي نومۇر (Parol)</label>
+                        <input type="password" id="log-password" placeholder="********">
+                    </div>
+                    <button class="auth-btn" onclick="loginUser()">كىرىش</button>
+                    <div class="toggle-link" onclick="toggleForm('register')">ھېساباتىڭىز يوقمۇ? <span>تىزىملىتىش</span></div>
+                </div>
+            </div>
+
+            <!-- ئەگەر كىرگەن بولسا كۆرۈنىدىغان قىسىم -->
+            <div id="user-profile" class="auth-card" style="display: none; text-align: center;">
+                <h3 style="color: #222; margin-bottom: 5px;">خۇش كەپسىز!</h3>
+                <p id="user-email-display" style="color: #666; font-size: 14px; margin-bottom: 20px;"></p>
+                <button class="auth-btn" style="background: #E60012;" onclick="logoutUser()">ھېساباتتىن چىقىش</button>
             </div>
         </div>
     </div>
@@ -198,11 +280,84 @@
     </nav>
 
     <script>
+        // بەت ئالماشتۇرۇش
         function switchPage(pageName, element) {
             document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
             document.getElementById(pageName + '-section').classList.add('active');
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             element.classList.add('active');
+        }
+
+        // تىزىملاش ۋە كىرىش فورمىسىنى ئالماشتۇرۇش
+        function toggleForm(type) {
+            if (type === 'login') {
+                document.getElementById('register-form').style.display = 'none';
+                document.getElementById('login-form').style.display = 'block';
+            } else {
+                document.getElementById('register-form').style.display = 'block';
+                document.getElementById('login-form').style.display = 'none';
+            }
+        }
+
+        // يېڭى ھېسابات تىزىملىتىش
+        function registerUser() {
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+
+            if(!email || !password) {
+                alert('ئادرىس ۋە مەخپىي نومۇرنى تولۇق كىرگۈزۈڭ!');
+                return;
+            }
+
+            localStorage.setItem('saved_email', email);
+            localStorage.setItem('saved_password', password);
+            alert('ھېسابات مۇۋەپپەقىيەتلىك قۇرۇلدى!');
+            checkLoginState();
+        }
+
+        // كىرىش
+        function loginUser() {
+            const email = document.getElementById('log-email').value;
+            const password = document.getElementById('log-password').value;
+            const savedEmail = localStorage.getItem('saved_email');
+            const savedPassword = localStorage.getItem('saved_password');
+
+            if (email === savedEmail && password === savedPassword) {
+                localStorage.setItem('is_logged_in', 'true');
+                alert('مۇۋەپپەقىيەتلىك كىردىڭىز!');
+                checkLoginState();
+            } else {
+                alert('Gmail ياكى مەخپىي نومۇر خاتا!');
+            }
+        }
+
+        // چىقىش
+        function logoutUser() {
+            localStorage.removeItem('is_logged_in');
+            checkLoginState();
+            alert('ھېساباتتىن چىقتىڭىز.');
+        }
+
+        // كىرىش ھالىتىنى تەكشۈرۈش
+        function checkLoginState() {
+            const isLoggedIn = localStorage.getItem('is_logged_in');
+            const savedEmail = localStorage.getItem('saved_email');
+
+            if (isLoggedIn === 'true' && savedEmail) {
+                document.getElementById('auth-box').style.display = 'none';
+                document.getElementById('user-profile').style.display = 'block';
+                document.getElementById('user-email-display').textContent = savedEmail;
+            } else {
+                document.getElementById('auth-box').style.display = 'block';
+                document.getElementById('user-profile').style.display = 'none';
+                document.getElementById('register-form').style.display = 'block';
+                document.getElementById('login-form').style.display = 'none';
+            }
+        }
+
+        // بەت ئېچىلغاندا كىرىش ھالىتىنى تەكشۈرۈش
+        window.onload = function() {
+            checkLoginState();
         }
     </script>
 </body>
