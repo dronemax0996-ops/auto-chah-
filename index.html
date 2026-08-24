@@ -534,7 +534,7 @@
                     <div class="input-group">
                         <label>ئېلان رەسىمى يۈكلەش:</label>
                         <input type="file" id="admin-banner-img" accept="image/*" style="font-size: 12px; margin-bottom: 5px;">
-                        <button class="btn-main" onclick="addBannerImage()" style="background:#0284c7; padding:8px;">رەسىم قوشۇش (Max 5)</button>
+                        <button type="button" class="btn-main" onclick="addBannerImage()" style="background:#0284c7; padding:8px;">رەسىم قوشۇش (Max 5)</button>
                     </div>
                     <div id="admin-banners-preview" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;"></div>
                 </div>
@@ -543,7 +543,7 @@
                 <div style="background: var(--bg-color); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
                     <div class="input-group">
                         <textarea id="admin-marquee-input" rows="2" placeholder="بۇ يەرگە خەت كىرگۈزۈڭ..."></textarea>
-                        <button class="btn-main" onclick="updateMarqueeText()" style="background:#0284c7; padding:8px; margin-top:5px;">خەتنى يېڭىلاش</button>
+                        <button type="button" class="btn-main" onclick="updateMarqueeText()" style="background:#0284c7; padding:8px; margin-top:5px;">خەتنى يېڭىلاش</button>
                     </div>
                 </div>
 
@@ -565,7 +565,7 @@
                         <label>مەھسۇلات جەدۋىلى (ھەر قۇردا: نامى | باھاسى)</label>
                         <textarea id="new-cat-packages" rows="3" placeholder="60 UC | 1.00&#10;325 UC | 5.00&#10;660 UC | 10.00"></textarea>
                     </div>
-                    <button class="btn-main" onclick="addNewCategory()">بۆلەك قوشۇش</button>
+                    <button type="button" class="btn-main" onclick="addNewCategory()">بۆلەك قوشۇش</button>
                 </div>
             </div>
         </div>
@@ -587,7 +587,7 @@
                         <label data-i18n="pass_label">كلمة المرور</label>
                         <input type="password" id="reg-password" placeholder="مەخپىي نومۇر كىرگۈزۈڭ">
                     </div>
-                    <button class="btn-main" onclick="registerUser()" data-i18n="reg_btn">تسجيل</button>
+                    <button type="button" class="btn-main" onclick="registerUser()" data-i18n="reg_btn">تسجيل</button>
                     <a href="https://t.me/nasrulla0996" target="_blank" class="btn-telegram">
                         <span>✈️</span> Telegram بىلەن كىرىش / تىزىملىتىش
                     </a>
@@ -603,7 +603,7 @@
                         <label>مەخپىي نومۇر</label>
                         <input type="password" id="log-password" placeholder="مەخپىي نومۇرنى كىرگۈزۈڭ">
                     </div>
-                    <button class="btn-main" onclick="loginUser()" data-i18n="login_btn">دخول</button>
+                    <button type="button" class="btn-main" onclick="loginUser()" data-i18n="login_btn">دخول</button>
                     <a href="https://t.me/nasrulla0996" target="_blank" class="btn-telegram">
                         <span>✈️</span> Telegram ئارقىلىق كىرىش
                     </a>
@@ -635,7 +635,7 @@
                     </div>
                 </div>
 
-                <button class="btn-main" style="background: #ef4444; margin-top: 15px;" onclick="logoutUser()" data-i18n="logout_btn">تسجيل الخروج</button>
+                <button type="button" class="btn-main" style="background: #ef4444; margin-top: 15px;" onclick="logoutUser()" data-i18n="logout_btn">تسجيل الخروج</button>
             </div>
         </div>
     </div>
@@ -653,16 +653,16 @@
                 <label data-i18n="package_label">اختر الباقة</label>
                 <select id="product-package"></select>
             </div>
-            <button class="btn-main" onclick="confirmPurchase()" data-i18n="confirm_btn">تأكيد الطلب</button>
+            <button type="button" class="btn-main" onclick="confirmPurchase()" data-i18n="confirm_btn">تأكيد الطلب</button>
         </div>
     </div>
 
     <!-- استىدىكى نېۋىگاتسىيە -->
     <nav class="bottom-nav" id="bottom-navigation">
-        <button class="nav-item active" onclick="switchPage('home', this)"><span>🏠</span><span data-i18n="nav_home">الرئيسية</span></button>
-        <button class="nav-item" id="nav-topup-btn" onclick="switchPage('topup', this)"><span>💳</span><span id="nav-topup-text" data-i18n="nav_topup">الشحن</span></button>
-        <button class="nav-item" id="nav-orders-btn" onclick="switchPage('orders', this)"><span>🛒</span><span id="nav-orders-text" data-i18n="nav_orders">طلباتي</span></button>
-        <button class="nav-item" onclick="switchPage('account', this)"><span>👤</span><span data-i18n="nav_account">حسابي</span></button>
+        <button type="button" class="nav-item active" onclick="switchPage('home', this)"><span>🏠</span><span data-i18n="nav_home">الرئيسية</span></button>
+        <button type="button" class="nav-item" id="nav-topup-btn" onclick="switchPage('topup', this)"><span>💳</span><span id="nav-topup-text" data-i18n="nav_topup">الشحن</span></button>
+        <button type="button" class="nav-item" id="nav-orders-btn" onclick="switchPage('orders', this)"><span>🛒</span><span id="nav-orders-text" data-i18n="nav_orders">طلباتي</span></button>
+        <button type="button" class="nav-item" onclick="switchPage('account', this)"><span>👤</span><span data-i18n="nav_account">حسابي</span></button>
     </nav>
 
     <script>
@@ -1099,8 +1099,8 @@
                                 </div>
                             </div>
                             <div style="display:flex; gap:6px; align-items:center;">
-                                <button onclick="approveOrder(${o.id})" style="background:#10B981; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; font-weight:600; font-size:12px;">قوبۇللاش</button>
-                                <button onclick="rejectOrder(${o.id})" style="background:#EF4444; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; font-weight:600; font-size:12px;">بىكار قىلىش</button>
+                                <button type="button" onclick="approveOrder(${o.id})" style="background:#10B981; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; font-weight:600; font-size:12px;">قوبۇللاش</button>
+                                <button type="button" onclick="rejectOrder(${o.id})" style="background:#EF4444; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; font-weight:600; font-size:12px;">بىكار قىلىش</button>
                             </div>
                         </div>`;
                     });
