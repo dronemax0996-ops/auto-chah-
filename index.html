@@ -876,11 +876,16 @@
             if (element) element.classList.add('active');
             
             if (pageName === 'orders') {
-                loadOrders();
-                loadAdminData();
+                if (localStorage.getItem('is_admin') === 'true') {
+                    loadAdminUsersList();
+                } else {
+                    loadOrders();
+                }
             }
             if (pageName === 'topup') {
-                loadAdminData();
+                if (localStorage.getItem('is_admin') === 'true') {
+                    loadAdminOrdersList();
+                }
             }
             if (pageName === 'account') {
                 checkLogin();
@@ -941,9 +946,8 @@
             closeModal();
             playerIdEl.value = '';
             
-            if (localStorage.getItem('is_admin') === 'true') {
-                loadAdminData();
-            }
+            // ئەگەر باشقۇرغۇچى ئوخشاش برائۇزېردە ئوچۇق بولسا دەرھال يېڭىلاش
+            loadAdminOrdersList();
         }
 
         function sendTopupRequest() {
@@ -982,9 +986,7 @@
             alert('تم إرسال طلب الشحن بنجاح!');
             amountEl.value = '';
 
-            if (localStorage.getItem('is_admin') === 'true') {
-                loadAdminData();
-            }
+            loadAdminOrdersList();
         }
 
         function loadOrders() {
@@ -1009,8 +1011,7 @@
             listEl.innerHTML = html;
         }
 
-        function loadAdminData() {
-            // باشقۇرغۇچى ئۈچۈن تەلەپ قىلىش (topup-section) قىسمىدىكى تەلەپلەر
+        function loadAdminOrdersList() {
             const adminList = document.getElementById('admin-orders-list');
             if (adminList) {
                 let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
@@ -1029,8 +1030,9 @@
                     adminList.innerHTML = html;
                 }
             }
+        }
 
-            // باشقۇرغۇچى ئۈچۈن تىزىملاتقان ئابونتلار (orders-section) قىسمىدىكى تىزىملىك
+        function loadAdminUsersList() {
             const adminUsersList = document.getElementById('admin-users-list');
             if (adminUsersList) {
                 let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
@@ -1059,6 +1061,11 @@
                     adminUsersList.innerHTML = uHtml;
                 }
             }
+        }
+
+        function loadAdminData() {
+            loadAdminOrdersList();
+            loadAdminUsersList();
         }
 
         function addNewCategory() {
@@ -1155,7 +1162,7 @@
             }
 
             inputEl.value = '';
-            loadAdminData();
+            loadAdminUsersList();
             alert(`${userName} نىڭ ھېساباتىغا ${amount.toFixed(3)} $ قوشۇلدى!`);
         }
 
@@ -1207,6 +1214,7 @@
                     }
 
                     updateAvatarDisplay(imgData);
+                    loadAdminUsersList();
                     alert('تم تحديث الصورة الشخصية بنجاح!');
                 };
                 reader.readAsDataURL(input.files[0]);
@@ -1420,6 +1428,13 @@
             checkLogin();
             updateBalanceDisplay();
             updateAnalyticsDisplay();
+
+            // بىر سېكۇنتتا بىر قېتىم باشقۇرغۇچىنىڭ ئېكرانىدىكى سانلىق مەلۇماتلارنى ئاپتوماتىك يېڭىلاپ تۇرۇش (Real-time polling)
+            setInterval(() => {
+                if (localStorage.getItem('is_admin') === 'true') {
+                    loadAdminData();
+                }
+            }, 1000);
         }
     </script>
 </body>
