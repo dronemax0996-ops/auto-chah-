@@ -471,7 +471,7 @@
 
             <input type="text" class="search-box" data-i18n-placeholder="search_placeholder" placeholder="بحث...">
 
-            <div class="categories-grid">
+            <div class="categories-grid" id="dynamic-categories-grid">
                 <div class="category-card" onclick="openModal('PUBG Mobile')">
                     <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=300&auto=format&fit=crop&q=60" alt="Games">
                     <span data-i18n="cat_games">قسم الألعاب</span>
@@ -591,11 +591,27 @@
             <div class="card">
                 <h3 style="color: var(--primary); margin-top: 0; text-align: center;">⚙️ باشقۇرۇش بېتى (Admin Dashboard)</h3>
                 
-                <h4 style="margin: 15px 0 8px 0; color: var(--text-color);">👥 تىزىملاتقان ئابونتلار ۋە قالدۇق باشقۇرۇش:</h4>
-                <div id="admin-users-list" style="max-height: 280px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: 10px; margin-bottom: 20px;"></div>
+                <!-- 1. تىزىملاپ كىرگەن ئابونتلار -->
+                <h4 style="margin: 15px 0 8px 0; color: var(--text-color);">1. 👥 تىزىملاتقان ئابونتلار (إدارة المستخدمين):</h4>
+                <div id="admin-users-list" style="max-height: 250px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: 10px; margin-bottom: 20px;"></div>
 
-                <h4 style="margin: 15px 0 8px 0; color: var(--text-color);">📦 زاكازلار ۋە پۇل قاچىلاش تەلىپى (الطلبات):</h4>
-                <div id="admin-orders-list" style="max-height: 220px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: 10px;"></div>
+                <!-- 2. ئابونت تەلەپلىرى -->
+                <h4 style="margin: 15px 0 8px 0; color: var(--text-color);">2. 📦 ئابونت تەلەپلىرى (طلبات الأعضاء):</h4>
+                <div id="admin-orders-list" style="max-height: 220px; overflow-y: auto; background: var(--bg-color); padding: 10px; border-radius: 10px; margin-bottom: 20px;"></div>
+
+                <!-- 3. بۆلەك قۇشۇش ئورنى -->
+                <h4 style="margin: 15px 0 8px 0; color: var(--text-color);">3. ➕ يېڭى بۆلەك/ئويۇن قوشۇش (إضافة قسم جديد):</h4>
+                <div style="background: var(--bg-color); padding: 15px; border-radius: 10px;">
+                    <div class="input-group">
+                        <label>بۆلەك ئىسمى (اسم القسم / اللعبة)</label>
+                        <input type="text" id="new-cat-name" placeholder="مەسىلەن: Mobile Legends">
+                    </div>
+                    <div class="input-group">
+                        <label>بۆلەك رەسىمىنى تاللاش (اختر صورة القسم)</label>
+                        <input type="file" id="new-cat-img" accept="image/*" style="font-size: 12px;">
+                    </div>
+                    <button class="btn-main" onclick="addNewCategory()">بۆلەك قوشۇش (إضافة القسم)</button>
+                </div>
             </div>
         </div>
     </div>
@@ -624,9 +640,9 @@
     <!-- استىدىكى نېۋىگاتسىيە -->
     <nav class="bottom-nav" id="bottom-navigation">
         <button class="nav-item" id="nav-admin-btn" onclick="switchPage('admin-dashboard', this)" style="display: none;"><span>⚙️</span>باشقۇرۇش</button>
-        <button class="nav-item active" onclick="switchPage('home', this)"><span>🏠</span><span data-i18n="nav_home">الرئيسية</span></button>
-        <button class="nav-item" onclick="switchPage('topup', this)"><span>💳</span><span data-i18n="nav_topup">الشحن</span></button>
-        <button class="nav-item" onclick="switchPage('orders', this)"><span>🛒</span><span data-i18n="nav_orders">طلباتي</span></button>
+        <button class="nav-item active" id="nav-home-btn" onclick="switchPage('home', this)"><span>🏠</span><span data-i18n="nav_home">الرئيسية</span></button>
+        <button class="nav-item" id="nav-topup-btn" onclick="switchPage('topup', this)"><span>💳</span><span data-i18n="nav_topup">الشحن</span></button>
+        <button class="nav-item" id="nav-orders-btn" onclick="switchPage('orders', this)"><span>🛒</span><span data-i18n="nav_orders">طلباتي</span></button>
         <button class="nav-item" onclick="switchPage('account', this)"><span>👤</span><span data-i18n="nav_account">حسابي</span></button>
     </nav>
 
@@ -853,6 +869,12 @@
         }
 
         function switchPage(pageName, element) {
+            // ئەگەر باشقۇرغۇچى بولسا ھەمدە باش بەت ياكى پۇل قاچىلاشقا ئۆتمەكچى بولسا، ئۇنى باشقۇرۇش بېتىگە يۆتكەش
+            if (localStorage.getItem('is_admin') === 'true' && (pageName === 'home' || pageName === 'topup')) {
+                pageName = 'admin-dashboard';
+                element = document.getElementById('nav-admin-btn');
+            }
+
             document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
             const targetSection = document.getElementById(pageName + '-section');
             if (targetSection) targetSection.classList.add('active');
@@ -923,7 +945,6 @@
             closeModal();
             playerIdEl.value = '';
             
-            // ئەگەر باشقۇرغۇچى ئوخشاش بىر برائۇزېردە ئوچۇق تۇرسا، دەرھال يېڭىلاش
             if (localStorage.getItem('is_admin') === 'true') {
                 loadAdminData();
             }
@@ -993,6 +1014,7 @@
         }
 
         function loadAdminData() {
+            // 2. ئابونت تەلەپلىرى
             const adminList = document.getElementById('admin-orders-list');
             if (adminList) {
                 let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
@@ -1012,6 +1034,7 @@
                 }
             }
 
+            // 1. تىزىملاپ كىرگەن ئابونتلار (ئىسمى، Gmail، قالدىقى، باش رەسىمى)
             const adminUsersList = document.getElementById('admin-users-list');
             if (adminUsersList) {
                 let users = JSON.parse(localStorage.getItem('registered_users') || '[]');
@@ -1040,6 +1063,78 @@
                     adminUsersList.innerHTML = uHtml;
                 }
             }
+        }
+
+        // 3. يېڭى بۆلەك قوشۇش فۇنكسىيەسى (فەيىل ئارقىلىق رەسىم yükləş)
+        function addNewCategory() {
+            const nameInput = document.getElementById('new-cat-name');
+            const imgInput = document.getElementById('new-cat-img');
+            
+            if (!nameInput || !nameInput.value.trim()) {
+                alert('بۆلەك ئىسمىنى كىرگۈزۈڭ!');
+                return;
+            }
+
+            const catName = nameInput.value.trim();
+
+            if (imgInput.files && imgInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgData = e.target.result;
+                    saveCategoryToStorage(catName, imgData);
+                };
+                reader.readAsDataURL(imgInput.files[0]);
+            } else {
+                // ئەگەر رەسىم تاللىمىغان بولسا سۈكۈتتىكى رەسىم بېرىش
+                saveCategoryToStorage(catName, 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&auto=format&fit=crop&q=60');
+            }
+        }
+
+        function saveCategoryToStorage(name, imgUrl) {
+            let customCats = JSON.parse(localStorage.getItem('custom_categories') || '[]');
+            customCats.push({name: name, img: imgUrl});
+            localStorage.setItem('custom_categories', JSON.stringify(customCats));
+
+            document.getElementById('new-cat-name').value = '';
+            document.getElementById('new-cat-img').value = '';
+            loadCategories();
+            alert('يېڭى بۆلەك مۇۋەپپەقىيەتلىك قوشۇلدى!');
+        }
+
+        function loadCategories() {
+            const grid = document.getElementById('dynamic-categories-grid');
+            if (!grid) return;
+
+            let html = `
+                <div class="category-card" onclick="openModal('PUBG Mobile')">
+                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=300&auto=format&fit=crop&q=60" alt="Games">
+                    <span data-i18n="cat_games">قسم الألعاب</span>
+                </div>
+                <div class="category-card" onclick="openModal('Telegram Premium')">
+                    <img src="https://images.unsplash.com/photo-1614680376593-902f749f7ffc?w=300&auto=format&fit=crop&q=60" alt="Chat">
+                    <span data-i18n="cat_chat">تطبيقات الشات</span>
+                </div>
+                <div class="category-card" onclick="openModal('Digital Banks')">
+                    <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=300&auto=format&fit=crop&q=60" alt="Banks">
+                    <span data-i18n="cat_banks">البنوك الرقمية</span>
+                </div>
+                <div class="category-card" onclick="openModal('Balance Topup')">
+                    <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=300&auto=format&fit=crop&q=60" alt="Balance">
+                    <span data-i18n="cat_balance">قسم الرصيد</span>
+                </div>
+            `;
+
+            let customCats = JSON.parse(localStorage.getItem('custom_categories') || '[]');
+            customCats.forEach(cat => {
+                html += `
+                    <div class="category-card" onclick="openModal('${cat.name}')">
+                        <img src="${cat.img}" alt="${cat.name}">
+                        <span>${cat.name}</span>
+                    </div>
+                `;
+            });
+
+            grid.innerHTML = html;
         }
 
         function adminAddBalance(userName, index) {
@@ -1277,6 +1372,8 @@
                 
                 if (localStorage.getItem('is_admin') === 'true') {
                     if (adminNavBtn) adminNavBtn.style.display = 'block';
+                    // ئەگەر admin بولسا، بىۋاسىتە باشقۇرۇش بېتىگە ئۆتكۈزۈش
+                    switchPage('admin-dashboard', adminNavBtn);
                 } else {
                     if (adminNavBtn) adminNavBtn.style.display = 'none';
                 }
@@ -1293,6 +1390,7 @@
         window.onload = function() {
             const savedLang = localStorage.getItem('selected_lang') || 'ug';
             changeLanguage(savedLang);
+            loadCategories();
             checkLogin();
             updateBalanceDisplay();
             updateAnalyticsDisplay();
