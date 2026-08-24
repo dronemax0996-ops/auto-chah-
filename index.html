@@ -135,6 +135,32 @@
             border: 1px solid var(--border-color);
         }
 
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .stat-box {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-box span {
+            font-size: 11px;
+            color: var(--text-dim);
+            display: block;
+        }
+
+        .stat-box strong {
+            font-size: 16px;
+            color: var(--primary);
+        }
+
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
@@ -216,7 +242,7 @@
             color: var(--text-dim);
         }
 
-        .input-group input, .input-group select {
+        .input-group input, .input-group select, .input-group textarea {
             width: 100%;
             padding: 12px;
             border: 1px solid var(--border-color);
@@ -318,7 +344,7 @@
             <div class="grid-container" id="games-grid-container"></div>
         </div>
 
-        <!-- 2. تەلەپلىرىم ۋە تارىخ -->
+        <!-- 2. تەلەپلىرىم -->
         <div id="orders-section" class="page-view">
             <div class="section-title" data-i18n="orders_title">زاكاز ۋە تەلەپ تارىخىم</div>
             <div class="card" id="orders-list">
@@ -351,15 +377,15 @@
             </div>
         </div>
 
-        <!-- 4. ھېساباتىم -->
+        <!-- 4. ھېساباتىم (Analytics, Support, Referral قوشۇلدى) -->
         <div id="account-section" class="page-view">
             <div class="section-title" data-i18n="account_title">ئابونت ھېساباتى</div>
             <div id="auth-box" class="card">
                 <div id="register-form">
                     <h3 style="margin-top: 0; text-align: center;" data-i18n="register_heading">يېڭى ھېسابات ئېچىش</h3>
                     <div class="input-group">
-                        <label data-i18n="email_label">Gmail ئادرىسى</label>
-                        <input type="email" id="reg-email" placeholder="example@gmail.com">
+                        <label>نامى / Gmail (Admin: auto chah)</label>
+                        <input type="text" id="reg-email" placeholder="example@gmail.com">
                     </div>
                     <div class="input-group">
                         <label data-i18n="pass_label">مەخپىي نومۇر</label>
@@ -382,12 +408,38 @@
                 <p style="text-align: center; font-size: 13px; margin-top: 15px; color: var(--text-dim); cursor: pointer;" onclick="toggleAuthMode()" id="auth-toggle-text">ھېساباتىڭىز بارمۇ؟ كىرىش</p>
             </div>
 
-            <!-- پروفىل -->
+            <!-- پروفىل ۋە يېڭى ئىقتىدارلار -->
             <div id="user-profile" class="card" style="display: none; text-align: center;">
                 <h3 style="margin-bottom: 5px;" data-i18n="welcome_msg">خۇش كەپسىز!</h3>
-                <p id="user-email-display" style="color: var(--text-dim); font-size: 14px; margin-bottom: 10px;"></p>
+                <p id="user-email-display" style="color: var(--text-dim); font-size: 14px; margin-bottom: 15px;"></p>
                 
-                <div class="input-group" style="text-align: right;">
+                <!-- 1. تارىخىي ئومۇمىي سومما (Analytics) -->
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span>جەمئىي قاچىلانغىنى</span>
+                        <strong id="total-topup-stat">0.00$</strong>
+                    </div>
+                    <div class="stat-box">
+                        <span>جەمئىي خەجلەنگىنى</span>
+                        <strong id="total-spent-stat">0.00$</strong>
+                    </div>
+                </div>
+
+                <!-- 2. Referral (دەۋەت قىلىش) سىستېمىسى -->
+                <div class="input-group" style="text-align: right; background: var(--bg-color); padding: 10px; border-radius: 10px; border: 1px dashed var(--primary);">
+                    <label style="color: var(--primary);">🎁 دەۋەت قىلىش (Referral Link)</label>
+                    <input type="text" id="ref-link" readonly style="font-size: 12px; background: transparent;" value="https://autochah.com/?ref=nasrulla">
+                    <button class="btn-main" style="margin-top: 5px; font-size: 12px; padding: 6px;" onclick="copyRefLink()">🔗 ئۇلانمىنى كۆچۈرۈش</button>
+                </div>
+
+                <!-- 3. باشقۇرغۇچى بىلەن ئالاقە (Support Ticket) -->
+                <div class="input-group" style="text-align: right; margin-top: 15px;">
+                    <label>💬 باشقۇرغۇچىغا ئۇچۇر / شىكايەت يوللاش</label>
+                    <textarea id="support-msg" rows="3" placeholder="مەسىلىڭىزنى بۇ يەرگە يېزىڭ..."></textarea>
+                    <button class="btn-main" style="margin-top: 5px; background: #229ED9;" onclick="sendSupportMessage()">ئۇچۇر يوللاش</button>
+                </div>
+
+                <div class="input-group" style="text-align: right; margin-top: 15px;">
                     <label>پارولنى ئۆزگەرتىش</label>
                     <input type="password" id="new-password" placeholder="يېڭى مەخپىي نومۇر...">
                 </div>
@@ -421,9 +473,9 @@
             <div class="input-group">
                 <label data-i18n="package_label">مەھسۇلاتنى تاللاڭ</label>
                 <select id="product-package">
-                    <option value="60">60 UC (1.00$)</option>
-                    <option value="325">325 UC (5.00$)</option>
-                    <option value="660">660 UC (10.00$)</option>
+                    <option value="60|1.00">60 UC (1.00$)</option>
+                    <option value="325|5.00">325 UC (5.00$)</option>
+                    <option value="660|10.00">660 UC (10.00$)</option>
                 </select>
             </div>
             <div class="input-group">
@@ -602,6 +654,7 @@
         function changeCurrency(curr) {
             currentCurrency = curr;
             updateBalanceDisplay();
+            updateAnalyticsDisplay();
         }
 
         function updateBalanceDisplay() {
@@ -619,6 +672,39 @@
             
             if(displayEl) displayEl.textContent = formattedBal;
             if(navbarBalEl) navbarBalEl.textContent = formattedBal;
+        }
+
+        function updateAnalyticsDisplay() {
+            let totalTopupUSD = parseFloat(localStorage.getItem('total_topup') || '0');
+            let totalSpentUSD = parseFloat(localStorage.getItem('total_spent') || '0');
+
+            let topupEl = document.getElementById('total-topup-stat');
+            let spentEl = document.getElementById('total-spent-stat');
+
+            if(currentCurrency === 'SYP') {
+                topupEl.textContent = (totalTopupUSD * sypRate).toLocaleString() + ' ل.س';
+                spentEl.textContent = (totalSpentUSD * sypRate).toLocaleString() + ' ل.س';
+            } else {
+                topupEl.textContent = totalTopupUSD.toFixed(2) + '$';
+                spentEl.textContent = totalSpentUSD.toFixed(2) + '$';
+            }
+        }
+
+        function copyRefLink() {
+            const refInput = document.getElementById('ref-link');
+            refInput.select();
+            navigator.clipboard.writeText(refInput.value);
+            alert('دەۋەت ئۇلانمىسى كۆچۈرۈلدى!');
+        }
+
+        function sendSupportMessage() {
+            const msg = document.getElementById('support-msg').value.trim();
+            if(!msg) { alert('ئۇچۇر يېزىڭ!'); return; }
+            let tickets = JSON.parse(localStorage.getItem('support_tickets') || '[]');
+            tickets.push({user: localStorage.getItem('s_email'), message: msg, date: new Date().toLocaleDateString()});
+            localStorage.setItem('support_tickets', JSON.stringify(tickets));
+            alert('ئۇچرىڭىز باشقۇرغۇچىغا ئەۋەتىلدى!');
+            document.getElementById('support-msg').value = '';
         }
 
         function openTopupPage() {
@@ -670,7 +756,10 @@
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             if(element) element.classList.add('active');
             if(pageName === 'orders') loadOrders();
-            if(pageName === 'account') checkLogin();
+            if(pageName === 'account') {
+                checkLogin();
+                updateAnalyticsDisplay();
+            }
         }
 
         let selectedGameName = '';
@@ -685,7 +774,9 @@
 
         function confirmPurchase() {
             const playerId = document.getElementById('player-id').value;
-            const packageVal = document.getElementById('product-package').value;
+            const packageData = document.getElementById('product-package').value.split('|');
+            const pkgName = packageData[0] + ' UC';
+            const pkgPrice = parseFloat(packageData[1]);
             const promo = document.getElementById('promo-code').value.trim();
             
             if(!playerId) {
@@ -693,13 +784,15 @@
                 return;
             }
 
+            let finalPrice = pkgPrice;
             let discountMsg = '';
             if(promo === 'NASRULLA' || promo === 'VIP') {
+                finalPrice = finalPrice * 0.9;
                 discountMsg = ' (Promo Code: 10% Off!)';
             }
 
             let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-            orders.push({id: Date.now(), game: selectedGameName, playerId: playerId, pkg: packageVal + ' UC' + discountMsg, status: 'كۈتۈلۈۋاتىدۇ (Pending)', date: new Date().toLocaleDateString()});
+            orders.push({id: Date.now(), game: selectedGameName, playerId: playerId, pkg: pkgName + ' (' + finalPrice.toFixed(2) + '$)' + discountMsg, priceUSD: finalPrice, type: 'spent', status: 'كۈتۈلۈۋاتىدۇ (Pending)', date: new Date().toLocaleDateString()});
             localStorage.setItem('user_orders', JSON.stringify(orders));
             
             alert('زاكاز مۇۋەپپەقىيەتلىك ئەۋەتىلدى!');
@@ -715,10 +808,10 @@
                 alert('پۇل سوممىسىنى كىرگۈزۈڭ!');
                 return;
             }
-            let usdAmount = currentCurrency === 'SYP' ? (amount / sypRate).toFixed(2) : amount;
+            let usdAmount = currentCurrency === 'SYP' ? parseFloat(amount / sypRate) : parseFloat(amount);
 
             let orders = JSON.parse(localStorage.getItem('user_orders') || '[]');
-            orders.push({id: Date.now(), game: 'تولۇقلاش (' + gateway + ')', playerId: '-', pkg: usdAmount + '$ (' + amount + ' ' + currentCurrency + ')', status: 'تەكشۈرۈلۈۋاتىدۇ', date: new Date().toLocaleDateString()});
+            orders.push({id: Date.now(), game: 'تولۇقلاش (' + gateway + ')', playerId: '-', pkg: usdAmount.toFixed(2) + '$ (' + amount + ' ' + currentCurrency + ')', priceUSD: usdAmount, type: 'topup', status: 'تەكشۈرۈلۈۋاتىدۇ', date: new Date().toLocaleDateString()});
             localStorage.setItem('user_orders', JSON.stringify(orders));
             
             alert('تولۇقلاش تەلىپى شامكەش ئارقىلىق ئەۋەتىلدى!');
@@ -764,11 +857,15 @@
             orders = orders.map(o => {
                 if(o.id === orderId) {
                     o.status = 'مۇۋەپپەقىيەتلىك (Approved)';
-                    if(o.game.includes('تولۇقلاش')) {
+                    if(o.type === 'topup') {
                         let currentBal = parseFloat(localStorage.getItem('user_balance') || '0');
-                        let rawPkg = o.pkg.split('$')[0];
-                        let addedVal = parseFloat(rawPkg);
-                        localStorage.setItem('user_balance', (currentBal + addedVal).toFixed(2));
+                        localStorage.setItem('user_balance', (currentBal + o.priceUSD).toFixed(2));
+
+                        let totalTopup = parseFloat(localStorage.getItem('total_topup') || '0');
+                        localStorage.setItem('total_topup', (totalTopup + o.priceUSD).toFixed(2));
+                    } else if(o.type === 'spent') {
+                        let totalSpent = parseFloat(localStorage.getItem('total_spent') || '0');
+                        localStorage.setItem('total_spent', (totalSpent + o.priceUSD).toFixed(2));
                     }
                 }
                 return o;
@@ -776,6 +873,7 @@
             localStorage.setItem('user_orders', JSON.stringify(orders));
             loadAdminOrders();
             updateBalanceDisplay();
+            updateAnalyticsDisplay();
             alert('زاكاز تەستىقلەندى!');
         }
 
@@ -801,7 +899,6 @@
             const nameInput = document.getElementById('log-email').value.trim().toLowerCase();
             const passInput = document.getElementById('log-password').value.trim();
             
-            // Admin تەكشۈرۈش: auto chah ۋە 0996
             if(nameInput === 'auto chah' && passInput === '0996') {
                 localStorage.setItem('is_admin', 'true');
                 localStorage.setItem('is_logged', 'true');
@@ -828,10 +925,11 @@
         }
 
         function checkLogin() {
-            if(localStorage.getItem('is_logged') === 'true') {
+            if(localStorage.getItem('is_logged'] === 'true') {
                 document.getElementById('auth-box').style.display = 'none';
                 document.getElementById('user-profile').style.display = 'block';
                 document.getElementById('user-email-display').textContent = localStorage.getItem('s_email');
+                updateAnalyticsDisplay();
                 
                 if(localStorage.getItem('is_admin') === 'true') {
                     document.getElementById('admin-panel').style.display = 'block';
@@ -851,6 +949,7 @@
             loadGames();
             checkLogin();
             updateBalanceDisplay();
+            updateAnalyticsDisplay();
         }
     </script>
 </body>
