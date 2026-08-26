@@ -2,7 +2,8 @@
 <html lang="ug" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- 📱 پۈتۈن ئېكران ۋە كامېرا / باتارېيە توسۇۋالماسلىق تەڭشىكى -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Auto Chah - ئۇيۇن ۋە مۇلازىمەت مەركىزى</title>
     
     <!-- PWA نىڭ manifest ھەمدە تېلېفون ئەپ تەڭشەكلىرى -->
@@ -172,10 +173,13 @@
         }
         .splash-logo-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Header */
+        /* 👑 Header - باتارېيە ۋە كامېرا قىسمىدىن بوشلۇق تاشلاپ ئوڭشالدى */
         header {
             background: var(--header-bg);
-            padding: 10px 14px;
+            padding-top: calc(env(safe-area-inset-top, 24px) + 8px);
+            padding-bottom: 10px;
+            padding-left: 14px;
+            padding-right: 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -282,7 +286,8 @@
             position: fixed; top: 0; right: -320px; width: 300px; height: 100%;
             background: var(--sidebar-bg); color: var(--text-primary); z-index: 10000;
             box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5); transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            overflow-y: auto; display: flex; flex-direction: column; padding: 24px 16px 30px 16px;
+            overflow-y: auto; display: flex; flex-direction: column; 
+            padding: calc(env(safe-area-inset-top, 20px) + 15px) 16px 30px 16px;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -811,7 +816,7 @@
                 <div style="font-size: 16px; font-weight: 900; color: #f1c40f; margin-bottom: 16px;">🎨 2-بۆلەك: رەسىم كىرگۈزۈش (1 دىن 3 كىچە تېما رەسىملىرى)</div>
 
                 <div class="form-group">
-                    <label>⚡ 1. توربەت لوگო رەسىمى (Header & Site Logo)</label>
+                    <label>⚡ 1. توربەت لوگو رەسىمى (Header & Site Logo)</label>
                     <input type="file" id="adminSiteLogoFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleSiteLogoUpload(event)">
                 </div>
 
@@ -1018,7 +1023,7 @@
             </div>
 
             <div id="adminFeedbackSection" style="display: none; margin-top: 24px;">
-                <div style="font-size: 15px; font-weight: 800; color: #00c6ff; margin-bottom: 12px;">📥 ئابونتلارның پىكىر ۋە تەلەپلىرى ساندۇقى (Admin)</div>
+                <div style="font-size: 15px; font-weight: 800; color: #00c6ff; margin-bottom: 12px;">📥 ئابونتلارنىڭ پىكىر ۋە تەلەپلىرى ساندۇقى (Admin)</div>
                 <div id="adminFeedbackInboxList"></div>
             </div>
         </div>
