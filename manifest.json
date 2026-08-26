@@ -1,12 +1,20 @@
 {
+  "id": "https://dronemax0996-ops.github.io/auto-chah-/",
   "name": "Auto Chah پۇل قاچىلاش سېستىمىسى",
   "short_name": "Auto Chah",
   "description": "Auto Chah تېز ۋە ئىشەنچلىك ئويۇن پۇل قاچىلاش سۇپىسى",
   "start_url": "https://dronemax0996-ops.github.io/auto-chah-/",
   "scope": "https://dronemax0996-ops.github.io/auto-chah-/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#06120b",
   "theme_color": "#06120b",
+  "prefer_related_applications": false,
+  "categories": [
+    "games",
+    "shopping",
+    "entertainment"
+  ],
   "icons": [
     {
       "src": "https://dronemax0996-ops.github.io/auto-chah-/icon-192.png",
@@ -19,6 +27,22 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://dronemax0996-ops.github.io/auto-chah-/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Auto Chah Main Screen"
+    },
+    {
+      "src": "https://dronemax0996-ops.github.io/auto-chah-/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Auto Chah Desktop Screen"
     }
   ]
 }
