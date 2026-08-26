@@ -524,6 +524,26 @@
             align-items: center;
             margin-bottom: 8px;
         }
+
+        .theme-select-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--card-radius);
+            padding: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .theme-select-card:hover { transform: translateY(-2px); border-color: var(--primary-color); }
+        .theme-preview-badge {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -592,7 +612,7 @@
                 <span data-i18n="navTelegram">تېلېگرامما ئالاقىسى</span>
             </div>
 
-            <!-- 👑 باشقۇرغۇچى بۆلەكلىرى -->
+            <!-- 👑 باشقۇرغۇچىنىڭ 3 بۆلىكى -->
             <div class="side-nav-link admin-link-1" id="sideAdminOrdersLink" style="display: none;" onclick="toggleSideMenu(false); switchTab('adminOrdersTab');">
                 <i class="fa-solid fa-bolt-lightning"></i>
                 <span>1. زاكاز ۋە تەلەپلەر مەركىزى</span>
@@ -644,26 +664,35 @@
             <div class="banner-dots" id="bannerDotsContainer"></div>
         </div>
 
+        <!-- 📢 ئوڭدىن سولغا مېڭىدىغان ئۇقتۇرۇش خېتى -->
         <div class="ticker-box">
             <i class="fa-solid fa-bullhorn" style="color: var(--primary-color); font-size: 14px;"></i>
-            <marquee id="homeTickerText" data-i18n="tickerText">Auto Chah ئۇيۇنغا پۇل قاچىلاش سۇپىسىغا خۇش كەپسىز! تېز ھەم ئىشەنچلىك مۇلازىمەت بىلەن تەمىنلەيمىز.</marquee>
+            <marquee id="homeTickerText" direction="left" scrollamount="5" data-i18n="tickerText">Auto Chah ئۇيۇنغا پۇل قاچىلاش سۇپىسىغا خۇش كەپسىز! تېز ھەم ئىشەنچلىك مۇلازىمەت بىلەن تەمىنلەيمىز.</marquee>
         </div>
 
         <div class="search-bar-wrap">
             <input type="text" id="searchInputBox" class="search-input-field" placeholder="ئىزدەش... (ئويۇن ياكى كارتىلارنى كىرگۈزۈڭ)" oninput="handleSearch(event)" data-i18n-ph="searchPlaceholder">
         </div>
 
-        <!-- 📂 ھەممە كاتېگورىيەلەر بۆلىكى -->
-        <div class="categories-grid" id="homeCategoriesContainer"></div>
-
-        <div style="padding: 0 14px 10px 14px; display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-size: 15px; font-weight: 800;" data-i18n="popularProducts">🔥 مەھسۇلاتلار تىزىملىكى</span>
-            <span style="font-size: 11px; color: var(--primary-color); cursor: pointer;" onclick="filterCategory('all')" data-i18n="seeAll">ھەممىسى ❯</span>
+        <!-- 1. پەقەت كاتېگورىيەلەر كۆرۈنىدىغان رايون -->
+        <div id="categoryViewSection">
+            <div style="padding: 0 14px 10px 14px; font-size: 15px; font-weight: 800; color: var(--primary-color);">
+                📂 مۇلازىمەت تۈرلىرى ۋە كاتېگورىيەلەر
+            </div>
+            <div class="categories-grid" id="homeCategoriesContainer"></div>
         </div>
-        <div class="products-grid" id="gamesGridContainer"></div>
+
+        <!-- 2. تاللانغان كاتېگورىيە ئىچىدىكى مەھسۇلاتلار كۆرۈنىدىغان رايون (قايتىش كۇنۇپكىسى بىلەن) -->
+        <div id="productsViewSection" style="display: none;">
+            <div style="padding: 0 14px 12px 14px; display: flex; justify-content: space-between; align-items: center;">
+                <span id="selectedCategoryTitleDisplay" style="font-size: 15px; font-weight: 800; color: var(--primary-color);"></span>
+                <button type="button" class="action-btn" style="width: auto; padding: 6px 14px; margin: 0; background: var(--surface-bg); color: var(--text-primary); border: 1px solid var(--border-glow);" onclick="goBackToCategories()">⬅️ باش بەتكە قايتىش</button>
+            </div>
+            <div class="products-grid" id="gamesGridContainer"></div>
+        </div>
     </div>
 
-    <!-- ⚙️ 4 خىل ئۇسلۇب تەڭشىكى كۆزنىكى -->
+    <!-- ⚙️ تەڭشەك كۆزنىكى (Themes) -->
     <div id="settingsTab" class="tab-content">
         <div class="page-box">
             <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: var(--text-primary); border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
@@ -775,12 +804,22 @@
         </div>
     </div>
 
-    <!-- 👑 3-بۆلەك: مەزمۇن ۋە تۈر قوشۇش (كاتېگورىيە ئۆچۈرۈش & پۈتۈنلەي تۈزىتىلگەن مەھسۇلات ساقلاش) -->
+    <!-- 👑 3-بۆلەك: مەزمۇن ۋە تۈر قوشۇش (ئۇقتۇرۇش خېتى تەڭشەك بىلەن بىرگە) -->
     <div id="adminUploadTab" class="tab-content">
         <div class="page-box">
             <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: var(--text-primary); border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
 
-            <!-- 1. يېڭى كاتېگورىيە قوشۇش بۆلىكى -->
+            <!-- 📢 باش بەت مېڭىپ تۇرىدىغان ئۇقتۇرۇش خېتىنى ئۆزگەرتىش بۆلىكى -->
+            <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 18px; margin-bottom: 20px;">
+                <div style="font-size: 15px; font-weight: 900; color: #00c6ff; margin-bottom: 12px;">📢 باش بەت مېڭىپ تۇرىدىغان ئۇقتۇرۇش خېتىنى ئۆزگەرتىش</div>
+                <div class="form-group">
+                    <label>ئۇقتۇرۇش ياكى خەۋەر مەزمۇنى (ئوڭدىن سولغا ماڭىدۇ)</label>
+                    <input type="text" id="adminTickerInput" class="form-input" placeholder="باش بەتتە كۆرۈنىدىغان خەتنى كىرگۈزۈڭ...">
+                </div>
+                <button type="button" class="action-btn" style="background: #00c6ff; color: #06120b;" onclick="saveTickerText()">💾 ئۇقتۇرۇش خېتىنى ساقلاش</button>
+            </div>
+
+            <!-- 1. يېڭى كاتېگورىيە قوشۇش -->
             <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 18px; margin-bottom: 20px;">
                 <div style="font-size: 15px; font-weight: 900; color: var(--primary-color); margin-bottom: 12px;">📁 1. يېڭى قوشۇلىدىغان ئورۇن (كاتېگورىيە) قوشۇش</div>
                 
@@ -797,7 +836,7 @@
                 <button type="button" class="action-btn" onclick="saveNewCategory()">➕ يېڭى كاتېگورىيە قوشۇش</button>
             </div>
 
-            <!-- 🗑️ 2. قوشۇلغان كاتېگورىيەلەرنى تاللاپ ئۆچۈرۈش (يېڭى قوشۇلدى) -->
+            <!-- 2. كاتېگورىيەنى تاللاپ ئۆچۈرۈش -->
             <div style="background: var(--surface-card); border: 1px dashed #e74c3c; border-radius: 20px; padding: 18px; margin-bottom: 20px;">
                 <div style="font-size: 15px; font-weight: 900; color: #e74c3c; margin-bottom: 12px;">🗑️ 2. كاتېگورىيەنى تاللاپ ئۆچۈرۈش</div>
                 
@@ -809,7 +848,7 @@
                 <button type="button" class="action-btn" style="background: #e74c3c; color: #fff;" onclick="handleDeleteSelectedCategory()">🗑️ تاللانغان كاتېگورىيەنى يۇيۇۋېتىش</button>
             </div>
 
-            <!-- 💎 3. تاللانغان كاتېگورىيەگە مەھسۇلات ۋە ھەرىكەتچان باھا قوشۇش -->
+            <!-- 3. تاللانغان كاتېگورىيەگە مەھسۇلات ۋە باھا قوشۇش -->
             <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 18px;">
                 <div style="font-size: 15px; font-weight: 900; color: #e67e22; margin-bottom: 14px;">💎 3. تاللانغان كاتېگورىيەگە مەھسۇلات ۋە باھا قوشۇش</div>
 
@@ -1250,6 +1289,16 @@
             });
         }
 
+        /* 📢 ئۇقتۇرۇش خېتىنى ساقلاش */
+        function saveTickerText() {
+            if (!currentUser || currentUser.role !== 'admin') return alert('ھوقۇقىڭىز يوق!');
+            const text = document.getElementById('adminTickerInput').value.trim();
+            if (!text) return alert('خەت كىرگۈزۈڭ!');
+            window.dbSet(window.dbRef(window.db, 'site_branding/tickerText'), text).then(() => {
+                alert('باش بەت ئۇقتۇرۇش خېتى يېڭىلاندى!');
+            });
+        }
+
         /* 📁 1. يېڭى كاتېگورىيە ساقلاش */
         async function handleCategoryFileSelected(e) {
             const file = e.target.files[0];
@@ -1281,7 +1330,7 @@
             });
         }
 
-        /* 🗑️ 2. كاتېگورىيەنى تاللاپ يۇيۇۋېتىش (ئۆچۈرۈش) */
+        /* 🗑️ 2. كاتېگورىيەنى تاللاپ يۇيۇۋېتىش */
         function handleDeleteSelectedCategory() {
             if (!currentUser || currentUser.role !== 'admin') return alert('ھوقۇقىڭىز يوق!');
             const catId = document.getElementById('selectDeleteCategory').value;
@@ -1289,9 +1338,7 @@
 
             const catName = allCategories[catId]?.title || 'بۇ كاتېگورىيەنى';
             if (confirm(`راستلا ${catName} ۋە ئۇنىڭغا قاراشلىق بارلىق مەھسۇلاتلارنى يۇيۇۋېتەمسىز؟`)) {
-                // 1. كاتېگورىيەنى ئۆچۈرۈش
                 window.dbRemove(window.dbRef(window.db, `custom_categories/${catId}`)).then(() => {
-                    // 2. ئۇنىڭغا تەۋە بارلىق مەھسۇلاتلارنى ئۆچۈرۈش
                     Object.keys(allGames).forEach(prodId => {
                         if (allGames[prodId].category === catId) {
                             window.dbRemove(window.dbRef(window.db, `game_products/${prodId}`));
@@ -1302,7 +1349,7 @@
             }
         }
 
-        /* 💎 3. مەھسۇلات ۋە ھەرىكەتچان باھا قوشۇش (تولۇق مۇكەممەللەشتۈرۈلگەن) */
+        /* 💎 3. مەھسۇلات ۋە ھەرىكەتچان باھا قوشۇش */
         async function handleProductFileSelected(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -1474,7 +1521,7 @@
             }
         }
 
-        /* 📂 كاتېگورىيەلەرنى خەرىتىلەش ۋە تاللىغۇچلارنى يېڭىلاش */
+        /* 📂 كاتېگورىيەلەرنى خەرىتىلەش */
         function renderCategories() {
             const container = document.getElementById('homeCategoriesContainer');
             const selectTarget = document.getElementById('selectTargetCategory');
@@ -1486,14 +1533,14 @@
 
             const catKeys = Object.keys(allCategories);
             if (catKeys.length === 0) {
-                if (container) container.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--text-secondary); font-size:12px; padding:15px;">باشقۇرغۇچى تېخى كاتېگورىيە قوشمىدى</div>';
+                if (container) container.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--text-secondary); font-size:12px; padding:20px;">باشقۇرغۇچى تېخى كاتېگورىيە قوشمىدى</div>';
                 return;
             }
 
             catKeys.forEach(k => {
                 const cat = allCategories[k];
                 
-                // 1. باش بەت كارتىلىرى
+                // 1. باش بەت كاتېگورىيە كارتىسى
                 if (container) {
                     const card = document.createElement('div');
                     card.className = 'cat-card-item';
@@ -1501,7 +1548,7 @@
                         <img src="${cat.img}" class="cat-card-img">
                         <div class="cat-card-title">${escapeHTML(cat.title)}</div>
                     `;
-                    card.onclick = () => filterCategory(k);
+                    card.onclick = () => openCategoryProducts(k, cat.title);
                     container.appendChild(card);
                 }
 
@@ -1521,6 +1568,24 @@
                     selectDelete.appendChild(optDel);
                 }
             });
+        }
+
+        /* 🌟 كاتېگورىيە چېكىلگەندە مەھسۇلاتلار بۆلىكىگە ئۆتۈش */
+        function openCategoryProducts(catId, catTitle) {
+            currentFilter = catId;
+            document.getElementById('categoryViewSection').style.display = 'none';
+            document.getElementById('productsViewSection').style.display = 'block';
+            document.getElementById('selectedCategoryTitleDisplay').innerText = `📂 ${catTitle}`;
+            renderGames();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* ⬅️ كاتېگورىيەلەر تىزىملىكىگە قايتىش */
+        function goBackToCategories() {
+            currentFilter = 'all';
+            document.getElementById('productsViewSection').style.display = 'none';
+            document.getElementById('categoryViewSection').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function switchAdminOrderSubTab(type) {
@@ -1580,6 +1645,8 @@
                 } else {
                     document.getElementById('adminFeedbackSection').style.display = 'none';
                 }
+            } else if (tabId === 'homeTab') {
+                goBackToCategories();
             }
         }
 
@@ -1643,6 +1710,14 @@
 
                 renderBannerSlider(branding.banners);
 
+                // 📢 باش بەت ئۇقتۇرۇش خېتىنى يېڭىلاش
+                if (branding.tickerText) {
+                    const tickerMarquee = document.getElementById('homeTickerText');
+                    const tickerInput = document.getElementById('adminTickerInput');
+                    if (tickerMarquee) tickerMarquee.innerText = branding.tickerText;
+                    if (tickerInput) tickerInput.value = branding.tickerText;
+                }
+
                 const sideDrawer = document.getElementById('sideMenuDrawer');
                 if (sideDrawer) {
                     if (branding.menuBg) {
@@ -1655,7 +1730,7 @@
                 }
             });
 
-            // 📁 يېڭى كاتېگورىيەلەرنى ئوقۇش
+            // 📁 كاتېگورىيەلەرنى ئوقۇش
             window.dbOnValue(window.dbRef(window.db, 'custom_categories'), (snapshot) => {
                 allCategories = snapshot.val() || {};
                 renderCategories();
@@ -1733,12 +1808,6 @@
             document.getElementById('walletTotalSpent').innerText = `$ ${totalSpent.toFixed(2)}`;
         }
 
-        function filterCategory(cat) {
-            currentFilter = cat;
-            renderGames();
-            window.scrollTo({ top: 350, behavior: 'smooth' });
-        }
-
         function renderGames() {
             const container = document.getElementById('gamesGridContainer');
             if (!container) return;
@@ -1748,7 +1817,7 @@
             let filteredKeys = currentFilter === 'all' ? keys : keys.filter(k => allGames[k].category === currentFilter);
 
             if (filteredKeys.length === 0) {
-                container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text-secondary); padding: 30px;">مەھسۇلات تېپىلمىدى</div>';
+                container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text-secondary); padding: 30px;">بۇ كاتېگورىيەدە مەھسۇلات يوق</div>';
                 return;
             }
 
@@ -2251,11 +2320,17 @@
         function handleSearch(e) {
             const kw = e.target.value.toLowerCase().trim();
             const container = document.getElementById('gamesGridContainer');
+            if (!container) return;
             container.innerHTML = '';
             if (!kw) {
                 renderGames();
                 return;
             }
+
+            // ئەگەر ئىزدەش قىلىنسا دەرھال مەھسۇلات بۆلىكىگە يۆتكەش
+            document.getElementById('categoryViewSection').style.display = 'none';
+            document.getElementById('productsViewSection').style.display = 'block';
+            document.getElementById('selectedCategoryTitleDisplay').innerText = `🔍 ئىزدەش نەتىجىلىرى: "${kw}"`;
 
             Object.keys(allGames).filter(k => allGames[k].title.toLowerCase().includes(kw)).forEach(id => {
                 const game = allGames[id];
