@@ -55,9 +55,9 @@
             --header-bg: #27ae60;
             --surface-bg: rgba(14, 28, 20, 0.75);
             --surface-card: #0c1c12;
-            --sidebar-bg: #ffffff;
-            --sidebar-text: #1b262c;
-            --sidebar-item-hover: #e8f8f0;
+            --sidebar-bg: #08140c;
+            --sidebar-text: #ffffff;
+            --sidebar-item-hover: rgba(46, 204, 113, 0.2);
             --nav-bg: rgba(8, 20, 13, 0.95);
             --text-primary: #ffffff;
             --text-secondary: #a3b899;
@@ -77,8 +77,6 @@
             --text-secondary: #52715e;
             --border-glow: rgba(39, 174, 96, 0.15);
             --border-active: #27ae60;
-            --sidebar-bg: #ffffff;
-            --sidebar-text: #0f2416;
         }
 
         * {
@@ -220,69 +218,109 @@
         /* 📱 Side Menu Drawer */
         .sidebar-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px);
             z-index: 9999; opacity: 0; visibility: hidden; transition: all 0.3s ease;
         }
         .sidebar-overlay.active { opacity: 1; visibility: visible; }
 
         .side-menu-drawer {
             position: fixed; top: 0; right: -320px; width: 300px; height: 100%;
-            background: var(--sidebar-bg); color: var(--sidebar-text); z-index: 10000;
-            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.4); transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            background: #08140c; color: #ffffff; z-index: 10000;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5); transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             overflow-y: auto; display: flex; flex-direction: column; padding: 24px 16px 30px 16px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
+        
+        .side-menu-drawer.custom-bg::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(6, 18, 11, 0.82) 0%, rgba(4, 12, 7, 0.92) 100%);
+            z-index: 1;
+        }
+
+        .side-menu-drawer > * {
+            position: relative;
+            z-index: 2;
+        }
+
         .side-menu-drawer.active { right: 0; }
 
-        .side-profile-section { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 12px; }
+        .side-profile-section { 
+            display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 12px;
+            background: rgba(0, 0, 0, 0.4); padding: 14px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.08);
+        }
         .side-avatar-circle {
-            width: 76px; height: 76px; border-radius: 50%; border: 3px solid #1e272e;
+            width: 74px; height: 74px; border-radius: 50%; border: 3px solid #2ecc71;
             background: #111; color: #fff; display: flex; align-items: center; justify-content: center;
-            font-size: 34px; overflow: hidden; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            font-size: 32px; overflow: hidden; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
         .side-avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
 
-        .side-username-badge { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 14px; font-weight: 800; color: #1e272e; }
+        .side-username-badge { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 14px; font-weight: 800; color: #ffffff; }
         .side-badge-pill {
-            background: #f1f2f6; color: #747d8c; padding: 2px 8px; border-radius: var(--pill-radius);
-            font-size: 10px; font-weight: 700; display: flex; align-items: center; gap: 4px;
+            background: rgba(46, 204, 113, 0.2); color: #2ecc71; padding: 2px 8px; border-radius: var(--pill-radius);
+            font-size: 10px; font-weight: 700; display: flex; align-items: center; gap: 4px; border: 1px solid rgba(46, 204, 113, 0.3);
         }
 
-        .side-balance-huge { font-size: 26px; font-weight: 900; color: #27ae60; margin: 8px 0 10px 0; }
-        .side-quick-icons { display: flex; justify-content: center; gap: 22px; margin-bottom: 14px; font-size: 17px; color: #747d8c; }
+        .side-balance-huge {
+            font-size: 26px; font-weight: 900; color: #2ecc71; margin: 8px 0 10px 0;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+        }
+        .side-quick-icons { display: flex; justify-content: center; gap: 22px; margin-bottom: 10px; font-size: 17px; color: #ffffff; }
         .side-quick-icons i { cursor: pointer; }
         .side-quick-icons .icon-heart { color: #e84118; }
 
         .currency-switch-pill {
-            background: #fef9e7; border: 1px solid #f1c40f; color: #d35400;
+            background: rgba(0, 0, 0, 0.6); border: 1px solid #f1c40f; color: #f1c40f;
             padding: 6px 14px; border-radius: var(--pill-radius); font-size: 11px;
             font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px;
-            margin-bottom: 16px; cursor: pointer;
+            margin-top: 6px; cursor: pointer; width: 100%;
         }
 
-        .side-nav-list { display: flex; flex-direction: column; gap: 3px; }
+        .side-nav-list { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; }
         .side-nav-link {
             display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 12px;
-            color: #2f3542; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+            color: #ffffff; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+            background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.06);
         }
-        .side-nav-link.active, .side-nav-link:hover { background: #e8f8f0; color: #27ae60; }
-        .side-nav-link i { font-size: 16px; width: 22px; text-align: center; color: #27ae60; }
+        .side-nav-link.active, .side-nav-link:hover { 
+            background: rgba(46, 204, 113, 0.3); border-color: #2ecc71; color: #2ecc71; 
+        }
+        .side-nav-link i { font-size: 16px; width: 22px; text-align: center; color: #2ecc71; }
 
-        /* Menu ئەڭ ئاستىدىكى باشقۇرغۇچى قوشۇش كۇنۇپكىسى */
-        .admin-menu-link {
-            background: #fff4e5;
-            color: #d35400 !important;
-            border: 1px dashed #e67e22;
+        /* 👑 باشقۇرغۇچى بۆلەك كۇنۇپكىلىرى ئۇسلۇبى */
+        .admin-link-1 {
+            background: rgba(0, 198, 255, 0.15) !important;
+            color: #00c6ff !important;
+            border: 1px dashed #00c6ff !important;
             margin-top: 10px;
         }
-        .admin-menu-link i { color: #e67e22 !important; }
+        .admin-link-1 i { color: #00c6ff !important; }
+
+        .admin-link-2 {
+            background: rgba(241, 196, 15, 0.15) !important;
+            color: #f1c40f !important;
+            border: 1px dashed #f1c40f !important;
+        }
+        .admin-link-2 i { color: #f1c40f !important; }
+
+        .admin-link-3 {
+            background: rgba(230, 126, 34, 0.15) !important;
+            color: #e67e22 !important;
+            border: 1px dashed #e67e22 !important;
+        }
+        .admin-link-3 i { color: #e67e22 !important; }
 
         .side-theme-toggle {
             display: flex; justify-content: space-between; align-items: center;
-            margin-top: 14px; padding-top: 14px; border-top: 1px solid #f1f2f6;
-            font-size: 12px; font-weight: 800; color: #57606f;
+            margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 12px; font-weight: 800; color: #a3b899;
         }
 
-        /* 🖼️ Banner */
+        /* Banner */
         .banner-container {
             width: calc(100% - 24px); margin: 14px auto 10px auto; border-radius: 20px;
             overflow: hidden; border: 1px solid var(--border-glow); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
@@ -391,16 +429,6 @@
         .badge-success { background: #2ecc71; color: #000; }
         .badge-rejected { background: #e74c3c; color: #fff; }
 
-        .admin-user-item {
-            background: var(--surface-bg); border: 1px solid var(--border-glow); border-radius: 18px;
-            padding: 12px 14px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 8px;
-        }
-        .admin-user-header { display: flex; align-items: center; justify-content: space-between; }
-        .admin-user-avatar { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--primary-green); overflow: hidden; display: flex; align-items: center; justify-content: center; background: #0c1c12; }
-        .admin-user-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .admin-user-controls { display: flex; gap: 6px; align-items: center; margin-top: 4px; }
-        .admin-input-small { width: 80px; padding: 6px 10px; font-size: 12px; border-radius: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-glow); color: #fff; text-align: center; }
-
         .shamkash-box {
             background: rgba(46, 204, 113, 0.08); border: 1px dashed var(--primary-green); border-radius: 16px;
             padding: 12px; margin-bottom: 14px; text-align: center;
@@ -414,6 +442,32 @@
         }
         .wallet-stat-title { font-size: 12px; color: var(--text-secondary); font-weight: 700; }
         .wallet-stat-value { font-size: 17px; font-weight: 900; color: var(--primary-green); margin-top: 4px; }
+
+        /* Sub Tab Switcher in Admin Orders Section */
+        .admin-sub-tabs {
+            display: flex;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--pill-radius);
+            padding: 4px;
+            margin-bottom: 16px;
+            gap: 6px;
+        }
+        .admin-sub-tab-btn {
+            flex: 1;
+            padding: 8px;
+            border-radius: var(--pill-radius);
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .admin-sub-tab-btn.active {
+            background: var(--accent-green-grad);
+            color: #06120b;
+        }
     </style>
 </head>
 <body>
@@ -471,15 +525,21 @@
                 <i class="fa-solid fa-comment-dots" style="color:#00c6ff;"></i>
                 <span data-i18n="navFeedback">تەلەپ ۋە پىكىر</span>
             </div>
-            <div class="side-nav-link" onclick="window.open('https://t.me/KOZNAK_USD', '_blank')">
-                <i class="fa-brands fa-telegram" style="color:#0088cc;"></i>
-                <span data-i18n="navTelegram">تېلېگرامما ئالاقىسى</span>
+
+            <!-- 👑 باشقۇرغۇچىنىڭ 3 تال ئايرىم مەركىزىي كۇنۇپكىلىرى -->
+            <div class="side-nav-link admin-link-1" id="sideAdminOrdersLink" style="display: none;" onclick="toggleSideMenu(false); switchTab('adminOrdersTab');">
+                <i class="fa-solid fa-bolt-lightning"></i>
+                <span>1. زاكاز ۋە تەلەپلەر مەركىزى</span>
             </div>
 
-            <!-- 👑 يان Menu نىڭ ئەڭ ئاستىدىكى باشقۇرغۇچى قوشۇش كۇنۇپكىسى -->
-            <div class="side-nav-link admin-menu-link" id="sideAdminUploadBtn" style="display: none;" onclick="toggleSideMenu(false); switchTab('uploadTab');">
+            <div class="side-nav-link admin-link-2" id="sideAdminBrandingLink" style="display: none;" onclick="toggleSideMenu(false); switchTab('adminBrandingTab');">
+                <i class="fa-solid fa-palette"></i>
+                <span>2. رەسىم ۋە كۆرۈنۈش تەڭشىكى</span>
+            </div>
+
+            <div class="side-nav-link admin-link-3" id="sideAdminUploadLink" style="display: none;" onclick="toggleSideMenu(false); switchTab('adminUploadTab');">
                 <i class="fa-solid fa-circle-plus"></i>
-                <span>➕ يېڭى مەزمۇن قوشۇش ۋە باشقۇرۇش</span>
+                <span>3. مەزمۇن ۋە تۈر قوشۇش</span>
             </div>
         </div>
 
@@ -511,7 +571,7 @@
         </div>
     </header>
 
-    <!-- 🏠 1. باش بەت (Home) -->
+    <!-- 🏠 باش بەت (Home) -->
     <div id="homeTab" class="tab-content active-tab">
         <div class="banner-container">
             <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop" id="mainBannerImg" alt="Auto Chah">
@@ -560,24 +620,133 @@
         <div class="products-grid" id="gamesGridContainer"></div>
     </div>
 
-    <!-- 📋 2. تەلەپلىرىم بۆلىكى -->
-    <div id="ordersTab" class="tab-content">
+    <!-- 👑 1-بۆلەك: زاكاز ۋە تەلەپلەر مەركىزى (Admin Orders & Deposits Hub) -->
+    <div id="adminOrdersTab" class="tab-content">
         <div class="page-box">
-            <div id="adminDirectOrdersBox" style="display: none; margin-bottom: 20px;">
-                <div style="font-size: 15px; font-weight: 800; color: var(--primary-green); margin-bottom: 8px;" data-i18n="adminDepositRequests">⚡ پۇل قاچىلاش ئىلتىماسلىرى (شامكەش)</div>
-                <div id="historyAdminDepositsContainer"></div>
+            <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: #fff; border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
 
-                <div style="font-size: 15px; font-weight: 800; color: #3498db; margin: 18px 0 8px 0;" data-i18n="adminGameOrders">⚡ ئويۇن ۋە مۇلازىمەت زاكازلىرى</div>
-                <div id="historyAdminOrdersContainer"></div>
-                <hr style="border: none; border-top: 1px solid var(--border-glow); margin: 20px 0;">
+            <div style="font-size: 16px; font-weight: 900; color: #00c6ff; margin-bottom: 14px;">⚡ 1-بۆلەك: باشقۇرغۇچى زاكاز ۋە تەلەپلەر مەركىزى</div>
+
+            <div class="admin-sub-tabs">
+                <button type="button" class="admin-sub-tab-btn active" id="btnAdminGameSubTab" onclick="switchAdminOrderSubTab('game')">🎮 1. ئويۇن/ئەپلەر زاكازلىرى</button>
+                <button type="button" class="admin-sub-tab-btn" id="btnAdminDepositSubTab" onclick="switchAdminOrderSubTab('deposit')">💰 2. قالدۇق قاچىلاش تەلەپلىرى</button>
             </div>
 
+            <!-- 1. ئويۇن ياكى ئەپلەر زاكاز كۆزنىكى -->
+            <div id="adminGameOrdersSubBox">
+                <div style="font-size: 13px; font-weight: 800; color: #3498db; margin-bottom: 10px;">🎮 ئويۇن ۋە ئەپلەرگە پۇل قاچىلاش زاكازلىرى تىزىملىكى:</div>
+                <div id="historyAdminOrdersContainer"></div>
+            </div>
+
+            <!-- 2. شامكەش قالدۇق پۇل قاچىلاش كۆزنىكى -->
+            <div id="adminDepositOrdersSubBox" style="display: none;">
+                <div style="font-size: 13px; font-weight: 800; color: var(--primary-green); margin-bottom: 10px;">💰 شامكەش قالدۇق پۇل قاچىلاش تەلەپلىرى ۋە ئىسپاتلىرى:</div>
+                <div id="historyAdminDepositsContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 👑 2-بۆلەك: رەسىم كىرگۈزۈش ئورنى (Admin Branding Studio) -->
+    <div id="adminBrandingTab" class="tab-content">
+        <div class="page-box">
+            <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: #fff; border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
+
+            <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 18px;">
+                <div style="font-size: 16px; font-weight: 900; color: #f1c40f; margin-bottom: 16px;">🎨 2-بۆلەك: رەسىم كىرگۈزۈش ۋە تاشقى كۆرۈنۈش تەڭشىكى</div>
+
+                <!-- 1. توربەت لوگو رەسىمى -->
+                <div class="form-group">
+                    <label>⚡ 1. توربەت لوگو رەسىمى (Header & Site Logo)</label>
+                    <input type="file" id="adminSiteLogoFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleSiteLogoUpload(event)">
+                </div>
+
+                <!-- 2. باش بەت تېما رەسىمى -->
+                <div class="form-group">
+                    <label>🖼️ 2. باش بەت چوڭ تېما رەسىمى (Home Billboard Banner)</label>
+                    <input type="file" id="adminSiteBannerFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleSiteBannerUpload(event)">
+                </div>
+
+                <!-- 3. توربەت ئېچىلىشتىن بۇرۇن چىقىدىغان بەتكە رەسىم -->
+                <div class="form-group">
+                    <label>🎬 3. توربەت ئېچىلىشتىن بۇرۇن چىقىدىغان بەت رەسىمى (Splash Logo)</label>
+                    <input type="file" id="adminSplashLogoFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleSplashLogoUpload(event)">
+                </div>
+
+                <!-- 4. Menu تىزىملىكى ئارقا كۆرۈنۈش رەسىمى -->
+                <div class="form-group">
+                    <label>📱 4. يان Menu تىزىملىكى ئارقا كۆرۈنۈش رەسىمى (Side Menu Background)</label>
+                    <input type="file" id="adminMenuBgFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleMenuBgUpload(event)">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 👑 3-بۆلەك: مەزمۇن ۋە تۈر قوشۇش (Admin Content Upload) -->
+    <div id="adminUploadTab" class="tab-content">
+        <div class="page-box">
+            <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: #fff; border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
+
+            <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 18px;">
+                <div style="font-size: 16px; font-weight: 900; color: #e67e22; margin-bottom: 16px;">➕ 3-بۆلەك: باش بەتكە ياكى تۈرلەرگە مەزمۇن قوشۇش</div>
+
+                <form id="uploadForm" onsubmit="handleGameUpload(event)">
+                    <div class="form-group">
+                        <label>📂 قوشۇلىدىغان ئورۇن (كاتېگورىيە)</label>
+                        <select id="gameCategory" class="form-select">
+                            <option value="games">🎮 ئويۇنلار تۈرى (Games)</option>
+                            <option value="chat">💬 سۆزلىشىش ئەپلىرى (Chat Apps)</option>
+                            <option value="balance">💵 ئارسىدە ۋە پۇللار (Balance)</option>
+                            <option value="social">📱 ئىجتىمائىي تاراتقۇ (Social)</option>
+                            <option value="tv">📺 TV ئەزالىقلىرى (TV Subscriptions)</option>
+                            <option value="cards">💳 كارتىلار تۈرى (Cards)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>مەھسۇلات ياكى تۈر نامى</label>
+                        <input type="text" id="gameTitle" class="form-input" placeholder="مەسىلەن: PUBG Mobile UC ياكى TikTok Coins" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>🎬 مەھسۇلات رەسىمى</label>
+                        <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                            <button type="button" class="action-btn" id="posterTypeUrlBtn" onclick="setPosterInputMode('url')" style="padding: 6px; font-size: 11px; margin:0;">تور ئۇلانمىسى</button>
+                            <button type="button" class="action-btn" id="posterTypeFileBtn" onclick="setPosterInputMode('file')" style="padding: 6px; font-size: 11px; margin:0; background:var(--surface-bg); color:#fff;">تېلېفوندىن</button>
+                        </div>
+
+                        <div id="posterUrlBox">
+                            <input type="text" id="gamePosterUrl" class="form-input" placeholder="https://..." oninput="previewGamePoster(this.value)">
+                        </div>
+
+                        <div id="posterFileBox" style="display: none;">
+                            <input type="file" id="gamePosterFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handlePosterFile(event)">
+                        </div>
+
+                        <div id="gamePosterPreviewBox" style="margin-top: 10px; display: none; text-align: center;">
+                            <img id="gamePosterPreviewImg" src="" style="max-height: 110px; border-radius: 12px; border: 1px solid var(--border-glow); object-fit: cover;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>باھا تىزىملىكى (ھەر قۇرغا: مىقدار:باھا)</label>
+                        <textarea id="gamePackages" class="form-input" rows="4" placeholder="60 UC: 1.0 شامكەش&#10;325 UC: 4.8 شامكەش" required></textarea>
+                    </div>
+
+                    <button type="submit" class="action-btn">ساقلاش ۋە ئېلان قىلىش</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 📋 2. تەلەپلىرىم بۆلىكى (ئابونت) -->
+    <div id="ordersTab" class="tab-content">
+        <div class="page-box">
             <div style="font-size: 16px; font-weight: 800; margin-bottom: 12px;" data-i18n="myOrdersTitle">📋 تەلەپلىرىم (ئويۇن ۋە مۇلازىمەت ئەھۋالى)</div>
             <div id="userOrdersList"></div>
         </div>
     </div>
 
-    <!-- 💰 3. قالدۇق قاچىلاش بۆلىكى -->
+    <!-- 💰 3. قالدۇق قاچىلاش بۆلىكى (ئابونت) -->
     <div id="depositTab" class="tab-content">
         <div class="page-box">
             <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 24px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
@@ -702,76 +871,6 @@
         </div>
     </div>
 
-    <!-- ➕ باشقۇرغۇچى: مەھسۇلات، تېما ۋە لوگو قوشۇش/ئۆزگەرتىش بۆلىكى -->
-    <div id="uploadTab" class="tab-content">
-        <div class="page-box">
-            <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: #fff; border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
-
-            <!-- 1. توربەت لوگوسى ۋە تېما رەسىمى يۈكلەش -->
-            <div class="branding-admin-card" style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 16px; margin-bottom: 20px;">
-                <div style="font-size: 15px; font-weight: 800; color: var(--primary-green); margin-bottom: 12px;">🎨 Auto Chah رەسمىي لوگو ۋە باش بەت تېما رەسىمىنى ئۆزگەرتىش</div>
-                
-                <div class="form-group">
-                    <label>⚡ توربەت كۈتۈش / ئاساسىي لوگوسى (Logo File)</label>
-                    <input type="file" id="adminSiteLogoFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleSiteLogoUpload(event)">
-                </div>
-
-                <div class="form-group">
-                    <label>🖼️ باش بەت چوڭ تېما رەسىمى (Banner File)</label>
-                    <input type="file" id="adminSiteBannerFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleSiteBannerUpload(event)">
-                </div>
-            </div>
-
-            <!-- 2. يېڭى مەھسۇلات قوشۇش -->
-            <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 16px;">
-                <div style="font-size: 16px; font-weight: 800; margin-bottom: 16px;" data-i18n="addNewProductTitle">➕ يېڭى تۈر ياكى مەھسۇلات قوشۇش</div>
-                <form id="uploadForm" onsubmit="handleGameUpload(event)">
-                    <div class="form-group">
-                        <label data-i18n="labelCategory">كاتېگورىيە</label>
-                        <select id="gameCategory" class="form-select">
-                            <option value="games" data-i18n="catGames">🎮 ئويۇنلار تۈرى (Games)</option>
-                            <option value="balance" data-i18n="catBalance">💵 ئارسىدە ۋە پۇللار (Balance)</option>
-                            <option value="chat" data-i18n="catChat">💬 سۆزلىشىش ئەپلىرى (Chat Apps)</option>
-                            <option value="social" data-i18n="catSocial">📱 ئىجتىمائىي تاراتقۇ (Social)</option>
-                            <option value="tv" data-i18n="catTv">📺 TV ئەزالىقلىرى (TV Subscriptions)</option>
-                            <option value="cards" data-i18n="catCards">💳 كارتىلار تۈرى (Cards)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label data-i18n="labelProductName">مەھسۇلات نامى</label>
-                        <input type="text" id="gameTitle" class="form-input" placeholder="مەسىلەن: PUBG Mobile UC" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label data-i18n="labelProductImage">🎬 مەھسۇلات رەسىمى</label>
-                        <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-                            <button type="button" class="action-btn" id="posterTypeUrlBtn" onclick="setPosterInputMode('url')" style="padding: 6px; font-size: 11px; margin:0;" data-i18n="btnUrlLink">تور ئۇلانمىسى</button>
-                            <button type="button" class="action-btn" id="posterTypeFileBtn" onclick="setPosterInputMode('file')" style="padding: 6px; font-size: 11px; margin:0; background:var(--surface-bg); color:#fff;" data-i18n="btnFromPhone">تېلېفوندىن</button>
-                        </div>
-
-                        <div id="posterUrlBox">
-                            <input type="text" id="gamePosterUrl" class="form-input" placeholder="https://..." oninput="previewGamePoster(this.value)">
-                        </div>
-
-                        <div id="posterFileBox" style="display: none;">
-                            <input type="file" id="gamePosterFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handlePosterFile(event)">
-                        </div>
-
-                        <div id="gamePosterPreviewBox" style="margin-top: 10px; display: none; text-align: center;">
-                            <img id="gamePosterPreviewImg" src="" style="max-height: 110px; border-radius: 12px; border: 1px solid var(--border-glow); object-fit: cover;">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label data-i18n="labelPricePackages">باھا تىزىملىكى (ھەر قۇرغا: مىقدار:باھا)</label>
-                        <textarea id="gamePackages" class="form-input" rows="4" placeholder="60 UC: 1.0 شامكەش&#10;325 UC: 4.8 شامكەش" required></textarea>
-                    </div>
-                    <button type="submit" class="action-btn" data-i18n="btnSaveProduct">ساقلاش ۋە قوشۇش</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <!-- 👤 ھېسابات بۆلىكى -->
     <div id="accountTab" class="tab-content">
         <div class="page-box" style="text-align: center;">
@@ -833,33 +932,28 @@
         </div>
     </div>
 
-    <!-- 🚀 5 بۆلەكتىن تەركىب تاپقان يېڭى لەيلىمە تىزىملىك -->
+    <!-- 🚀 لەيلىمە تىزىملىك (5 بۆلەك) -->
     <div class="bottom-nav">
-        <!-- 1. تەلەپلىرىم -->
         <button class="nav-item" onclick="switchTab('ordersTab', this)">
             <i class="fa-solid fa-list-check"></i>
             <span>تەلەپلىرىم</span>
         </button>
 
-        <!-- 2. قالدۇق قاچىلاش -->
         <button class="nav-item" onclick="switchTab('depositTab', this)">
             <i class="fa-solid fa-wallet"></i>
             <span>قالدۇق قاچىلاش</span>
         </button>
 
-        <!-- 3. ئوتتۇرىدىكى چوڭ باش بەت كۇنۇپكىسى -->
         <button class="nav-item nav-item-center active" onclick="switchTab('homeTab', this)">
             <i class="fa-solid fa-house"></i>
             <span>باش بەت</span>
         </button>
 
-        <!-- 4. ھەميان -->
         <button class="nav-item" onclick="switchTab('walletTab', this)">
             <i class="fa-solid fa-vault"></i>
             <span>ھەميان</span>
         </button>
 
-        <!-- 5. تەلەپ-پىكىر -->
         <button class="nav-item" onclick="switchTab('feedbackTab', this)">
             <i class="fa-solid fa-comment-dots"></i>
             <span>تەلەپ-پىكىر</span>
@@ -897,11 +991,8 @@
                 seeAll: "ھەممىسى ❯", btnBack: "⬅️ قايتىش", officialDirect: "رەسمىي بىۋاسىتە قاچىلاش",
                 labelPlayerId: "👤 ئويۇن / ھېسابات ID نومۇرى", labelSelectPackage: "💎 مىقدارنى تاللاڭ:",
                 labelTotalPay: "تۆلەيدىغان سومما:", btnSubmitOrder: "دەرھال زاكاز تاپشۇرۇش",
-                adminDepositRequests: "⚡ پۇل قاچىلاش ئىلتىماسلىرى (شامكەش)", adminGameOrders: "⚡ ئويۇن ۋە مۇلازىمەت زاكازلىرى",
-                myOrdersTitle: "📋 تەلەپلىرىم (ئويۇن ۋە مۇلازىمەت ئەھۋالى)", addNewProductTitle: "➕ يېڭى تۈر ياكى مەھسۇلات قوشۇش",
-                labelCategory: "كاتېگورىيە", labelProductName: "مەھسۇلات نامى", labelProductImage: "🎬 مەھسۇلات رەسىمى",
-                btnUrlLink: "تور ئۇلانمىسى", btnFromPhone: "تېلېفوندىن", labelPricePackages: "باھا تىزىملىكى (ھەر قۇرغا: مىقدار:باھا)",
-                btnSaveProduct: "ساقلاش ۋە قوشۇش", changeAvatarHint: "باش رەسىمنى ئۆزگەرتىش", tabLogin: "كىرىش",
+                myOrdersTitle: "📋 تەلەپلىرىم (ئويۇن ۋە مۇلازىمەت ئەھۋالى)",
+                changeAvatarHint: "باش رەسىمنى ئۆزگەرتىش", tabLogin: "كىرىش",
                 tabRegister: "تىزىملىتىش", labelUsername: "ئابونت نامى", labelNewUsername: "يېڭى ئابونت نامى",
                 labelPassword: "مەخپىي نومۇر", btnCreateAccount: "ھېسابات ئېچىش", yourBalance: "قالدۇق پۇلىڭىز:",
                 adminUsersTitle: "👥 ئابونتلار تىزىملىكى ۋە قالدۇق پۇل تەڭشەش", btnLogout: "چېكىنىش (Log out)",
@@ -920,11 +1011,8 @@
                 seeAll: "الكل ❯", btnBack: "⬅️ رجوع", officialDirect: "شحن رسمي فوري ومباشر",
                 labelPlayerId: "👤 المعرف الخاص بك (Player ID)", labelSelectPackage: "💎 اختر الباقة المطلوبة:",
                 labelTotalPay: "المبلغ الإجمالي:", btnSubmitOrder: "تأكيد وإرسال الطلب",
-                adminDepositRequests: "⚡ طلبات شحن الرصيد (شام كاش)", adminGameOrders: "⚡ طلبات شحن الألعاب والخدمات",
-                myOrdersTitle: "📋 طلباتي وحالة العمليات", addNewProductTitle: "➕ إضافة منتج أو قسم جديد",
-                labelCategory: "القسم", labelProductName: "اسم المنتج", labelProductImage: "🎬 صورة المنتج",
-                btnUrlLink: "رابط مباشر", btnFromPhone: "من الهاتف", labelPricePackages: "قائمة الأسعار (الكمية:السعر في كل سطر)",
-                btnSaveProduct: "حفظ ونشر", changeAvatarHint: "تغيير الصورة الشخصية", tabLogin: "تسجيل الدخول",
+                myOrdersTitle: "📋 طلباتي وحالة العمليات",
+                changeAvatarHint: "تغيير الصورة الشخصية", tabLogin: "تسجيل الدخول",
                 tabRegister: "إنشاء حساب", labelUsername: "اسم المستخدم", labelNewUsername: "اسم مستخدم جديد",
                 labelPassword: "كلمة المرور", btnCreateAccount: "إنشاء الحساب", yourBalance: "رصيدك الحالي:",
                 adminUsersTitle: "👥 إدارة المستخدمين وتعديل الأرصدة", btnLogout: "تسجيل الخروج",
@@ -943,11 +1031,8 @@
                 seeAll: "All ❯", btnBack: "⬅️ Back", officialDirect: "Official Instant Delivery",
                 labelPlayerId: "👤 User / Player ID", labelSelectPackage: "💎 Select Package:",
                 labelTotalPay: "Total Amount:", btnSubmitOrder: "Submit Order Now",
-                adminDepositRequests: "⚡ Deposit Requests (Shamcash)", adminGameOrders: "⚡ Game & Service Orders",
-                myOrdersTitle: "📋 My Orders & Statuses", addNewProductTitle: "➕ Add New Game / Product",
-                labelCategory: "Category", labelProductName: "Product Name", labelProductImage: "🎬 Product Poster",
-                btnUrlLink: "URL Link", btnFromPhone: "Upload File", labelPricePackages: "Price List (Amount:Price per line)",
-                btnSaveProduct: "Save & Publish", changeAvatarHint: "Change Avatar", tabLogin: "Login",
+                myOrdersTitle: "📋 My Orders & Statuses",
+                changeAvatarHint: "Change Avatar", tabLogin: "Login",
                 tabRegister: "Register", labelUsername: "Username", labelNewUsername: "New Username",
                 labelPassword: "Password", btnCreateAccount: "Create Account", yourBalance: "Your Balance:",
                 adminUsersTitle: "👥 User Management & Balance", btnLogout: "Log out",
@@ -1031,6 +1116,7 @@
             });
         }
 
+        /* 🎨 2-بۆلەك: رەسىم ۋە كۆرۈنۈش تەڭشىكى فۇنكسىيەلىرى */
         async function handleSiteLogoUpload(e) {
             const file = e.target.files[0];
             if (!file || !currentUser || currentUser.role !== 'admin') return;
@@ -1057,6 +1143,52 @@
             }
         }
 
+        async function handleSplashLogoUpload(e) {
+            const file = e.target.files[0];
+            if (!file || !currentUser || currentUser.role !== 'admin') return;
+            try {
+                const base64 = await compressImage(file, 400, 400, 0.85);
+                window.dbSet(window.dbRef(window.db, 'site_branding/splashLogo'), base64).then(() => {
+                    alert('كۈتۈش ئېكرانى لوگوسى يېڭىلاندى!');
+                });
+            } catch (err) {
+                alert('كۈتۈش لوگوسى يۈكلەشتە خاتالىق كۆرۈلدى!');
+            }
+        }
+
+        async function handleMenuBgUpload(e) {
+            const file = e.target.files[0];
+            if (!file || !currentUser || currentUser.role !== 'admin') return;
+            try {
+                const base64 = await compressImage(file, 800, 1200, 0.85);
+                window.dbSet(window.dbRef(window.db, 'site_branding/menuBg'), base64).then(() => {
+                    alert('Menu ئارقا كۆرۈنۈش رەسىمى يېڭىلاندى!');
+                });
+            } catch (err) {
+                alert('Menu رەسىمىنى يۈكلەشتە خاتالىق كۆرۈلدى!');
+            }
+        }
+
+        /* ⚡ 1-بۆلەكتىكى كۆزنەك ئالماشتۇرۇش (ئويۇن زاكازلىرى / شامكەش تەلەپلىرى) */
+        function switchAdminOrderSubTab(type) {
+            const btnGame = document.getElementById('btnAdminGameSubTab');
+            const btnDeposit = document.getElementById('btnAdminDepositSubTab');
+            const boxGame = document.getElementById('adminGameOrdersSubBox');
+            const boxDeposit = document.getElementById('adminDepositOrdersSubBox');
+
+            if (type === 'game') {
+                btnGame.classList.add('active');
+                btnDeposit.classList.remove('active');
+                boxGame.style.display = 'block';
+                boxDeposit.style.display = 'none';
+            } else {
+                btnDeposit.classList.add('active');
+                btnGame.classList.remove('active');
+                boxGame.style.display = 'none';
+                boxDeposit.style.display = 'block';
+            }
+        }
+
         function switchTab(tabId, el) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active-tab'));
             const target = document.getElementById(tabId);
@@ -1072,12 +1204,8 @@
 
             if (tabId === 'ordersTab') {
                 renderUserOrders();
-                if (currentUser && currentUser.role === 'admin') {
-                    document.getElementById('adminDirectOrdersBox').style.display = 'block';
-                    renderAdminOrdersDirect();
-                } else {
-                    document.getElementById('adminDirectOrdersBox').style.display = 'none';
-                }
+            } else if (tabId === 'adminOrdersTab') {
+                renderAdminOrdersDirect();
             } else if (tabId === 'walletTab') {
                 updateWalletTabStats();
             } else if (tabId === 'feedbackTab') {
@@ -1196,16 +1324,31 @@
         window.initFirebaseApp = function() {
             window.dbOnValue(window.dbRef(window.db, 'site_branding'), (snapshot) => {
                 const branding = snapshot.val() || {};
+                
                 if (branding.logo) {
-                    const splashBox = document.getElementById('splashLogoContainer');
-                    if (splashBox) splashBox.innerHTML = `<img src="${branding.logo}" alt="Auto Chah">`;
-                    
                     const headerLogo = document.getElementById('headerLogoContainer');
                     if (headerLogo) headerLogo.innerHTML = `<img src="${branding.logo}" alt="Auto Chah">`;
                 }
+
+                if (branding.splashLogo || branding.logo) {
+                    const splashBox = document.getElementById('splashLogoContainer');
+                    if (splashBox) splashBox.innerHTML = `<img src="${branding.splashLogo || branding.logo}" alt="Auto Chah">`;
+                }
+
                 if (branding.banner) {
                     const bannerImg = document.getElementById('mainBannerImg');
                     if (bannerImg) bannerImg.src = branding.banner;
+                }
+
+                const sideDrawer = document.getElementById('sideMenuDrawer');
+                if (sideDrawer) {
+                    if (branding.menuBg) {
+                        sideDrawer.style.backgroundImage = `url('${branding.menuBg}')`;
+                        sideDrawer.classList.add('custom-bg');
+                    } else {
+                        sideDrawer.style.backgroundImage = 'none';
+                        sideDrawer.classList.remove('custom-bg');
+                    }
                 }
             });
 
@@ -1482,11 +1625,13 @@
             if (confirm('بۇ پىكىرنى ئۆچۈرەمسىز؟')) window.dbRemove(window.dbRef(window.db, `feedback_inbox/${fbId}`));
         }
 
+        /* ⚡ 1-بۆلەك: زاكاز ۋە تەلەپلەرنى چىقىرىش */
         function renderAdminOrdersDirect() {
             const depContainer = document.getElementById('historyAdminDepositsContainer');
             const ordContainer = document.getElementById('historyAdminOrdersContainer');
             if (!depContainer || !ordContainer) return;
 
+            // قالدۇق پۇل قاچىلاش تەلەپلىرى
             depContainer.innerHTML = '';
             const deposits = Object.values(allDeposits).reverse();
             if (deposits.length === 0) {
@@ -1515,6 +1660,7 @@
                 });
             }
 
+            // ئويۇن ۋە ئەپلەر زاكازلىرى
             ordContainer.innerHTML = '';
             const orders = Object.values(allOrders).reverse();
             if (orders.length === 0) {
@@ -1699,6 +1845,7 @@
             }
         }
 
+        /* ➕ 3-بۆلەك: مەزمۇن قوشۇش فۇنكسىيەسى */
         function handleGameUpload(e) {
             e.preventDefault();
             if (!currentUser || currentUser.role !== 'admin') return;
@@ -1714,7 +1861,7 @@
             const data = { category, title, poster, packages, createdAt: Date.now() };
 
             window.dbSet(window.dbRef(window.db, `game_products/${gameId}`), data).then(() => {
-                alert('يېڭى تۈر مۇۋەپپەقىيەتلىك قوشۇلدى!');
+                alert('يېڭى مەزمۇن مۇۋەپپەقىيەتلىك قوشۇلدى!');
                 document.getElementById('uploadForm').reset();
                 uploadedGamePosterData = '';
                 document.getElementById('gamePosterPreviewBox').style.display = 'none';
@@ -1783,11 +1930,10 @@
             document.getElementById('sideVipPill').innerHTML = isAdmin ? '<i class="fa-solid fa-crown" style="color:#f1c40f;"></i> باشقۇرغۇچى' : '<i class="fa-solid fa-star" style="color:#f1c40f;"></i> ئالتۇن';
             document.getElementById('adminPanelSection').style.display = isAdmin ? 'block' : 'none';
             
-            // 👑 Side Menu دىكى باشقۇرغۇچى قوشۇش كۇنۇپكىسىنى كۆرسىتىش
-            const adminUploadSideLink = document.getElementById('sideAdminUploadBtn');
-            if (adminUploadSideLink) {
-                adminUploadSideLink.style.display = isAdmin ? 'flex' : 'none';
-            }
+            // 👑 Menu دىكى 3 تال باشقۇرغۇچى مەركىزىنى كۆرسىتىش
+            document.getElementById('sideAdminOrdersLink').style.display = isAdmin ? 'flex' : 'none';
+            document.getElementById('sideAdminBrandingLink').style.display = isAdmin ? 'flex' : 'none';
+            document.getElementById('sideAdminUploadLink').style.display = isAdmin ? 'flex' : 'none';
             
             updateBalanceUI();
             updateWalletTabStats();
