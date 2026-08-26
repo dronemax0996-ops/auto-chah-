@@ -46,7 +46,7 @@
     </script>
 
     <style>
-        /* 🌿 1. Cyber Neon (يېشىل نېئون) */
+        /* 🌿 1. Cyber Neon */
         :root {
             --bg-color: #06120b;
             --bg-gradient: radial-gradient(circle at 50% 0%, rgba(39, 174, 96, 0.25), transparent 60%), #06120b;
@@ -66,7 +66,6 @@
             --box-shadow-card: 0 6px 18px rgba(0, 0, 0, 0.4);
         }
 
-        /* 💜 2. Purple Cyberpunk (بىنەپشە كىبېر) */
         body.theme-purple {
             --bg-color: #0b0716;
             --bg-gradient: radial-gradient(circle at 50% 0%, rgba(155, 89, 182, 0.3), transparent 60%), #0b0716;
@@ -86,7 +85,6 @@
             --box-shadow-card: 0 8px 24px rgba(108, 92, 231, 0.25);
         }
 
-        /* 🔥 3. Golden Luxury (ئالتۇن قارا) */
         body.theme-gold {
             --bg-color: #0d0d0d;
             --bg-gradient: radial-gradient(circle at 50% 0%, rgba(241, 196, 15, 0.2), transparent 60%), #0d0d0d;
@@ -106,7 +104,6 @@
             --box-shadow-card: 0 6px 20px rgba(0, 0, 0, 0.6);
         }
 
-        /* ☀️ 4. Clean Snow (سۈزۈك ئاق ئۇسلۇب) */
         body.theme-white {
             --bg-color: #f5f7fa;
             --bg-gradient: #f5f7fa;
@@ -124,40 +121,6 @@
             --card-radius: 18px;
             --pill-radius: 30px;
             --box-shadow-card: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        body.theme-white .side-menu-drawer {
-            background: #ffffff;
-            color: #2d3436;
-        }
-        body.theme-white .side-menu-drawer.custom-bg::before {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(245, 247, 250, 0.96) 100%);
-        }
-        body.theme-white .side-username-badge { color: #2d3436; text-shadow: none; }
-        body.theme-white .side-nav-link {
-            color: #2d3436;
-            background: rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            text-shadow: none;
-        }
-        body.theme-white .side-nav-link:hover, body.theme-white .side-nav-link.active {
-            background: rgba(16, 172, 132, 0.12);
-            color: #10ac84;
-        }
-        body.theme-white .bottom-nav {
-            background: rgba(255, 255, 255, 0.96);
-            border-color: rgba(16, 172, 132, 0.25);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-        body.theme-white .search-input-field {
-            background: #ffffff;
-            color: #2d3436;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-        body.theme-white .form-input, body.theme-white .form-select {
-            background: #ffffff;
-            color: #2d3436;
-            border-color: #dfe6e9;
         }
 
         * {
@@ -381,13 +344,17 @@
         }
         .user-auth-menu-btn i { color: #ff7675 !important; }
 
-        /* Banner */
-        .banner-container {
-            width: calc(100% - 24px); margin: 14px auto 10px auto; border-radius: var(--card-radius);
-            overflow: hidden; border: 1px solid var(--border-glow); box-shadow: var(--box-shadow-card);
-            background: #000;
+        /* Banner Slider */
+        .banner-slider-container {
+            width: calc(100% - 24px); margin: 14px auto 10px auto; height: 180px;
+            border-radius: var(--card-radius); overflow: hidden; border: 1px solid var(--border-glow);
+            box-shadow: var(--box-shadow-card); background: #000; position: relative;
         }
-        .banner-container img { width: 100%; height: 180px; object-fit: cover; display: block; }
+        .banner-slider-track { display: flex; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .banner-slide-item { min-width: 100%; width: 100%; height: 100%; background-size: cover; background-position: center; flex-shrink: 0; }
+        .banner-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 5; }
+        .banner-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, 0.4); cursor: pointer; transition: all 0.3s ease; }
+        .banner-dot.active { background: var(--primary-color); width: 20px; border-radius: 10px; }
 
         .ticker-box {
             background: var(--surface-bg); border: 1px solid var(--border-glow);
@@ -406,11 +373,12 @@
         .tab-content { display: none; }
         .tab-content.active-tab { display: block; }
 
+        /* Dynamic Categories Grid */
         .categories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 0 12px; margin-bottom: 24px; }
         .cat-card-item {
             background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: var(--card-radius);
             overflow: hidden; display: flex; flex-direction: column; align-items: center; cursor: pointer;
-            transition: all 0.25s ease; box-shadow: var(--box-shadow-card);
+            transition: all 0.25s ease; box-shadow: var(--box-shadow-card); position: relative;
         }
         .cat-card-item:hover, .cat-card-item:active { transform: translateY(-3px); border-color: var(--primary-color); }
         .cat-card-img { width: 100%; height: 105px; object-fit: cover; background: #000; }
@@ -541,25 +509,12 @@
             color: #06120b;
         }
 
-        /* ⚙️ تەڭشەك بۆلىكى كارتىلىرى */
-        .theme-select-card {
-            background: var(--surface-card);
-            border: 1px solid var(--border-glow);
-            border-radius: var(--card-radius);
-            padding: 14px;
-            margin-bottom: 12px;
+        /* 📋 ھەرىكەتچان باھا قۇرلىرى ئۇسلۇبى */
+        .dynamic-price-row {
             display: flex;
+            gap: 6px;
             align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .theme-select-card:hover { transform: translateY(-2px); border-color: var(--primary-color); }
-        .theme-preview-badge {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 2px solid rgba(0, 0, 0, 0.2);
+            margin-bottom: 8px;
         }
     </style>
 </head>
@@ -619,7 +574,6 @@
                 <span data-i18n="navFeedback">تەلەپ ۋە پىكىر</span>
             </div>
             
-            <!-- ⚙️ تەڭشەك كۆزنىكىنى ئېچىش كۇنۇپكىسى -->
             <div class="side-nav-link" onclick="toggleSideMenu(false); switchTab('settingsTab');">
                 <i class="fa-solid fa-gear" style="color:#f1c40f;"></i>
                 <span>تەڭشەك ۋە لايىھە ئۇسلۇبى</span>
@@ -630,7 +584,7 @@
                 <span data-i18n="navTelegram">تېلېگرامما ئالاقىسى</span>
             </div>
 
-            <!-- 👑 باشقۇرغۇچىنىڭ 3 تال ئايرىم مەركىزىي كۇنۇپكىلىرى -->
+            <!-- 👑 باشقۇرغۇچىنىڭ 3 بۆلىكى -->
             <div class="side-nav-link admin-link-1" id="sideAdminOrdersLink" style="display: none;" onclick="toggleSideMenu(false); switchTab('adminOrdersTab');">
                 <i class="fa-solid fa-bolt-lightning"></i>
                 <span>1. زاكاز ۋە تەلەپلەر مەركىزى</span>
@@ -646,7 +600,6 @@
                 <span>3. مەزمۇن ۋە تۈر قوشۇش</span>
             </div>
 
-            <!-- 🚪 Menu نىڭ ئەڭ ئاستىدىكى ھېساباتقا كىرىش / چىكىنىش كۇنۇپكىسى -->
             <div class="side-nav-link user-auth-menu-btn" id="sideMenuAuthBtn" onclick="handleSideAuthAction()">
                 <i class="fa-solid fa-arrow-right-to-bracket" id="sideMenuAuthIcon"></i>
                 <span id="sideMenuAuthText">👤 ھېساباتقا كىرىش / تىزىملىتىش</span>
@@ -678,8 +631,9 @@
 
     <!-- 🏠 باش بەت (Home) -->
     <div id="homeTab" class="tab-content active-tab">
-        <div class="banner-container">
-            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop" id="mainBannerImg" alt="Auto Chah">
+        <div class="banner-slider-container" id="bannerSliderContainer" style="display: none;">
+            <div class="banner-slider-track" id="bannerSliderTrack"></div>
+            <div class="banner-dots" id="bannerDotsContainer"></div>
         </div>
 
         <div class="ticker-box">
@@ -691,48 +645,23 @@
             <input type="text" id="searchInputBox" class="search-input-field" placeholder="ئىزدەش... (ئويۇن ياكى كارتىلارنى كىرگۈزۈڭ)" oninput="handleSearch(event)" data-i18n-ph="searchPlaceholder">
         </div>
 
-        <div class="categories-grid">
-            <div class="cat-card-item" onclick="filterCategory('balance')">
-                <img src="https://images.unsplash.com/photo-1621416894569-0f39ed31d247?q=80&w=300&auto=format&fit=crop" class="cat-card-img">
-                <div class="cat-card-title" data-i18n="catBalance">💵 ئارسىدە ۋە پۇللار</div>
-            </div>
-            <div class="cat-card-item" onclick="filterCategory('chat')">
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=300&auto=format&fit=crop" class="cat-card-img">
-                <div class="cat-card-title" data-i18n="catChat">💬 سۆزلىشىش ئەپلىرى</div>
-            </div>
-            <div class="cat-card-item" onclick="filterCategory('games')">
-                <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=300&auto=format&fit=crop" class="cat-card-img">
-                <div class="cat-card-title" data-i18n="catGames">🎮 ئويۇنلار تۈرى</div>
-            </div>
-            <div class="cat-card-item" onclick="filterCategory('social')">
-                <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=300&auto=format&fit=crop" class="cat-card-img">
-                <div class="cat-card-title" data-i18n="catSocial">📱 ئىجتىمائىي تاراتقۇ</div>
-            </div>
-            <div class="cat-card-item" onclick="filterCategory('tv')">
-                <img src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=300&auto=format&fit=crop" class="cat-card-img">
-                <div class="cat-card-title" data-i18n="catTv">📺 TV ئەزالىقلىرى</div>
-            </div>
-            <div class="cat-card-item" onclick="filterCategory('cards')">
-                <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=300&auto=format&fit=crop" class="cat-card-img">
-                <div class="cat-card-title" data-i18n="catCards">💳 كارتىلار تۈرى</div>
-            </div>
-        </div>
+        <!-- 📂 باشقۇرغۇچى قوشقان ھەممە يېڭى بۆلەكلەر چىقىدىغان ئورۇن -->
+        <div class="categories-grid" id="homeCategoriesContainer"></div>
 
         <div style="padding: 0 14px 10px 14px; display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-size: 15px; font-weight: 800;" data-i18n="popularProducts">🔥 ئالقىشلانغان مەھسۇلاتلار</span>
+            <span style="font-size: 15px; font-weight: 800;" data-i18n="popularProducts">🔥 مەھسۇلاتلار تىزىملىكى</span>
             <span style="font-size: 11px; color: var(--primary-color); cursor: pointer;" onclick="filterCategory('all')" data-i18n="seeAll">ھەممىسى ❯</span>
         </div>
         <div class="products-grid" id="gamesGridContainer"></div>
     </div>
 
-    <!-- ⚙️ 4 خىل ئۇسلۇب تەڭشىكى كۆزنىكى (Settings & Themes) -->
+    <!-- ⚙️ تەڭشەك كۆزنىكى (Themes) -->
     <div id="settingsTab" class="tab-content">
         <div class="page-box">
             <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: var(--text-primary); border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
 
             <div style="font-size: 16px; font-weight: 900; margin-bottom: 14px; color: var(--primary-color);">⚙️ لايىھە ئۇسلۇبى ۋە سىستېما تەڭشەكلىرى</div>
 
-            <!-- 1. Cyber Neon -->
             <div class="theme-select-card" onclick="setAppTheme('green', true)">
                 <div>
                     <div style="font-weight: 800; font-size: 14px;">🌿 Cyber Neon (يېشىل نېئون ئۇسلۇبى)</div>
@@ -741,7 +670,6 @@
                 <div class="theme-preview-badge" style="background: linear-gradient(135deg, #2ecc71, #10ac84); box-shadow: 0 0 10px #2ecc71;"></div>
             </div>
 
-            <!-- 2. Purple Cyberpunk -->
             <div class="theme-select-card" onclick="setAppTheme('purple', true)">
                 <div>
                     <div style="font-weight: 800; font-size: 14px;">💜 Purple Cyberpunk (بىنەپشە گىلاس ئۇسلۇبى)</div>
@@ -750,7 +678,6 @@
                 <div class="theme-preview-badge" style="background: linear-gradient(135deg, #a29bfe, #6c5ce7); box-shadow: 0 0 10px #6c5ce7;"></div>
             </div>
 
-            <!-- 3. Golden Luxury -->
             <div class="theme-select-card" onclick="setAppTheme('gold', true)">
                 <div>
                     <div style="font-weight: 800; font-size: 14px;">🔥 Golden Luxury (ھەشەمەتلىك ئالتۇن قارا)</div>
@@ -759,7 +686,6 @@
                 <div class="theme-preview-badge" style="background: linear-gradient(135deg, #f39c12, #f1c40f); box-shadow: 0 0 10px #f1c40f;"></div>
             </div>
 
-            <!-- 4. Clean Snow (ئاپئاق سۈزۈك ئۇسلۇب) -->
             <div class="theme-select-card" onclick="setAppTheme('white', true)">
                 <div>
                     <div style="font-weight: 800; font-size: 14px;">☀️ Clean Snow (سۈزۈك ئاپئاق ئۇسلۇب)</div>
@@ -806,7 +732,7 @@
             <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: var(--text-primary); border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
 
             <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 18px;">
-                <div style="font-size: 16px; font-weight: 900; color: #f1c40f; margin-bottom: 16px;">🎨 2-بۆلەك: رەسىم كىرگۈزۈش ۋە تاشقى كۆرۈنۈش تەڭشىكى</div>
+                <div style="font-size: 16px; font-weight: 900; color: #f1c40f; margin-bottom: 16px;">🎨 2-بۆلەك: رەسىم كىرگۈزۈش (1 دىن 3 كىچە تېما رەسىملىرى)</div>
 
                 <div class="form-group">
                     <label>⚡ 1. توربەت لوگو رەسىمى (Header & Site Logo)</label>
@@ -814,75 +740,89 @@
                 </div>
 
                 <div class="form-group">
-                    <label>🖼️ 2. باش بەت چوڭ تېما رەسىمى (Home Billboard Banner)</label>
-                    <input type="file" id="adminSiteBannerFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleSiteBannerUpload(event)">
+                    <label>🖼️ 2. باش بەت 1-تېما رەسىمى (Banner 1)</label>
+                    <input type="file" id="adminBanner1File" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleBannerUpload(event, 0)">
                 </div>
 
                 <div class="form-group">
-                    <label>🎬 3. توربەت ئېچىلىشتىن بۇرۇن چىقىدىغان بەت رەسىمى (Splash Logo)</label>
+                    <label>🖼️ 3. باش بەت 2-تېما رەسىمى (Banner 2)</label>
+                    <input type="file" id="adminBanner2File" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleBannerUpload(event, 1)">
+                </div>
+
+                <div class="form-group">
+                    <label>🖼️ 4. باش بەت 3-تېما رەسىمى (Banner 3)</label>
+                    <input type="file" id="adminBanner3File" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleBannerUpload(event, 2)">
+                </div>
+
+                <div class="form-group">
+                    <label>🎬 5. توربەت كۈتۈش ئېكرانى لوگوسى (Splash Logo)</label>
                     <input type="file" id="adminSplashLogoFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleSplashLogoUpload(event)">
                 </div>
 
                 <div class="form-group">
-                    <label>📱 4. يان Menu تىزىملىكى ئارقا كۆرۈنۈش رەسىمى (Side Menu Background)</label>
+                    <label>📱 6. يان Menu تىزىملىكى ئارقا كۆرۈنۈش رەسىمى (Side Menu Background)</label>
                     <input type="file" id="adminMenuBgFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleMenuBgUpload(event)">
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 👑 3-بۆلەك: مەزمۇن ۋە تۈر قوشۇش (Admin) -->
+    <!-- 👑 3-بۆلەك: مەزمۇن ۋە تۈر قوشۇش (يېڭى كاتېگورىيە ۋە باھا جەدۋىلى) -->
     <div id="adminUploadTab" class="tab-content">
         <div class="page-box">
             <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: var(--text-primary); border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
 
+            <!-- 1. يېڭى قوشۇلىدىغان ئورۇن (كاتېگورىيە) قوشۇش بۆلىكى -->
+            <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 18px; margin-bottom: 20px;">
+                <div style="font-size: 15px; font-weight: 900; color: var(--primary-color); margin-bottom: 12px;">📁 1. يېڭى قوشۇلىدىغان ئورۇن (كاتېگورىيە) قوشۇش</div>
+                
+                <div class="form-group">
+                    <label>كاتېگورىيە نامى</label>
+                    <input type="text" id="newCatTitle" class="form-input" placeholder="مەسىلەن: 🎮 ئويۇنلار تۈرى، 💬 سۆزلىشىش ئەپلىرى...">
+                </div>
+
+                <div class="form-group">
+                    <label>📷 كاتېگورىيە رەسىمى (تېلېفوندىن تاللاڭ)</label>
+                    <input type="file" id="newCatImageFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleCategoryFileSelected(event)">
+                </div>
+
+                <button type="button" class="action-btn" onclick="saveNewCategory()">➕ يېڭى كاتېگورىيە قوشۇش</button>
+            </div>
+
+            <!-- 2. مەھسۇلات ياكى تۈر قوشۇش (ھەرىكەتچان باھا جەدۋىلى بىلەن) -->
             <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 18px;">
-                <div style="font-size: 16px; font-weight: 900; color: #e67e22; margin-bottom: 16px;">➕ 3-بۆلەك: باش بەتكە ياكى تۈرلەرگە مەزمۇن قوشۇش</div>
+                <div style="font-size: 15px; font-weight: 900; color: #e67e22; margin-bottom: 14px;">💎 2. تاللانغان كاتېگورىيەگە مەھسۇلات ۋە باھا قوشۇش</div>
 
-                <form id="uploadForm" onsubmit="handleGameUpload(event)">
+                <form onsubmit="handleNewProductSubmit(event)">
                     <div class="form-group">
-                        <label>📂 قوشۇلىدىغان ئورۇن (كاتېگورىيە)</label>
-                        <select id="gameCategory" class="form-select">
-                            <option value="games">🎮 ئويۇنلار تۈرى (Games)</option>
-                            <option value="chat">💬 سۆزلىشىش ئەپلىرى (Chat Apps)</option>
-                            <option value="balance">💵 ئارسىدە ۋە پۇللار (Balance)</option>
-                            <option value="social">📱 ئىجتىمائىي تاراتقۇ (Social)</option>
-                            <option value="tv">📺 TV ئەزالىقلىرى (TV Subscriptions)</option>
-                            <option value="cards">💳 كارتىلار تۈرى (Cards)</option>
-                        </select>
+                        <label>قايسى كاتېگورىيەگە قوشۇلىدۇ؟</label>
+                        <select id="selectTargetCategory" class="form-select" required></select>
                     </div>
 
                     <div class="form-group">
-                        <label>مەھسۇلات ياكى تۈر نامى</label>
-                        <input type="text" id="gameTitle" class="form-input" placeholder="مەسىلەن: PUBG Mobile UC ياكى TikTok Coins" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>🎬 مەھسۇلات رەسىمى</label>
-                        <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-                            <button type="button" class="action-btn" id="posterTypeUrlBtn" onclick="setPosterInputMode('url')" style="padding: 6px; font-size: 11px; margin:0;">تور ئۇلانمىسى</button>
-                            <button type="button" class="action-btn" id="posterTypeFileBtn" onclick="setPosterInputMode('file')" style="padding: 6px; font-size: 11px; margin:0; background:var(--surface-bg); color:var(--text-primary);">تېلېفوندىن</button>
-                        </div>
-
-                        <div id="posterUrlBox">
-                            <input type="text" id="gamePosterUrl" class="form-input" placeholder="https://..." oninput="previewGamePoster(this.value)">
-                        </div>
-
-                        <div id="posterFileBox" style="display: none;">
-                            <input type="file" id="gamePosterFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handlePosterFile(event)">
-                        </div>
-
-                        <div id="gamePosterPreviewBox" style="margin-top: 10px; display: none; text-align: center;">
-                            <img id="gamePosterPreviewImg" src="" style="max-height: 110px; border-radius: 12px; border: 1px solid var(--border-glow); object-fit: cover;">
-                        </div>
+                        <label>مەھسۇلات نامى</label>
+                        <input type="text" id="prodNameInput" class="form-input" placeholder="مەسىلەن: PUBG Mobile UC، TikTok Coins..." required>
                     </div>
 
                     <div class="form-group">
-                        <label>باھا تىزىملىكى (ھەر قۇرغا: مىقدار:باھا)</label>
-                        <textarea id="gamePackages" class="form-input" rows="4" placeholder="60 UC: 1.0 شامكەش&#10;325 UC: 4.8 شامكەش" required></textarea>
+                        <label>📷 مەھسۇلات رەسىمى (تېلېفوندىن تاللاڭ)</label>
+                        <input type="file" id="prodImageFile" accept="image/*" class="form-input" style="padding: 8px;" required onchange="handleProductFileSelected(event)">
                     </div>
 
-                    <button type="submit" class="action-btn">ساقلاش ۋە ئېلان قىلىش</button>
+                    <div class="form-group">
+                        <label>💎 باھا تىزىملىكى (UC/ئالماس نامى ۋە پۇلى):</label>
+                        <div id="dynamicPriceContainer">
+                            <!-- دەسلەپكى باھا قۇرى -->
+                            <div class="dynamic-price-row">
+                                <input type="text" class="form-input prod-pkg-name" placeholder="مىقدارى (مەسىلەن: 60 UC)" required style="flex: 1.5;">
+                                <input type="text" class="form-input prod-pkg-price" placeholder="باھاسى (مەسىلەن: 1.0 شامكەش)" required style="flex: 1.2;">
+                                <button type="button" class="action-btn" style="width: auto; padding: 8px 12px; margin: 0; background: #e74c3c; color: #fff;" onclick="removePriceRow(this)">✕</button>
+                            </div>
+                        </div>
+                        <button type="button" class="action-btn" style="width: auto; padding: 8px 16px; margin-top: 8px; background: #00c6ff; color: #000; font-size: 11px;" onclick="addPriceRow()">➕ باھا تۈرى قوشۇش</button>
+                    </div>
+
+                    <button type="submit" class="action-btn" style="margin-top: 14px;">ساقلاش ۋە ئېلان قىلىش</button>
                 </form>
             </div>
         </div>
@@ -1111,6 +1051,7 @@
 
     <script>
         const SHAMKASH_ADDRESS = "8de7efd3b67a86752d1372caf8723b2c";
+        let allCategories = {};
         let allGames = {};
         let allOrders = {};
         let allDeposits = {};
@@ -1120,10 +1061,14 @@
         let currentFilter = 'all';
         let selectedGameId = null;
         let selectedPackage = null;
-        let uploadedGamePosterData = '';
+        let uploadedCategoryImgData = '';
+        let uploadedProductImgData = '';
         let uploadedDepositProofData = '';
         let currentLang = localStorage.getItem('auto_chah_lang') || 'ug';
         let currentAppTheme = localStorage.getItem('auto_chah_theme') || 'green';
+
+        let currentBannerIndex = 0;
+        let bannerSliderInterval = null;
 
         const i18nData = {
             ug: {
@@ -1131,9 +1076,8 @@
                 navHome: "باش بەت", navDeposit: "قالدۇق قاچىلاش", navWallet: "ھەميان", navOrders: "تەلەپلىرىم",
                 navFeedback: "تەلەپ ۋە پىكىر", navTelegram: "تېلېگرامما ئالاقىسى",
                 tickerText: "Auto Chah ئۇيۇنغا پۇل قاچىلاش سۇپىسىغا خۇش كەپسىز! تېز ھەم ئىشەنچلىك مۇلازىمەت بىلەن تەمىنلەيمىز.",
-                searchPlaceholder: "ئىزدەش... (ئويۇن ياكى كارتىلارنى كىرگۈزۈڭ)", catBalance: "💵 ئارسىدە ۋە پۇللار",
-                catChat: "💬 سۆزلىشىش ئەپلىرى", catGames: "🎮 ئويۇنلار تۈرى", catSocial: "📱 ئىجتىمائىي تاراتقۇ",
-                catTv: "📺 TV ئەزالىقلىرى", catCards: "💳 كارتىلار تۈرى", popularProducts: "🔥 ئالقىشلانغان مەھسۇلاتلار",
+                searchPlaceholder: "ئىزدەش... (ئويۇن ياكى كارتىلارنى كىرگۈزۈڭ)",
+                popularProducts: "🔥 مەھسۇلاتلار تىزىملىكى",
                 seeAll: "ھەممىسى ❯", btnBack: "⬅️ قايتىش", officialDirect: "رەسمىي بىۋاسىتە قاچىلاش",
                 labelPlayerId: "👤 ئويۇن / ھېسابات ID نومۇرى", labelSelectPackage: "💎 مىقدارنى تاللاڭ:",
                 labelTotalPay: "تۆلەيدىغان سومما:", btnSubmitOrder: "دەرھال زاكاز تاپشۇرۇش",
@@ -1150,9 +1094,8 @@
                 navHome: "الرئيسية", navDeposit: "شحن الرصيد", navWallet: "المحفظة", navOrders: "طلباتي",
                 navFeedback: "الشكاوى والاقتراحات", navTelegram: "حساب تلغرام",
                 tickerText: "أهلاً بكم في موقع Auto Chah لشحن جميع الألعاب والتطبيقات بأفضل الأسعار وبسرعة فائقة!",
-                searchPlaceholder: "بحث... (اكتب اسم اللعبة أو البطاقة)", catBalance: "💵 قسم الأرصدة والعملات",
-                catChat: "💬 قسم تطبيقات الدردشة", catGames: "🎮 قسم الألعاب", catSocial: "📱 قسم السوشيل ميديا",
-                catTv: "📺 قسم اشتراكات TV", catCards: "💳 قسم البطاقات", popularProducts: "🔥 المنتجات المميزة",
+                searchPlaceholder: "بحث... (اكتب اسم اللعبة أو البطاقة)",
+                popularProducts: "🔥 قائمة المنتجات",
                 seeAll: "الكل ❯", btnBack: "⬅️ رجوع", officialDirect: "شحن رسمي فوري ومباشر",
                 labelPlayerId: "👤 المعرف الخاص بك (Player ID)", labelSelectPackage: "💎 اختر الباقة المطلوبة:",
                 labelTotalPay: "المبلغ الإجمالي:", btnSubmitOrder: "تأكيد وإرسال الطلب",
@@ -1169,9 +1112,8 @@
                 navHome: "Home", navDeposit: "Top Up", navWallet: "Wallet", navOrders: "My Orders",
                 navFeedback: "Feedback & Requests", navTelegram: "Telegram Channel",
                 tickerText: "Welcome to Auto Chah! Fast and reliable game top-up and digital services.",
-                searchPlaceholder: "Search games, cards, or services...", catBalance: "💵 Balance & Currency",
-                catChat: "💬 Chat Apps", catGames: "🎮 Games Top-Up", catSocial: "📱 Social Media",
-                catTv: "📺 TV Subscriptions", catCards: "💳 Gift Cards", popularProducts: "🔥 Popular Products",
+                searchPlaceholder: "Search games, cards, or services...",
+                popularProducts: "🔥 Product Catalog",
                 seeAll: "All ❯", btnBack: "⬅️ Back", officialDirect: "Official Instant Delivery",
                 labelPlayerId: "👤 User / Player ID", labelSelectPackage: "💎 Select Package:",
                 labelTotalPay: "Total Amount:", btnSubmitOrder: "Submit Order Now",
@@ -1185,7 +1127,6 @@
             }
         };
 
-        /* 🎨 4 خىل لايىھە ئۇسلۇبىنى تەڭشەش */
         function setAppTheme(theme, showNotice = false) {
             currentAppTheme = theme;
             localStorage.setItem('auto_chah_theme', theme);
@@ -1290,6 +1231,115 @@
             });
         }
 
+        /* 📁 1. يېڭى كاتېگورىيە ساقلاش */
+        async function handleCategoryFileSelected(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            try {
+                uploadedCategoryImgData = await compressImage(file, 400, 400, 0.8);
+            } catch(e) {
+                alert('رەسىم بىر تەرەپ قىلىش مەغلۇپ بولدى!');
+            }
+        }
+
+        function saveNewCategory() {
+            if (!currentUser || currentUser.role !== 'admin') return alert('ھوقۇقىڭىز يوق!');
+            const title = document.getElementById('newCatTitle').value.trim();
+            if (!title) return alert('كاتېگورىيە نامىنى كىرگۈزۈڭ!');
+            if (!uploadedCategoryImgData) return alert('كاتېگورىيە رەسىمىنى تاللاڭ!');
+
+            const catId = 'cat_' + Date.now();
+            window.dbSet(window.dbRef(window.db, `custom_categories/${catId}`), {
+                id: catId,
+                title: title,
+                img: uploadedCategoryImgData,
+                createdAt: Date.now()
+            }).then(() => {
+                alert('يېڭى كاتېگورىيە مۇۋەپپەقىيەتلىك قوشۇلدى!');
+                document.getElementById('newCatTitle').value = '';
+                document.getElementById('newCatImageFile').value = '';
+                uploadedCategoryImgData = '';
+            });
+        }
+
+        function deleteCategory(catId) {
+            if (confirm('بۇ كاتېگورىيەنى ئۆچۈرەمسىز؟')) {
+                window.dbRemove(window.dbRef(window.db, `custom_categories/${catId}`));
+            }
+        }
+
+        /* 💎 2. مەھسۇلات ۋە ھەرىكەتچان باھا قوشۇش */
+        async function handleProductFileSelected(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            try {
+                uploadedProductImgData = await compressImage(file, 600, 600, 0.8);
+            } catch(e) {
+                alert('رەسىم بىر تەرەپ قىلىش مەغلۇپ بولدى!');
+            }
+        }
+
+        function addPriceRow() {
+            const container = document.getElementById('dynamicPriceContainer');
+            const row = document.createElement('div');
+            row.className = 'dynamic-price-row';
+            row.innerHTML = `
+                <input type="text" class="form-input prod-pkg-name" placeholder="مىقدارى (مەسىلەن: 325 UC)" required style="flex: 1.5;">
+                <input type="text" class="form-input prod-pkg-price" placeholder="باھاسى (مەسىلەن: 4.8 شامكەش)" required style="flex: 1.2;">
+                <button type="button" class="action-btn" style="width: auto; padding: 8px 12px; margin: 0; background: #e74c3c; color: #fff;" onclick="removePriceRow(this)">✕</button>
+            `;
+            container.appendChild(row);
+        }
+
+        function removePriceRow(btn) {
+            const rows = document.querySelectorAll('.dynamic-price-row');
+            if (rows.length > 1) {
+                btn.parentElement.remove();
+            } else {
+                alert('ئەڭ ئاز دېگەندە بىر باھا قۇرى بولۇشى كېرەك!');
+            }
+        }
+
+        function handleNewProductSubmit(e) {
+            e.preventDefault();
+            if (!currentUser || currentUser.role !== 'admin') return alert('ھوقۇقىڭىز يوق!');
+
+            const catId = document.getElementById('selectTargetCategory').value;
+            const title = document.getElementById('prodNameInput').value.trim();
+            const poster = uploadedProductImgData;
+
+            if (!catId) return alert('كاتېگورىيەنى تاللاڭ!');
+            if (!title) return alert('مەھسۇلات نامىنى كىرگۈزۈڭ!');
+            if (!poster) return alert('مەھسۇلات رەسىمىنى تاللاڭ!');
+
+            let pkgLines = [];
+            document.querySelectorAll('.dynamic-price-row').forEach(row => {
+                const name = row.querySelector('.prod-pkg-name').value.trim();
+                const price = row.querySelector('.prod-pkg-price').value.trim();
+                if (name && price) {
+                    pkgLines.push(`${name}: ${price}`);
+                }
+            });
+
+            if (pkgLines.length === 0) return alert('باھا تۈرىنى تولدۇرۇڭ!');
+
+            const gameId = 'prod_' + Date.now();
+            window.dbSet(window.dbRef(window.db, `game_products/${gameId}`), {
+                id: gameId,
+                category: catId,
+                title: title,
+                poster: poster,
+                packages: pkgLines.join('\n'),
+                createdAt: Date.now()
+            }).then(() => {
+                alert('مەھسۇلات مۇۋەپپەقىيەتلىك ئېلان قىلىندى!');
+                document.getElementById('prodNameInput').value = '';
+                document.getElementById('prodImageFile').value = '';
+                uploadedProductImgData = '';
+                switchTab('homeTab');
+            });
+        }
+
         /* 🎨 2-بۆلەك: رەسىم يۈكلەش */
         async function handleSiteLogoUpload(e) {
             const file = e.target.files[0];
@@ -1304,16 +1354,16 @@
             }
         }
 
-        async function handleSiteBannerUpload(e) {
+        async function handleBannerUpload(e, index) {
             const file = e.target.files[0];
             if (!file || !currentUser || currentUser.role !== 'admin') return;
             try {
                 const base64 = await compressImage(file, 1000, 500, 0.85);
-                window.dbSet(window.dbRef(window.db, 'site_branding/banner'), base64).then(() => {
-                    alert('باش بەت چوڭ تېما رەسىمى يېڭىلاندى!');
+                window.dbSet(window.dbRef(window.db, `site_branding/banners/${index}`), base64).then(() => {
+                    alert(`باش بەت ${index + 1}-تېما رەسىمى يېڭىلاندى!`);
                 });
             } catch (err) {
-                alert('تېما رەسىمى يۈكلەشتە خاتالىق كۆرۈلدى!');
+                alert('رەسىم يۈكلەشتە خاتالىق كۆرۈلدى!');
             }
         }
 
@@ -1343,7 +1393,88 @@
             }
         }
 
-        /* 1-بۆلەكتىكى 3 تال كۆزنەكنى ئالماشتۇرۇش */
+        function renderBannerSlider(bannersArr) {
+            const container = document.getElementById('bannerSliderContainer');
+            const track = document.getElementById('bannerSliderTrack');
+            const dotsContainer = document.getElementById('bannerDotsContainer');
+            
+            if (!container || !track || !dotsContainer) return;
+            
+            track.innerHTML = '';
+            dotsContainer.innerHTML = '';
+
+            let validBanners = (bannersArr || []).filter(b => b && b.trim() !== '');
+
+            if (validBanners.length === 0) {
+                validBanners = ['https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop'];
+            }
+
+            container.style.display = 'block';
+
+            validBanners.forEach((bUrl, idx) => {
+                const slide = document.createElement('div');
+                slide.className = 'banner-slide-item';
+                slide.style.backgroundImage = `url('${bUrl}')`;
+                track.appendChild(slide);
+
+                const dot = document.createElement('div');
+                dot.className = `banner-dot ${idx === 0 ? 'active' : ''}`;
+                dot.onclick = () => {
+                    currentBannerIndex = idx;
+                    track.style.transform = `translateX(${currentBannerIndex * 100}%)`;
+                    document.querySelectorAll('.banner-dot').forEach((d, i) => d.classList.toggle('active', i === currentBannerIndex));
+                };
+                dotsContainer.appendChild(dot);
+            });
+
+            currentBannerIndex = 0;
+            if (bannerSliderInterval) clearInterval(bannerSliderInterval);
+            if (validBanners.length > 1) {
+                bannerSliderInterval = setInterval(() => {
+                    currentBannerIndex = (currentBannerIndex + 1) % validBanners.length;
+                    track.style.transform = `translateX(${currentBannerIndex * 100}%)`;
+                    document.querySelectorAll('.banner-dot').forEach((d, i) => d.classList.toggle('active', i === currentBannerIndex));
+                }, 4000);
+            }
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('homeCategoriesContainer');
+            const selectEl = document.getElementById('selectTargetCategory');
+            if (!container) return;
+            container.innerHTML = '';
+            if (selectEl) selectEl.innerHTML = '';
+
+            const catKeys = Object.keys(allCategories);
+            if (catKeys.length === 0) {
+                container.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--text-secondary); font-size:12px; padding:15px;">باشقۇرغۇچى تېخى كاتېگورىيە قوشمىدى</div>';
+                return;
+            }
+
+            catKeys.forEach(k => {
+                const cat = allCategories[k];
+                
+                // 1. باش بەت كاتېگورىيە كارتىسى
+                const card = document.createElement('div');
+                card.className = 'cat-card-item';
+                card.innerHTML = `
+                    <img src="${cat.img}" class="cat-card-img">
+                    <div class="cat-card-title">${escapeHTML(cat.title)}</div>
+                    ${currentUser && currentUser.role === 'admin' ? `<button type="button" style="position:absolute; top:4px; right:4px; background:rgba(231,76,60,0.8); border:none; color:#fff; width:22px; height:22px; border-radius:50%; font-size:10px; cursor:pointer;" onclick="event.stopPropagation(); deleteCategory('${k}')">✕</button>` : ''}
+                `;
+                card.onclick = () => filterCategory(k);
+                container.appendChild(card);
+
+                // 2. مەھسۇلات قوشۇش تاللىغۇچىسى
+                if (selectEl) {
+                    const opt = document.createElement('option');
+                    opt.value = k;
+                    opt.innerText = cat.title;
+                    selectEl.appendChild(opt);
+                }
+            });
+        }
+
         function switchAdminOrderSubTab(type) {
             const btnGame = document.getElementById('btnAdminGameSubTab');
             const btnDeposit = document.getElementById('btnAdminDepositSubTab');
@@ -1419,63 +1550,11 @@
             document.getElementById('switchToRegisterBtn').style.color = mode === 'register' ? '#041208' : 'var(--text-secondary)';
         }
 
-        function setPosterInputMode(mode) {
-            const urlBox = document.getElementById('posterUrlBox');
-            const fileBox = document.getElementById('posterFileBox');
-            const btnUrl = document.getElementById('posterTypeUrlBtn');
-            const btnFile = document.getElementById('posterTypeFileBtn');
-
-            if (mode === 'url') {
-                urlBox.style.display = 'block';
-                fileBox.style.display = 'none';
-                btnUrl.style.background = 'var(--accent-grad)';
-                btnUrl.style.color = '#041208';
-                btnFile.style.background = 'var(--surface-bg)';
-                btnFile.style.color = 'var(--text-primary)';
-            } else {
-                urlBox.style.display = 'none';
-                fileBox.style.display = 'block';
-                btnFile.style.background = 'var(--accent-grad)';
-                btnFile.style.color = '#041208';
-                btnUrl.style.background = 'var(--surface-bg)';
-                btnUrl.style.color = 'var(--text-primary)';
-            }
-        }
-
-        function previewGamePoster(url) {
-            const previewBox = document.getElementById('gamePosterPreviewBox');
-            const previewImg = document.getElementById('gamePosterPreviewImg');
-            if (url && url.trim().length > 5) {
-                previewImg.src = url.trim();
-                previewBox.style.display = 'block';
-                uploadedGamePosterData = url.trim();
-            } else {
-                previewBox.style.display = 'none';
-                uploadedGamePosterData = '';
-            }
-        }
-
-        async function handlePosterFile(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            try {
-                const base64 = await compressImage(file, 600, 600, 0.8);
-                uploadedGamePosterData = base64;
-                const previewBox = document.getElementById('gamePosterPreviewBox');
-                const previewImg = document.getElementById('gamePosterPreviewImg');
-                previewImg.src = base64;
-                previewBox.style.display = 'block';
-            } catch (err) {
-                alert('Error processing image!');
-            }
-        }
-
         async function handleProofFileSelected(e) {
             const file = e.target.files[0];
             if (!file) return;
             try {
-                const base64 = await compressImage(file, 800, 800, 0.7);
-                uploadedDepositProofData = base64;
+                uploadedDepositProofData = await compressImage(file, 800, 800, 0.7);
             } catch (err) {
                 alert('Error processing proof image!');
             }
@@ -1514,10 +1593,7 @@
                     if (splashBox) splashBox.innerHTML = `<img src="${branding.splashLogo || branding.logo}" alt="Auto Chah">`;
                 }
 
-                if (branding.banner) {
-                    const bannerImg = document.getElementById('mainBannerImg');
-                    if (bannerImg) bannerImg.src = branding.banner;
-                }
+                renderBannerSlider(branding.banners);
 
                 const sideDrawer = document.getElementById('sideMenuDrawer');
                 if (sideDrawer) {
@@ -1529,6 +1605,12 @@
                         sideDrawer.classList.remove('custom-bg');
                     }
                 }
+            });
+
+            // 📁 يېڭى كاتېگورىيەلەرنى تىڭشاش
+            window.dbOnValue(window.dbRef(window.db, 'custom_categories'), (snapshot) => {
+                allCategories = snapshot.val() || {};
+                renderCategories();
             });
 
             window.dbOnValue(window.dbRef(window.db, 'game_products'), (snapshot) => {
@@ -2026,29 +2108,6 @@
             }
         }
 
-        function handleGameUpload(e) {
-            e.preventDefault();
-            if (!currentUser || currentUser.role !== 'admin') return;
-
-            const poster = uploadedGamePosterData;
-            const title = document.getElementById('gameTitle').value.trim();
-            const packages = document.getElementById('gamePackages').value.trim();
-            const category = document.getElementById('gameCategory').value;
-
-            if (!title || !poster) return alert('بارلىق بوشلۇقنى تولدۇرۇڭ!');
-
-            const gameId = 'game_' + Date.now();
-            const data = { category, title, poster, packages, createdAt: Date.now() };
-
-            window.dbSet(window.dbRef(window.db, `game_products/${gameId}`), data).then(() => {
-                alert('يېڭى مەزمۇن مۇۋەپپەقىيەتلىك قوشۇلدى!');
-                document.getElementById('uploadForm').reset();
-                uploadedGamePosterData = '';
-                document.getElementById('gamePosterPreviewBox').style.display = 'none';
-                switchTab('homeTab');
-            });
-        }
-
         function deleteGame(id) {
             if (confirm('مەھسۇلاتنى ئۆچۈرەمسىز؟')) window.dbRemove(window.dbRef(window.db, `game_products/${id}`));
         }
@@ -2127,6 +2186,7 @@
             updateBalanceUI();
             updateWalletTabStats();
             renderGames();
+            renderCategories();
             if (isAdmin) {
                 renderAdminUsersList();
                 renderAdminOrdersDirect();
