@@ -365,7 +365,7 @@
         .banner-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, 0.4); cursor: pointer; transition: all 0.3s ease; }
         .banner-dot.active { background: var(--primary-color); width: 20px; border-radius: 10px; }
 
-        /* 📢 سولدىن ئوڭغا قاراپ سىلىق ماڭىدىغان يېڭى ئۇسلۇبتىكى ئۇقتۇرۇش تاختىسى */
+        /* 📢 سولدىن ئوڭغا راۋان مېڭىدىغان ئۇقتۇرۇش تاختىسى */
         .ticker-box {
             background: var(--surface-bg);
             border: 1px solid var(--border-glow);
@@ -403,14 +403,9 @@
             animation-play-state: paused;
         }
 
-        /* سولدىن ئوڭغا مېڭىش ھەرىكىتى (Keyframes) */
         @keyframes scrollLeftToRight {
-            0% {
-                transform: translateX(-100%);
-            }
-            100% {
-                transform: translateX(100%);
-            }
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .search-bar-wrap { margin: 0 12px 16px 12px; }
@@ -423,7 +418,7 @@
         .tab-content { display: none; }
         .tab-content.active-tab { display: block; }
 
-        /* Dynamic Categories Grid */
+        /* Categories Grid */
         .categories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 0 12px; margin-bottom: 24px; }
         .cat-card-item {
             background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: var(--card-radius);
@@ -705,7 +700,7 @@
             <div class="banner-dots" id="bannerDotsContainer"></div>
         </div>
 
-        <!-- 📢 سولدىن ئوڭغا راۋان مېڭىدىغان ئۇقتۇرۇش تاختىسى -->
+        <!-- 📢 سولدىن ئوڭغا مېڭىدىغان ئۇقتۇرۇش خېتى -->
         <div class="ticker-box">
             <i class="fa-solid fa-bullhorn ticker-icon"></i>
             <div class="ticker-content-wrapper">
@@ -1332,7 +1327,6 @@
             });
         }
 
-        /* 📢 ئۇقتۇرۇش خېتىنى ساقلاش */
         function saveTickerText() {
             if (!currentUser || currentUser.role !== 'admin') return alert('ھوقۇقىڭىز يوق!');
             const text = document.getElementById('adminTickerInput').value.trim();
@@ -1342,7 +1336,6 @@
             });
         }
 
-        /* 📁 1. يېڭى كاتېگورىيە ساقلاش */
         async function handleCategoryFileSelected(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -1373,7 +1366,6 @@
             });
         }
 
-        /* 🗑️ 2. كاتېگورىيەنى تاللاپ يۇيۇۋېتىش */
         function handleDeleteSelectedCategory() {
             if (!currentUser || currentUser.role !== 'admin') return alert('ھوقۇقىڭىز يوق!');
             const catId = document.getElementById('selectDeleteCategory').value;
@@ -1392,7 +1384,6 @@
             }
         }
 
-        /* 💎 3. مەھسۇلات ۋە ھەرىكەتچان باھا قوشۇش */
         async function handleProductFileSelected(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -1466,7 +1457,6 @@
             });
         }
 
-        /* 🎨 2-بۆلەك: رەسىم يۈكلەش */
         async function handleSiteLogoUpload(e) {
             const file = e.target.files[0];
             if (!file || !currentUser || currentUser.role !== 'admin') return;
@@ -1564,7 +1554,6 @@
             }
         }
 
-        /* 📂 كاتېگورىيەلەرنى خەرىتىلەش */
         function renderCategories() {
             const container = document.getElementById('homeCategoriesContainer');
             const selectTarget = document.getElementById('selectTargetCategory');
@@ -1583,7 +1572,6 @@
             catKeys.forEach(k => {
                 const cat = allCategories[k];
                 
-                // 1. باش بەت كارتىلىرى
                 if (container) {
                     const card = document.createElement('div');
                     card.className = 'cat-card-item';
@@ -1595,7 +1583,6 @@
                     container.appendChild(card);
                 }
 
-                // 2. مەھسۇلات قوشۇش تاللىغۇچىسى
                 if (selectTarget) {
                     const opt = document.createElement('option');
                     opt.value = k;
@@ -1603,7 +1590,6 @@
                     selectTarget.appendChild(opt);
                 }
 
-                // 3. كاتېگورىيە ئۆچۈرۈش تاللىغۇچىسى
                 if (selectDelete) {
                     const optDel = document.createElement('option');
                     optDel.value = k;
@@ -1921,6 +1907,7 @@
             }).filter(p => p !== null);
         }
 
+        /* 🔒 ئوڭشالغان قىسىم: پۇل يەتمىسە زاكازنى رەت قىلىش ۋە قاچىلاشقا باشلاش */
         function submitTopUpOrder() {
             if (!currentUser) {
                 alert('ئالدى بىلەن ھېساباتىڭىزغا كىرىڭ!');
@@ -1930,24 +1917,47 @@
 
             const gameIdInput = document.getElementById('orderGameId').value.trim();
             if (!gameIdInput) return alert('ID نومۇرىنى كىرگۈزۈڭ!');
-            if (!selectedPackage) return alert('تۈر تاللاڭ!');
+            if (!selectedPackage) return alert('قاچىلايدىغان تۈرنى تاللاڭ!');
 
-            const orderId = 'ord_' + Date.now();
-            const orderData = {
-                orderId,
-                user: currentUser.user,
-                game: allGames[selectedGameId]?.title || 'مەھسۇلات',
-                gamePlayerId: gameIdInput,
-                package: selectedPackage.amount,
-                price: selectedPackage.price,
-                status: 'pending',
-                timestamp: Date.now()
-            };
+            // مەھسۇلات باھاسىدىن سانلىق قىممەتنى ئاجرىتىۋېلىش
+            const packagePriceNum = parseFloat(String(selectedPackage.price).replace(/[^0-9.]/g, '')) || 0;
+            const userCurrentBal = parseFloat(currentUser.balance || 0);
 
-            window.dbSet(window.dbRef(window.db, `game_orders/${orderId}`), orderData).then(() => {
-                alert('تەلىپىڭىز مۇۋەپپەقىيەتلىك تاپشۇرۇلدى! تەلەپلىرىم بېتىدىن ئەھۋالىنى كۆرەلەيسىز.');
-                document.getElementById('orderGameId').value = '';
-                switchTab('ordersTab');
+            // 🛑 قالدۇق پۇل تەكشۈرۈش
+            if (userCurrentBal < packagePriceNum) {
+                alert(`قالدۇق پۇلىڭىز يەتمەيدۇ!\nسىزدىكى سومما: ${userCurrentBal.toFixed(2)} شامكەش\nتۆلەيدىغان سومما: ${packagePriceNum.toFixed(2)} شامكەش\n\nئالدى بىلەن قالدۇق قاچىلاڭ!`);
+                switchTab('depositTab');
+                return;
+            }
+
+            const confirmOrder = confirm(`زاكاز تەپسىلاتى:\nمەھسۇلات: ${allGames[selectedGameId]?.title} (${selectedPackage.amount})\nتۆلەيدىغان پۇل: ${selectedPackage.price}\n\nزاكازنى تاپشۇرامسىز؟`);
+            if (!confirmOrder) return;
+
+            // 1. ئابونتنىڭ قالدۇق پۇلىدىن ئاپتوماتىك تۇتۇپ قېلىش
+            const newBal = userCurrentBal - packagePriceNum;
+            const userRef = window.dbRef(window.db, `users/${currentUser.user}/balance`);
+            
+            window.dbSet(userRef, newBal).then(() => {
+                // 2. زاكازنى مۇۋەپپەقىيەتلىك تاپشۇرۇش
+                const orderId = 'ord_' + Date.now();
+                const orderData = {
+                    orderId,
+                    user: currentUser.user,
+                    game: allGames[selectedGameId]?.title || 'مەھسۇلات',
+                    gamePlayerId: gameIdInput,
+                    package: selectedPackage.amount,
+                    price: selectedPackage.price,
+                    status: 'pending',
+                    timestamp: Date.now()
+                };
+
+                window.dbSet(window.dbRef(window.db, `game_orders/${orderId}`), orderData).then(() => {
+                    alert('زاكاز تاپشۇرۇلدى ھەمدە قالدۇق پۇلىڭىزدىن تۇتۇلدى!');
+                    document.getElementById('orderGameId').value = '';
+                    switchTab('ordersTab');
+                });
+            }).catch(() => {
+                alert('زاكاز تاپشۇرۇشتا خاتالىق كۆرۈلدى!');
             });
         }
 
