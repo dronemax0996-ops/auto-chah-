@@ -365,12 +365,53 @@
         .banner-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, 0.4); cursor: pointer; transition: all 0.3s ease; }
         .banner-dot.active { background: var(--primary-color); width: 20px; border-radius: 10px; }
 
+        /* 📢 سولدىن ئوڭغا قاراپ سىلىق ماڭىدىغان يېڭى ئۇسلۇبتىكى ئۇقتۇرۇش تاختىسى */
         .ticker-box {
-            background: var(--surface-bg); border: 1px solid var(--border-glow);
-            border-radius: var(--pill-radius); padding: 8px 16px; margin: 8px 12px 14px 12px;
-            display: flex; align-items: center; gap: 10px;
+            background: var(--surface-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--pill-radius);
+            padding: 8px 16px;
+            margin: 8px 12px 14px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+            position: relative;
         }
-        .ticker-box marquee { font-size: 12px; font-weight: 700; color: var(--primary-color); }
+        .ticker-icon {
+            color: var(--primary-color);
+            font-size: 14px;
+            flex-shrink: 0;
+            z-index: 2;
+        }
+        .ticker-content-wrapper {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+        .ticker-animated-text {
+            display: inline-block;
+            white-space: nowrap;
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--primary-color);
+            animation: scrollLeftToRight 16s linear infinite;
+        }
+        .ticker-content-wrapper:hover .ticker-animated-text {
+            animation-play-state: paused;
+        }
+
+        /* سولدىن ئوڭغا مېڭىش ھەرىكىتى (Keyframes) */
+        @keyframes scrollLeftToRight {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
 
         .search-bar-wrap { margin: 0 12px 16px 12px; }
         .search-input-field {
@@ -664,10 +705,12 @@
             <div class="banner-dots" id="bannerDotsContainer"></div>
         </div>
 
-        <!-- 📢 ئوڭدىن سولغا مېڭىدىغان ئۇقتۇرۇش خېتى -->
+        <!-- 📢 سولدىن ئوڭغا راۋان مېڭىدىغان ئۇقتۇرۇش تاختىسى -->
         <div class="ticker-box">
-            <i class="fa-solid fa-bullhorn" style="color: var(--primary-color); font-size: 14px;"></i>
-            <marquee id="homeTickerText" direction="left" scrollamount="5" data-i18n="tickerText">Auto Chah ئۇيۇنغا پۇل قاچىلاش سۇپىسىغا خۇش كەپسىز! تېز ھەم ئىشەنچلىك مۇلازىمەت بىلەن تەمىنلەيمىز.</marquee>
+            <i class="fa-solid fa-bullhorn ticker-icon"></i>
+            <div class="ticker-content-wrapper">
+                <span class="ticker-animated-text" id="homeTickerText" data-i18n="tickerText">Auto Chah ئۇيۇنغا پۇل قاچىلاش سۇپىسىغا خۇش كەپسىز! تېز ھەم ئىشەنچلىك مۇلازىمەت بىلەن تەمىنلەيمىز.</span>
+            </div>
         </div>
 
         <div class="search-bar-wrap">
@@ -682,7 +725,7 @@
             <div class="categories-grid" id="homeCategoriesContainer"></div>
         </div>
 
-        <!-- 2. تاللانغان كاتېگورىيە ئىچىدىكى مەھسۇلاتلار كۆرۈنىدىغان رايون (قايتىش كۇنۇپكىسى بىلەن) -->
+        <!-- 2. تاللانغان كاتېگورىيە ئىچىدىكى مەھسۇلاتلار كۆرۈنىدىغان رايون -->
         <div id="productsViewSection" style="display: none;">
             <div style="padding: 0 14px 12px 14px; display: flex; justify-content: space-between; align-items: center;">
                 <span id="selectedCategoryTitleDisplay" style="font-size: 15px; font-weight: 800; color: var(--primary-color);"></span>
@@ -804,16 +847,16 @@
         </div>
     </div>
 
-    <!-- 👑 3-بۆلەك: مەزمۇن ۋە تۈر قوشۇش (ئۇقتۇرۇش خېتى تەڭشەك بىلەن بىرگە) -->
+    <!-- 👑 3-بۆلەك: مەزمۇن ۋە تۈر قوشۇش (Admin) -->
     <div id="adminUploadTab" class="tab-content">
         <div class="page-box">
             <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: var(--text-primary); border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
 
-            <!-- 📢 باش بەت مېڭىپ تۇرىدىغان ئۇقتۇرۇش خېتىنى ئۆزگەرتىش بۆلىكى -->
+            <!-- 📢 باش بەت مېڭىپ تۇرىدىغان ئۇقتۇرۇش خېتىنى ئۆزگەرتىش -->
             <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 18px; margin-bottom: 20px;">
                 <div style="font-size: 15px; font-weight: 900; color: #00c6ff; margin-bottom: 12px;">📢 باش بەت مېڭىپ تۇرىدىغان ئۇقتۇرۇش خېتىنى ئۆزگەرتىش</div>
                 <div class="form-group">
-                    <label>ئۇقتۇرۇش ياكى خەۋەر مەزمۇنى (ئوڭدىن سولغا ماڭىدۇ)</label>
+                    <label>ئۇقتۇرۇش ياكى خەۋەر مەزمۇنى (سولدىن ئوڭغا ماڭىدۇ)</label>
                     <input type="text" id="adminTickerInput" class="form-input" placeholder="باش بەتتە كۆرۈنىدىغان خەتنى كىرگۈزۈڭ...">
                 </div>
                 <button type="button" class="action-btn" style="background: #00c6ff; color: #06120b;" onclick="saveTickerText()">💾 ئۇقتۇرۇش خېتىنى ساقلاش</button>
@@ -1540,7 +1583,7 @@
             catKeys.forEach(k => {
                 const cat = allCategories[k];
                 
-                // 1. باش بەت كاتېگورىيە كارتىسى
+                // 1. باش بەت كارتىلىرى
                 if (container) {
                     const card = document.createElement('div');
                     card.className = 'cat-card-item';
@@ -1570,7 +1613,6 @@
             });
         }
 
-        /* 🌟 كاتېگورىيە چېكىلگەندە مەھسۇلاتلار بۆلىكىگە ئۆتۈش */
         function openCategoryProducts(catId, catTitle) {
             currentFilter = catId;
             document.getElementById('categoryViewSection').style.display = 'none';
@@ -1580,7 +1622,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        /* ⬅️ كاتېگورىيەلەر تىزىملىكىگە قايتىش */
         function goBackToCategories() {
             currentFilter = 'all';
             document.getElementById('productsViewSection').style.display = 'none';
@@ -1710,7 +1751,6 @@
 
                 renderBannerSlider(branding.banners);
 
-                // 📢 باش بەت ئۇقتۇرۇش خېتىنى يېڭىلاش
                 if (branding.tickerText) {
                     const tickerMarquee = document.getElementById('homeTickerText');
                     const tickerInput = document.getElementById('adminTickerInput');
@@ -1730,7 +1770,6 @@
                 }
             });
 
-            // 📁 كاتېگورىيەلەرنى ئوقۇش
             window.dbOnValue(window.dbRef(window.db, 'custom_categories'), (snapshot) => {
                 allCategories = snapshot.val() || {};
                 renderCategories();
@@ -2327,7 +2366,6 @@
                 return;
             }
 
-            // ئەگەر ئىزدەش قىلىنسا دەرھال مەھسۇلات بۆلىكىگە يۆتكەش
             document.getElementById('categoryViewSection').style.display = 'none';
             document.getElementById('productsViewSection').style.display = 'block';
             document.getElementById('selectedCategoryTitleDisplay').innerText = `🔍 ئىزدەش نەتىجىلىرى: "${kw}"`;
