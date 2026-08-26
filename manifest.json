@@ -1,13 +1,11 @@
 {
-  "name": "auto chah پۇل قاچىلاش سېستىمىسى",
-  "short_name": "auto chah",
-  "description": "auto chah تېز ۋە قولايلىق ئاپتوماتىك ئويۇن ۋە ھېسابات پۇل قاچىلاش سىستېمىسى",
+  "name": "Auto Chah پۇل قاچىلاش سېستىمىسى",
+  "short_name": "Auto Chah",
   "start_url": "/auto-chah-/",
   "scope": "/auto-chah-/",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#0d1117",
-  "theme_color": "#0d1117",
+  "background_color": "#06120b",
+  "theme_color": "#06120b",
   "icons": [
     {
       "src": "icon-192.png",
