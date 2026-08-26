@@ -55,6 +55,9 @@
             --header-bg: #27ae60;
             --surface-bg: rgba(14, 28, 20, 0.75);
             --surface-card: #0c1c12;
+            --sidebar-bg: #ffffff;
+            --sidebar-text: #1b262c;
+            --sidebar-item-hover: #e8f8f0;
             --nav-bg: rgba(8, 20, 13, 0.92);
             --text-primary: #ffffff;
             --text-secondary: #a3b899;
@@ -74,6 +77,8 @@
             --text-secondary: #52715e;
             --border-glow: rgba(39, 174, 96, 0.15);
             --border-active: #27ae60;
+            --sidebar-bg: #ffffff;
+            --sidebar-text: #0f2416;
         }
 
         * {
@@ -92,9 +97,10 @@
             padding-bottom: 95px;
             direction: rtl;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* 👑 Header (رەسىمدىكىدەك يېشىل) */
+        /* 👑 Header */
         header {
             background: var(--header-bg);
             padding: 12px 18px;
@@ -114,6 +120,8 @@
             color: #ffffff;
             font-size: 18px;
             font-weight: 900;
+            cursor: pointer;
+            user-select: none;
         }
         .logo-icon {
             width: 34px;
@@ -126,6 +134,7 @@
             justify-content: center;
             font-size: 18px;
             font-weight: 900;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
         .header-actions { display: flex; align-items: center; gap: 8px; }
@@ -173,7 +182,178 @@
             cursor: pointer;
         }
 
-        /* 🖼️ چوڭ تەشۋىقات بەت باننېرى */
+        /* 📱 رەسىمدىكىدەك يان تەرەپتىن چىقىدىغان كۆركەم Menu كۆزنىكى */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .side-menu-drawer {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100%;
+            background: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            z-index: 10000;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.4);
+            transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            padding: 24px 16px 30px 16px;
+            direction: rtl;
+        }
+        .side-menu-drawer.active {
+            right: 0;
+        }
+
+        /* Profile Header inside Sidebar */
+        .side-profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .side-avatar-circle {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            border: 3px solid #1e272e;
+            background: #111;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        .side-avatar-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .side-username-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: 800;
+            color: #1e272e;
+        }
+        .side-badge-pill {
+            background: #f1f2f6;
+            color: #747d8c;
+            padding: 2px 8px;
+            border-radius: var(--pill-radius);
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .side-balance-huge {
+            font-size: 26px;
+            font-weight: 900;
+            color: #27ae60;
+            margin: 8px 0 10px 0;
+        }
+
+        .side-quick-icons {
+            display: flex;
+            justify-content: center;
+            gap: 22px;
+            margin-bottom: 14px;
+            font-size: 17px;
+            color: #747d8c;
+        }
+        .side-quick-icons i {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .side-quick-icons i:active { transform: scale(0.85); }
+        .side-quick-icons .icon-heart { color: #e84118; }
+
+        .currency-switch-pill {
+            background: #fef9e7;
+            border: 1px solid #f1c40f;
+            color: #d35400;
+            padding: 6px 14px;
+            border-radius: var(--pill-radius);
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 16px;
+            cursor: pointer;
+        }
+
+        /* Menu Items */
+        .side-nav-list {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .side-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            color: #2f3542;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .side-nav-link.active, .side-nav-link:hover {
+            background: #e8f8f0;
+            color: #27ae60;
+        }
+        .side-nav-link i {
+            font-size: 16px;
+            width: 22px;
+            text-align: center;
+            color: #27ae60;
+        }
+
+        .side-theme-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 14px;
+            border-top: 1px solid #f1f2f6;
+            font-size: 12px;
+            font-weight: 800;
+            color: #57606f;
+        }
+
+        /* 🖼️ Banner */
         .banner-container {
             width: calc(100% - 24px);
             margin: 14px auto 10px auto;
@@ -191,7 +371,7 @@
             display: block;
         }
 
-        /* 📢 مېڭىپ تۇرىدىغان ئۇقتۇرۇش تاختىسى */
+        /* 📢 Ticker Box */
         .ticker-box {
             background: var(--surface-bg);
             border: 1px solid var(--border-glow);
@@ -208,10 +388,8 @@
             color: var(--primary-green);
         }
 
-        /* 🔍 Search Input Bar */
-        .search-bar-wrap {
-            margin: 0 12px 16px 12px;
-        }
+        /* 🔍 Search Input */
+        .search-bar-wrap { margin: 0 12px 16px 12px; }
         .search-input-field {
             width: 100%;
             padding: 12px 20px;
@@ -224,14 +402,11 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             text-align: center;
         }
-        .search-input-field:focus {
-            border-color: var(--primary-green);
-        }
 
         .tab-content { display: none; }
         .tab-content.active-tab { display: block; }
 
-        /* 📂 نېئون يېشىل تۈر كارتىلىرى (Grid Layout) */
+        /* 📂 تۈرلەر كاتېگورىيە كارتىلىرى */
         .categories-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -256,12 +431,7 @@
             border-color: var(--primary-green);
             box-shadow: 0 8px 25px rgba(46, 204, 113, 0.3);
         }
-        .cat-card-img {
-            width: 100%;
-            height: 105px;
-            object-fit: cover;
-            background: #000;
-        }
+        .cat-card-img { width: 100%; height: 105px; object-fit: cover; background: #000; }
         .cat-card-title {
             padding: 8px 4px;
             font-size: 11px;
@@ -274,7 +444,7 @@
             width: 100%;
         }
 
-        /* مەھسۇلات كارتىلىرى */
+        /* مەھسۇلاتلار تىزىملىكى */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -287,9 +457,7 @@
             border: 1px solid var(--border-glow);
             overflow: hidden;
             cursor: pointer;
-            transition: transform 0.2s ease;
         }
-        .product-card:active { transform: scale(0.98); }
         .product-card img { width: 100%; height: 130px; object-fit: cover; }
         .product-card-body { padding: 10px; text-align: center; }
         .product-card-title { font-size: 13px; font-weight: 800; margin-bottom: 4px; }
@@ -304,27 +472,25 @@
             margin-top: 4px;
         }
 
-        /* 💬 لەيلىمە تېز ئالاقە كۇنۇپكىسى (Floating WhatsApp/Telegram Button) */
+        /* 💬 لەيلىمە تېلېگرامما كۇنۇپكىسى */
         .floating-chat-btn {
             position: fixed;
             bottom: 75px;
             left: 16px;
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: #25d366;
             color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
+            font-size: 24px;
             box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
             z-index: 1001;
             cursor: pointer;
             text-decoration: none;
-            transition: transform 0.2s ease;
         }
-        .floating-chat-btn:active { transform: scale(0.9); }
 
         /* Package selection */
         .package-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 14px 0; }
@@ -336,7 +502,7 @@
         .pkg-amount { font-size: 13px; font-weight: 800; }
         .pkg-price { font-size: 12px; color: var(--primary-green); font-weight: 700; margin-top: 4px; }
 
-        /* Modals & Controls */
+        /* Modals */
         .custom-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(4, 12, 7, 0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -354,7 +520,6 @@
             width: 100%; padding: 12px 16px; background: var(--surface-bg); border: 1px solid var(--border-glow); 
             color: var(--text-primary); border-radius: 16px; font-size: 13px; outline: none;
         }
-        .form-input:focus { border-color: var(--primary-green); }
 
         .action-btn {
             width: 100%; padding: 12px; background: var(--accent-green-grad); color: #041208;
@@ -404,15 +569,87 @@
 <body>
 
     <!-- Splash Screen -->
-    <div id="splashScreen">
-        <div class="splash-cinema-icon"><i class="fa-solid fa-bolt"></i></div>
-        <div style="font-size: 22px; font-weight: 900; color: #ffffff; margin-bottom: 4px;">Auto Chah</div>
-        <div style="font-size: 12px; color: #a3b899;">ئەڭ تېز ھەم ئەرزان ئۇيۇن ۋە ئارسىدە مۇلازىمەت مەركىزى</div>
+    <div id="splashScreen" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#06120b; z-index:99999; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <div style="width:75px; height:75px; background:var(--accent-green-grad); border-radius:22px; display:flex; align-items:center; justify-content:center; font-size:35px; color:#06120b; margin-bottom:14px;"><i class="fa-solid fa-bolt"></i></div>
+        <div style="font-size: 22px; font-weight: 900; color: #ffffff;">Auto Chah</div>
     </div>
 
-    <!-- 👑 Header -->
+    <!-- 📱 Side Menu Overlay & Drawer (رەسىمدىكى يان تىزىملىك) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSideMenu(false)"></div>
+    <div class="side-menu-drawer" id="sideMenuDrawer">
+        <div class="side-profile-section">
+            <div class="side-avatar-circle" id="sideAvatarCircle" onclick="toggleSideMenu(false); switchTab('accountTab');">
+                👤
+            </div>
+            <div class="side-username-badge">
+                <span id="sideUsernameText">مېھمان ئابونت</span>
+                <span class="side-badge-pill" id="sideVipPill"><i class="fa-solid fa-star" style="color:#f1c40f;"></i> ئالتۇن</span>
+            </div>
+            <div class="side-balance-huge" id="sideBalanceDisplay">
+                $ 0.00
+            </div>
+            <div class="side-quick-icons">
+                <i class="fa-solid fa-heart icon-heart" title="ياقتۇرغانلار"></i>
+                <i class="fa-solid fa-user" onclick="toggleSideMenu(false); switchTab('accountTab');" title="ھېسابات"></i>
+                <i class="fa-solid fa-right-from-bracket" onclick="handleLogout()" title="چېكىنىش"></i>
+            </div>
+            <div class="currency-switch-pill" onclick="openDepositModal()">
+                <i class="fa-solid fa-rotate"></i> پۇل بىرلىكى: شامكەش / دوللار
+            </div>
+        </div>
+
+        <div class="side-nav-list">
+            <div class="side-nav-link active" onclick="toggleSideMenu(false); switchTab('homeTab');">
+                <i class="fa-solid fa-house"></i>
+                <span>باش بەت (الرئيسية)</span>
+            </div>
+            <div class="side-nav-link" onclick="toggleSideMenu(false); openDepositModal();">
+                <i class="fa-solid fa-wallet"></i>
+                <span>پۇل قاچىلاش (إضافة رصيد)</span>
+            </div>
+            <div class="side-nav-link" onclick="toggleSideMenu(false); switchTab('historyTab');">
+                <i class="fa-solid fa-money-bill-transfer"></i>
+                <span>مېنىڭ تۆلۈملىرىم (دفعاتي)</span>
+            </div>
+            <div class="side-nav-link" onclick="toggleSideMenu(false); switchTab('accountTab');">
+                <i class="fa-solid fa-id-card-clip"></i>
+                <span>ھەميانىم ۋە ئارخىپىم (محفظتي)</span>
+            </div>
+            <div class="side-nav-link" onclick="toggleSideMenu(false); switchTab('historyTab');">
+                <i class="fa-solid fa-cart-shopping" style="color:#e84118;"></i>
+                <span>زاكازلىرىم (طلباتي)</span>
+            </div>
+            <div class="side-nav-link" onclick="window.open('https://t.me/KOZNAK_USD', '_blank')">
+                <i class="fa-brands fa-telegram" style="color:#0088cc;"></i>
+                <span>تېلېگرامما قانىلىمىز (حساب تلغرام)</span>
+            </div>
+            <div class="side-nav-link" onclick="window.open('https://t.me/KOZNAK_USD', '_blank')">
+                <i class="fa-solid fa-headset" style="color:#2ecc71;"></i>
+                <span>ۋەكىللىرىمىز ۋە ئالاقە (وكلاؤنا)</span>
+            </div>
+            <div class="side-nav-link" onclick="alert('ھېساباتىڭىز بىخەتەر قوغدالغان!')">
+                <i class="fa-solid fa-shield-halved" style="color:#10ac84;"></i>
+                <span>بىخەتەرلىك مەركىزى (الحماية)</span>
+            </div>
+            <div class="side-nav-link" onclick="alert('ھېساباتىڭىز رەسمىي تىزىملاتقان.')">
+                <i class="fa-solid fa-user-check" style="color:#27ae60;"></i>
+                <span>كىملىك دەلىللەش (توثيق الهوية)</span>
+            </div>
+            <div class="side-nav-link" onclick="alert('Auto Chah - ئەڭ ئىشەنچلىك ئۇيۇن ۋە ئارسىدە مۇلازىمەت سۇپىسى.')">
+                <i class="fa-solid fa-circle-info" style="color:#3498db;"></i>
+                <span>بىز ھەققىدە (من نحن)</span>
+            </div>
+        </div>
+
+        <div class="side-theme-toggle">
+            <span>يورۇق / قاراڭغۇ ھالەت (الوضع الفاتح)</span>
+            <input type="checkbox" id="themeToggleSwitch" onchange="toggleThemeMode()" style="cursor: pointer; width: 18px; height: 18px; accent-color:#27ae60;">
+        </div>
+    </div>
+
+    <!-- 👑 Header (Logo نى باسىش ئارقىلىق Menu ئېچىلىدۇ) -->
     <header>
-        <div class="logo-box">
+        <div class="logo-box" onclick="toggleSideMenu(true)" title="Menu ئېچىش">
             <div class="logo-icon"><i class="fa-solid fa-gamepad"></i></div>
             <span>Auto Chah</span>
         </div>
@@ -422,29 +659,26 @@
                 <span id="headerBalanceDisplay">0.00</span>
                 <button type="button" class="btn-add-balance">+</button>
             </div>
-            <button class="header-menu-btn" onclick="switchTab('accountTab')"><i class="fa-solid fa-user"></i></button>
+            <button class="header-menu-btn" onclick="toggleSideMenu(true)"><i class="fa-solid fa-bars"></i></button>
         </div>
     </header>
 
     <!-- 🏠 1. باش بەت -->
     <div id="homeTab" class="tab-content active-tab">
-        <!-- Banner -->
         <div class="banner-container">
             <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop" id="mainBannerImg" alt="Auto Chah">
         </div>
 
-        <!-- Ticker Announcement -->
         <div class="ticker-box">
             <i class="fa-solid fa-bullhorn" style="color: var(--primary-green); font-size: 14px;"></i>
             <marquee id="homeTickerText">Auto Chah ئۇيۇنغا پۇل قاچىلاش سۇپىسىغا خۇش كەپسىز! تېز ھەم ئىشەنچلىك مۇلازىمەت بىلەن تەمىنلەيمىز.</marquee>
         </div>
 
-        <!-- Search Bar -->
         <div class="search-bar-wrap">
             <input type="text" class="search-input-field" placeholder="ئىزدەش... (ئويۇن ياكى كارتىلارنى كىرگۈزۈڭ)" oninput="handleSearch(event)">
         </div>
 
-        <!-- 📂 تۈرلەر كاتېگورىيە بۆلىكى (رەسىمدىكىدەك 6 بۆلەك كارتىسى) -->
+        <!-- 📂 تۈرلەر كاتېگورىيە بۆلىكى -->
         <div class="categories-grid">
             <div class="cat-card-item" onclick="filterCategory('balance')">
                 <img src="https://images.unsplash.com/photo-1621416894569-0f39ed31d247?q=80&w=300&auto=format&fit=crop" class="cat-card-img">
@@ -472,7 +706,6 @@
             </div>
         </div>
 
-        <!-- مەھسۇلاتلار تىزىملىكى -->
         <div style="padding: 0 14px 10px 14px; display: flex; justify-content: space-between; align-items: center;">
             <span style="font-size: 15px; font-weight: 800; color: #fff;">🔥 ئالقىشلانغان مەھسۇلاتلار</span>
             <span style="font-size: 11px; color: var(--primary-green); cursor: pointer;" onclick="filterCategory('all')">ھەممىسى ❯</span>
@@ -632,7 +865,7 @@
                     </div>
                 </div>
 
-                <!-- 👥 باشقۇرغۇچى: ئابونتلارنى باشقۇرۇش مەركىزى -->
+                <!-- 👥 باشقۇرغۇچى: ئابونتلار تىزىملىكى ۋە تەڭشەش -->
                 <div id="adminPanelSection" style="display: none; margin-top: 20px; border-top: 1px solid var(--border-glow); padding-top: 16px;">
                     <div style="font-size: 15px; font-weight: 800; color: var(--primary-green); margin-bottom: 12px;">👥 ئابونتلار تىزىملىكى ۋە قالدۇق پۇل تەڭشەش</div>
                     <div id="adminUsersListContainer"></div>
@@ -656,7 +889,7 @@
         </div>
     </div>
 
-    <!-- 💰 7. پۇل قاچىلاش مودالى (شامكەش) -->
+    <!-- 💰 7. پۇل قاچىلاش مودالى -->
     <div id="depositModal" class="custom-modal">
         <div class="modal-content-card">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
@@ -688,7 +921,7 @@
         </div>
     </div>
 
-    <!-- 💬 لەيلىمە تېز ئالاقە كۇنۇپكىسى (Floating WhatsApp / Telegram Link) -->
+    <!-- 💬 لەيلىمە تېز ئالاقە كۇنۇپكىسى -->
     <a href="https://t.me/KOZNAK_USD" target="_blank" class="floating-chat-btn" title="تېلېگراممىدا ئالاقىلىشىش">
         <i class="fa-brands fa-telegram"></i>
     </a>
@@ -718,6 +951,19 @@
         function escapeHTML(str) {
             if (!str) return '';
             return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        /* 📱 Side Menu Toggle Handler */
+        function toggleSideMenu(isOpen) {
+            const drawer = document.getElementById('sideMenuDrawer');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (isOpen) {
+                drawer.classList.add('active');
+                overlay.classList.add('active');
+            } else {
+                drawer.classList.remove('active');
+                overlay.classList.remove('active');
+            }
         }
 
         function compressImage(file, maxWidth = 800, maxHeight = 800, quality = 0.75) {
@@ -797,7 +1043,9 @@
 
         function toggleThemeMode() {
             document.body.classList.toggle('light-mode');
-            localStorage.setItem('game_theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+            const isLight = document.body.classList.contains('light-mode');
+            document.getElementById('themeToggleSwitch').checked = isLight;
+            localStorage.setItem('game_theme', isLight ? 'light' : 'dark');
         }
 
         function setAuthMode(mode) {
@@ -879,6 +1127,7 @@
                 currentUser.avatar = base64;
                 localStorage.setItem('game_user', JSON.stringify(currentUser));
                 document.getElementById('mainAvatarBox').innerHTML = `<img src="${base64}">`;
+                document.getElementById('sideAvatarCircle').innerHTML = `<img src="${base64}">`;
                 if (currentUser.user !== 'nasrulla') {
                     window.dbSet(window.dbRef(window.db, `users/${currentUser.user}/avatar`), base64);
                 }
@@ -888,7 +1137,7 @@
             }
         }
 
-        /* Firebase Listeners */
+        /* Firebase Realtime Listeners */
         window.initFirebaseApp = function() {
             window.dbOnValue(window.dbRef(window.db, 'game_products'), (snapshot) => {
                 allGames = snapshot.val() || {};
@@ -928,6 +1177,10 @@
             document.getElementById('headerBalanceDisplay').innerText = bal;
             const profBal = document.getElementById('profileBalanceDisplay');
             if (profBal) profBal.innerText = bal;
+
+            // Update side menu balance
+            const sideBal = document.getElementById('sideBalanceDisplay');
+            if (sideBal) sideBal.innerText = `$ ${bal}`;
         }
 
         function filterCategory(cat) {
@@ -1363,12 +1616,16 @@
             document.getElementById('userProfileView').style.display = 'block';
             document.getElementById('displayUsername').innerText = currentUser.user;
 
+            // Side Menu Profile UI
+            document.getElementById('sideUsernameText').innerText = currentUser.user;
             if (currentUser.avatar) {
                 document.getElementById('mainAvatarBox').innerHTML = `<img src="${currentUser.avatar}">`;
+                document.getElementById('sideAvatarCircle').innerHTML = `<img src="${currentUser.avatar}">`;
             }
 
             const isAdmin = currentUser.role === 'admin';
             document.getElementById('userRoleBadge').innerText = isAdmin ? 'باشقۇرغۇچى' : 'ئەزا';
+            document.getElementById('sideVipPill').innerHTML = isAdmin ? '<i class="fa-solid fa-crown" style="color:#f1c40f;"></i> باشقۇرغۇچى' : '<i class="fa-solid fa-star" style="color:#f1c40f;"></i> ئالتۇن ئەزا';
             document.getElementById('navUploadBtn').style.display = isAdmin ? 'flex' : 'none';
             document.getElementById('adminPanelSection').style.display = isAdmin ? 'block' : 'none';
             
@@ -1417,7 +1674,11 @@
                 if (splash) { splash.style.opacity = '0'; setTimeout(() => splash.style.display = 'none', 300); }
             }, 500);
 
-            if (localStorage.getItem('game_theme') === 'light') document.body.classList.add('light-mode');
+            if (localStorage.getItem('game_theme') === 'light') {
+                document.body.classList.add('light-mode');
+                const switchEl = document.getElementById('themeToggleSwitch');
+                if (switchEl) switchEl.checked = true;
+            }
             if (localStorage.getItem('game_user')) {
                 try {
                     currentUser = JSON.parse(localStorage.getItem('game_user'));
