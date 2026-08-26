@@ -5,20 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Auto Chah - ئۇيۇنغا پۇل قاچىلاش مەركىزى</title>
     
-    <!-- 📱 PWA Manifest ئۇلانمىسى -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0a0a12">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Auto Chah">
 
-    <!-- FontAwesome سىنبەلگىلىرى -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- تېلېگرامما WebApp كۇتۇپخانىسى -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, set, get, child, remove, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -124,15 +119,9 @@
             align-items: center;
             gap: 8px;
         }
-        .logo i { -webkit-text-fill-color: #ff2a54; }
 
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .header-actions { display: flex; align-items: center; gap: 8px; }
 
-        /* 💰 Header Balance Chip */
         .user-balance-chip {
             background: var(--surface-bg);
             border: 1px solid var(--border-glow);
@@ -144,7 +133,6 @@
             font-size: 12px;
             font-weight: 800;
             color: #2ed573;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         .btn-add-balance {
@@ -159,10 +147,7 @@
             font-size: 13px;
             cursor: pointer;
             border: none;
-            box-shadow: 0 2px 8px rgba(255, 42, 84, 0.4);
-            transition: transform 0.2s;
         }
-        .btn-add-balance:active { transform: scale(0.9); }
 
         .search-btn { 
             font-size: 13px; 
@@ -176,10 +161,8 @@
             align-items: center; 
             justify-content: center; 
             cursor: pointer; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        /* Splash Screen */
         #splashScreen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #0a0a12; z-index: 99999; display: flex; flex-direction: column;
@@ -188,7 +171,7 @@
         .splash-cinema-icon {
             width: 80px; height: 80px; background: var(--accent-gradient);
             border-radius: 24px; display: flex; align-items: center; justify-content: center;
-            font-size: 38px; margin-bottom: 16px; color: #ffffff; box-shadow: 0 12px 35px rgba(255, 42, 84, 0.5);
+            font-size: 38px; margin-bottom: 16px; color: #ffffff;
         }
 
         .tab-content { display: none; }
@@ -211,14 +194,12 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4); position: relative; display: flex; flex-direction: column;
             cursor: pointer; border: 1px solid var(--border-glow); transition: transform 0.25s ease;
         }
-        .movie-card:hover, .movie-card:active { transform: translateY(-4px) scale(1.02); border-color: var(--border-active); }
         .movie-poster-box { width: 100%; height: 150px; background: rgba(0, 0, 0, 0.3); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
         .movie-poster-box img { width: 100%; height: 100%; object-fit: cover; }
         .movie-footer { display: flex; flex-direction: column; padding: 10px 12px; flex-grow: 1; }
         .movie-name { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; text-align: center; }
         .movie-card-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
 
-        /* Package selection cards */
         .package-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 14px 0; }
         .package-card {
             background: var(--surface-bg); border: 1px solid var(--border-glow); border-radius: 16px;
@@ -230,7 +211,6 @@
 
         .del-btn { background: rgba(255, 42, 84, 0.15); border: 1px solid rgba(255, 42, 84, 0.4); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; cursor: pointer; color: #ff2a54; }
 
-        /* Modals & Forms */
         .custom-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(10, 10, 18, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -243,7 +223,7 @@
 
         .detail-container { max-width: 600px; margin: 0 auto; padding: 16px; }
         .detail-back-btn { background: var(--surface-bg); border: 1px solid var(--border-glow); color: var(--text-primary); padding: 8px 18px; border-radius: var(--pill-radius); font-size: 12px; font-weight: 700; cursor: pointer; margin-bottom: 14px; }
-        .detail-info-box { background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 22px; padding: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .detail-info-box { background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 22px; padding: 18px; }
         
         .page-box { padding: 16px; max-width: 600px; margin: 0 auto; }
         .form-group { margin-bottom: 14px; }
@@ -259,7 +239,6 @@
             box-shadow: 0 6px 20px rgba(255, 42, 84, 0.4);
         }
 
-        /* Bottom Nav */
         .bottom-nav {
             position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); width: calc(100% - 32px);
             max-width: 480px; background: var(--nav-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
@@ -273,7 +252,6 @@
         .nav-item.active { color: #ff2a54; transform: scale(1.05); }
         .nav-item span:first-child { font-size: 18px; }
 
-        /* Order & Request Cards */
         .order-card {
             background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 18px;
             padding: 14px; margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px;
@@ -283,11 +261,21 @@
         .badge-success { background: #2ed573; color: #fff; }
         .badge-rejected { background: #ff4757; color: #fff; }
 
+        /* 👥 Admin User Card */
+        .admin-user-item {
+            background: var(--surface-bg); border: 1px solid var(--border-glow); border-radius: 18px;
+            padding: 12px 14px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 8px;
+        }
+        .admin-user-header { display: flex; align-items: center; justify-content: space-between; }
+        .admin-user-avatar { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #ff2a54; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #161622; flex-shrink: 0; }
+        .admin-user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .admin-user-controls { display: flex; gap: 6px; align-items: center; margin-top: 4px; }
+        .admin-input-small { width: 80px; padding: 6px 10px; font-size: 12px; border-radius: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-glow); color: #fff; text-align: center; }
+
         .auth-mode-switcher { display: flex; background: var(--surface-bg); border: 1px solid var(--border-glow); border-radius: var(--pill-radius); padding: 4px; margin-bottom: 14px; }
         .auth-switch-btn { flex: 1; padding: 7px; font-size: 12px; font-weight: 700; border: none; background: transparent; color: var(--text-secondary); border-radius: var(--pill-radius); cursor: pointer; }
         .auth-switch-btn.active { background: var(--accent-gradient); color: #ffffff; }
 
-        /* Shamkash Address Box */
         .shamkash-box {
             background: rgba(0, 168, 255, 0.1); border: 1px dashed #00a8ff; border-radius: 16px;
             padding: 12px; margin-bottom: 14px; text-align: center;
@@ -301,11 +289,11 @@
         <div class="splash-content" style="text-align: center;">
             <div class="splash-cinema-icon"><i class="fa-solid fa-gamepad"></i></div>
             <div style="font-size: 22px; font-weight: 900; color: #ffffff; margin-bottom: 4px;">Auto Chah</div>
-            <div style="font-size: 12px; color: #94a3b8;">شامكەش ئارقىلىق تېز ھەم قولايلىق پۇل قاچىلاش سۇپىسى</div>
+            <div style="font-size: 12px; color: #94a3b8;">ئەڭ تېز ئۇيۇنغا پۇل قاچىلاش سۇپىسى</div>
         </div>
     </div>
 
-    <!-- 👑 Header (قالدۇق پۇل ۋە + كۇنۇپكىسى قوشۇلدى) -->
+    <!-- 👑 Header -->
     <header>
         <div class="logo"><i class="fa-solid fa-gamepad"></i> Auto Chah</div>
         <div class="header-actions">
@@ -334,7 +322,7 @@
         </div>
     </div>
 
-    <!-- 💳 2. ئويۇنغا پۇل قاچىلاش تەپسىلاتى -->
+    <!-- 💳 2. ئويۇنغا پۇل قاچىلاش بەت -->
     <div id="detailTab" class="tab-content">
         <div class="detail-container">
             <button class="detail-back-btn" onclick="switchTab('homeTab')">⬅️ قايتىش</button>
@@ -368,18 +356,27 @@
         </div>
     </div>
 
-    <!-- 📋 3. زاكازلىرىم بەت -->
+    <!-- 📋 3. زاكازلىرىم بەت (ئابونت ۋە باشقۇرغۇچى تەستىقلاش كۆرۈنۈشى) -->
     <div id="historyTab" class="tab-content">
         <div class="page-box">
-            <div class="section-title">📋 مېنىڭ زاكازلىرىم ۋە قاچىلاش خاتىرىلىرىم</div>
+            <div id="adminDirectOrdersBox" style="display: none; margin-bottom: 20px;">
+                <div class="section-title" style="color: #ff2a54;">⚡ باشقۇرغۇچى: پۇل قاچىلاش ئىلتىماسلىرى (شامكەش)</div>
+                <div id="historyAdminDepositsContainer" style="margin-top: 10px;"></div>
+
+                <div class="section-title" style="color: #00c6ff; margin-top: 20px;">⚡ باشقۇرغۇچى: ئويۇن قاچىلاش زاكازلىرى</div>
+                <div id="historyAdminOrdersContainer" style="margin-top: 10px;"></div>
+                <hr style="border: none; border-top: 1px solid var(--border-glow); margin: 20px 0;">
+            </div>
+
+            <div class="section-title">📋 شەخسىي زاكازلىرىم ۋە پۇل قاچىلاشلىرىم</div>
             <div id="userOrdersList" style="margin-top: 14px;"></div>
         </div>
     </div>
 
-    <!-- ➕ 4. يېڭى ئويۇن قوشۇش (Admin - تور ئۇلانمىسى ياكى تېلېفوندىن رەسىم) -->
+    <!-- ➕ 4. يېڭى ئويۇن قوشۇش (Admin) -->
     <div id="uploadTab" class="tab-content">
         <div class="page-box">
-            <div class="section-title" style="margin-bottom: 16px;">➕ يېڭى ئويۇن تۈرى قوشۇش</div>
+            <div class="section-title" style="margin-bottom: 16px;">➕ يېڭى ئويۇن قوشۇش</div>
             <form id="uploadForm" onsubmit="handleGameUpload(event)">
                 <div class="form-group">
                     <label>كاتېگورىيە</label>
@@ -396,7 +393,6 @@
                     <input type="text" id="gameTitle" class="form-input" placeholder="مەسىلەن: Honor of Kings Tokens" required>
                 </div>
                 
-                <!-- رەسىم تاللاش ئەندىزىسى -->
                 <div class="form-group">
                     <label>🎬 مەھسۇلات رەسىمى</label>
                     <div style="display: flex; gap: 8px; margin-bottom: 8px;">
@@ -426,11 +422,15 @@
         </div>
     </div>
 
-    <!-- 👤 5. ھېسابات ۋە باشقۇرغۇچى مەركىزى -->
+    <!-- 👤 5. ھېسابات ۋە باشقۇرغۇچى بۆلىكى -->
     <div id="accountTab" class="tab-content">
         <div class="page-box" style="text-align: center;">
             <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px; margin-bottom: 16px;">
-                <div style="width: 75px; height: 75px; border-radius: 50%; border: 3px solid #ff2a54; background: var(--surface-bg); display: flex; align-items: center; justify-content: center; font-size: 30px;">🎮</div>
+                <div style="width: 75px; height: 75px; border-radius: 50%; border: 3px solid #ff2a54; background: var(--surface-bg); display: flex; align-items: center; justify-content: center; font-size: 30px; overflow: hidden; cursor: pointer;" onclick="document.getElementById('profileAvatarInput').click()" id="mainAvatarBox">
+                    👤
+                </div>
+                <input type="file" id="profileAvatarInput" accept="image/*" style="display: none;" onchange="handleProfileAvatarUpload(event)">
+                <span style="font-size: 11px; color: var(--text-secondary); margin-top: 6px;">باش رەسىم ئالماشتۇرۇش ئۈچۈن چېكىڭ</span>
             </div>
 
             <h3 id="accountTitle" style="font-size: 16px;">ھېساباتقا كىرىش / تىزىملىتىش</h3>
@@ -475,13 +475,10 @@
                     </div>
                 </div>
 
-                <!-- 👑 باشقۇرغۇچى تەستىقلاش بۆلىكى (پۇل قاچىلاش تەلىپى ۋە زاكازلار) -->
+                <!-- 👥 باشقۇرغۇچى: ئابونتلارنى باشقۇرۇش مەركىزى -->
                 <div id="adminPanelSection" style="display: none; margin-top: 22px; border-top: 1px solid var(--border-glow); padding-top: 18px;">
-                    <div class="section-title" style="font-size: 15px; margin-bottom: 12px; color: #00c6ff;">📥 پۇل قاچىلاش تەلەپلىرى (شامكەش ئىسپاتى)</div>
-                    <div id="adminDepositRequestsContainer"></div>
-
-                    <div class="section-title" style="font-size: 15px; margin: 20px 0 10px 0; color: #ff2a54;">🎮 ئويۇن زاكازلىرى</div>
-                    <div id="adminOrdersContainer"></div>
+                    <div class="section-title" style="font-size: 15px; margin-bottom: 14px; color: #2ed573;">👥 ئابونتلار تىزىملىكى ۋە پۇل تەڭشەش</div>
+                    <div id="adminUsersListContainer"></div>
                 </div>
 
                 <button type="button" class="action-btn" style="background: var(--surface-bg); border: 1px solid var(--border-glow); margin-top: 18px;" onclick="handleLogout()">چېكىنىش (Log out)</button>
@@ -499,15 +496,15 @@
                     <button class="action-btn" style="width: auto; padding: 6px 14px; margin: 0;" onclick="toggleThemeMode()">ئالماشتۇرۇش</button>
                 </div>
                 <hr style="border: none; border-top: 1px solid var(--border-glow); margin: 12px 0;">
-                <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;">سوئال ياكى زاكاز مەسىلىسى بولسا ئالاقىلىشىڭ:</p>
+                <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 10px;">خېرىدارلار مۇلازىمىتى ئالاقىسى:</p>
                 <a href="https://t.me/KOZNAK_USD" target="_blank" style="display: block; text-align: center; background: #0088cc; color: #fff; padding: 12px; border-radius: var(--pill-radius); font-weight: 700; text-decoration: none; font-size: 13px;">
-                    💬 تېلېگرامما خېرىدارلار مۇلازىمىتى
+                    💬 Telegram دا ئالاقىلىشىش
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- 💰 7. پۇل قاچىلاش مودالى (شامكەش تولۇقلاش) -->
+    <!-- 💰 7. پۇل قاچىلاش مودالى -->
     <div id="depositModal" class="custom-modal">
         <div class="modal-content-card">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
@@ -521,10 +518,6 @@
                 <button type="button" class="action-btn" style="background: #0072ff; padding: 6px 14px; font-size: 11px; margin-top: 8px; width: auto;" onclick="copyShamkashAddress()">📋 كۆچۈرۈۋېلىش</button>
             </div>
 
-            <p style="font-size: 11px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px;">
-                يۇقىرىدىكى شامكەش كودىغا پۇل ئۆتكۈزۈپ بولۇپ، تۆۋەندىكى ئۇچۇرلارنى تولدۇرۇپ ئىسپات رەسىمىنى قوشۇپ تاپشۇرۇڭ:
-            </p>
-
             <form id="depositForm" onsubmit="handleDepositSubmit(event)">
                 <div class="form-group">
                     <label>قاچىلىغان پۇل سانى (شامكەش / $)</label>
@@ -535,10 +528,10 @@
                     <input type="text" id="depositTxId" class="form-input" placeholder="شامكەش تالون نومۇرىنى كىرگۈزۈڭ" required>
                 </div>
                 <div class="form-group">
-                    <label>📷 پۇل ئۆتكۈزۈش ئىسپات رەسىمى (تېلېفوندىن تاللاڭ)</label>
+                    <label>📷 ئىسپات رەسىمى</label>
                     <input type="file" id="depositProofFile" accept="image/*" class="form-input" style="padding: 8px;" required onchange="handleProofFileSelected(event)">
                 </div>
-                <button type="submit" class="action-btn" style="background: var(--accent-green-grad); color: #000;"><i class="fa-solid fa-paper-plane"></i> پۇل قاچىلاش ئىلتىماسىنى يوللاش</button>
+                <button type="submit" class="action-btn" style="background: var(--accent-green-grad); color: #000;"><i class="fa-solid fa-paper-plane"></i> ئىلتىماسنى يوللاش</button>
             </form>
         </div>
     </div>
@@ -625,7 +618,15 @@
                 if (btn) btn.classList.add('active');
             }
 
-            if (tabId === 'historyTab') renderUserOrders();
+            if (tabId === 'historyTab') {
+                renderUserOrders();
+                if (currentUser && currentUser.role === 'admin') {
+                    document.getElementById('adminDirectOrdersBox').style.display = 'block';
+                    renderAdminOrdersDirect();
+                } else {
+                    document.getElementById('adminDirectOrdersBox').style.display = 'none';
+                }
+            }
         }
 
         function openSearch() { document.getElementById('searchModal').style.display = 'block'; }
@@ -645,7 +646,7 @@
             navigator.clipboard.writeText(SHAMKASH_ADDRESS).then(() => {
                 alert('شامكەش كودى كۆچۈرۈۋېلىندى!');
             }).catch(() => {
-                alert('كۆچۈرۈش مەغلۇپ بولدى، قولدا كۆچۈرۈڭ: ' + SHAMKASH_ADDRESS);
+                alert('كۆچۈرۈۋېلىڭ: ' + SHAMKASH_ADDRESS);
             });
         }
 
@@ -661,7 +662,6 @@
             document.getElementById('switchToRegisterBtn').classList.toggle('active', mode === 'register');
         }
 
-        /* 🖼️ رەسىم ھالىتىنى تاللاش (تور ئۇلانمىسى ياكى تېلېفوندىن) */
         function setPosterInputMode(mode) {
             const urlBox = document.getElementById('posterUrlBox');
             const fileBox = document.getElementById('posterFileBox');
@@ -720,41 +720,60 @@
             }
         }
 
-        /* Firebase Initialization */
+        async function handleProfileAvatarUpload(e) {
+            const file = e.target.files[0];
+            if (!file || !currentUser) return;
+            try {
+                const base64 = await compressImage(file, 250, 250, 0.8);
+                currentUser.avatar = base64;
+                localStorage.setItem('game_user', JSON.stringify(currentUser));
+                document.getElementById('mainAvatarBox').innerHTML = `<img src="${base64}">`;
+                if (currentUser.user !== 'nasrulla') {
+                    window.dbSet(window.dbRef(window.db, `users/${currentUser.user}/avatar`), base64);
+                }
+                alert('باش رەسىمىڭىز يېڭىلاندى!');
+            } catch (err) {
+                alert('سۈرەت يۈكلەشتە خاتالىق كۆرۈلدى!');
+            }
+        }
+
+        /* Firebase Realtime Listeners */
         window.initFirebaseApp = function() {
-            // Games Listener
             window.dbOnValue(window.dbRef(window.db, 'game_products'), (snapshot) => {
                 allGames = snapshot.val() || {};
                 renderGames();
             });
 
-            // Users Listener (قالدۇق پۇلنى يېڭىلاپ تۇرۇش)
             window.dbOnValue(window.dbRef(window.db, 'users'), (snapshot) => {
                 allUsers = snapshot.val() || {};
-                if (currentUser && allUsers[currentUser.user]) {
+                if (currentUser && currentUser.user !== 'nasrulla' && allUsers[currentUser.user]) {
                     currentUser = { ...allUsers[currentUser.user], user: currentUser.user };
                     localStorage.setItem('game_user', JSON.stringify(currentUser));
-                    updateBalanceUI();
+                }
+                updateBalanceUI();
+                if (currentUser && currentUser.role === 'admin') {
+                    renderAdminUsersList();
                 }
             });
 
-            // Orders Listener
             window.dbOnValue(window.dbRef(window.db, 'game_orders'), (snapshot) => {
                 allOrders = snapshot.val() || {};
                 renderUserOrders();
-                if (currentUser && currentUser.role === 'admin') renderAdminOrders();
+                if (currentUser && currentUser.role === 'admin') renderAdminOrdersDirect();
             });
 
-            // Deposit Requests Listener (پۇل قاچىلاش ئىلتىماسلىرى)
             window.dbOnValue(window.dbRef(window.db, 'deposit_requests'), (snapshot) => {
                 allDeposits = snapshot.val() || {};
                 renderUserOrders();
-                if (currentUser && currentUser.role === 'admin') renderAdminDepositRequests();
+                if (currentUser && currentUser.role === 'admin') {
+                    renderAdminOrdersDirect();
+                    renderAdminUsersList();
+                }
             });
         };
 
         function updateBalanceUI() {
-            const bal = (currentUser && currentUser.balance) ? Number(currentUser.balance).toFixed(2) : '0.00';
+            const bal = (currentUser && currentUser.balance !== undefined) ? Number(currentUser.balance).toFixed(2) : '0.00';
             document.getElementById('headerBalanceDisplay').innerText = bal;
             const profBal = document.getElementById('profileBalanceDisplay');
             if (profBal) profBal.innerText = bal;
@@ -875,7 +894,6 @@
             });
         }
 
-        /* 💰 2-تەلەپ: پۇل قاچىلاش ئىلتىماسى يوللاش */
         function handleDepositSubmit(e) {
             e.preventDefault();
             if (!currentUser) return alert('ھېساباتىڭىزغا كىرىڭ!');
@@ -908,18 +926,185 @@
             });
         }
 
-        /* 📋 زاكاز ۋە قاچىلاش تارىخى */
+        /* 📋 زاكازلىرىم بېتىدە زاكاز ۋە ئىلتىماسلارنى باشقۇرۇش */
+        function renderAdminOrdersDirect() {
+            const depContainer = document.getElementById('historyAdminDepositsContainer');
+            const ordContainer = document.getElementById('historyAdminOrdersContainer');
+            if (!depContainer || !ordContainer) return;
+
+            // 1. شامكەش پۇل قاچىلاش ئىلتىماسلىرى
+            depContainer.innerHTML = '';
+            const deposits = Object.values(allDeposits).reverse();
+            if (deposits.length === 0) {
+                depContainer.innerHTML = '<div style="font-size:12px; color:var(--text-secondary); padding:8px 0;">پۇل قاچىلاش ئىلتىماسى يوق</div>';
+            } else {
+                deposits.forEach(dep => {
+                    const div = document.createElement('div');
+                    div.className = 'order-card';
+                    div.innerHTML = `
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-weight:800; font-size:13px; color:#ff2a54;">ئابونت: ${escapeHTML(dep.user)}</span>
+                            <span style="font-weight:800; color:#2ed573; font-size:14px;">+${dep.amount} شامكەش</span>
+                        </div>
+                        <div style="font-size:11px; color:var(--text-secondary);">ئىسپات No: <b>${escapeHTML(dep.txId)}</b></div>
+                        <div style="margin: 6px 0;">
+                            <img src="${dep.proofImg}" style="max-width: 100%; max-height: 140px; border-radius: 12px; border: 1px solid var(--border-glow); object-fit: contain; cursor: pointer;" onclick="window.open('${dep.proofImg}')">
+                        </div>
+                        <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px;">
+                            ${dep.status === 'pending' ? `
+                                <button class="action-btn" style="width:auto; padding:6px 14px; margin:0; background:#2ed573; font-size:11px;" onclick="approveDeposit('${dep.depositId}', '${dep.user}', ${dep.amount})">✅ قوبۇللاش</button>
+                                <button class="action-btn" style="width:auto; padding:6px 14px; margin:0; background:#ff4757; font-size:11px;" onclick="rejectDeposit('${dep.depositId}')">❌ ياندۇرۇۋېتىش</button>
+                            ` : `<span style="font-size:11px; color:var(--text-secondary); font-weight:700;">${dep.status === 'approved' ? 'قوبۇللانغان ✅' : 'ياندۇرۇلغان ❌'}</span>`}
+                        </div>
+                    `;
+                    depContainer.appendChild(div);
+                });
+            }
+
+            // 2. ئويۇن قاچىلاش زاكازلىرى
+            ordContainer.innerHTML = '';
+            const orders = Object.values(allOrders).reverse();
+            if (orders.length === 0) {
+                ordContainer.innerHTML = '<div style="font-size:12px; color:var(--text-secondary); padding:8px 0;">ئويۇن زاكازلىرى يوق</div>';
+            } else {
+                orders.forEach(ord => {
+                    const div = document.createElement('div');
+                    div.className = 'order-card';
+                    div.innerHTML = `
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-weight:800; font-size:13px; color:#00c6ff;">ئابونت: ${escapeHTML(ord.user)}</span>
+                            <span style="font-size:12px; font-weight:700; color:#2ed573;">${escapeHTML(ord.price)}</span>
+                        </div>
+                        <div style="font-size:12px; font-weight:800;">${escapeHTML(ord.game)} - ${escapeHTML(ord.package)}</div>
+                        <div style="font-size:11px; color:var(--text-secondary);">ئويۇن ID: <b>${escapeHTML(ord.gamePlayerId)}</b></div>
+                        <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px;">
+                            ${ord.status === 'pending' ? `
+                                <button class="action-btn" style="width:auto; padding:6px 14px; margin:0; background:#2ed573; font-size:11px;" onclick="updateOrderStatus('${ord.orderId}', 'completed')">✅ قوبۇللاش (تاماملاش)</button>
+                                <button class="action-btn" style="width:auto; padding:6px 14px; margin:0; background:#ff4757; font-size:11px;" onclick="updateOrderStatus('${ord.orderId}', 'rejected')">❌ ياندۇرۇۋېتىش</button>
+                            ` : `<span style="font-size:11px; color:var(--text-secondary); font-weight:700;">${ord.status === 'completed' ? 'تاماملانغان ✅' : 'ياندۇرۇلغان ❌'}</span>`}
+                        </div>
+                    `;
+                    ordContainer.appendChild(div);
+                });
+            }
+        }
+
+        function updateOrderStatus(orderId, status) {
+            window.dbSet(window.dbRef(window.db, `game_orders/${orderId}/status`), status).then(() => {
+                alert(status === 'completed' ? 'زاكاز قوبۇللاندى ۋە تاماملاشتى!' : 'زاكاز ياندۇرۇۋېتىلدى!');
+            });
+        }
+
+        function approveDeposit(depositId, username, amount) {
+            if (!confirm(`${username} غا ${amount} شامكەش قوشۇشنى تەستىقلامسىز؟`)) return;
+
+            const userRef = window.dbRef(window.db, `users/${username}`);
+            window.dbGet(userRef).then(snap => {
+                let currentBal = 0;
+                if (snap.exists()) {
+                    currentBal = parseFloat(snap.val().balance || 0);
+                }
+                const newBal = currentBal + parseFloat(amount);
+
+                window.dbSet(window.dbRef(window.db, `users/${username}/balance`), newBal).then(() => {
+                    window.dbSet(window.dbRef(window.db, `deposit_requests/${depositId}/status`), 'approved').then(() => {
+                        alert(`مۇۋەپپەقىيەتلىك تەستىقلاندى! ${username} نىڭ يېڭى قالدۇقى: ${newBal}`);
+                    });
+                });
+            });
+        }
+
+        function rejectDeposit(depositId) {
+            if (!confirm('بۇ تەلەپنى راستلا ياندۇرۇۋېتەمسىز؟')) return;
+            window.dbSet(window.dbRef(window.db, `deposit_requests/${depositId}/status`), 'rejected').then(() => {
+                alert('تەلەپ ياندۇرۇۋېتىلدى!');
+            });
+        }
+
+        /* 👥 ئابونتلار تىزىملىكى (باش سۈرەت، تەلەپ سانى، پۇل قوشۇش/ئازايتىش) */
+        function renderAdminUsersList() {
+            const container = document.getElementById('adminUsersListContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const userKeys = Object.keys(allUsers);
+            if (userKeys.length === 0) {
+                container.innerHTML = '<div style="font-size:12px; color:var(--text-secondary);">تىزىملاتقان ئابونت يوق</div>';
+                return;
+            }
+
+            userKeys.forEach(username => {
+                if (username === 'nasrulla') return;
+                const uData = allUsers[username] || {};
+                const uBal = parseFloat(uData.balance || 0).toFixed(2);
+                const reqCount = Object.values(allDeposits).filter(d => d.user === username).length;
+                const ordCount = Object.values(allOrders).filter(o => o.user === username).length;
+
+                const card = document.createElement('div');
+                card.className = 'admin-user-item';
+                card.innerHTML = `
+                    <div class="admin-user-header">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <div class="admin-user-avatar">
+                                ${uData.avatar ? `<img src="${uData.avatar}">` : '👤'}
+                            </div>
+                            <div>
+                                <div style="font-weight:800; font-size:14px; color:#fff;">${escapeHTML(username)}</div>
+                                <div style="font-size:11px; color:var(--text-secondary);">
+                                    تەلەپ سانى: <b>${reqCount}</b> | زاكاز سانى: <b>${ordCount}</b>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align:left;">
+                            <span style="font-size:10px; color:var(--text-secondary);">قالدۇق:</span><br>
+                            <span style="font-size:14px; font-weight:800; color:#2ed573;">${uBal}</span>
+                        </div>
+                    </div>
+
+                    <!-- باشقۇرغۇچى پۇل قوشۇش/ئازايتىش بۆلىكى -->
+                    <div class="admin-user-controls">
+                        <input type="number" step="any" id="adjustAmount_${username}" class="admin-input-small" placeholder="سومما">
+                        <button type="button" class="action-btn" style="width:auto; padding:6px 12px; margin:0; background:#2ed573; font-size:11px;" onclick="adjustUserBalance('${username}', 'add')">➕ قوشۇش</button>
+                        <button type="button" class="action-btn" style="width:auto; padding:6px 12px; margin:0; background:#ff4757; font-size:11px;" onclick="adjustUserBalance('${username}', 'sub')">➖ ئازايتىش</button>
+                        <button type="button" class="del-btn" style="margin-right:auto;" onclick="deleteUserAccount('${username}')">🗑️</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function adjustUserBalance(username, type) {
+            const input = document.getElementById(`adjustAmount_${username}`);
+            const val = parseFloat(input.value);
+            if (!val || val <= 0) return alert('سوممىنى توغرا كىرگۈزۈڭ!');
+
+            const uData = allUsers[username] || {};
+            let currentBal = parseFloat(uData.balance || 0);
+            let newBal = type === 'add' ? (currentBal + val) : (currentBal - val);
+            if (newBal < 0) newBal = 0;
+
+            window.dbSet(window.dbRef(window.db, `users/${username}/balance`), newBal).then(() => {
+                alert(`${username} نىڭ قالدۇق پۇلى يېڭىلاندى: ${newBal.toFixed(2)} شامكەش`);
+                input.value = '';
+            });
+        }
+
+        function deleteUserAccount(username) {
+            if (confirm(`${username} ھېساباتىنى راستلا ئۆچۈرەمسىز؟`)) {
+                window.dbRemove(window.dbRef(window.db, `users/${username}`));
+            }
+        }
+
         function renderUserOrders() {
             const container = document.getElementById('userOrdersList');
             if (!container) return;
             container.innerHTML = '';
 
             if (!currentUser) {
-                container.innerHTML = '<div style="text-align: center; color: var(--text-secondary); padding: 30px;">زاكازلارنى كۆرۈش ئۈچۈن كىرىڭ</div>';
+                container.innerHTML = '<div style="text-align: center; color: var(--text-secondary); padding: 30px;">كۆرۈش ئۈچۈن كىرىڭ</div>';
                 return;
             }
 
-            // 1. ئابونتنىڭ پۇل قاچىلاش تەلەپلىرى
             const myDeposits = Object.values(allDeposits).filter(d => d.user === currentUser.user).reverse();
             if (myDeposits.length > 0) {
                 const depTitle = document.createElement('div');
@@ -932,36 +1117,37 @@
                     div.className = 'order-card';
                     let statusBadge = `<span class="order-badge badge-pending">تەكشۈرۈلۈۋاتىدۇ ⏳</span>`;
                     if (dep.status === 'approved') statusBadge = `<span class="order-badge badge-success">قوبۇللاندى (+${dep.amount}) ✅</span>`;
-                    else if (dep.status === 'rejected') statusBadge = `<span class="order-badge badge-rejected">رەت قىلىندى ❌</span>`;
+                    else if (dep.status === 'rejected') statusBadge = `<span class="order-badge badge-rejected">ياندۇرۇلدى ❌</span>`;
 
                     div.innerHTML = `
                         <div style="display:flex; justify-content:space-between; align-items:center;">
                             <div style="font-weight: 800; font-size: 13px;">سومما: <span style="color:#2ed573;">${dep.amount} شامكەش</span></div>
                             ${statusBadge}
                         </div>
-                        <div style="font-size: 11px; color: var(--text-secondary);">ئىسپات نومۇرى: ${escapeHTML(dep.txId)}</div>
+                        <div style="font-size: 11px; color: var(--text-secondary);">ئىسپات No: ${escapeHTML(dep.txId)}</div>
                     `;
                     container.appendChild(div);
                 });
             }
 
-            // 2. ئابونتنىڭ ئويۇن زاكازلىرى
             const myOrders = Object.values(allOrders).filter(o => o.user === currentUser.user).reverse();
             if (myOrders.length > 0) {
                 const ordTitle = document.createElement('div');
                 ordTitle.style.cssText = "font-size: 13px; font-weight: 800; color: #ff2a54; margin: 16px 0 6px 0;";
-                ordTitle.innerText = "🎮 ئويۇن قاچىلاش زاكازلىرىم:";
+                ordTitle.innerText = "🎮 ئويۇن زاكازلىرىم:";
                 container.appendChild(ordTitle);
 
                 myOrders.forEach(ord => {
                     const div = document.createElement('div');
                     div.className = 'order-card';
+                    let statusBadge = `<span class="order-badge badge-pending">بىر تەرەپ قىلىنىۋاتىدۇ ⏳</span>`;
+                    if (ord.status === 'completed') statusBadge = `<span class="order-badge badge-success">قوبۇللاندى ✅</span>`;
+                    else if (ord.status === 'rejected') statusBadge = `<span class="order-badge badge-rejected">ياندۇرۇلدى ❌</span>`;
+
                     div.innerHTML = `
                         <div style="display:flex; justify-content:space-between; align-items:center;">
                             <div style="font-weight: 800; font-size: 13px;">${escapeHTML(ord.game)} - ${escapeHTML(ord.package)}</div>
-                            <span class="order-badge ${ord.status === 'completed' ? 'badge-success' : 'badge-pending'}">
-                                ${ord.status === 'completed' ? 'قاچىلاندى ✅' : 'بىر تەرەپ قىلىنىۋاتىدۇ ⏳'}
-                            </span>
+                            ${statusBadge}
                         </div>
                         <div style="font-size: 11px; color: var(--text-secondary);">ئويۇن ID: ${escapeHTML(ord.gamePlayerId)} | ${escapeHTML(ord.price)}</div>
                     `;
@@ -974,96 +1160,6 @@
             }
         }
 
-        /* 👑 3-تەلەپ: باشقۇرغۇچى بۆلىكىدە پۇل قاچىلاش تەلەپلىرىنى قوبۇللاش ياكى قايتۇرۇۋېتىش */
-        function renderAdminDepositRequests() {
-            const container = document.getElementById('adminDepositRequestsContainer');
-            if (!container) return;
-            container.innerHTML = '';
-
-            const deposits = Object.values(allDeposits).reverse();
-            if (deposits.length === 0) {
-                container.innerHTML = '<div style="font-size:12px; color:var(--text-secondary);">يېڭى تەلەپ يوق</div>';
-                return;
-            }
-
-            deposits.forEach(dep => {
-                const div = document.createElement('div');
-                div.className = 'order-card';
-                div.innerHTML = `
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span style="font-weight:800; font-size:13px; color:#ff2a54;">ئابونت: ${escapeHTML(dep.user)}</span>
-                        <span style="font-weight:800; color:#2ed573; font-size:14px;">+${dep.amount} شامكەش</span>
-                    </div>
-                    <div style="font-size:11px; color:var(--text-secondary);">ئىسپات No: <b>${escapeHTML(dep.txId)}</b></div>
-                    <div style="margin: 6px 0;">
-                        <img src="${dep.proofImg}" style="max-width: 100%; max-height: 160px; border-radius: 12px; border: 1px solid var(--border-glow); object-fit: contain; cursor: pointer;" onclick="window.open('${dep.proofImg}')">
-                    </div>
-                    <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px;">
-                        ${dep.status === 'pending' ? `
-                            <button class="action-btn" style="width:auto; padding:6px 14px; margin:0; background:#2ed573; font-size:11px;" onclick="approveDeposit('${dep.depositId}', '${dep.user}', ${dep.amount})">✅ قوبۇللاش</button>
-                            <button class="action-btn" style="width:auto; padding:6px 14px; margin:0; background:#ff4757; font-size:11px;" onclick="rejectDeposit('${dep.depositId}')">❌ قايتۇرۇش</button>
-                        ` : `<span style="font-size:11px; color:var(--text-secondary);">${dep.status === 'approved' ? 'قوبۇللانغان ✅' : 'رەت قىلىنغان ❌'}</span>`}
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function approveDeposit(depositId, username, amount) {
-            if (!confirm(`${username} غا ${amount} شامكەش قوشۇشنى تەستىقلامسىز؟`)) return;
-
-            // 1. ئابونتنىڭ قالدۇق پۇلىنى ئاشۇرۇش
-            const userRef = window.dbRef(window.db, `users/${username}`);
-            window.dbGet(userRef).then(snap => {
-                let currentBal = 0;
-                let userData = {};
-                if (snap.exists()) {
-                    userData = snap.val();
-                    currentBal = parseFloat(userData.balance || 0);
-                }
-                const newBal = currentBal + parseFloat(amount);
-
-                window.dbSet(window.dbRef(window.db, `users/${username}/balance`), newBal).then(() => {
-                    // 2. ئىلتىماس ھالىتىنى يېڭىلاش
-                    window.dbSet(window.dbRef(window.db, `deposit_requests/${depositId}/status`), 'approved').then(() => {
-                        alert(`مۇۋەپپەقىيەتلىك تەستىقلاندى! ${username} نىڭ يېڭى قالدۇقى: ${newBal}`);
-                    });
-                });
-            });
-        }
-
-        function rejectDeposit(depositId) {
-            if (!confirm('بۇ تەلەپنى راستلا رەت قىلامسىز؟')) return;
-            window.dbSet(window.dbRef(window.db, `deposit_requests/${depositId}/status`), 'rejected').then(() => {
-                alert('تەلەپ رەت قىلىندى!');
-            });
-        }
-
-        function renderAdminOrders() {
-            const container = document.getElementById('adminOrdersContainer');
-            if (!container) return;
-            container.innerHTML = '';
-
-            const orders = Object.values(allOrders).reverse();
-            orders.forEach(ord => {
-                const div = document.createElement('div');
-                div.className = 'order-card';
-                div.innerHTML = `
-                    <div style="font-weight: 800; font-size: 13px;">${escapeHTML(ord.user)}: ${escapeHTML(ord.game)} (${escapeHTML(ord.package)})</div>
-                    <div style="font-size: 11px; color: var(--text-secondary);">ئويۇن ID: <b>${escapeHTML(ord.gamePlayerId)}</b> | ${escapeHTML(ord.price)}</div>
-                    <div style="display: flex; gap: 6px; justify-content: flex-end; margin-top: 6px;">
-                        ${ord.status !== 'completed' ? `<button class="action-btn" style="width:auto; padding:6px 12px; margin:0; background:#2ed573; font-size:11px;" onclick="completeOrder('${ord.orderId}')">تاماملاش</button>` : '<span style="color:#2ed573; font-size:11px;">تاماملانغان ✅</span>'}
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function completeOrder(orderId) {
-            window.dbSet(window.dbRef(window.db, `game_orders/${orderId}/status`), 'completed');
-        }
-
-        /* ➕ 4-تەلەپ: رەسىمنى ئۇلانما ياكى فايىل ئارقىلىق قوشۇش */
         function handleGameUpload(e) {
             e.preventDefault();
             if (!currentUser || currentUser.role !== 'admin') return alert('ھوقۇقىڭىز يوق!');
@@ -1086,7 +1182,7 @@
             };
 
             window.dbSet(window.dbRef(window.db, `game_products/${gameId}`), data).then(() => {
-                alert('يېڭى ئويۇن مۇۋەپپەقىيەتلىك قوشۇلدى!');
+                alert('يېڭى ئويۇن قوشۇلدى!');
                 document.getElementById('uploadForm').reset();
                 uploadedGamePosterData = '';
                 document.getElementById('gamePosterPreviewBox').style.display = 'none';
@@ -1106,7 +1202,7 @@
             window.dbGet(window.dbRef(window.db, 'users/' + user)).then(snap => {
                 if (snap.exists()) alert('بۇ ئىسىم ئاللىقاچان بار!');
                 else {
-                    const newUser = { user, pass, role: 'user', balance: 0 };
+                    const newUser = { user, pass, role: 'user', balance: 0, avatar: '' };
                     window.dbSet(window.dbRef(window.db, 'users/' + user), newUser).then(() => {
                         currentUser = newUser;
                         localStorage.setItem('game_user', JSON.stringify(currentUser));
@@ -1121,7 +1217,7 @@
             const pass = document.getElementById('loginPass').value.trim();
 
             if (user.toLowerCase() === 'nasrulla' && btoa(pass) === 'MDk5Ng==') {
-                currentUser = { user: 'nasrulla', role: 'admin', balance: 9999 };
+                currentUser = { user: 'nasrulla', role: 'admin', balance: 9999, avatar: '' };
                 localStorage.setItem('game_user', JSON.stringify(currentUser));
                 updateUIAfterLogin();
                 return;
@@ -1145,6 +1241,10 @@
             document.getElementById('accountTitle').innerText = 'خۇش كەپسىز, ' + currentUser.user;
             document.getElementById('displayUsername').innerText = currentUser.user;
 
+            if (currentUser.avatar) {
+                document.getElementById('mainAvatarBox').innerHTML = `<img src="${currentUser.avatar}">`;
+            }
+
             const isAdmin = currentUser.role === 'admin';
             document.getElementById('userRoleBadge').innerText = isAdmin ? 'باشقۇرغۇچى' : 'ئەزا';
             document.getElementById('navUploadBtn').style.display = isAdmin ? 'flex' : 'none';
@@ -1152,6 +1252,10 @@
             
             updateBalanceUI();
             renderGames();
+            if (isAdmin) {
+                renderAdminUsersList();
+                renderAdminOrdersDirect();
+            }
         }
 
         function handleLogout() {
