@@ -314,7 +314,6 @@
         }
         .admin-link-3 i { color: #e67e22 !important; }
 
-        /* 🚪 Menu ئەڭ ئاستىدىكى ھېساباتقا كىرىش/چىكىنىش مەخسۇس تۈرى */
         .user-auth-menu-btn {
             background: rgba(235, 77, 75, 0.18) !important;
             color: #ff7675 !important;
@@ -438,6 +437,16 @@
         .badge-success { background: #2ecc71; color: #000; }
         .badge-rejected { background: #e74c3c; color: #fff; }
 
+        .admin-user-item {
+            background: var(--surface-bg); border: 1px solid var(--border-glow); border-radius: 18px;
+            padding: 12px 14px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 8px;
+        }
+        .admin-user-header { display: flex; align-items: center; justify-content: space-between; }
+        .admin-user-avatar { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--primary-green); overflow: hidden; display: flex; align-items: center; justify-content: center; background: #0c1c12; flex-shrink: 0; }
+        .admin-user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .admin-user-controls { display: flex; gap: 6px; align-items: center; margin-top: 4px; }
+        .admin-input-small { width: 80px; padding: 6px 10px; font-size: 12px; border-radius: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-glow); color: #fff; text-align: center; }
+
         .shamkash-box {
             background: rgba(46, 204, 113, 0.08); border: 1px dashed var(--primary-green); border-radius: 16px;
             padding: 12px; margin-bottom: 14px; text-align: center;
@@ -452,6 +461,7 @@
         .wallet-stat-title { font-size: 12px; color: var(--text-secondary); font-weight: 700; }
         .wallet-stat-value { font-size: 17px; font-weight: 900; color: var(--primary-green); margin-top: 4px; }
 
+        /* 3 تال كۆزنەكنى ئالماشتۇرۇش كۇنۇپكىلىرى */
         .admin-sub-tabs {
             display: flex;
             background: rgba(0, 0, 0, 0.4);
@@ -459,18 +469,20 @@
             border-radius: var(--pill-radius);
             padding: 4px;
             margin-bottom: 16px;
-            gap: 6px;
+            gap: 4px;
         }
         .admin-sub-tab-btn {
             flex: 1;
-            padding: 8px;
+            padding: 8px 4px;
             border-radius: var(--pill-radius);
             border: none;
             background: transparent;
             color: var(--text-secondary);
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 800;
             cursor: pointer;
+            text-align: center;
+            white-space: nowrap;
         }
         .admin-sub-tab-btn.active {
             background: var(--accent-green-grad);
@@ -532,10 +544,6 @@
             <div class="side-nav-link" onclick="toggleSideMenu(false); switchTab('feedbackTab');">
                 <i class="fa-solid fa-comment-dots" style="color:#00c6ff;"></i>
                 <span data-i18n="navFeedback">تەلەپ ۋە پىكىر</span>
-            </div>
-            <div class="side-nav-link" onclick="window.open('https://t.me/KOZNAK_USD', '_blank')">
-                <i class="fa-brands fa-telegram" style="color:#0088cc;"></i>
-                <span data-i18n="navTelegram">تېلېگرامما ئالاقىسى</span>
             </div>
 
             <!-- 👑 باشقۇرغۇچىنىڭ 3 تال ئايرىم مەركىزىي كۇنۇپكىلىرى -->
@@ -638,26 +646,36 @@
         <div class="products-grid" id="gamesGridContainer"></div>
     </div>
 
-    <!-- 👑 1-بۆلەك: زاكاز ۋە تەلەپلەر مەركىزى (Admin) -->
+    <!-- 👑 1-بۆلەك: زاكاز ۋە تەلەپلەر مەركىزى (Admin Orders, Deposits & Users Hub) -->
     <div id="adminOrdersTab" class="tab-content">
         <div class="page-box">
             <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: #fff; border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
 
-            <div style="font-size: 16px; font-weight: 900; color: #00c6ff; margin-bottom: 14px;">⚡ 1-بۆلەك: باشقۇرغۇچى زاكاز ۋە تەلەپلەر مەركىزى</div>
+            <div style="font-size: 16px; font-weight: 900; color: #00c6ff; margin-bottom: 14px;">⚡ 1-بۆلەك: باشقۇرغۇچى زاكاز، تەلەپ ۋە ئابونتلار مەركىزى</div>
 
+            <!-- 🌟 3 تال كۆزنەكنى ئالماشتۇرۇش تاختىسى -->
             <div class="admin-sub-tabs">
-                <button type="button" class="admin-sub-tab-btn active" id="btnAdminGameSubTab" onclick="switchAdminOrderSubTab('game')">🎮 1. ئويۇن/ئەپلەر زاكازلىرى</button>
-                <button type="button" class="admin-sub-tab-btn" id="btnAdminDepositSubTab" onclick="switchAdminOrderSubTab('deposit')">💰 2. قالدۇق قاچىلاش تەلەپلىرى</button>
+                <button type="button" class="admin-sub-tab-btn active" id="btnAdminGameSubTab" onclick="switchAdminOrderSubTab('game')">🎮 1. ئويۇن زاكازلىرى</button>
+                <button type="button" class="admin-sub-tab-btn" id="btnAdminDepositSubTab" onclick="switchAdminOrderSubTab('deposit')">💰 2. پۇل قاچىلاش</button>
+                <button type="button" class="admin-sub-tab-btn" id="btnAdminUsersSubTab" onclick="switchAdminOrderSubTab('users')">👥 3. بارلىق ئابونتلار</button>
             </div>
 
+            <!-- 1. ئويۇن ياكى ئەپلەر زاكاز كۆزنىكى -->
             <div id="adminGameOrdersSubBox">
-                <div style="font-size: 13px; font-weight: 800; color: #3498db; margin-bottom: 10px;">🎮 ئويۇن ۋە ئەپلەرگە پۇل قاچىلاش زاكازلىرى:</div>
+                <div style="font-size: 13px; font-weight: 800; color: #3498db; margin-bottom: 10px;">🎮 ئويۇن ۋە ئەپلەرگە پۇل قاچىلاش زاكازلىرى تىزىملىكى:</div>
                 <div id="historyAdminOrdersContainer"></div>
             </div>
 
+            <!-- 2. شامكەش قالدۇق پۇل قاچىلاش كۆزنىكى -->
             <div id="adminDepositOrdersSubBox" style="display: none;">
                 <div style="font-size: 13px; font-weight: 800; color: var(--primary-green); margin-bottom: 10px;">💰 شامكەش قالدۇق پۇل قاچىلاش تەلەپلىرى ۋە ئىسپاتلىرى:</div>
                 <div id="historyAdminDepositsContainer"></div>
+            </div>
+
+            <!-- 3. بارلىق ئابونتلار تىزىملىكى ۋە پۇل تەڭشەش كۆزنىكى -->
+            <div id="adminUsersSubBox" style="display: none;">
+                <div style="font-size: 13px; font-weight: 800; color: #f1c40f; margin-bottom: 10px;">👥 بارلىق تىزىملاتقان ئابونتلار ۋە قالدۇق پۇل تەڭشەش:</div>
+                <div id="adminUsersListContainer"></div>
             </div>
         </div>
     </div>
@@ -883,7 +901,7 @@
         </div>
     </div>
 
-    <!-- 👤 ھېسابات مەركىزى (Login / Register / Profile) -->
+    <!-- 👤 ھېسابات بۆلىكى -->
     <div id="accountTab" class="tab-content">
         <div class="page-box" style="text-align: center;">
             <div style="display: flex; flex-direction: column; align-items: center; margin: 10px 0 16px 0;">
@@ -932,11 +950,6 @@
                     <div style="margin-top: 12px; font-size: 13px; font-weight: 700;">
                         <span data-i18n="yourBalance">قالدۇق پۇلىڭىز:</span> <span id="profileBalanceDisplay" style="color: var(--primary-green); font-size: 16px;">0.00</span> شامكەش
                     </div>
-                </div>
-
-                <div id="adminPanelSection" style="display: none; margin-top: 20px; border-top: 1px solid var(--border-glow); padding-top: 16px;">
-                    <div style="font-size: 15px; font-weight: 800; color: var(--primary-green); margin-bottom: 12px;" data-i18n="adminUsersTitle">👥 ئابونتلار تىزىملىكى ۋە قالدۇق پۇل تەڭشەش</div>
-                    <div id="adminUsersListContainer"></div>
                 </div>
 
                 <button type="button" class="action-btn" style="background: var(--surface-bg); border: 1px solid var(--border-glow); color:#fff; margin-top: 16px;" onclick="handleLogout()" data-i18n="btnLogout">چېكىنىش (Log out)</button>
@@ -1007,7 +1020,6 @@
                 changeAvatarHint: "باش رەسىمنى ئۆزگەرتىش", tabLogin: "كىرىش",
                 tabRegister: "تىزىملىتىش", labelUsername: "ئابونت نامى", labelNewUsername: "يېڭى ئابونت نامى",
                 labelPassword: "مەخپىي نومۇر", btnCreateAccount: "ھېسابات ئېچىش", yourBalance: "قالدۇق پۇلىڭىز:",
-                adminUsersTitle: "👥 ئابونتلار تىزىملىكى ۋە قالدۇق پۇل تەڭشەش", btnLogout: "چېكىنىش (Log out)",
                 depositModalTitle: "💰 شامكەش ئارقىلىق قالدۇق قاچىلاش", myShamkashCode: "مېنىڭ شامكەش ھېساباتىم:",
                 btnCopy: "📋 كۆچۈرۈۋېلىش", depositAmountLabel: "قاچىلىغان سومما (شامكەش)",
                 depositTxLabel: "تالون / ئىسپات نومۇرى (TxID)", depositProofLabel: "📷 ئىسپات رەسىمى", btnSendDeposit: "ئىلتىماسنى يوللاش"
@@ -1027,7 +1039,6 @@
                 changeAvatarHint: "تغيير الصورة الشخصية", tabLogin: "تسجيل الدخول",
                 tabRegister: "إنشاء حساب", labelUsername: "اسم المستخدم", labelNewUsername: "اسم مستخدم جديد",
                 labelPassword: "كلمة المرور", btnCreateAccount: "إنشاء الحساب", yourBalance: "رصيدك الحالي:",
-                adminUsersTitle: "👥 إدارة المستخدمين وتعديل الأرصدة", btnLogout: "تسجيل الخروج",
                 depositModalTitle: "💰 شحن الرصيد عبر شام كاش", myShamkashCode: "معرف شام كاش الخاص بنا:",
                 btnCopy: "📋 نسخ المعرف", depositAmountLabel: "المبلغ المحول (شام كاش)",
                 depositTxLabel: "رقم الإشعار / العملية (TxID)", depositProofLabel: "📷 صورة إثبات التحويل", btnSendDeposit: "إرسال طلب الشحن"
@@ -1047,7 +1058,6 @@
                 changeAvatarHint: "Change Avatar", tabLogin: "Login",
                 tabRegister: "Register", labelUsername: "Username", labelNewUsername: "New Username",
                 labelPassword: "Password", btnCreateAccount: "Create Account", yourBalance: "Your Balance:",
-                adminUsersTitle: "👥 User Management & Balance", btnLogout: "Log out",
                 depositModalTitle: "💰 Deposit via Shamcash", myShamkashCode: "Our Shamcash Address:",
                 btnCopy: "📋 Copy Address", depositAmountLabel: "Transferred Amount (Shamcash)",
                 depositTxLabel: "Receipt / TxID", depositProofLabel: "📷 Payment Proof Screenshot", btnSendDeposit: "Submit Deposit Request"
@@ -1094,7 +1104,6 @@
             }
         }
 
-        /* 🚪 Menu ئەڭ ئاستىدىكى ھېسابات كۇنۇپكىسى مەشغۇلاتى */
         function handleSideAuthAction() {
             toggleSideMenu(false);
             if (currentUser) {
@@ -1193,22 +1202,34 @@
             }
         }
 
+        /* 🌟 1-بۆلەكتىكى 3 تال كۆزنەكنى ئالماشتۇرۇش فۇنكسىيەسى */
         function switchAdminOrderSubTab(type) {
             const btnGame = document.getElementById('btnAdminGameSubTab');
             const btnDeposit = document.getElementById('btnAdminDepositSubTab');
+            const btnUsers = document.getElementById('btnAdminUsersSubTab');
+            
             const boxGame = document.getElementById('adminGameOrdersSubBox');
             const boxDeposit = document.getElementById('adminDepositOrdersSubBox');
+            const boxUsers = document.getElementById('adminUsersSubBox');
+
+            btnGame.classList.remove('active');
+            btnDeposit.classList.remove('active');
+            btnUsers.classList.remove('active');
+
+            boxGame.style.display = 'none';
+            boxDeposit.style.display = 'none';
+            boxUsers.style.display = 'none';
 
             if (type === 'game') {
                 btnGame.classList.add('active');
-                btnDeposit.classList.remove('active');
                 boxGame.style.display = 'block';
-                boxDeposit.style.display = 'none';
-            } else {
+            } else if (type === 'deposit') {
                 btnDeposit.classList.add('active');
-                btnGame.classList.remove('active');
-                boxGame.style.display = 'none';
                 boxDeposit.style.display = 'block';
+            } else if (type === 'users') {
+                btnUsers.classList.add('active');
+                boxUsers.style.display = 'block';
+                renderAdminUsersList();
             }
         }
 
@@ -1229,6 +1250,7 @@
                 renderUserOrders();
             } else if (tabId === 'adminOrdersTab') {
                 renderAdminOrdersDirect();
+                renderAdminUsersList();
             } else if (tabId === 'walletTab') {
                 updateWalletTabStats();
             } else if (tabId === 'feedbackTab') {
@@ -1734,12 +1756,18 @@
             window.dbSet(window.dbRef(window.db, `deposit_requests/${depositId}/status`), 'rejected');
         }
 
+        /* 👥 3. بارلىق ئابونتلار تىزىملىكىنى كۆرسىتىش */
         function renderAdminUsersList() {
             const container = document.getElementById('adminUsersListContainer');
             if (!container) return;
             container.innerHTML = '';
 
             const userKeys = Object.keys(allUsers);
+            if (userKeys.length === 0) {
+                container.innerHTML = '<div style="font-size:12px; color:var(--text-secondary); padding:8px 0;">ئابونت مەۋجۇت ئەمەس</div>';
+                return;
+            }
+
             userKeys.forEach(username => {
                 if (username === 'nasrulla') return;
                 const uData = allUsers[username] || {};
@@ -1769,8 +1797,8 @@
                     </div>
                     <div class="admin-user-controls">
                         <input type="number" step="any" id="adjustAmount_${username}" class="admin-input-small" placeholder="سومما">
-                        <button type="button" class="action-btn" style="width:auto; padding:6px 12px; margin:0; font-size:11px;" onclick="adjustUserBalance('${username}', 'add')">➕</button>
-                        <button type="button" class="action-btn" style="width:auto; padding:6px 12px; margin:0; background:#e74c3c; color:#fff; font-size:11px;" onclick="adjustUserBalance('${username}', 'sub')">➖</button>
+                        <button type="button" class="action-btn" style="width:auto; padding:6px 12px; margin:0; font-size:11px;" onclick="adjustUserBalance('${username}', 'add')">➕ قوشۇش</button>
+                        <button type="button" class="action-btn" style="width:auto; padding:6px 12px; margin:0; background:#e74c3c; color:#fff; font-size:11px;" onclick="adjustUserBalance('${username}', 'sub')">➖ ئازايتىش</button>
                         <button type="button" style="background:none; border:none; color:#e74c3c; margin-right:auto; cursor:pointer;" onclick="deleteUserAccount('${username}')">🗑️</button>
                     </div>
                 `;
@@ -1955,14 +1983,12 @@
             const isAdmin = currentUser.role === 'admin';
             document.getElementById('userRoleBadge').innerText = isAdmin ? 'باشقۇرغۇچى' : 'ئەزا';
             document.getElementById('sideVipPill').innerHTML = isAdmin ? '<i class="fa-solid fa-crown" style="color:#f1c40f;"></i> باشقۇرغۇچى' : '<i class="fa-solid fa-star" style="color:#f1c40f;"></i> ئالتۇن';
-            document.getElementById('adminPanelSection').style.display = isAdmin ? 'block' : 'none';
             
-            // 👑 باشقۇرغۇچى بۆلەكلىرىنى كۆرسىتىش
+            // 👑 Menu دىكى 3 تال باشقۇرغۇچى بۆلىكىنى چىقىرىش
             document.getElementById('sideAdminOrdersLink').style.display = isAdmin ? 'flex' : 'none';
             document.getElementById('sideAdminBrandingLink').style.display = isAdmin ? 'flex' : 'none';
             document.getElementById('sideAdminUploadLink').style.display = isAdmin ? 'flex' : 'none';
 
-            // Menu ئەڭ ئاستىدىكى ھېسابات كۇنۇپكىسى تېكىستى
             if (authText) authText.innerText = '🚪 سىستېمىدىن چىكىنىش (Log out)';
             if (authIcon) authIcon.className = 'fa-solid fa-right-from-bracket';
             
