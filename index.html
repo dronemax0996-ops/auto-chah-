@@ -173,10 +173,10 @@
         }
         .splash-logo-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* 👑 Header - ئۈستى تەرەپتىن بوشلۇق قالدۇرۇلدى */
+        /* 👑 Header - ئۈستى تەرەپكە 48px بوشلۇق تاشلىنىپ، سىستېما تۇسۇۋالماس قىلىندى */
         header {
             background: var(--header-bg);
-            padding-top: 45px !important;
+            padding-top: max(48px, calc(env(safe-area-inset-top, 0px) + 20px)) !important;
             padding-bottom: 10px;
             padding-left: 14px;
             padding-right: 14px;
@@ -189,7 +189,7 @@
             z-index: 1000;
         }
 
-        /* 💎 يېڭىلانغان، چوڭ ھەم سۈزۈك لوگو كۆرۈنۈشى */
+        /* 💎 يۇمىلاق، چوڭايتىلغان ھەم سۈزۈك لوگو كۆرۈنۈشى */
         .logo-box {
             display: flex;
             align-items: center;
@@ -197,17 +197,17 @@
             user-select: none;
         }
         .logo-icon {
-            width: 46px;
-            height: 46px;
-            background: rgba(255, 255, 255, 0.1);
+            width: 48px;
+            height: 48px;
+            background: #06120b;
             color: #ffffff;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 900;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.45);
             overflow: hidden;
             border: 2px solid var(--primary-color);
             flex-shrink: 0;
@@ -219,7 +219,7 @@
             display: block;
         }
 
-        .header-actions { display: flex; align-items: center; gap: 6px; }
+        .header-actions { display: flex; align-items: center; gap: 8px; }
 
         .lang-select-box {
             background: rgba(0, 0, 0, 0.25);
@@ -228,7 +228,7 @@
             color: #ffffff;
             font-size: 11px;
             font-weight: 800;
-            padding: 5px 8px;
+            padding: 6px 8px;
             outline: none;
             cursor: pointer;
         }
@@ -237,7 +237,7 @@
         .user-balance-chip {
             background: rgba(0, 0, 0, 0.25);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 5px 10px;
+            padding: 6px 10px;
             border-radius: var(--pill-radius);
             display: flex;
             align-items: center;
@@ -267,13 +267,13 @@
             background: rgba(0, 0, 0, 0.2);
             color: #ffffff;
             border: none;
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 15px;
+            font-size: 16px;
             cursor: pointer;
         }
 
@@ -290,7 +290,7 @@
             background: var(--sidebar-bg); color: var(--text-primary); z-index: 10000;
             box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5); transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             overflow-y: auto; display: flex; flex-direction: column; 
-            padding: 45px 16px 30px 16px;
+            padding: 50px 16px 30px 16px;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -680,10 +680,12 @@
         </div>
     </div>
 
-    <!-- 👑 Header - پەقەت چوڭايتىلغان يۇمىلاق لوگو كۆرسىتىلدى -->
+    <!-- 👑 Header - پۈتۈنلەي پەقەت يۇمىلاق چوڭ لوگو قالدۇرۇلدى -->
     <header>
         <div class="logo-box" onclick="toggleSideMenu(true)" title="Menu">
-            <div class="logo-icon" id="headerLogoContainer"><i class="fa-solid fa-gamepad"></i></div>
+            <div class="logo-icon" id="headerLogoContainer">
+                <img src="icon-512.png" alt="Logo">
+            </div>
         </div>
         <div class="header-actions">
             <select class="lang-select-box" id="languageSelector" onchange="changeLanguage(this.value)">
@@ -1745,7 +1747,7 @@
                 
                 if (branding.logo) {
                     const headerLogo = document.getElementById('headerLogoContainer');
-                    if (headerLogo) headerLogo.innerHTML = `<img src="${branding.logo}" alt="Auto Chah">`;
+                    if (headerLogo) headerLogo.innerHTML = `<img src="${branding.logo}" alt="Logo">`;
                 }
 
                 if (branding.splashLogo || branding.logo) {
