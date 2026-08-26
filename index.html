@@ -291,12 +291,12 @@
         }
         .side-nav-link i { font-size: 16px; width: 22px; text-align: center; color: #2ecc71; }
 
-        /* 👑 باشقۇرغۇچى بۆلەك كۇنۇپكىلىرى ئۇسلۇبى */
+        /* 👑 باشقۇرغۇچى بۆلەك كۇنۇپكىلىرى */
         .admin-link-1 {
             background: rgba(0, 198, 255, 0.15) !important;
             color: #00c6ff !important;
             border: 1px dashed #00c6ff !important;
-            margin-top: 10px;
+            margin-top: 6px;
         }
         .admin-link-1 i { color: #00c6ff !important; }
 
@@ -313,6 +313,15 @@
             border: 1px dashed #e67e22 !important;
         }
         .admin-link-3 i { color: #e67e22 !important; }
+
+        /* 🚪 Menu ئەڭ ئاستىدىكى ھېساباتقا كىرىش/چىكىنىش مەخسۇس تۈرى */
+        .user-auth-menu-btn {
+            background: rgba(235, 77, 75, 0.18) !important;
+            color: #ff7675 !important;
+            border: 1px solid rgba(235, 77, 75, 0.4) !important;
+            margin-top: 10px;
+        }
+        .user-auth-menu-btn i { color: #ff7675 !important; }
 
         .side-theme-toggle {
             display: flex; justify-content: space-between; align-items: center;
@@ -443,7 +452,6 @@
         .wallet-stat-title { font-size: 12px; color: var(--text-secondary); font-weight: 700; }
         .wallet-stat-value { font-size: 17px; font-weight: 900; color: var(--primary-green); margin-top: 4px; }
 
-        /* Sub Tab Switcher in Admin Orders Section */
         .admin-sub-tabs {
             display: flex;
             background: rgba(0, 0, 0, 0.4);
@@ -525,6 +533,10 @@
                 <i class="fa-solid fa-comment-dots" style="color:#00c6ff;"></i>
                 <span data-i18n="navFeedback">تەلەپ ۋە پىكىر</span>
             </div>
+            <div class="side-nav-link" onclick="window.open('https://t.me/KOZNAK_USD', '_blank')">
+                <i class="fa-brands fa-telegram" style="color:#0088cc;"></i>
+                <span data-i18n="navTelegram">تېلېگرامما ئالاقىسى</span>
+            </div>
 
             <!-- 👑 باشقۇرغۇچىنىڭ 3 تال ئايرىم مەركىزىي كۇنۇپكىلىرى -->
             <div class="side-nav-link admin-link-1" id="sideAdminOrdersLink" style="display: none;" onclick="toggleSideMenu(false); switchTab('adminOrdersTab');">
@@ -540,6 +552,12 @@
             <div class="side-nav-link admin-link-3" id="sideAdminUploadLink" style="display: none;" onclick="toggleSideMenu(false); switchTab('adminUploadTab');">
                 <i class="fa-solid fa-circle-plus"></i>
                 <span>3. مەزمۇن ۋە تۈر قوشۇش</span>
+            </div>
+
+            <!-- 🚪 Menu نىڭ ئەڭ ئاستىدىكى ھېساباتقا كىرىش / چىكىنىش كۇنۇپكىسى -->
+            <div class="side-nav-link user-auth-menu-btn" id="sideMenuAuthBtn" onclick="handleSideAuthAction()">
+                <i class="fa-solid fa-arrow-right-to-bracket" id="sideMenuAuthIcon"></i>
+                <span id="sideMenuAuthText">👤 ھېساباتقا كىرىش / تىزىملىتىش</span>
             </div>
         </div>
 
@@ -620,7 +638,7 @@
         <div class="products-grid" id="gamesGridContainer"></div>
     </div>
 
-    <!-- 👑 1-بۆلەك: زاكاز ۋە تەلەپلەر مەركىزى (Admin Orders & Deposits Hub) -->
+    <!-- 👑 1-بۆلەك: زاكاز ۋە تەلەپلەر مەركىزى (Admin) -->
     <div id="adminOrdersTab" class="tab-content">
         <div class="page-box">
             <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: #fff; border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
@@ -632,13 +650,11 @@
                 <button type="button" class="admin-sub-tab-btn" id="btnAdminDepositSubTab" onclick="switchAdminOrderSubTab('deposit')">💰 2. قالدۇق قاچىلاش تەلەپلىرى</button>
             </div>
 
-            <!-- 1. ئويۇن ياكى ئەپلەر زاكاز كۆزنىكى -->
             <div id="adminGameOrdersSubBox">
-                <div style="font-size: 13px; font-weight: 800; color: #3498db; margin-bottom: 10px;">🎮 ئويۇن ۋە ئەپلەرگە پۇل قاچىلاش زاكازلىرى تىزىملىكى:</div>
+                <div style="font-size: 13px; font-weight: 800; color: #3498db; margin-bottom: 10px;">🎮 ئويۇن ۋە ئەپلەرگە پۇل قاچىلاش زاكازلىرى:</div>
                 <div id="historyAdminOrdersContainer"></div>
             </div>
 
-            <!-- 2. شامكەش قالدۇق پۇل قاچىلاش كۆزنىكى -->
             <div id="adminDepositOrdersSubBox" style="display: none;">
                 <div style="font-size: 13px; font-weight: 800; color: var(--primary-green); margin-bottom: 10px;">💰 شامكەش قالدۇق پۇل قاچىلاش تەلەپلىرى ۋە ئىسپاتلىرى:</div>
                 <div id="historyAdminDepositsContainer"></div>
@@ -646,7 +662,7 @@
         </div>
     </div>
 
-    <!-- 👑 2-بۆلەك: رەسىم كىرگۈزۈش ئورنى (Admin Branding Studio) -->
+    <!-- 👑 2-بۆلەك: رەسىم كىرگۈزۈش ئورنى (Admin) -->
     <div id="adminBrandingTab" class="tab-content">
         <div class="page-box">
             <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: #fff; border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
@@ -654,25 +670,21 @@
             <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 18px;">
                 <div style="font-size: 16px; font-weight: 900; color: #f1c40f; margin-bottom: 16px;">🎨 2-بۆلەك: رەسىم كىرگۈزۈش ۋە تاشقى كۆرۈنۈش تەڭشىكى</div>
 
-                <!-- 1. توربەت لوگو رەسىمى -->
                 <div class="form-group">
                     <label>⚡ 1. توربەت لوگو رەسىمى (Header & Site Logo)</label>
                     <input type="file" id="adminSiteLogoFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleSiteLogoUpload(event)">
                 </div>
 
-                <!-- 2. باش بەت تېما رەسىمى -->
                 <div class="form-group">
                     <label>🖼️ 2. باش بەت چوڭ تېما رەسىمى (Home Billboard Banner)</label>
                     <input type="file" id="adminSiteBannerFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleSiteBannerUpload(event)">
                 </div>
 
-                <!-- 3. توربەت ئېچىلىشتىن بۇرۇن چىقىدىغان بەتكە رەسىم -->
                 <div class="form-group">
                     <label>🎬 3. توربەت ئېچىلىشتىن بۇرۇن چىقىدىغان بەت رەسىمى (Splash Logo)</label>
                     <input type="file" id="adminSplashLogoFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleSplashLogoUpload(event)">
                 </div>
 
-                <!-- 4. Menu تىزىملىكى ئارقا كۆرۈنۈش رەسىمى -->
                 <div class="form-group">
                     <label>📱 4. يان Menu تىزىملىكى ئارقا كۆرۈنۈش رەسىمى (Side Menu Background)</label>
                     <input type="file" id="adminMenuBgFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleMenuBgUpload(event)">
@@ -681,7 +693,7 @@
         </div>
     </div>
 
-    <!-- 👑 3-بۆلەك: مەزمۇن ۋە تۈر قوشۇش (Admin Content Upload) -->
+    <!-- 👑 3-بۆلەك: مەزمۇن ۋە تۈر قوشۇش (Admin) -->
     <div id="adminUploadTab" class="tab-content">
         <div class="page-box">
             <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: #fff; border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
@@ -738,7 +750,7 @@
         </div>
     </div>
 
-    <!-- 📋 2. تەلەپلىرىم بۆلىكى (ئابونت) -->
+    <!-- 📋 2. تەلەپلىرىم بۆلىكى -->
     <div id="ordersTab" class="tab-content">
         <div class="page-box">
             <div style="font-size: 16px; font-weight: 800; margin-bottom: 12px;" data-i18n="myOrdersTitle">📋 تەلەپلىرىم (ئويۇن ۋە مۇلازىمەت ئەھۋالى)</div>
@@ -746,7 +758,7 @@
         </div>
     </div>
 
-    <!-- 💰 3. قالدۇق قاچىلاش بۆلىكى (ئابونت) -->
+    <!-- 💰 3. قالدۇق قاچىلاش بۆلىكى -->
     <div id="depositTab" class="tab-content">
         <div class="page-box">
             <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 24px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
@@ -871,7 +883,7 @@
         </div>
     </div>
 
-    <!-- 👤 ھېسابات بۆلىكى -->
+    <!-- 👤 ھېسابات مەركىزى (Login / Register / Profile) -->
     <div id="accountTab" class="tab-content">
         <div class="page-box" style="text-align: center;">
             <div style="display: flex; flex-direction: column; align-items: center; margin: 10px 0 16px 0;">
@@ -1082,6 +1094,18 @@
             }
         }
 
+        /* 🚪 Menu ئەڭ ئاستىدىكى ھېسابات كۇنۇپكىسى مەشغۇلاتى */
+        function handleSideAuthAction() {
+            toggleSideMenu(false);
+            if (currentUser) {
+                if (confirm('سىستېمىدىن راستلا چېكىنەمسىز؟')) {
+                    handleLogout();
+                }
+            } else {
+                switchTab('accountTab');
+            }
+        }
+
         function compressImage(file, maxWidth = 800, maxHeight = 800, quality = 0.75) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -1116,7 +1140,7 @@
             });
         }
 
-        /* 🎨 2-بۆلەك: رەسىم ۋە كۆرۈنۈش تەڭشىكى فۇنكسىيەلىرى */
+        /* 🎨 2-بۆلەك: رەسىم يۈكلەش */
         async function handleSiteLogoUpload(e) {
             const file = e.target.files[0];
             if (!file || !currentUser || currentUser.role !== 'admin') return;
@@ -1169,7 +1193,6 @@
             }
         }
 
-        /* ⚡ 1-بۆلەكتىكى كۆزنەك ئالماشتۇرۇش (ئويۇن زاكازلىرى / شامكەش تەلەپلىرى) */
         function switchAdminOrderSubTab(type) {
             const btnGame = document.getElementById('btnAdminGameSubTab');
             const btnDeposit = document.getElementById('btnAdminDepositSubTab');
@@ -1625,13 +1648,11 @@
             if (confirm('بۇ پىكىرنى ئۆچۈرەمسىز؟')) window.dbRemove(window.dbRef(window.db, `feedback_inbox/${fbId}`));
         }
 
-        /* ⚡ 1-بۆلەك: زاكاز ۋە تەلەپلەرنى چىقىرىش */
         function renderAdminOrdersDirect() {
             const depContainer = document.getElementById('historyAdminDepositsContainer');
             const ordContainer = document.getElementById('historyAdminOrdersContainer');
             if (!depContainer || !ordContainer) return;
 
-            // قالدۇق پۇل قاچىلاش تەلەپلىرى
             depContainer.innerHTML = '';
             const deposits = Object.values(allDeposits).reverse();
             if (deposits.length === 0) {
@@ -1660,7 +1681,6 @@
                 });
             }
 
-            // ئويۇن ۋە ئەپلەر زاكازلىرى
             ordContainer.innerHTML = '';
             const orders = Object.values(allOrders).reverse();
             if (orders.length === 0) {
@@ -1845,7 +1865,6 @@
             }
         }
 
-        /* ➕ 3-بۆلەك: مەزمۇن قوشۇش فۇنكسىيەسى */
         function handleGameUpload(e) {
             e.preventDefault();
             if (!currentUser || currentUser.role !== 'admin') return;
@@ -1912,7 +1931,15 @@
         }
 
         function updateUIAfterLogin() {
-            if (!currentUser) return;
+            const authText = document.getElementById('sideMenuAuthText');
+            const authIcon = document.getElementById('sideMenuAuthIcon');
+
+            if (!currentUser) {
+                if (authText) authText.innerText = '👤 ھېساباتقا كىرىش / تىزىملىتىش';
+                if (authIcon) authIcon.className = 'fa-solid fa-arrow-right-to-bracket';
+                return;
+            }
+
             document.getElementById('loginFormSection').style.display = 'none';
             document.getElementById('registerFormSection').style.display = 'none';
             document.getElementById('authModeSwitch').style.display = 'none';
@@ -1930,10 +1957,14 @@
             document.getElementById('sideVipPill').innerHTML = isAdmin ? '<i class="fa-solid fa-crown" style="color:#f1c40f;"></i> باشقۇرغۇچى' : '<i class="fa-solid fa-star" style="color:#f1c40f;"></i> ئالتۇن';
             document.getElementById('adminPanelSection').style.display = isAdmin ? 'block' : 'none';
             
-            // 👑 Menu دىكى 3 تال باشقۇرغۇچى مەركىزىنى كۆرسىتىش
+            // 👑 باشقۇرغۇچى بۆلەكلىرىنى كۆرسىتىش
             document.getElementById('sideAdminOrdersLink').style.display = isAdmin ? 'flex' : 'none';
             document.getElementById('sideAdminBrandingLink').style.display = isAdmin ? 'flex' : 'none';
             document.getElementById('sideAdminUploadLink').style.display = isAdmin ? 'flex' : 'none';
+
+            // Menu ئەڭ ئاستىدىكى ھېسابات كۇنۇپكىسى تېكىستى
+            if (authText) authText.innerText = '🚪 سىستېمىدىن چىكىنىش (Log out)';
+            if (authIcon) authIcon.className = 'fa-solid fa-right-from-bracket';
             
             updateBalanceUI();
             updateWalletTabStats();
