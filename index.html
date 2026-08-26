@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Auto Chah - ئۇيۇن ۋە مۇلازىمەت مەركىزى</title>
     
+    <!-- PWA نىڭ manifest ھەمدە تېلېفون ئەپ تەڭشەكلىرى -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#06120b">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -810,7 +811,7 @@
                 <div style="font-size: 16px; font-weight: 900; color: #f1c40f; margin-bottom: 16px;">🎨 2-بۆلەك: رەسىم كىرگۈزۈش (1 دىن 3 كىچە تېما رەسىملىرى)</div>
 
                 <div class="form-group">
-                    <label>⚡ 1. توربەت لوگو رەسىمى (Header & Site Logo)</label>
+                    <label>⚡ 1. توربەت لوگო رەسىمى (Header & Site Logo)</label>
                     <input type="file" id="adminSiteLogoFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleSiteLogoUpload(event)">
                 </div>
 
@@ -1017,7 +1018,7 @@
             </div>
 
             <div id="adminFeedbackSection" style="display: none; margin-top: 24px;">
-                <div style="font-size: 15px; font-weight: 800; color: #00c6ff; margin-bottom: 12px;">📥 ئابونتلارنىڭ پىكىر ۋە تەلەپلىرى ساندۇقى (Admin)</div>
+                <div style="font-size: 15px; font-weight: 800; color: #00c6ff; margin-bottom: 12px;">📥 ئابونتلارның پىكىر ۋە تەلەپلىرى ساندۇقى (Admin)</div>
                 <div id="adminFeedbackInboxList"></div>
             </div>
         </div>
@@ -1144,6 +1145,17 @@
     <a href="https://t.me/KOZNAK_USD" target="_blank" class="floating-chat-btn" title="Telegram">
         <i class="fa-brands fa-telegram"></i>
     </a>
+
+    <!-- Service Worker نى تىزىملاش كودى -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+            .then((reg) => console.log('PWA تىزىملاندى:', reg.scope))
+            .catch((err) => console.log('PWA خاتالىقى:', err));
+        });
+      }
+    </script>
 
     <script>
         const SHAMKASH_ADDRESS = "8de7efd3b67a86752d1372caf8723b2c";
@@ -1720,7 +1732,6 @@
             }
         }
 
-        /* Firebase Realtime Listeners */
         window.initFirebaseApp = function() {
             window.dbOnValue(window.dbRef(window.db, 'site_branding'), (snapshot) => {
                 const branding = snapshot.val() || {};
@@ -1907,7 +1918,6 @@
             }).filter(p => p !== null);
         }
 
-        /* 🔒 ئوڭشالغان قىسىم: پۇل يەتمىسە زاكازنى رەت قىلىش ۋە قاچىلاشقا باشلاش */
         function submitTopUpOrder() {
             if (!currentUser) {
                 alert('ئالدى بىلەن ھېساباتىڭىزغا كىرىڭ!');
@@ -1919,11 +1929,9 @@
             if (!gameIdInput) return alert('ID نومۇرىنى كىرگۈزۈڭ!');
             if (!selectedPackage) return alert('قاچىلايدىغان تۈرنى تاللاڭ!');
 
-            // مەھسۇلات باھاسىدىن سانلىق قىممەتنى ئاجرىتىۋېلىش
             const packagePriceNum = parseFloat(String(selectedPackage.price).replace(/[^0-9.]/g, '')) || 0;
             const userCurrentBal = parseFloat(currentUser.balance || 0);
 
-            // 🛑 قالدۇق پۇل تەكشۈرۈش
             if (userCurrentBal < packagePriceNum) {
                 alert(`قالدۇق پۇلىڭىز يەتمەيدۇ!\nسىزدىكى سومما: ${userCurrentBal.toFixed(2)} شامكەش\nتۆلەيدىغان سومما: ${packagePriceNum.toFixed(2)} شامكەش\n\nئالدى بىلەن قالدۇق قاچىلاڭ!`);
                 switchTab('depositTab');
@@ -1933,12 +1941,10 @@
             const confirmOrder = confirm(`زاكاز تەپسىلاتى:\nمەھسۇلات: ${allGames[selectedGameId]?.title} (${selectedPackage.amount})\nتۆلەيدىغان پۇل: ${selectedPackage.price}\n\nزاكازنى تاپشۇرامسىز؟`);
             if (!confirmOrder) return;
 
-            // 1. ئابونتنىڭ قالدۇق پۇلىدىن ئاپتوماتىك تۇتۇپ قېلىش
             const newBal = userCurrentBal - packagePriceNum;
             const userRef = window.dbRef(window.db, `users/${currentUser.user}/balance`);
             
             window.dbSet(userRef, newBal).then(() => {
-                // 2. زاكازنى مۇۋەپپەقىيەتلىك تاپشۇرۇش
                 const orderId = 'ord_' + Date.now();
                 const orderData = {
                     orderId,
