@@ -14,8 +14,8 @@ if not firebase_admin._apps:
 
 app = Flask(__name__)
 
-# يېڭى قۇرغان تېلېگرامما بوت Token نى تۆۋەندىكى ئارىلىققا قويىسىز
-BOT_TOKEN = "يېڭى_بوت_TOKEN_نى_بۇ_يەرگە_يازىسىز"
+# يېڭى بوت Token سىز بەرگەن كود بىلەن ئالماشتۇرۇلدى
+BOT_TOKEN = "8574481567:AAHJubuK5wy1OKEeK2h2xYV0BDWpcLwxnlo"
 bot = telebot.TeleBot(BOT_TOKEN)
 
 # سىزنىڭ شەخسىي تېلېگرامما Chat ID نۇمۇرىڭىز
