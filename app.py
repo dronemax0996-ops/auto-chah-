@@ -4,10 +4,9 @@ from flask import Flask, request, jsonify
 import telebot
 from telebot import types
 import firebase_admin
-from firebase_admin import credentials, db
+from firebase_admin import db
 
-# 🔒 JSON ھۆججەت ھاجەتسىز، بىۋاسىتە Firebase URL ئارقىلىق ئۇلىنىش
-cred = credentials.AppCheckCertificate() # ياكى ئاددىي URL ئۇلىنىش تەڭشىكى
+# Firebase نى ئاددىي شەكىلدە ئېچىش
 if not firebase_admin._apps:
     firebase_admin.initialize_app(options={
         'databaseURL': 'https://koznak-store-default-rtdb.firebaseio.com/'
@@ -19,8 +18,8 @@ app = Flask(__name__)
 BOT_TOKEN = "8811660953:AAFqjQ3Zmpc9bcppIW1rP8v6Ly2fCvgNRVQ"
 bot = telebot.TeleBot(BOT_TOKEN)
 
-# تېلېگراممىدا ئاگادارلىق كېلىدىغان Admin نىڭ Chat ID نى بۇ يەرگە يازىسىز
-ADMIN_CHAT_ID = "8811660953"  # <--- بۇ يەرگە ئۆزىڭىزنىڭ تېلېگرامما ID نى يازسىڭىزمۇ بولىدۇ
+# تېلېگراممىدا ئاگادارلىق كېلىدىغان Admin نىڭ Chat ID (أو نۇمۇرىڭىز)
+ADMIN_CHAT_ID = "8811660953"
 
 @app.route('/api/verify', methods=['POST'])
 def verify_receipt():
