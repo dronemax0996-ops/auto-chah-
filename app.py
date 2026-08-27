@@ -14,11 +14,11 @@ if not firebase_admin._apps:
 
 app = Flask(__name__)
 
-# سىزنىڭ تېلېگرامما بوت Token
-BOT_TOKEN = "8811660953:AAFqjQ3Zmpc9bcppIW1rP8v6Ly2fCvgNRVQ"
+# يېڭى قۇرغان تېلېگرامما بوت Token نى تۆۋەندىكى ئارىلىققا قويىسىز
+BOT_TOKEN = "يېڭى_بوت_TOKEN_نى_بۇ_يەرگە_يازىسىز"
 bot = telebot.TeleBot(BOT_TOKEN)
 
-# تېلېگراممىدا ئاگادارلىق كېلىدىغان Admin نىڭ Chat ID (توغرا نومۇرىڭىزغا ئۆزگەرتىلدى)
+# سىزنىڭ شەخسىي تېلېگرامما Chat ID نۇمۇرىڭىز
 ADMIN_CHAT_ID = "8664985247"
 
 @app.route('/api/verify', methods=['POST'])
