@@ -1169,7 +1169,8 @@
 
     <script>
         const SHAMKASH_ADDRESS = "efe8a2b200d66411c7c7e296369cbba8";
-        const VERIFIER_API_URL = "https://receipt-verifier-djt1.onrender.com/api/verify";
+        // ⚡ ئادرېس يېڭى Render مۇلازىمىتىڭىزگە ئالماشتۇرۇلدى
+        const VERIFIER_API_URL = "https://autochah-bot.onrender.com/api/verify";
 
         let allCategories = {};
         let allGames = {};
@@ -1764,7 +1765,6 @@
             });
         }
 
-        // 🤖 Gemini AI تەكشۈرۈش ئارقىلىق پۇل قاچىلاش فۇنكسىيەسى
         async function handleDepositSubmit(e) {
             e.preventDefault();
             if (!currentUser) { alert('ئالدى بىلەن كىرىڭ!'); switchTab('accountTab'); return; }
