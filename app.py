@@ -6,24 +6,24 @@ from telebot import types
 import firebase_admin
 from firebase_admin import credentials, db
 
-# Firebase ئۇلىنىشى (ئۆزىڭىزنىڭ كونفىگىراتسىيەسى بىلەن تەڭشەيسىز)
-cred = credentials.Certificate("firebase_credentials.json")
-firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://koznak-store-default-rtdb.firebaseio.com/'
-})
+# 🔒 JSON ھۆججەت ھاجەتسىز، بىۋاسىتە Firebase URL ئارقىلىق ئۇلىنىش
+cred = credentials.AppCheckCertificate() # ياكى ئاددىي URL ئۇلىنىش تەڭشىكى
+if not firebase_admin._apps:
+    firebase_admin.initialize_app(options={
+        'databaseURL': 'https://koznak-store-default-rtdb.firebaseio.com/'
+    })
 
 app = Flask(__name__)
 
-# سىز بەرگەن تېلېگرامما بوت Token
+# سىزنىڭ تېلېگرامما بوت Token
 BOT_TOKEN = "8811660953:AAFqjQ3Zmpc9bcppIW1rP8v6Ly2fCvgNRVQ"
 bot = telebot.TeleBot(BOT_TOKEN)
 
 # تېلېگراممىدا ئاگادارلىق كېلىدىغان Admin نىڭ Chat ID نى بۇ يەرگە يازىسىز
-ADMIN_CHAT_ID = "شەخسىي Telegram Chat ID نومۇرىڭىزنى بۇ يەرگە يازىڭ"
+ADMIN_CHAT_ID = "8811660953"  # <--- بۇ يەرگە ئۆزىڭىزنىڭ تېلېگرامما ID نى يازسىڭىزمۇ بولىدۇ
 
 @app.route('/api/verify', methods=['POST'])
 def verify_receipt():
-    # سۈرەتنى ۋە تەلەپنى قوبۇل قىلىش
     image = request.files.get('image')
     expected_amount = request.form.get('expected_amount')
     username = request.form.get('username', 'مېھمان')
@@ -33,11 +33,9 @@ def verify_receipt():
     if not image:
         return jsonify({"status": "error", "message": "رەسىم تېپىلمىدى"})
 
-    # ۋاقىتلىق ساقلاش
     img_path = f"/tmp/{image.filename}"
     image.save(img_path)
 
-    # Telegram بوت ئارقىلىق Admin غا سۈرەت ۋە كۇنۇپكا يوللاش
     try:
         markup = types.InlineKeyboardMarkup()
         btn_approve = types.InlineKeyboardButton("✅ قوبۇللاش (+قوشۇش)", callback_data=f"app_{deposit_id}_{username}_{expected_amount}")
@@ -67,7 +65,6 @@ def verify_receipt():
         }
     })
 
-# تېلېگرامما كۇنۇپكىلىرى باسقاندىكى مەشغۇلات
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):
     data = call.data
@@ -80,7 +77,6 @@ def callback_query(call):
         current_bal = ref.get() or 0
         ref.set(current_bal + amount)
         
-        # تەلەپ ھالىتىنى يېڭىلاش
         db.reference(f'deposit_requests/{dep_id}/status').set('approved')
 
         bot.answer_callback_query(call.id, "مۇۋەپپەقىيەتلىك تەستىقلاندى!")
@@ -105,6 +101,5 @@ def callback_query(call):
 
 if __name__ == '__main__':
     import threading
-    # بوتنى ئارقا كۆرۈنۈشتە يۈرگۈزۈش
     threading.Thread(target=bot.infinity_polling, daemon=True).start()
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
