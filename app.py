@@ -18,8 +18,8 @@ app = Flask(__name__)
 BOT_TOKEN = "8811660953:AAFqjQ3Zmpc9bcppIW1rP8v6Ly2fCvgNRVQ"
 bot = telebot.TeleBot(BOT_TOKEN)
 
-# تېلېگراممىدا ئاگادارلىق كېلىدىغان Admin نىڭ Chat ID (أو نۇمۇرىڭىز)
-ADMIN_CHAT_ID = "8811660953"
+# تېلېگراممىدا ئاگادارلىق كېلىدىغان Admin نىڭ Chat ID (توغرا نومۇرىڭىزغا ئۆزگەرتىلدى)
+ADMIN_CHAT_ID = "8664985247"
 
 @app.route('/api/verify', methods=['POST'])
 def verify_receipt():
