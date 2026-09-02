@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Auto Chah - ئۇيۇن ۋە مۇلازىمەت مەركىزى</title>
+    <title>Auto Chah</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#06120b">
@@ -48,12 +48,12 @@
     <style>
         :root {
             --bg-color: #06120b;
-            --bg-gradient: radial-gradient(circle at 50% 0%, rgba(39, 174, 96, 0.25), transparent 60%), #06120b;
+            --bg-gradient: radial-gradient(circle at 50% 0%, rgba(39, 174, 96, 0.22), transparent 55%), #06120b;
             --primary-color: #2ecc71;
             --primary-dark: #27ae60;
             --accent-grad: linear-gradient(135deg, #2ecc71 0%, #10ac84 100%);
-            --header-bg: #27ae60;
-            --surface-bg: rgba(14, 28, 20, 0.75);
+            --header-bg: #143521;
+            --surface-bg: rgba(14, 28, 20, 0.85);
             --surface-card: #0c1c12;
             --sidebar-bg: #08140c;
             --text-primary: #ffffff;
@@ -61,55 +61,51 @@
             --border-glow: rgba(46, 204, 113, 0.25);
             --border-active: #2ecc71;
             --card-radius: 18px;
-            --pill-radius: 30px;
-            --box-shadow-card: 0 6px 18px rgba(0, 0, 0, 0.4);
+            --pill-radius: 26px;
+            --box-shadow-card: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
 
         body.theme-purple {
             --bg-color: #0b0716;
-            --bg-gradient: radial-gradient(circle at 50% 0%, rgba(155, 89, 182, 0.3), transparent 60%), #0b0716;
+            --bg-gradient: radial-gradient(circle at 50% 0%, rgba(155, 89, 182, 0.25), transparent 55%), #0b0716;
             --primary-color: #a29bfe;
             --primary-dark: #6c5ce7;
             --accent-grad: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
-            --header-bg: #6c5ce7;
-            --surface-bg: rgba(26, 18, 48, 0.75);
+            --header-bg: #1f153a;
+            --surface-bg: rgba(26, 18, 48, 0.85);
             --surface-card: #150f29;
             --sidebar-bg: #0e091d;
             --text-primary: #ffffff;
             --text-secondary: #b2bec3;
             --border-glow: rgba(162, 155, 254, 0.3);
             --border-active: #a29bfe;
-            --card-radius: 22px;
-            --pill-radius: 16px;
             --box-shadow-card: 0 8px 24px rgba(108, 92, 231, 0.25);
         }
 
         body.theme-gold {
-            --bg-color: #0d0d0d;
-            --bg-gradient: radial-gradient(circle at 50% 0%, rgba(241, 196, 15, 0.2), transparent 60%), #0d0d0d;
+            --bg-color: #0a0a0a;
+            --bg-gradient: radial-gradient(circle at 50% 0%, rgba(241, 196, 15, 0.2), transparent 55%), #0a0a0a;
             --primary-color: #f1c40f;
             --primary-dark: #d35400;
             --accent-grad: linear-gradient(135deg, #f39c12 0%, #f1c40f 100%);
-            --header-bg: #1c1808;
-            --surface-bg: rgba(28, 24, 10, 0.75);
+            --header-bg: #1d1808;
+            --surface-bg: rgba(28, 24, 10, 0.85);
             --surface-card: #181508;
             --sidebar-bg: #120f04;
             --text-primary: #ffffff;
             --text-secondary: #d4af37;
             --border-glow: rgba(241, 196, 15, 0.3);
             --border-active: #f1c40f;
-            --card-radius: 12px;
-            --pill-radius: 8px;
-            --box-shadow-card: 0 6px 20px rgba(0, 0, 0, 0.6);
+            --box-shadow-card: 0 8px 22px rgba(0, 0, 0, 0.6);
         }
 
         body.theme-white {
-            --bg-color: #f5f7fa;
-            --bg-gradient: #f5f7fa;
+            --bg-color: #f4f6f9;
+            --bg-gradient: #f4f6f9;
             --primary-color: #10ac84;
             --primary-dark: #1dd1a1;
             --accent-grad: linear-gradient(135deg, #10ac84 0%, #1dd1a1 100%);
-            --header-bg: #10ac84;
+            --header-bg: #ffffff;
             --surface-bg: rgba(255, 255, 255, 0.95);
             --surface-card: #ffffff;
             --sidebar-bg: #ffffff;
@@ -117,19 +113,8 @@
             --text-secondary: #636e72;
             --border-glow: rgba(16, 172, 132, 0.2);
             --border-active: #10ac84;
-            --card-radius: 18px;
-            --pill-radius: 30px;
-            --box-shadow-card: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --box-shadow-card: 0 4px 15px rgba(0, 0, 0, 0.06);
         }
-
-        body.theme-white .side-menu-drawer { background: #ffffff; color: #2d3436; }
-        body.theme-white .side-menu-drawer.custom-bg::before { background: linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(245, 247, 250, 0.96) 100%); }
-        body.theme-white .side-username-badge { color: #2d3436; text-shadow: none; }
-        body.theme-white .side-nav-link { color: #2d3436; background: rgba(0, 0, 0, 0.04); border: 1px solid rgba(0, 0, 0, 0.06); text-shadow: none; }
-        body.theme-white .side-nav-link:hover, body.theme-white .side-nav-link.active { background: rgba(16, 172, 132, 0.12); color: #10ac84; }
-        body.theme-white .bottom-nav { background: rgba(255, 255, 255, 0.96); border-color: rgba(16, 172, 132, 0.25); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); }
-        body.theme-white .search-input-field { background: #ffffff; color: #2d3436; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); }
-        body.theme-white .form-input, body.theme-white .form-select { background: #ffffff; color: #2d3436; border-color: #dfe6e9; }
 
         * {
             box-sizing: border-box;
@@ -150,557 +135,336 @@
             transition: all 0.3s ease;
         }
 
-        html[dir="ltr"] body { direction: ltr; }
-        html[dir="ltr"] .side-menu-drawer { right: auto; left: -320px; direction: ltr; box-shadow: 5px 0 30px rgba(0, 0, 0, 0.4); }
-        html[dir="ltr"] .side-menu-drawer.active { left: 0; right: auto; }
-        html[dir="ltr"] .floating-chat-btn { left: auto; right: 16px; }
+        html[dir="ltr"] .btn-modern-back i { transform: rotate(180deg); }
+        html[dir="ltr"] .btn-modern-back:hover i { transform: rotate(180deg) translateX(4px); }
+
+        #mandatoryAuthGate {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(6, 18, 11, 0.94); backdrop-filter: blur(14px);
+            z-index: 99998; display: flex; align-items: center; justify-content: center; padding: 16px;
+        }
+        .auth-gate-box {
+            width: 100%; max-width: 420px; background: var(--surface-card);
+            border: 2px solid var(--border-glow); border-radius: 24px; padding: 24px 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7); text-align: center;
+        }
+        .auth-gate-logo {
+            width: 72px; height: 72px; border-radius: 50%; background: var(--accent-grad);
+            color: #06120b; font-size: 32px; display: inline-flex; align-items: center;
+            justify-content: center; margin-bottom: 12px; border: 3px solid var(--primary-color);
+        }
 
         #splashScreen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #06120b; z-index: 99999; display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
+            align-items: center; justify-content: center; transition: opacity 0.4s ease;
         }
         .splash-logo-box {
-            width: 95px; height: 95px; border-radius: 50%;
-            background: var(--accent-grad); display: flex; align-items: center;
-            justify-content: center; font-size: 42px; color: #06120b; margin-bottom: 16px;
-            overflow: hidden; border: 3px solid var(--primary-color);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            width: 85px; height: 85px; border-radius: 50%; background: var(--accent-grad);
+            display: flex; align-items: center; justify-content: center; font-size: 38px;
+            color: #06120b; margin-bottom: 12px; border: 3px solid var(--primary-color);
         }
         .splash-logo-box img { width: 100%; height: 100%; object-fit: cover; }
 
         header {
-            background: var(--header-bg);
-            padding-top: max(48px, calc(env(safe-area-inset-top, 0px) + 20px)) !important;
-            padding-bottom: 10px;
-            padding-left: 14px;
-            padding-right: 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            background: var(--header-bg); padding-top: max(10px, env(safe-area-inset-top, 0px)) !important;
+            padding-bottom: 8px; padding-left: 14px; padding-right: 14px; display: flex;
+            justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            position: sticky; top: 0; z-index: 1000;
         }
 
-        .logo-box {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            user-select: none;
-        }
+        .logo-box { display: flex; align-items: center; cursor: pointer; }
         .logo-icon {
-            width: 48px;
-            height: 48px;
-            background: #06120b;
-            color: #ffffff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 900;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.45);
-            overflow: hidden;
-            border: 2px solid var(--primary-color);
-            flex-shrink: 0;
+            width: 38px; height: 38px; background: #06120b; color: #ffffff; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 18px;
+            overflow: hidden; border: 2px solid var(--primary-color);
         }
-        .logo-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        .logo-icon img { width: 100%; height: 100%; object-fit: cover; }
 
         .header-actions { display: flex; align-items: center; gap: 8px; }
-
         .lang-select-box {
-            background: rgba(0, 0, 0, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: var(--pill-radius);
-            color: #ffffff;
-            font-size: 11px;
-            font-weight: 800;
-            padding: 6px 8px;
-            outline: none;
-            cursor: pointer;
+            background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: var(--pill-radius); color: #ffffff; font-size: 11px; font-weight: 800;
+            padding: 5px 8px; outline: none; cursor: pointer;
         }
-        .lang-select-box option { background: #0c1c12; color: #ffffff; }
-
         .user-balance-chip {
-            background: rgba(0, 0, 0, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 6px 10px;
-            border-radius: var(--pill-radius);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            font-weight: 800;
-            color: #ffffff;
-            cursor: pointer;
+            background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-glow); padding: 5px 10px;
+            border-radius: var(--pill-radius); display: flex; align-items: center; gap: 6px;
+            font-size: 12px; font-weight: 800; color: #ffffff; cursor: pointer;
         }
-
         .btn-add-balance {
-            background: #ffffff;
-            color: #06120b;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 900;
-            cursor: pointer;
-            border: none;
+            background: var(--accent-grad); color: #06120b; width: 18px; height: 18px; border-radius: 50%;
+            display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; border: none;
         }
-
         .header-menu-btn {
-            background: rgba(0, 0, 0, 0.2);
-            color: #ffffff;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            cursor: pointer;
+            background: rgba(0, 0, 0, 0.2); color: #ffffff; border: none; width: 34px; height: 34px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer;
         }
 
-        .sidebar-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px);
-            z-index: 9999; opacity: 0; visibility: hidden; transition: all 0.3s ease;
+        .media-banner-container {
+            width: 100%; height: 235px; position: relative; overflow: hidden;
+            background: #000; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
         }
-        .sidebar-overlay.active { opacity: 1; visibility: visible; }
+        .media-banner-track { display: flex; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .media-banner-item {
+            min-width: 100%; width: 100%; height: 100%; background-size: cover;
+            background-position: center; flex-shrink: 0; position: relative;
+        }
+        .media-banner-overlay {
+            position: absolute; bottom: 0; left: 0; right: 0; height: 60%;
+            background: linear-gradient(180deg, transparent 0%, rgba(6, 18, 11, 0.95) 100%);
+            display: flex; align-items: flex-end; padding: 14px;
+        }
+        .media-banner-dots {
+            position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 6px; z-index: 10;
+        }
+        .media-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, 0.4); }
+        .media-dot.active { background: var(--primary-color); width: 22px; border-radius: 8px; }
 
-        .side-menu-drawer {
-            position: fixed; top: 0; right: -320px; width: 300px; height: 100%;
-            background: var(--sidebar-bg); color: var(--text-primary); z-index: 10000;
-            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5); transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            overflow-y: auto; display: flex; flex-direction: column; 
-            padding: 50px 16px 30px 16px;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        
-        .side-menu-drawer.custom-bg::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(180deg, rgba(6, 18, 11, 0.82) 0%, rgba(4, 12, 7, 0.92) 100%);
-            z-index: 1;
-        }
-
-        .side-menu-drawer > * { position: relative; z-index: 2; }
-        .side-menu-drawer.active { right: 0; }
-
-        .side-profile-section { 
-            display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 12px;
-            background: rgba(0, 0, 0, 0.35); padding: 14px; border-radius: 20px; border: 1px solid var(--border-glow);
-        }
-        .side-avatar-circle {
-            width: 74px; height: 74px; border-radius: 50%; border: 3px solid var(--primary-color);
-            background: #111; color: #fff; display: flex; align-items: center; justify-content: center;
-            font-size: 32px; overflow: hidden; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-        .side-avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
-
-        .side-username-badge { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 14px; font-weight: 800; }
-        .side-badge-pill {
-            background: rgba(255, 255, 255, 0.1); color: var(--primary-color); padding: 2px 8px; border-radius: var(--pill-radius);
-            font-size: 10px; font-weight: 700; display: flex; align-items: center; gap: 4px; border: 1px solid var(--border-glow);
-        }
-
-        .side-balance-huge {
-            font-size: 26px; font-weight: 900; color: var(--primary-color); margin: 8px 0 10px 0;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-        }
-        .side-quick-icons { display: flex; justify-content: center; gap: 22px; margin-bottom: 10px; font-size: 17px; }
-        .side-quick-icons i { cursor: pointer; }
-        .side-quick-icons .icon-heart { color: #e84118; }
-
-        .currency-switch-pill {
-            background: rgba(0, 0, 0, 0.5); border: 1px solid var(--primary-color); color: var(--primary-color);
-            padding: 6px 14px; border-radius: var(--pill-radius); font-size: 11px;
-            font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px;
-            margin-top: 6px; cursor: pointer; width: 100%;
-        }
-
-        .side-nav-list { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; }
-        .side-nav-link {
-            display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 12px;
-            font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s;
-            background: rgba(0, 0, 0, 0.25); border: 1px solid var(--border-glow);
-        }
-        .side-nav-link.active, .side-nav-link:hover { 
-            background: rgba(255, 255, 255, 0.1); border-color: var(--primary-color); color: var(--primary-color); 
-        }
-        .side-nav-link i { font-size: 16px; width: 22px; text-align: center; color: var(--primary-color); }
-
-        .admin-link-1 { background: rgba(0, 198, 255, 0.15) !important; color: #00c6ff !important; border: 1px dashed #00c6ff !important; margin-top: 6px; }
-        .admin-link-1 i { color: #00c6ff !important; }
-        .admin-link-2 { background: rgba(241, 196, 15, 0.15) !important; color: #f1c40f !important; border: 1px dashed #f1c40f !important; }
-        .admin-link-2 i { color: #f1c40f !important; }
-        .admin-link-3 { background: rgba(230, 126, 34, 0.15) !important; color: #e67e22 !important; border: 1px dashed #e67e22 !important; }
-        .admin-link-3 i { color: #e67e22 !important; }
-
-        .user-auth-menu-btn {
-            background: rgba(235, 77, 75, 0.18) !important; color: #ff7675 !important; border: 1px solid rgba(235, 77, 75, 0.4) !important; margin-top: 10px;
-        }
-        .user-auth-menu-btn i { color: #ff7675 !important; }
-
-        .banner-slider-container {
-            width: calc(100% - 24px); margin: 14px auto 10px auto; height: 180px;
-            border-radius: var(--card-radius); overflow: hidden; border: 1px solid var(--border-glow);
-            box-shadow: var(--box-shadow-card); background: #000; position: relative;
-        }
-        .banner-slider-track { display: flex; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-        .banner-slide-item { min-width: 100%; width: 100%; height: 100%; background-size: cover; background-position: center; flex-shrink: 0; }
-        .banner-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 5; }
-        .banner-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, 0.4); cursor: pointer; transition: all 0.3s ease; }
-        .banner-dot.active { background: var(--primary-color); width: 20px; border-radius: 10px; }
-
-        .ticker-box {
-            background: var(--surface-bg);
-            border: 1px solid var(--border-glow);
-            border-radius: var(--pill-radius);
-            padding: 8px 16px;
-            margin: 8px 12px 14px 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-        .ticker-icon {
-            color: var(--primary-color);
-            font-size: 14px;
-            flex-shrink: 0;
-            z-index: 2;
-        }
-        .ticker-content-wrapper {
-            width: 100%;
-            overflow: hidden;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-        }
-        .ticker-animated-text {
-            display: inline-block;
-            white-space: nowrap;
-            font-size: 12px;
-            font-weight: 800;
-            color: var(--primary-color);
-            animation: scrollLeftToRight 16s linear infinite;
-        }
-        .ticker-content-wrapper:hover .ticker-animated-text {
-            animation-play-state: paused;
-        }
-
-        @keyframes scrollLeftToRight {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .search-bar-wrap { margin: 0 12px 16px 12px; }
+        .search-bar-wrap { margin: 12px 14px; }
         .search-input-field {
-            width: 100%; padding: 12px 20px; background: var(--surface-card);
-            border: 1px solid var(--border-glow); border-radius: var(--pill-radius);
-            color: var(--text-primary); font-size: 13px; outline: none; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center;
+            width: 100%; padding: 12px 18px; background: var(--surface-card); border: 1px solid var(--border-glow);
+            border-radius: var(--pill-radius); color: var(--text-primary); font-size: 12px; outline: none; text-align: center;
+        }
+
+        .category-row-block { margin-bottom: 22px; }
+        .category-row-header {
+            display: flex; justify-content: space-between; align-items: center; padding: 0 16px 8px 16px;
+        }
+        .category-row-title {
+            font-size: 14px; font-weight: 900; color: #ffffff; display: flex; align-items: center; gap: 6px;
+        }
+        .category-row-title::before {
+            content: ''; display: inline-block; width: 4px; height: 16px;
+            background: var(--primary-color); border-radius: 2px;
+        }
+        .category-cards-scroll {
+            display: flex; gap: 12px; padding: 0 14px; overflow-x: auto; scrollbar-width: none;
+        }
+        .category-cards-scroll::-webkit-scrollbar { display: none; }
+
+        .poster-card {
+            width: 120px; flex-shrink: 0; background: var(--surface-card); border-radius: var(--card-radius);
+            overflow: hidden; border: 1px solid var(--border-glow); cursor: pointer; transition: transform 0.2s;
+            position: relative; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+        }
+        .poster-card:active { transform: scale(0.96); }
+        .poster-img-box { width: 100%; height: 160px; position: relative; background: #000; }
+        .poster-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .poster-info { padding: 8px; text-align: center; }
+        .poster-title {
+            font-size: 12px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .poster-btn {
+            background: var(--accent-grad); color: #06120b; font-weight: 900; font-size: 10px;
+            padding: 4px 10px; border-radius: var(--pill-radius); display: inline-block; margin-top: 5px; width: 100%;
         }
 
         .tab-content { display: none; }
         .tab-content.active-tab { display: block; }
-
-        .categories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 0 12px; margin-bottom: 24px; }
-        .cat-card-item {
-            background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: var(--card-radius);
-            overflow: hidden; display: flex; flex-direction: column; align-items: center; cursor: pointer;
-            transition: all 0.25s ease; box-shadow: var(--box-shadow-card); position: relative;
-        }
-        .cat-card-item:hover, .cat-card-item:active { transform: translateY(-3px); border-color: var(--primary-color); }
-        .cat-card-img { width: 100%; height: 105px; object-fit: cover; background: #000; }
-        .cat-card-title { padding: 8px 4px; font-size: 11px; font-weight: 800; color: var(--primary-color); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
-
-        .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 12px 20px 12px; }
-        .product-card { background: var(--surface-card); border-radius: var(--card-radius); border: 1px solid var(--border-glow); overflow: hidden; cursor: pointer; box-shadow: var(--box-shadow-card); }
-        .product-card img { width: 100%; height: 130px; object-fit: cover; }
-        .product-card-body { padding: 10px; text-align: center; }
-        .product-card-title { font-size: 13px; font-weight: 800; margin-bottom: 4px; }
-        .product-card-btn { background: var(--accent-grad); color: #06120b; font-weight: 800; font-size: 11px; padding: 5px 12px; border-radius: var(--pill-radius); display: inline-block; margin-top: 4px; }
-
-        .floating-chat-btn {
-            position: fixed; bottom: 85px; left: 16px; width: 48px; height: 48px; border-radius: 50%;
-            background: #25d366; color: #ffffff; display: flex; align-items: center; justify-content: center;
-            font-size: 24px; box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5); z-index: 1001; cursor: pointer; text-decoration: none;
-        }
-
-        .package-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 14px 0; }
-        .package-card { background: var(--surface-bg); border: 1px solid var(--border-glow); border-radius: 16px; padding: 12px; text-align: center; cursor: pointer; }
-        .package-card.selected { border-color: var(--primary-color); background: rgba(255, 255, 255, 0.15); }
-        .pkg-amount { font-size: 13px; font-weight: 800; }
-        .pkg-price { font-size: 12px; color: var(--primary-color); font-weight: 700; margin-top: 4px; }
-
-        .page-box { padding: 16px; max-width: 600px; margin: 0 auto; }
-        .form-group { margin-bottom: 14px; }
-        .form-group label { display: block; font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; font-weight: 700; }
+        .page-box { padding: 14px; max-width: 600px; margin: 0 auto; }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 12px; color: var(--text-secondary); margin-bottom: 5px; font-weight: 700; }
         .form-input, .form-select {
-            width: 100%; padding: 12px 16px; background: var(--surface-bg); border: 1px solid var(--border-glow); 
-            color: var(--text-primary); border-radius: 16px; font-size: 13px; outline: none;
+            width: 100%; padding: 11px 14px; background: var(--surface-bg); border: 1px solid var(--border-glow); 
+            color: var(--text-primary); border-radius: 14px; font-size: 13px; outline: none;
+        }
+        .action-btn {
+            width: 100%; padding: 11px; background: var(--accent-grad); color: #041208;
+            border: none; border-radius: var(--pill-radius); font-size: 13px; font-weight: 800; cursor: pointer;
         }
 
-        .action-btn {
-            width: 100%; padding: 12px; background: var(--accent-grad); color: #041208;
-            border: none; border-radius: var(--pill-radius); font-size: 13px; font-weight: 800; cursor: pointer; margin-top: 6px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        .btn-modern-back {
+            display: inline-flex; align-items: center; gap: 9px;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.18) 0%, rgba(16, 172, 132, 0.28) 100%);
+            border: 1px solid var(--border-glow); color: var(--primary-color); padding: 8px 18px;
+            border-radius: var(--pill-radius); font-size: 12px; font-weight: 900; cursor: pointer; margin-bottom: 14px;
         }
-        .action-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        .settings-user-profile-card { display: flex; flex-direction: column; align-items: center; margin-bottom: 14px; }
+        .avatar-wrapper { position: relative; width: 80px; height: 80px; margin-bottom: 12px; cursor: pointer; }
+        .avatar-circle-main {
+            width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--primary-color);
+            background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 32px;
+        }
+        .avatar-circle-main img { width: 100%; height: 100%; object-fit: cover; }
+        .avatar-edit-badge {
+            position: absolute; bottom: 0; left: 0; width: 26px; height: 26px;
+            background: var(--primary-color); color: #06120b; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 12px;
+            border: 2px solid var(--surface-card);
+        }
+        .account-box-card {
+            width: 100%; background: var(--surface-card); border: 1px solid var(--border-glow);
+            border-radius: 20px; padding: 16px; display: flex; justify-content: space-between; align-items: flex-start;
+        }
+        .uid-pill-copy-btn {
+            background: rgba(46, 204, 113, 0.15); border: 1px solid var(--border-glow);
+            color: var(--primary-color); padding: 4px 10px; border-radius: 12px;
+            font-size: 11px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+        }
+        .btn-logout-danger {
+            width: 100%; padding: 13px; background: #e74c3c; color: #ffffff; border: none;
+            border-radius: var(--pill-radius); font-size: 13px; font-weight: 800; cursor: pointer; margin-top: 10px;
+        }
 
         .bottom-nav {
-            position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%); width: calc(100% - 20px);
-            max-width: 500px; background: var(--nav-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            display: flex; justify-content: space-around; align-items: center; padding: 6px 6px 8px 6px; border-radius: var(--pill-radius);
-            border: 1px solid var(--border-glow); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); z-index: 1000;
+            position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); width: calc(100% - 20px);
+            max-width: 500px; background: var(--surface-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            display: flex; justify-content: space-around; align-items: center; padding: 5px 6px 7px 6px; border-radius: var(--pill-radius);
+            border: 1px solid var(--border-glow); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5); z-index: 1000;
         }
         .nav-item {
             background: none; border: none; color: var(--text-secondary); font-size: 10px;
             display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; font-weight: 700; flex: 1;
         }
         .nav-item.active { color: var(--primary-color); }
-        .nav-item i { font-size: 17px; }
-
+        .nav-item i { font-size: 16px; }
         .nav-item-center {
-            position: relative;
-            top: -12px;
-            background: var(--accent-grad) !important;
-            color: #06120b !important;
-            width: 52px;
-            height: 52px;
-            border-radius: 50% !important;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 0px;
-            border: 3px solid var(--surface-card);
+            position: relative; top: -10px; background: var(--accent-grad) !important; color: #06120b !important;
+            width: 48px; height: 48px; border-radius: 50% !important; display: flex; align-items: center;
+            justify-content: center; flex-direction: column; border: 3px solid var(--surface-card);
         }
-        .nav-item-center i { font-size: 20px; color: #06120b; }
-        .nav-item-center span { font-size: 9px; font-weight: 900; color: #06120b; }
+        .nav-item-center i { font-size: 18px; color: #06120b; }
 
         .order-card {
             background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: var(--card-radius);
-            padding: 14px; margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px;
+            padding: 12px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 6px;
         }
-        .order-badge { padding: 4px 10px; border-radius: var(--pill-radius); font-size: 10px; font-weight: 800; width: fit-content; }
+        .order-badge { padding: 3px 8px; border-radius: var(--pill-radius); font-size: 10px; font-weight: 800; width: fit-content; }
         .badge-pending { background: #ffa502; color: #000; }
         .badge-success { background: var(--primary-color); color: #000; }
         .badge-rejected { background: #e74c3c; color: #fff; }
 
-        .admin-user-item {
-            background: var(--surface-bg); border: 1px solid var(--border-glow); border-radius: 18px;
-            padding: 12px 14px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 8px;
-        }
-        .admin-user-header { display: flex; align-items: center; justify-content: space-between; }
-        .admin-user-avatar { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--primary-color); overflow: hidden; display: flex; align-items: center; justify-content: center; background: #0c1c12; flex-shrink: 0; }
-        .admin-user-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .admin-user-controls { display: flex; gap: 6px; align-items: center; margin-top: 4px; }
-        .admin-input-small { width: 80px; padding: 6px 10px; font-size: 12px; border-radius: 12px; background: rgba(0,0,0,0.1); border: 1px solid var(--border-glow); color: var(--text-primary); text-align: center; }
+        .admin-nav-tabs { display: flex; background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: var(--pill-radius); padding: 4px; margin-bottom: 14px; gap: 4px; overflow-x: auto; }
+        .admin-tab-btn { flex: 1; padding: 8px 10px; border-radius: var(--pill-radius); border: none; background: transparent; color: var(--text-secondary); font-size: 11px; font-weight: 800; cursor: pointer; white-space: nowrap; }
+        .admin-tab-btn.active { background: var(--accent-grad); color: #06120b; }
+        .admin-section-box { display: none; }
+        .admin-section-box.active { display: block; }
+        .order-sub-switcher { display: flex; gap: 8px; margin-bottom: 12px; }
+        .order-sub-btn { flex: 1; padding: 8px; border-radius: 12px; border: 1px solid var(--border-glow); background: var(--surface-bg); color: var(--text-secondary); font-size: 11px; font-weight: 800; cursor: pointer; }
+        .order-sub-btn.active { background: var(--primary-color); color: #06120b; border-color: transparent; }
+        .admin-user-member-card { background: var(--surface-bg); border: 1px solid var(--border-glow); border-radius: 16px; padding: 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+        .dynamic-price-row { display: flex; gap: 6px; align-items: center; margin-bottom: 8px; }
 
-        .shamkash-box {
-            background: rgba(0, 0, 0, 0.05); border: 1px dashed var(--primary-color); border-radius: 16px;
-            padding: 12px; margin-bottom: 14px; text-align: center;
+        .sidebar-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px); z-index: 9999; opacity: 0; visibility: hidden; transition: all 0.3s ease;
         }
-        .shamkash-code { font-family: monospace; font-size: 12px; color: var(--primary-color); word-break: break-all; font-weight: bold; }
-
-        .wallet-stat-card {
-            background: var(--surface-card); border: 1px solid var(--border-glow);
-            border-radius: var(--card-radius); padding: 14px 18px; margin-bottom: 12px;
-            display: flex; justify-content: space-between; align-items: center;
+        .sidebar-overlay.active { opacity: 1; visibility: visible; }
+        .side-menu-drawer {
+            position: fixed; top: 0; right: -320px; width: 300px; height: 100%; background: var(--sidebar-bg);
+            color: var(--text-primary); z-index: 10000; box-shadow: -8px 0 35px rgba(0, 0, 0, 0.6);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1); overflow-y: auto; display: flex;
+            flex-direction: column; padding: 40px 16px 30px 16px;
         }
-        .wallet-stat-title { font-size: 12px; color: var(--text-secondary); font-weight: 700; }
-        .wallet-stat-value { font-size: 17px; font-weight: 900; color: var(--primary-color); margin-top: 4px; }
-
-        .admin-sub-tabs {
-            display: flex;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--border-glow);
-            border-radius: var(--pill-radius);
-            padding: 4px;
-            margin-bottom: 16px;
-            gap: 4px;
+        .side-menu-drawer.active { right: 0; }
+        .side-profile-section {
+            display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 12px;
+            background: rgba(0, 0, 0, 0.35); padding: 14px; border-radius: 18px; border: 1px solid var(--border-glow);
         }
-        .admin-sub-tab-btn {
-            flex: 1;
-            padding: 8px 4px;
-            border-radius: var(--pill-radius);
-            border: none;
-            background: transparent;
-            color: var(--text-secondary);
-            font-size: 11px;
-            font-weight: 800;
-            cursor: pointer;
-            text-align: center;
-            white-space: nowrap;
+        .side-avatar-circle {
+            width: 70px; height: 70px; border-radius: 50%; border: 3px solid var(--primary-color);
+            background: #111; color: #fff; display: flex; align-items: center; justify-content: center;
+            font-size: 28px; overflow: hidden; cursor: pointer;
         }
-        .admin-sub-tab-btn.active {
-            background: var(--accent-grad);
-            color: #06120b;
+        .side-avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .side-balance-huge { font-size: 24px; font-weight: 900; color: var(--primary-color); margin: 6px 0; }
+        .side-nav-list { display: flex; flex-direction: column; gap: 5px; }
+        .side-nav-link {
+            display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 12px;
+            font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+            background: rgba(0, 0, 0, 0.25); border: 1px solid var(--border-glow);
         }
-
-        .dynamic-price-row {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .theme-select-card {
-            background: var(--surface-card);
-            border: 1px solid var(--border-glow);
-            border-radius: var(--card-radius);
-            padding: 14px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .theme-select-card:hover { transform: translateY(-2px); border-color: var(--primary-color); }
-        .theme-preview-badge {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 2px solid rgba(0, 0, 0, 0.2);
-        }
-
-        .ai-status-box {
-            padding: 10px 14px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 700;
-            margin-top: 10px;
-            display: none;
-            line-height: 1.5;
-        }
-        .ai-status-loading {
-            background: rgba(0, 198, 255, 0.15);
-            border: 1px solid #00c6ff;
-            color: #00c6ff;
-            display: block;
-        }
-        .ai-status-success {
-            background: rgba(46, 204, 113, 0.15);
-            border: 1px solid #2ecc71;
-            color: #2ecc71;
-            display: block;
-        }
-        .ai-status-error {
-            background: rgba(231, 76, 60, 0.15);
-            border: 1px solid #e74c3c;
-            color: #ff7675;
-            display: block;
-        }
+        .side-nav-link.active, .side-nav-link:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--primary-color); color: var(--primary-color); }
+        .side-nav-link i { font-size: 16px; width: 20px; text-align: center; color: var(--primary-color); }
+        .admin-hub-link { background: linear-gradient(135deg, rgba(241, 196, 15, 0.2), rgba(230, 126, 34, 0.2)) !important; color: #f1c40f !important; border: 1px dashed #f1c40f !important; margin-top: 8px; }
     </style>
 </head>
 <body>
 
     <div id="splashScreen">
-        <div class="splash-logo-box" id="splashLogoContainer">
-            <i class="fa-solid fa-bolt"></i>
+        <div class="splash-logo-box" id="splashLogoContainer"><i class="fa-solid fa-bolt"></i></div>
+        <div style="font-size: 20px; font-weight: 900; color: #ffffff;">Auto Chah</div>
+    </div>
+
+    <div id="mandatoryAuthGate" style="display: none;">
+        <div class="auth-gate-box">
+            <div class="auth-gate-logo"><i class="fa-solid fa-bolt"></i></div>
+            <h3 style="font-size: 18px; font-weight: 900; color: var(--primary-color); margin-bottom: 4px;">Auto Chah</h3>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 16px;">مۇلازىمەتلەردىن پايدىلىنىش ئۈچۈن ھېساباتىڭىزغا كىرىڭ</p>
+
+            <div style="display: flex; background: var(--surface-bg); border: 1px solid var(--border-glow); border-radius: 30px; padding: 4px; margin-bottom: 14px;">
+                <button type="button" class="action-btn" id="gateSwitchLoginBtn" onclick="setGateAuthMode('login')" style="margin:0; padding:8px;">ھېساباتقا كىرىش</button>
+                <button type="button" class="action-btn" id="gateSwitchRegBtn" onclick="setGateAuthMode('register')" style="margin:0; padding:8px; background:transparent; color:var(--text-secondary);">تىزىملىتىش</button>
+            </div>
+
+            <div id="gateLoginForm" style="text-align: right;">
+                <div class="form-group">
+                    <label>كىرىش نامى ياكى UID</label>
+                    <input type="text" id="gateLoginUser" class="form-input" placeholder="نامىڭىز ياكى 6 خانىلىق UID">
+                </div>
+                <div class="form-group">
+                    <label>مەخپىي نومۇر (پارول)</label>
+                    <input type="password" id="gateLoginPass" class="form-input" placeholder="پارولىڭىز">
+                </div>
+                <button type="button" class="action-btn" onclick="handleGateLogin()">سىستېمىغا كىرىش</button>
+            </div>
+
+            <div id="gateRegForm" style="display: none; text-align: right;">
+                <div class="form-group">
+                    <label>كىرىش ئىسمى (Username)</label>
+                    <input type="text" id="gateRegUsername" class="form-input" placeholder="مەسىلەن: ali99">
+                </div>
+                <div class="form-group">
+                    <label>كۆرۈنىدىغان ئىسىم (Display Name)</label>
+                    <input type="text" id="gateRegDisplayName" class="form-input" placeholder="مەسىلەن: Merhaba">
+                </div>
+                <div class="form-group">
+                    <label>مەخپىي نومۇر</label>
+                    <input type="password" id="gateRegPass" class="form-input" placeholder="پارول">
+                </div>
+                <button type="button" class="action-btn" onclick="handleGateRegister()">ھازىرلا تىزىملىتىش (UID ئېلىش)</button>
+            </div>
         </div>
-        <div style="font-size: 22px; font-weight: 900; color: #ffffff;">Auto Chah</div>
     </div>
 
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSideMenu(false)"></div>
     <div class="side-menu-drawer" id="sideMenuDrawer">
         <div class="side-profile-section">
-            <div class="side-avatar-circle" id="sideAvatarCircle" onclick="toggleSideMenu(false); switchTab('accountTab');">
-                👤
-            </div>
-            <div class="side-username-badge">
-                <span id="sideUsernameText" data-i18n="guestUser">مېھمان ئابونت</span>
-                <span class="side-badge-pill" id="sideVipPill"><i class="fa-solid fa-star" style="color:#f1c40f;"></i> <span data-i18n="goldMember">ئالتۇن</span></span>
-            </div>
-            <div class="side-balance-huge" id="sideBalanceDisplay">
-                $ 0.00
-            </div>
-            <div class="side-quick-icons">
-                <i class="fa-solid fa-heart icon-heart"></i>
-                <i class="fa-solid fa-user" onclick="toggleSideMenu(false); switchTab('accountTab');"></i>
-                <i class="fa-solid fa-right-from-bracket" onclick="handleLogout()"></i>
-            </div>
-            <div class="currency-switch-pill" onclick="toggleSideMenu(false); switchTab('depositTab');">
-                <i class="fa-solid fa-rotate"></i> <span data-i18n="currencyUnit">پۇل بىرلىكى: شامكەش / USD</span>
+            <div class="side-avatar-circle" id="sideAvatarCircle" onclick="toggleSideMenu(false); switchTab('settingsTab');">👤</div>
+            <div style="font-size: 14px; font-weight: 900; margin-top: 8px;" id="sideUsernameText">مېھمان ئابونت</div>
+            <div style="font-size: 11px; color: var(--primary-color); font-weight: 800;" id="sideUidText">UID: --</div>
+            <div class="side-balance-huge" id="sideBalanceDisplay">$ 0.00</div>
+            <div style="display: flex; gap: 16px; font-size: 16px; margin-top: 4px;">
+                <i class="fa-solid fa-gear" onclick="toggleSideMenu(false); switchTab('settingsTab');" style="cursor:pointer;"></i>
+                <i class="fa-solid fa-right-from-bracket" onclick="handleLogout()" style="cursor:pointer;"></i>
             </div>
         </div>
 
         <div class="side-nav-list">
-            <div class="side-nav-link active" onclick="toggleSideMenu(false); switchTab('homeTab');">
-                <i class="fa-solid fa-house"></i>
-                <span data-i18n="navHome">باش بەت</span>
-            </div>
-            <div class="side-nav-link" onclick="toggleSideMenu(false); switchTab('depositTab');">
-                <i class="fa-solid fa-wallet"></i>
-                <span data-i18n="navDeposit">قالدۇق قاچىلاش</span>
-            </div>
-            <div class="side-nav-link" onclick="toggleSideMenu(false); switchTab('walletTab');">
-                <i class="fa-solid fa-money-bill-transfer"></i>
-                <span data-i18n="navWallet">ھەميان</span>
-            </div>
-            <div class="side-nav-link" onclick="toggleSideMenu(false); switchTab('ordersTab');">
-                <i class="fa-solid fa-cart-shopping" style="color:#e84118;"></i>
-                <span data-i18n="navOrders">تەلەپلىرىم</span>
-            </div>
-            <div class="side-nav-link" onclick="toggleSideMenu(false); switchTab('feedbackTab');">
-                <i class="fa-solid fa-comment-dots" style="color:#00c6ff;"></i>
-                <span data-i18n="navFeedback">تەلەپ ۋە پىكىر</span>
-            </div>
-            
-            <div class="side-nav-link" onclick="toggleSideMenu(false); switchTab('settingsTab');">
-                <i class="fa-solid fa-gear" style="color:#f1c40f;"></i>
-                <span>تەڭشەك ۋە لايىھە ئۇسلۇبى</span>
+            <div class="side-nav-link active" onclick="toggleSideMenu(false); switchTab('homeTab');"><i class="fa-solid fa-house"></i><span>باش بەت</span></div>
+            <div class="side-nav-link" onclick="toggleSideMenu(false); switchTab('depositTab');"><i class="fa-solid fa-wallet"></i><span>قالدۇق قاچىلاش</span></div>
+            <div class="side-nav-link" onclick="toggleSideMenu(false); switchTab('walletTab');"><i class="fa-solid fa-money-bill-transfer"></i><span>ھەميان</span></div>
+            <div class="side-nav-link" onclick="toggleSideMenu(false); switchTab('ordersTab');"><i class="fa-solid fa-cart-shopping" style="color:#e84118;"></i><span>تەلەپلىرىم</span></div>
+            <div class="side-nav-link" onclick="toggleSideMenu(false); switchTab('feedbackTab');"><i class="fa-solid fa-comment-dots" style="color:#00c6ff;"></i><span>تەلەپ ۋە پىكىر</span></div>
+            <div class="side-nav-link" onclick="toggleSideMenu(false); switchTab('settingsTab');"><i class="fa-solid fa-gear" style="color:#f1c40f;"></i><span>تەڭشەك ۋە ھېسابات</span></div>
+
+            <div class="side-nav-link admin-hub-link" id="sideAdminHubLink" style="display: none;" onclick="toggleSideMenu(false); switchTab('adminHubTab');">
+                <i class="fa-solid fa-screwdriver-wrench"></i><span>👑 باشقۇرغۇچى مەركىزى</span>
             </div>
 
-            <div class="side-nav-link" onclick="window.open('https://t.me/KOZNAK_USD', '_blank')">
-                <i class="fa-brands fa-telegram" style="color:#0088cc;"></i>
-                <span data-i18n="navTelegram">تېلېگرامما ئالاقىسى</span>
-            </div>
-
-            <div class="side-nav-link admin-link-1" id="sideAdminOrdersLink" style="display: none;" onclick="toggleSideMenu(false); switchTab('adminOrdersTab');">
-                <i class="fa-solid fa-bolt-lightning"></i>
-                <span>1. زاكاز ۋە تەلەپلەر مەركىزى</span>
-            </div>
-
-            <div class="side-nav-link admin-link-2" id="sideAdminBrandingLink" style="display: none;" onclick="toggleSideMenu(false); switchTab('adminBrandingTab');">
-                <i class="fa-solid fa-palette"></i>
-                <span>2. رەسىم ۋە كۆرۈنۈش تەڭشىكى</span>
-            </div>
-
-            <div class="side-nav-link admin-link-3" id="sideAdminUploadLink" style="display: none;" onclick="toggleSideMenu(false); switchTab('adminUploadTab');">
-                <i class="fa-solid fa-circle-plus"></i>
-                <span>3. مەزمۇن ۋە تۈر قوشۇش</span>
-            </div>
-
-            <div class="side-nav-link user-auth-menu-btn" id="sideMenuAuthBtn" onclick="handleSideAuthAction()">
+            <div class="side-nav-link" id="sideMenuAuthBtn" onclick="handleSideAuthAction()" style="margin-top: 10px; background: rgba(235,77,75,0.2);">
                 <i class="fa-solid fa-arrow-right-to-bracket" id="sideMenuAuthIcon"></i>
-                <span id="sideMenuAuthText">👤 ھېساباتقا كىرىش / تىزىملىتىش</span>
+                <span id="sideMenuAuthText">ھېساباتقا كىرىش</span>
             </div>
         </div>
     </div>
 
     <header>
-        <div class="logo-box" onclick="toggleSideMenu(true)" title="Menu">
-            <div class="logo-icon" id="headerLogoContainer">
-                <img src="icon-512.png" alt="Logo">
-            </div>
+        <div class="logo-box" onclick="toggleSideMenu(true)">
+            <div class="logo-icon" id="headerLogoContainer"><img src="icon-512.png" alt="Logo"></div>
         </div>
         <div class="header-actions">
             <select class="lang-select-box" id="languageSelector" onchange="changeLanguage(this.value)">
@@ -708,273 +472,108 @@
                 <option value="ar">العربية</option>
                 <option value="en">English</option>
             </select>
-
-            <div class="user-balance-chip" onclick="switchTab('depositTab')" title="پۇل قاچىلاش">
-                <span>💰</span>
-                <span id="headerBalanceDisplay">0.00</span>
-                <button type="button" class="btn-add-balance">+</button>
+            <div class="user-balance-chip" onclick="switchTab('depositTab')">
+                <span>💰</span><span id="headerBalanceDisplay">0.00</span><button type="button" class="btn-add-balance">+</button>
             </div>
             <button class="header-menu-btn" onclick="toggleSideMenu(true)"><i class="fa-solid fa-bars"></i></button>
         </div>
     </header>
 
     <div id="homeTab" class="tab-content active-tab">
-        <div class="banner-slider-container" id="bannerSliderContainer" style="display: none;">
-            <div class="banner-slider-track" id="bannerSliderTrack"></div>
-            <div class="banner-dots" id="bannerDotsContainer"></div>
-        </div>
-
-        <div class="ticker-box">
-            <i class="fa-solid fa-bullhorn ticker-icon"></i>
-            <div class="ticker-content-wrapper">
-                <span class="ticker-animated-text" id="homeTickerText" data-i18n="tickerText">Auto Chah ئۇيۇنغا پۇل قاچىلاش سۇپىسىغا خۇش كەپسىز! تېز ھەم ئىشەنچلىك مۇلازىمەت بىلەن تەمىنلەيمىز.</span>
-            </div>
+        
+        <div class="media-banner-container" id="mediaBannerSlider">
+            <div class="media-banner-track" id="mediaBannerTrack"></div>
+            <div class="media-banner-dots" id="mediaBannerDots"></div>
         </div>
 
         <div class="search-bar-wrap">
-            <input type="text" id="searchInputBox" class="search-input-field" placeholder="ئىزدەش... (ئويۇن ياكى كارتىلارنى كىرگۈزۈڭ)" oninput="handleSearch(event)" data-i18n-ph="searchPlaceholder">
+            <input type="text" id="searchInputBox" class="search-input-field" placeholder="ئىزدەش... (ئويۇن ياكى كارتىلارنى كىرگۈزۈڭ)" oninput="handleSearch(event)">
         </div>
 
-        <div id="categoryViewSection">
-            <div style="padding: 0 14px 10px 14px; font-size: 15px; font-weight: 800; color: var(--primary-color);">
-                📂 مۇلازىمەت تۈرلىرى ۋە كاتېگورىيەلەر
-            </div>
-            <div class="categories-grid" id="homeCategoriesContainer"></div>
-        </div>
-
-        <div id="productsViewSection" style="display: none;">
-            <div style="padding: 0 14px 12px 14px; display: flex; justify-content: space-between; align-items: center;">
-                <span id="selectedCategoryTitleDisplay" style="font-size: 15px; font-weight: 800; color: var(--primary-color);"></span>
-                <button type="button" class="action-btn" style="width: auto; padding: 6px 14px; margin: 0; background: var(--surface-bg); color: var(--text-primary); border: 1px solid var(--border-glow);" onclick="goBackToCategories()">⬅️ باش بەتكە قايتىش</button>
-            </div>
-            <div class="products-grid" id="gamesGridContainer"></div>
-        </div>
+        <div id="mediaSectionsContainer"></div>
     </div>
 
     <div id="settingsTab" class="tab-content">
         <div class="page-box">
-            <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: var(--text-primary); border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
+            <button type="button" class="btn-modern-back" onclick="switchTab('homeTab')">
+                <i class="fa-solid fa-circle-arrow-right"></i>
+                <span>باش بەتكە قايتىش</span>
+            </button>
 
-            <div style="font-size: 16px; font-weight: 900; margin-bottom: 14px; color: var(--primary-color);">⚙️ لايىھە ئۇسلۇبى ۋە سىستېما تەڭشەكلىرى</div>
-
-            <div class="theme-select-card" onclick="setAppTheme('green', true)">
-                <div>
-                    <div style="font-weight: 800; font-size: 14px;">🌿 Cyber Neon (يېشىل نېئون ئۇسلۇبى)</div>
-                    <div style="font-size: 11px; color: var(--text-secondary); margin-top: 2px;">رەسمىي Auto Chah كىبېر يېشىل نۇر ئۇسلۇبى</div>
+            <div id="settingsUserProfileSection" class="settings-user-profile-card">
+                <div class="avatar-wrapper" onclick="triggerAvatarUpload()">
+                    <div class="avatar-circle-main" id="settingsAvatarBox">👤</div>
+                    <div class="avatar-edit-badge" title="Avatar"><i class="fa-solid fa-camera"></i></div>
                 </div>
-                <div class="theme-preview-badge" style="background: linear-gradient(135deg, #2ecc71, #10ac84); box-shadow: 0 0 10px #2ecc71;"></div>
-            </div>
+                <input type="file" id="avatarFileInput" accept="image/*" style="display:none;" onchange="handleUserAvatarSelected(event)">
 
-            <div class="theme-select-card" onclick="setAppTheme('purple', true)">
-                <div>
-                    <div style="font-weight: 800; font-size: 14px;">💜 Purple Cyberpunk (بىنەپشە گىلاس ئۇسلۇبى)</div>
-                    <div style="font-size: 11px; color: var(--text-secondary); margin-top: 2px;">زامانىۋى بىنەپشە نۇر ۋە قېنىق ئەينەكسىمان شەكىل</div>
-                </div>
-                <div class="theme-preview-badge" style="background: linear-gradient(135deg, #a29bfe, #6c5ce7); box-shadow: 0 0 10px #6c5ce7;"></div>
-            </div>
-
-            <div class="theme-select-card" onclick="setAppTheme('gold', true)">
-                <div>
-                    <div style="font-weight: 800; font-size: 14px;">🔥 Golden Luxury (ھەشەمەتلىك ئالتۇن قارا)</div>
-                    <div style="font-size: 11px; color: var(--text-secondary); margin-top: 2px;">ئالىي دەرىجىلىك ئالتۇن چاقناش ۋە تىك كارتىلار</div>
-                </div>
-                <div class="theme-preview-badge" style="background: linear-gradient(135deg, #f39c12, #f1c40f); box-shadow: 0 0 10px #f1c40f;"></div>
-            </div>
-
-            <div class="theme-select-card" onclick="setAppTheme('white', true)">
-                <div>
-                    <div style="font-weight: 800; font-size: 14px;">☀️ Clean Snow (سۈزۈك ئاپئاق ئۇسلۇب)</div>
-                    <div style="font-size: 11px; color: var(--text-secondary); margin-top: 2px;">يورۇق، راھەت ھەم كۈندۈزلۈك سۈزۈك ئاق كۆرۈنۈش</div>
-                </div>
-                <div class="theme-preview-badge" style="background: linear-gradient(135deg, #ffffff, #10ac84); border: 2px solid #10ac84;"></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="adminOrdersTab" class="tab-content">
-        <div class="page-box">
-            <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: var(--text-primary); border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
-
-            <div style="font-size: 16px; font-weight: 900; color: #00c6ff; margin-bottom: 14px;">⚡ 1-بۆلەك: باشقۇرغۇچى زاكاز، تەلەپ ۋە ئابونتلار مەركىزى</div>
-
-            <div class="admin-sub-tabs">
-                <button type="button" class="admin-sub-tab-btn active" id="btnAdminGameSubTab" onclick="switchAdminOrderSubTab('game')">🎮 1. ئويۇن زاكازلىرى</button>
-                <button type="button" class="admin-sub-tab-btn" id="btnAdminDepositSubTab" onclick="switchAdminOrderSubTab('deposit')">💰 2. پۇل قاچىلاش</button>
-                <button type="button" class="admin-sub-tab-btn" id="btnAdminUsersSubTab" onclick="switchAdminOrderSubTab('users')">👥 3. بارلىق ئابونتلار</button>
-            </div>
-
-            <div id="adminGameOrdersSubBox">
-                <div style="font-size: 13px; font-weight: 800; color: #3498db; margin-bottom: 10px;">🎮 ئويۇن ۋە ئەپلەرگە پۇل قاچىلاش زاكازلىرى:</div>
-                <div id="historyAdminOrdersContainer"></div>
-            </div>
-
-            <div id="adminDepositOrdersSubBox" style="display: none;">
-                <div style="font-size: 13px; font-weight: 800; color: var(--primary-color); margin-bottom: 10px;">💰 شامكەش قالدۇق پۇل قاچىلاش تەلەپلىرى ۋە ئىسپاتلىرى:</div>
-                <div id="historyAdminDepositsContainer"></div>
-            </div>
-
-            <div id="adminUsersSubBox" style="display: none;">
-                <div style="font-size: 13px; font-weight: 800; color: #f1c40f; margin-bottom: 10px;">👥 بارلىق تىزىملاتقان ئابونتلار ۋە قالدۇق پۇل تەڭشەش:</div>
-                <div id="adminUsersListContainer"></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="adminBrandingTab" class="tab-content">
-        <div class="page-box">
-            <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: var(--text-primary); border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
-
-            <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 18px;">
-                <div style="font-size: 16px; font-weight: 900; color: #f1c40f; margin-bottom: 16px;">🎨 2-بۆلەك: رەسىم كىرگۈزۈش (1 دىن 3 كىچە تېما رەسىملىرى)</div>
-
-                <div class="form-group">
-                    <label>⚡ 1. توربەت لوگو رەسىمى (Header & Site Logo)</label>
-                    <input type="file" id="adminSiteLogoFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleSiteLogoUpload(event)">
-                </div>
-
-                <div class="form-group">
-                    <label>🖼️ 2. باش بەت 1-تېما رەسىمى (Banner 1)</label>
-                    <input type="file" id="adminBanner1File" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleBannerUpload(event, 0)">
-                </div>
-
-                <div class="form-group">
-                    <label>🖼️ 3. باش بەت 2-تېما رەسىمى (Banner 2)</label>
-                    <input type="file" id="adminBanner2File" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleBannerUpload(event, 1)">
-                </div>
-
-                <div class="form-group">
-                    <label>🖼️ 4. باش بەت 3-تېما رەسىمى (Banner 3)</label>
-                    <input type="file" id="adminBanner3File" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleBannerUpload(event, 2)">
-                </div>
-
-                <div class="form-group">
-                    <label>🎬 5. توربەت ئېچىلىشتىن بۇرۇن چىقىدىغان بەت رەسىمى (Splash Logo)</label>
-                    <input type="file" id="adminSplashLogoFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleSplashLogoUpload(event)">
-                </div>
-
-                <div class="form-group">
-                    <label>📱 6. يان Menu تىزىملىكى ئارقا كۆرۈنۈش رەسىمى (Side Menu Background)</label>
-                    <input type="file" id="adminMenuBgFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleMenuBgUpload(event)">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="adminUploadTab" class="tab-content">
-        <div class="page-box">
-            <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 14px; background: var(--surface-bg); color: var(--text-primary); border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')">⬅️ باش بەتكە قايتىش</button>
-
-            <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 18px; margin-bottom: 20px;">
-                <div style="font-size: 15px; font-weight: 900; color: #00c6ff; margin-bottom: 12px;">📢 باش بەت مېڭىپ تۇرىدىغان ئۇقتۇرۇش خېتىنى ئۆزگەرتىش</div>
-                <div class="form-group">
-                    <label>ئۇقتۇرۇش ياكى خەۋەر مەزمۇنى (سولدىن ئوڭغا ماڭىدۇ)</label>
-                    <input type="text" id="adminTickerInput" class="form-input" placeholder="باش بەتتە كۆرۈنىدىغان خەتنى كىرگۈزۈڭ...">
-                </div>
-                <button type="button" class="action-btn" style="background: #00c6ff; color: #06120b;" onclick="saveTickerText()">💾 ئۇقتۇرۇش خېتىنى ساقلاش</button>
-            </div>
-
-            <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 18px; margin-bottom: 20px;">
-                <div style="font-size: 15px; font-weight: 900; color: var(--primary-color); margin-bottom: 12px;">📁 1. يېڭى قوشۇلىدىغان ئورۇن (كاتېگورىيە) قوشۇش</div>
-                
-                <div class="form-group">
-                    <label>كاتېگورىيە نامى</label>
-                    <input type="text" id="newCatTitle" class="form-input" placeholder="مەسىلەن: 🎮 ئويۇنلار تۈرى، 💬 سۆزلىشىش ئەپلىرى...">
-                </div>
-
-                <div class="form-group">
-                    <label>📷 كاتېگورىيە رەسىمى (تېلېفوندىن تاللاڭ)</label>
-                    <input type="file" id="newCatImageFile" accept="image/*" class="form-input" style="padding: 8px;" onchange="handleCategoryFileSelected(event)">
-                </div>
-
-                <button type="button" class="action-btn" onclick="saveNewCategory()">➕ يېڭى كاتېگورىيە قوشۇش</button>
-            </div>
-
-            <div style="background: var(--surface-card); border: 1px dashed #e74c3c; border-radius: 20px; padding: 18px; margin-bottom: 20px;">
-                <div style="font-size: 15px; font-weight: 900; color: #e74c3c; margin-bottom: 12px;">🗑️ 2. كاتېگورىيەنى تاللاپ ئۆچۈرۈش</div>
-                
-                <div class="form-group">
-                    <label>ئۆچۈرىدىغان كاتېگورىيەنى تاللاڭ</label>
-                    <select id="selectDeleteCategory" class="form-select"></select>
-                </div>
-
-                <button type="button" class="action-btn" style="background: #e74c3c; color: #fff;" onclick="handleDeleteSelectedCategory()">🗑️ تاللانغان كاتېگورىيەنى يۇيۇۋېتىش</button>
-            </div>
-
-            <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 18px;">
-                <div style="font-size: 15px; font-weight: 900; color: #e67e22; margin-bottom: 14px;">💎 3. تاللانغان كاتېگورىيەگە مەھسۇلات ۋە باھا قوشۇش</div>
-
-                <form onsubmit="handleNewProductSubmit(event)">
-                    <div class="form-group">
-                        <label>قايسى كاتېگورىيەگە قوشۇلىدۇ؟</label>
-                        <select id="selectTargetCategory" class="form-select" required></select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>مەھسۇلات نامى</label>
-                        <input type="text" id="prodNameInput" class="form-input" placeholder="مەسىلەن: PUBG Mobile UC، TikTok Coins..." required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>📷 مەھسۇلات رەسىمى (تېلېفوندىن تاللاڭ)</label>
-                        <input type="file" id="prodImageFile" accept="image/*" class="form-input" style="padding: 8px;" required onchange="handleProductFileSelected(event)">
-                    </div>
-
-                    <div class="form-group">
-                        <label>💎 باھا تىزىملىكى (UC/ئالماس نامى ۋە باھاسى):</label>
-                        <div id="dynamicPriceContainer">
-                            <div class="dynamic-price-row">
-                                <input type="text" class="form-input prod-pkg-name" placeholder="مىقدارى (مەسىلەن: 60 UC)" required style="flex: 1.5;">
-                                <input type="text" class="form-input prod-pkg-price" placeholder="باھاسى (مەسىلەن: 1.0 شامكەش)" required style="flex: 1.2;">
-                                <button type="button" class="action-btn" style="width: auto; padding: 8px 12px; margin: 0; background: #e74c3c; color: #fff;" onclick="removePriceRow(this)">✕</button>
-                            </div>
+                <div class="account-box-card">
+                    <div>
+                        <div class="uid-pill-copy-btn" onclick="copyMyUid()" title="Copy">
+                            <span id="settCardUid">UID: --</span>
+                            <i class="fa-solid fa-copy"></i>
                         </div>
-                        <button type="button" class="action-btn" style="width: auto; padding: 8px 16px; margin-top: 8px; background: #00c6ff; color: #000; font-size: 11px;" onclick="addPriceRow()">➕ باھا تۈرى قوشۇش</button>
                     </div>
+                    <div style="text-align: left;">
+                        <div style="font-size: 17px; font-weight: 900;" id="settCardDisplayName">User</div>
+                        <div style="font-size: 11px; color: var(--text-secondary); margin-top: 2px;">
+                            كىرىش نامى: <b id="settCardUsername" style="color: var(--text-primary);">user</b>
+                        </div>
+                        <div style="font-size: 13px; font-weight: 800; margin-top: 6px;">
+                            قالدۇق: <span id="settCardBalance" style="color: var(--primary-color);">0.00</span> شامكەش
+                        </div>
+                    </div>
+                </div>
 
-                    <button type="submit" class="action-btn" style="margin-top: 14px;">ساقلاش ۋە ئېلان قىلىش</button>
-                </form>
+                <button type="button" class="btn-logout-danger" onclick="handleLogout()">چېكىنىش (Log out)</button>
+            </div>
+
+            <div class="order-card" id="settingsProfileEditBox">
+                <div style="font-size: 13px; font-weight: 900; color: var(--primary-color); margin-bottom: 8px;">
+                    <i class="fa-solid fa-user-pen"></i> ھېسابات ئىسمىنى ئۆزگەرتىش
+                </div>
+                <div class="form-group">
+                    <label>كۆرۈنىدىغان ئىسىم</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="settingDisplayNameInput" class="form-input" placeholder="يېڭى ئىسىم كىرگۈزۈڭ">
+                        <button type="button" class="action-btn" style="width: auto; padding: 0 16px; margin: 0;" onclick="saveDisplayName()">ساقلاش</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div id="ordersTab" class="tab-content">
         <div class="page-box">
-            <div style="font-size: 16px; font-weight: 800; margin-bottom: 12px;" data-i18n="myOrdersTitle">📋 تەلەپلىرىم (ئويۇن ۋە مۇلازىمەت ئەھۋالى)</div>
+            <button type="button" class="btn-modern-back" onclick="switchTab('homeTab')">
+                <i class="fa-solid fa-angles-right"></i>
+                <span>باش بەتكە قايتىش</span>
+            </button>
+            <div style="font-size: 15px; font-weight: 800; margin-bottom: 10px;">📋 تەلەپلىرىم ۋە زاكاز ھالىتى</div>
             <div id="userOrdersList"></div>
         </div>
     </div>
 
-    <!-- 💰 شامكەش ئارقىلىق پۇل قاچىلاش (Gemini AI تەكشۈرۈش بىلەن) -->
     <div id="depositTab" class="tab-content">
         <div class="page-box">
-            <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 24px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
-                <div style="font-size: 16px; font-weight: 800; margin-bottom: 14px;" data-i18n="depositModalTitle">💰 شامكەش ئارقىلىق قالدۇق قاچىلاش</div>
-
-                <div class="shamkash-box">
-                    <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;" data-i18n="myShamkashCode">شامكەش ھىسابىم:</div>
-                    <div class="shamkash-code" id="shamkashAddressDisplay">efe8a2b200d66411c7c7e296369cbba8</div>
-                    <button type="button" class="action-btn" style="background: var(--primary-color); padding: 5px 12px; font-size: 11px; margin-top: 8px; width: auto; color:#000;" onclick="copyShamkashAddress()" data-i18n="btnCopy">📋 كۆچۈرۈۋېلىش</button>
+            <button type="button" class="btn-modern-back" onclick="switchTab('homeTab')">
+                <i class="fa-solid fa-angles-right"></i>
+                <span>باش بەتكە قايتىش</span>
+            </button>
+            <div class="order-card">
+                <div style="font-size: 14px; font-weight: 900; color: var(--primary-color); margin-bottom: 8px;">
+                    <i class="fa-solid fa-bolt"></i> شامكەش ئارقىلىق قالدۇق قاچىلاش
                 </div>
-
+                <div style="background: rgba(0,0,0,0.2); border: 1px dashed var(--primary-color); padding: 10px; border-radius: 12px; text-align: center; margin-bottom: 12px;">
+                    <span style="font-size: 11px; color: var(--text-secondary);">شامكەش كودىمىز:</span>
+                    <div style="font-size: 12px; color: var(--primary-color); font-weight: bold; margin: 4px 0;" id="shamkashAddressDisplay">efe8a2b200d66411c7c7e296369cbba8</div>
+                    <button type="button" class="action-btn" style="width: auto; padding: 4px 12px; font-size: 11px;" onclick="copyShamkashAddress()">كۆچۈرۈۋېلىش</button>
+                </div>
                 <form id="depositForm" onsubmit="handleDepositSubmit(event)">
-                    <div class="form-group">
-                        <label data-i18n="depositAmountLabel">قاچىلىغان پۇل سوممىسى</label>
-                        <input type="number" step="any" id="depositAmount" class="form-input" placeholder="مەسىلەن: 10" required>
-                    </div>
-                    <div class="form-group">
-                        <label data-i18n="depositTxLabel">تالون ئىسپات نۇمۇرى</label>
-                        <input type="text" id="depositTxId" class="form-input" placeholder="شامكەش تالون نومۇرى ياكى TxID" required>
-                    </div>
-                    <div class="form-group">
-                        <label data-i18n="depositProofLabel">📷 ئىسپات رەسىمى</label>
-                        <input type="file" id="depositProofFile" accept="image/*" class="form-input" style="padding: 8px;" required onchange="handleProofFileSelected(event)">
-                    </div>
-
-                    <div id="aiVerifyStatusBox" class="ai-status-box"></div>
-
-                    <button type="submit" id="depositSubmitBtn" class="action-btn" style="margin-top: 10px;">
-                        <i class="fa-solid fa-bolt"></i> <span data-i18n="btnSendDeposit">ئىلتىماسنى يوللاش</span>
-                    </button>
+                    <div class="form-group"><label>قاچىلىغان سومما</label><input type="number" step="any" id="depositAmount" class="form-input" placeholder="10" required></div>
+                    <div class="form-group"><label>تالون نۇمۇرى (TxID)</label><input type="text" id="depositTxId" class="form-input" placeholder="TxID" required></div>
+                    <div class="form-group"><label>📷 تالون سۈرىتى</label><input type="file" id="depositProofFile" accept="image/*" class="form-input" style="padding: 6px;" required onchange="handleProofFileSelected(event)"></div>
+                    <button type="submit" id="depositSubmitBtn" class="action-btn">ئىلتىماسنى يوللاش</button>
                 </form>
             </div>
         </div>
@@ -982,301 +581,160 @@
 
     <div id="walletTab" class="tab-content">
         <div class="page-box">
-            <div style="font-size: 16px; font-weight: 800; margin-bottom: 14px;">👛 مېنىڭ ھەميانىم ۋە پۇل ھېساباتىم</div>
-
-            <div class="wallet-stat-card">
-                <div>
-                    <div class="wallet-stat-title">ھازىرقى قالدۇق سومما</div>
-                    <div class="wallet-stat-value" id="walletCurrentBal">$ 0.00</div>
-                </div>
-                <div style="font-size: 30px;">💰</div>
+            <button type="button" class="btn-modern-back" onclick="switchTab('homeTab')">
+                <i class="fa-solid fa-angles-right"></i>
+                <span>باش بەتكە قايتىش</span>
+            </button>
+            <div style="font-size: 15px; font-weight: 800; margin-bottom: 12px;">👛 مېنىڭ ھەميانىم</div>
+            <div class="order-card">
+                <div style="font-size: 12px; color: var(--text-secondary);">ھازىرقى قالدۇق:</div>
+                <div style="font-size: 24px; font-weight: 900; color: var(--primary-color);" id="walletCurrentBal">$ 0.00</div>
             </div>
-
-            <div class="wallet-stat-card">
-                <div>
-                    <div class="wallet-stat-title">توربەتكە قاچىلانغان ئومۇمىي پۇل (شامكەش)</div>
-                    <div class="wallet-stat-value" id="walletTotalDeposited" style="color: #00c6ff;">$ 0.00</div>
-                </div>
-                <div style="font-size: 30px;">📥</div>
+            <div class="order-card">
+                <div style="font-size: 12px; color: var(--text-secondary);">ئومۇمىي قاچىلانغان سومما:</div>
+                <div style="font-size: 18px; font-weight: 800; color: #00c6ff;" id="walletTotalDeposited">$ 0.00</div>
             </div>
-
-            <div class="wallet-stat-card">
-                <div>
-                    <div class="wallet-stat-title">ئويۇن / مۇلازىمەتلەرگە خەجلەنگەن سومما</div>
-                    <div class="wallet-stat-value" id="walletTotalSpent" style="color: #e74c3c;">$ 0.00</div>
-                </div>
-                <div style="font-size: 30px;">🎮</div>
-            </div>
-
-            <button type="button" class="action-btn" onclick="switchTab('depositTab')" style="margin-top: 10px;">➕ قالدۇق پۇل قاچىلاش</button>
+            <button type="button" class="action-btn" onclick="switchTab('depositTab')">➕ قالدۇق قاچىلاش</button>
         </div>
     </div>
 
     <div id="feedbackTab" class="tab-content">
         <div class="page-box">
-            <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 24px; padding: 20px;">
-                <div style="font-size: 16px; font-weight: 800; margin-bottom: 6px;">📬 باشقۇرغۇچىغا تەلەپ ياكى پىكىر قالدۇرۇش</div>
-                <p style="font-size: 11px; color: var(--text-secondary); margin-bottom: 14px;">سىز يوللىغان بارلىق تەلەپ ۋە باھالار باشقۇرغۇچىنىڭ تەلەپلەر ساندۇقىغا ئاپتوماتىك چۈشىدۇ.</p>
-
+            <button type="button" class="btn-modern-back" onclick="switchTab('homeTab')">
+                <i class="fa-solid fa-angles-right"></i>
+                <span>باش بەتكە قايتىش</span>
+            </button>
+            <div class="order-card">
+                <div style="font-size: 14px; font-weight: 900; color: var(--primary-color); margin-bottom: 8px;">📬 باشقۇرغۇچىغا پىكىر قالدۇرۇش</div>
                 <form onsubmit="handleFeedbackSubmit(event)">
-                    <div class="form-group">
-                        <label>تېما ياكى مەقسەت</label>
-                        <input type="text" id="feedbackSubject" class="form-input" placeholder="مەسىلەن: زاكاز سۈرئىتى، يېڭى ئويۇن تەلەپ قىلىش" required>
-                    </div>
-                    <div class="form-group">
-                        <label>تەلەپ ياكى پىكىر مەزمۇنى</label>
-                        <textarea id="feedbackMessage" class="form-input" rows="4" placeholder="پىكىرىڭىزنى بۇ يەرگە تولۇق بايان قىلىڭ..." required></textarea>
-                    </div>
-                    <button type="submit" class="action-btn"><i class="fa-solid fa-paper-plane"></i> تەلەپنى يوللاش</button>
+                    <div class="form-group"><label>تېما</label><input type="text" id="feedbackSubject" class="form-input" required></div>
+                    <div class="form-group"><label>مەزمۇنى</label><textarea id="feedbackMessage" class="form-input" rows="4" required></textarea></div>
+                    <button type="submit" class="action-btn">يوللاش</button>
                 </form>
-            </div>
-
-            <div id="adminFeedbackSection" style="display: none; margin-top: 24px;">
-                <div style="font-size: 15px; font-weight: 800; color: #00c6ff; margin-bottom: 12px;">📥 ئابونتلارنىڭ پىكىر ۋە تەلەپلىرى ساندۇقى (Admin)</div>
-                <div id="adminFeedbackInboxList"></div>
             </div>
         </div>
     </div>
 
     <div id="detailTab" class="tab-content">
         <div class="page-box">
-            <button class="action-btn" style="width: auto; padding: 7px 16px; margin-bottom: 12px; background: var(--surface-bg); color: var(--text-primary); border: 1px solid var(--border-glow);" onclick="switchTab('homeTab')" data-i18n="btnBack">⬅️ قايتىش</button>
-            
-            <div style="background: var(--surface-card); border: 1px solid var(--border-glow); border-radius: 20px; padding: 18px;">
-                <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 16px;">
-                    <img id="detailGameImg" src="" style="width: 70px; height: 70px; border-radius: 16px; object-fit: cover; border: 1px solid var(--border-glow);">
+            <button type="button" class="btn-modern-back" onclick="switchTab('homeTab')">
+                <i class="fa-solid fa-circle-arrow-right"></i>
+                <span>باش بەتكە قايتىش</span>
+            </button>
+
+            <div class="order-card">
+                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 14px;">
+                    <img id="detailGameImg" src="" style="width: 65px; height: 85px; border-radius: 12px; object-fit: cover;">
                     <div>
-                        <div style="font-size: 17px; font-weight: 900;" id="detailGameTitle">ئويۇن نامى</div>
-                        <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;" data-i18n="officialDirect">رەسمىي بىۋاسىتە قاچىلاش</div>
+                        <div style="font-size: 16px; font-weight: 900;" id="detailGameTitle"></div>
+                        <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">رەسمىي بىۋاسىتە قاچىلاش</div>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label data-i18n="labelPlayerId">👤 ئويۇن / ھېسابات ID نومۇرى</label>
-                    <input type="text" id="orderGameId" class="form-input" placeholder="مەسىلەن: 12345678 (1001)" autocomplete="off">
+                <div class="form-group"><label>👤 ئويۇن / ئەپ ID نومۇرى</label><input type="text" id="orderGameId" class="form-input" placeholder="ID"></div>
+                <label style="font-size: 12px; color: var(--text-secondary); font-weight: 700;">💎 مىقدارنى تاللاڭ:</label>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 10px 0;" id="detailPackagesContainer"></div>
+                <div style="padding: 10px; background: rgba(0,0,0,0.2); border-radius: 10px; display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span>تۆلەيدىغان سومما:</span><span id="selectedPriceDisplay" style="color: var(--primary-color); font-weight: 800;">0 شامكەش</span>
                 </div>
-
-                <label style="font-size: 12px; color: var(--text-secondary); font-weight: 700;" data-i18n="labelSelectPackage">💎 مىقدارنى تاللاڭ:</label>
-                <div class="package-grid" id="detailPackagesContainer"></div>
-
-                <div style="background: var(--surface-bg); padding: 14px; border-radius: 16px; border: 1px solid var(--border-glow); margin: 16px 0;">
-                    <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 800;">
-                        <span data-i18n="labelTotalPay">تۆلەيدىغان سومما:</span>
-                        <span id="selectedPriceDisplay" style="color: var(--primary-color);">0 شامكەش</span>
-                    </div>
-                </div>
-
-                <button class="action-btn" onclick="submitTopUpOrder()"><i class="fa-solid fa-bolt"></i> <span data-i18n="btnSubmitOrder">دەرھال زاكاز تاپشۇرۇش</span></button>
+                <button class="action-btn" onclick="submitTopUpOrder()">دەرھال زاكاز تاپشۇرۇش</button>
             </div>
         </div>
     </div>
 
-    <div id="accountTab" class="tab-content">
-        <div class="page-box" style="text-align: center;">
-            <div style="display: flex; flex-direction: column; align-items: center; margin: 10px 0 16px 0;">
-                <div style="width: 75px; height: 75px; border-radius: 50%; border: 3px solid var(--primary-color); background: var(--surface-bg); display: flex; align-items: center; justify-content: center; font-size: 30px; overflow: hidden; cursor: pointer;" onclick="document.getElementById('profileAvatarInput').click()" id="mainAvatarBox">
-                    👤
-                </div>
-                <input type="file" id="profileAvatarInput" accept="image/*" style="display: none;" onchange="handleProfileAvatarUpload(event)">
-                <span style="font-size: 11px; color: var(--text-secondary); margin-top: 6px;" data-i18n="changeAvatarHint">باش رەسىمنى ئۆزگەرتىش</span>
-            </div>
+    <div id="adminHubTab" class="tab-content">
+        <div class="page-box">
+            <button type="button" class="btn-modern-back" onclick="switchTab('homeTab')">
+                <i class="fa-solid fa-circle-arrow-right"></i>
+                <span>باش بەتكە قايتىش</span>
+            </button>
 
-            <div id="authModeSwitch" style="display: flex; background: var(--surface-bg); border-radius: var(--pill-radius); padding: 4px; margin-bottom: 14px;">
-                <button type="button" class="action-btn" id="switchToLoginBtn" onclick="setAuthMode('login')" style="margin:0; padding:6px;" data-i18n="tabLogin">كىرىش</button>
-                <button type="button" class="action-btn" id="switchToRegisterBtn" onclick="setAuthMode('register')" style="margin:0; padding:6px; background:transparent; color:var(--text-secondary);" data-i18n="tabRegister">تىزىملىتىش</button>
-            </div>
+            <div class="order-card">
+                <div style="font-size: 15px; font-weight: 900; color: #f1c40f; margin-bottom: 10px;">👑 باشقۇرغۇچى مەركىزى</div>
+                
+                <div class="admin-nav-tabs">
+                    <button type="button" class="admin-tab-btn active" onclick="switchAdminSection('ordersSec', this)">📥 زاكازلار</button>
+                    <button type="button" class="admin-tab-btn" onclick="switchAdminSection('usersSec', this)">👥 ئەزالار ھالىتى</button>
+                    <button type="button" class="admin-tab-btn" onclick="switchAdminSection('productsSec', this)">📦 تۈر ۋە باھا</button>
+                    <button type="button" class="admin-tab-btn" onclick="switchAdminSection('designSec', this)">📢 ئۇقتۇرۇش</button>
+                </div>
 
-            <div id="loginFormSection" style="text-align: right;">
-                <div class="form-group">
-                    <label data-i18n="labelUsername">ئابونت نامى</label>
-                    <input type="text" id="loginUser" class="form-input" placeholder="ئىسمىڭىز">
-                </div>
-                <div class="form-group">
-                    <label data-i18n="labelPassword">مەخپىي نومۇر</label>
-                    <input type="password" id="loginPass" class="form-input" placeholder="پارول">
-                </div>
-                <button type="button" class="action-btn" onclick="handleLogin()" data-i18n="tabLogin">كىرىش</button>
-            </div>
-
-            <div id="registerFormSection" style="display: none; text-align: right;">
-                <div class="form-group">
-                    <label data-i18n="labelNewUsername">يېڭى ئابونت نامى</label>
-                    <input type="text" id="regUser" class="form-input" placeholder="ئىسمىڭىز">
-                </div>
-                <div class="form-group">
-                    <label data-i18n="labelPassword">مەخپىي نومۇر</label>
-                    <input type="password" id="regPass" class="form-input" placeholder="پارول">
-                </div>
-                <button type="button" class="action-btn" onclick="handleRegister()" data-i18n="btnCreateAccount">ھېسابات ئېچىش</button>
-            </div>
-
-            <div id="userProfileView" style="display: none; margin-top: 18px; text-align: right;">
-                <div style="background: var(--surface-card); border: 1px solid var(--border-glow); padding: 16px; border-radius: 20px; margin-bottom: 14px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span id="displayUsername" style="font-size: 16px; font-weight: 800; color: var(--primary-color);"></span>
-                        <span id="userRoleBadge" style="background: var(--surface-bg); color: var(--text-primary); padding: 4px 12px; border-radius: var(--pill-radius); font-size: 11px; font-weight: 700; border: 1px solid var(--border-glow);">ئەزا</span>
+                <div id="ordersSec" class="admin-section-box active">
+                    <div class="order-sub-switcher">
+                        <button type="button" class="order-sub-btn active" id="btnSubGameOrders" onclick="switchOrderTypeView('game')">
+                            🎮 1. ئويۇن ۋە ئەپ زاكازلىرى (<span id="countPendingGameOrders">0</span>)
+                        </button>
+                        <button type="button" class="order-sub-btn" id="btnSubDepositOrders" onclick="switchOrderTypeView('deposit')">
+                            💰 2. پۇل قاچىلاش تالونلىرى (<span id="countPendingDeposits">0</span>)
+                        </button>
                     </div>
-                    <div style="margin-top: 12px; font-size: 13px; font-weight: 700;">
-                        <span data-i18n="yourBalance">قالدۇق پۇلىڭىز:</span> <span id="profileBalanceDisplay" style="color: var(--primary-color); font-size: 16px;">0.00</span> شامكەش
+
+                    <div id="viewAdminGameOrdersBox">
+                        <div id="historyAdminOrdersContainer"></div>
+                    </div>
+
+                    <div id="viewAdminDepositOrdersBox" style="display: none;">
+                        <div id="historyAdminDepositsContainer"></div>
+                    </div>
+
+                    <div style="margin-top: 14px; border-top: 1px dashed var(--border-glow); padding-top: 10px;">
+                        <div style="font-size: 12px; font-weight: 800; color: #00c6ff; margin-bottom: 6px;">📁 تاماملانغان زاكازلار ھۆججىتى:</div>
+                        <div id="adminCompletedArchiveContainer"></div>
                     </div>
                 </div>
 
-                <button type="button" class="action-btn" style="background: var(--surface-bg); border: 1px solid var(--border-glow); color:var(--text-primary); margin-top: 16px;" onclick="handleLogout()" data-i18n="btnLogout">چېكىنىش (Log out)</button>
+                <div id="usersSec" class="admin-section-box">
+                    <div id="adminUsersListContainer"></div>
+                </div>
+
+                <div id="productsSec" class="admin-section-box">
+                    <div class="form-group"><label>كاتېگورىيە نامى</label><input type="text" id="newCatTitle" class="form-input"></div>
+                    <div class="form-group"><label>📷 كاتېگورىيە رەسىمى</label><input type="file" id="newCatImageFile" accept="image/*" class="form-input" onchange="handleCategoryFileSelected(event)"></div>
+                    <button type="button" class="action-btn" onclick="saveNewCategory()">➕ كاتېگورىيە قوشۇش</button>
+                    
+                    <hr style="margin: 14px 0; border: 0; border-top: 1px dashed var(--border-glow);">
+
+                    <form onsubmit="handleNewProductSubmit(event)">
+                        <div class="form-group"><label>قايسى كاتېگورىيە؟</label><select id="selectTargetCategory" class="form-select" required></select></div>
+                        <div class="form-group"><label>مەھسۇلات نامى</label><input type="text" id="prodNameInput" class="form-input" required></div>
+                        <div class="form-group"><label>📷 تىك رەسىم (پوستېر)</label><input type="file" id="prodImageFile" accept="image/*" class="form-input" required onchange="handleProductFileSelected(event)"></div>
+                        <div class="form-group">
+                            <label>باھا تۈرى:</label>
+                            <div id="dynamicPriceContainer">
+                                <div class="dynamic-price-row">
+                                    <input type="text" class="form-input prod-pkg-name" placeholder="325 UC" required style="flex:1.5;">
+                                    <input type="text" class="form-input prod-pkg-price" placeholder="4.8" required style="flex:1.2;">
+                                    <button type="button" class="action-btn" style="width:auto; padding:6px 10px; background:#e74c3c; color:#fff;" onclick="this.parentElement.remove()">✕</button>
+                                </div>
+                            </div>
+                            <button type="button" class="action-btn" style="width:auto; padding:6px 12px; margin-top:6px; font-size:11px;" onclick="addPriceRow()">➕ باھا قوشۇش</button>
+                        </div>
+                        <button type="submit" class="action-btn" style="margin-top:10px;">ساقلاش</button>
+                    </form>
+                </div>
+
+                <div id="designSec" class="admin-section-box">
+                    <div class="form-group"><label>ئۇقتۇرۇش خېتى</label><input type="text" id="adminTickerInput" class="form-input"></div>
+                    <button type="button" class="action-btn" onclick="saveTickerText()">💾 ساقلاش</button>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="bottom-nav">
-        <button class="nav-item" onclick="switchTab('ordersTab', this)">
-            <i class="fa-solid fa-list-check"></i>
-            <span>تەلەپلىرىم</span>
-        </button>
-
-        <button class="nav-item" onclick="switchTab('depositTab', this)">
-            <i class="fa-solid fa-wallet"></i>
-            <span>قالدۇق قاچىلاش</span>
-        </button>
-
-        <button class="nav-item nav-item-center active" onclick="switchTab('homeTab', this)">
-            <i class="fa-solid fa-house"></i>
-            <span>باش بەت</span>
-        </button>
-
-        <button class="nav-item" onclick="switchTab('walletTab', this)">
-            <i class="fa-solid fa-vault"></i>
-            <span>ھەميان</span>
-        </button>
-
-        <button class="nav-item" onclick="switchTab('feedbackTab', this)">
-            <i class="fa-solid fa-comment-dots"></i>
-            <span>تەلەپ-پىكىر</span>
-        </button>
+        <button class="nav-item" onclick="switchTab('ordersTab', this)"><i class="fa-solid fa-list-check"></i><span>تەلەپلىرىم</span></button>
+        <button class="nav-item" onclick="switchTab('depositTab', this)"><i class="fa-solid fa-wallet"></i><span>قالدۇق قاچىلاش</span></button>
+        <button class="nav-item nav-item-center active" onclick="switchTab('homeTab', this)"><i class="fa-solid fa-house"></i></button>
+        <button class="nav-item" onclick="switchTab('walletTab', this)"><i class="fa-solid fa-vault"></i><span>ھەميان</span></button>
+        <button class="nav-item" onclick="switchTab('settingsTab', this)"><i class="fa-solid fa-gear"></i><span>تەڭشەك</span></button>
     </div>
-
-    <a href="https://t.me/KOZNAK_USD" target="_blank" class="floating-chat-btn" title="Telegram">
-        <i class="fa-brands fa-telegram"></i>
-    </a>
-
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./sw.js')
-            .then((reg) => console.log('PWA تىزىملاندى:', reg.scope))
-            .catch((err) => console.log('PWA خاتالىقى:', err));
-        });
-      }
-    </script>
 
     <script>
         const SHAMKASH_ADDRESS = "efe8a2b200d66411c7c7e296369cbba8";
-        // ⚡ ئادرېس يېڭى Render مۇلازىمىتىڭىزگە ئالماشتۇرۇلدى
-        const VERIFIER_API_URL = "https://autochah-bot.onrender.com/api/verify";
-
-        let allCategories = {};
-        let allGames = {};
-        let allOrders = {};
-        let allDeposits = {};
-        let allFeedbacks = {};
-        let allUsers = {};
-        let currentUser = null;
-        let currentFilter = 'all';
-        let selectedGameId = null;
-        let selectedPackage = null;
-        let uploadedCategoryImgData = '';
-        let uploadedProductImgData = '';
-        let uploadedDepositProofData = '';
-        let uploadedDepositProofRawFile = null;
+        let allCategories = {}, allGames = {}, allOrders = {}, allDeposits = {}, allUsers = {};
+        let currentUser = null, selectedGameId = null, selectedPackage = null;
+        let uploadedCategoryImgData = '', uploadedProductImgData = '', uploadedDepositProofData = '', uploadedDepositProofRawFile = null;
+        let currentBannerIndex = 0, bannerSliderInterval = null;
         let currentLang = localStorage.getItem('auto_chah_lang') || 'ug';
-        let currentAppTheme = localStorage.getItem('auto_chah_theme') || 'green';
-
-        let currentBannerIndex = 0;
-        let bannerSliderInterval = null;
-
-        const i18nData = {
-            ug: {
-                guestUser: "مېھمان ئابونت", goldMember: "ئالتۇن", currencyUnit: "پۇل بىرلىكى: شامكەش / USD",
-                navHome: "باش بەت", navDeposit: "قالدۇق قاچىلاش", navWallet: "ھەميان", navOrders: "تەلەپلىرىم",
-                navFeedback: "تەلەپ ۋە پىكىر", navTelegram: "تېلېگرامما ئالاقىسى",
-                tickerText: "Auto Chah ئۇيۇنغا پۇل قاچىلاش سۇپىسىغا خۇش كەپسىز! تېز ھەم ئىشەنچلىك مۇلازىمەت بىلەن تەمىنلەيمىز.",
-                searchPlaceholder: "ئىزدەش... (ئويۇن ياكى كارتىلارنى كىرگۈزۈڭ)",
-                popularProducts: "🔥 مەھسۇلاتلار تىزىملىكى",
-                seeAll: "ھەممىسى ❯", btnBack: "⬅️ قايتىش", officialDirect: "رەسمىي بىۋاسىتە قاچىلاش",
-                labelPlayerId: "👤 ئويۇن / ھېسابات ID نومۇرى", labelSelectPackage: "💎 مىقدارنى تاللاڭ:",
-                labelTotalPay: "تۆلەيدىغان سومما:", btnSubmitOrder: "دەرھال زاكاز تاپشۇرۇش",
-                myOrdersTitle: "📋 تەلەپلىرىم (ئويۇن ۋە مۇلازىمەت ئەھۋالى)",
-                changeAvatarHint: "باش رەسىمنى ئۆزگەرتىش", tabLogin: "كىرىش",
-                tabRegister: "تىزىملىتىش", labelUsername: "ئابونت نامى", labelNewUsername: "يېڭى ئابونت نامى",
-                labelPassword: "مەخپىي نومۇر", btnCreateAccount: "ھېسابات ئېچىش", yourBalance: "قالدۇق پۇلىڭىز:",
-                depositModalTitle: "💰 شامكەش ئارقىلىق قالدۇق قاچىلاش", myShamkashCode: "شامكەش ھىسابىم:",
-                btnCopy: "📋 كۆچۈرۈۋېلىش", depositAmountLabel: "قاچىلىغان پۇل سوممىسى",
-                depositTxLabel: "تالون ئىسپات نۇمۇرى", depositProofLabel: "📷 ئىسپات رەسىمى", btnSendDeposit: "ئىلتىماسنى يوللاش"
-            },
-            ar: {
-                guestUser: "زائر", goldMember: "ذهبي", currencyUnit: "العملة: شام كاش / USD",
-                navHome: "الرئيسية", navDeposit: "شحن الرصيد", navWallet: "المحفظة", navOrders: "طلباتي",
-                navFeedback: "الشكاوى والاقتراحات", navTelegram: "حساب تلغرام",
-                tickerText: "أهلاً بكم في موقع Auto Chah لشحن جميع الألعاب والتطبيقات بأفضل الأسعار وبسرعة فائقة!",
-                searchPlaceholder: "بحث... (اكتب اسم اللعبة أو البطاقة)",
-                popularProducts: "🔥 قائمة المنتجات",
-                seeAll: "الكل ❯", btnBack: "⬅️ رجوع", officialDirect: "شحن رسمي فوري ومباشر",
-                labelPlayerId: "👤 المعرف الخاص بك (Player ID)", labelSelectPackage: "💎 اختر الباقة المطلوبة:",
-                labelTotalPay: "المبلغ الإجمالي:", btnSubmitOrder: "تأكيد وإرسال الطلب",
-                myOrdersTitle: "📋 طلباتي وحالة العمليات",
-                changeAvatarHint: "تغيير الصورة الشخصية", tabLogin: "تسجيل الدخول",
-                tabRegister: "إنشاء حساب", labelUsername: "اسم المستخدم", labelNewUsername: "اسم مستخدم جديد",
-                labelPassword: "كلمة المرور", btnCreateAccount: "إنشاء الحساب", yourBalance: "رصيدك الحالي:",
-                depositModalTitle: "💰 شحن الرصيد عبر شام كاش", myShamkashCode: "معرف شام كاش الخاص بنا:",
-                btnCopy: "📋 نسخ المعرف", depositAmountLabel: "المبلغ المحول",
-                depositTxLabel: "رقم الإشعار / العملية", depositProofLabel: "📷 صورة إثبات التحويل", btnSendDeposit: "إرسال طلب الشحن"
-            },
-            en: {
-                guestUser: "Guest", goldMember: "Gold", currencyUnit: "Currency: Shamcash / USD",
-                navHome: "Home", navDeposit: "Top Up", navWallet: "Wallet", navOrders: "My Orders",
-                navFeedback: "Feedback & Requests", navTelegram: "Telegram Channel",
-                tickerText: "Welcome to Auto Chah! Fast and reliable game top-up and digital services.",
-                searchPlaceholder: "Search games, cards, or services...",
-                popularProducts: "🔥 Product Catalog",
-                seeAll: "All ❯", btnBack: "⬅️ Back", officialDirect: "Official Instant Delivery",
-                labelPlayerId: "👤 User / Player ID", labelSelectPackage: "💎 Select Package:",
-                labelTotalPay: "Total Amount:", btnSubmitOrder: "Submit Order Now",
-                myOrdersTitle: "📋 My Orders & Statuses",
-                changeAvatarHint: "Change Avatar", tabLogin: "Login",
-                tabRegister: "Register", labelUsername: "Username", labelNewUsername: "New Username",
-                labelPassword: "Password", btnCreateAccount: "Create Account", yourBalance: "Your Balance:",
-                depositModalTitle: "💰 Deposit via Shamcash", myShamkashCode: "Our Shamcash Address:",
-                btnCopy: "📋 Copy Address", depositAmountLabel: "Transferred Amount",
-                depositTxLabel: "Receipt / TxID", depositProofLabel: "📷 Payment Proof Screenshot", btnSendDeposit: "Submit Deposit Request"
-            }
-        };
-
-        function setAppTheme(theme, showNotice = false) {
-            currentAppTheme = theme;
-            localStorage.setItem('auto_chah_theme', theme);
-            document.body.classList.remove('theme-purple', 'theme-gold', 'theme-white');
-            if (theme === 'purple') document.body.classList.add('theme-purple');
-            else if (theme === 'gold') document.body.classList.add('theme-gold');
-            else if (theme === 'white') document.body.classList.add('theme-white');
-            if (showNotice) alert('لايىھە ئۇسلۇبى يېڭىلاندى!');
-        }
-
-        function changeLanguage(lang) {
-            currentLang = lang;
-            localStorage.setItem('auto_chah_lang', lang);
-            document.documentElement.lang = lang;
-            document.documentElement.dir = (lang === 'en') ? 'ltr' : 'rtl';
-            const texts = i18nData[lang];
-            if (!texts) return;
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (texts[key]) el.innerText = texts[key];
-            });
-            document.querySelectorAll('[data-i18n-ph]').forEach(el => {
-                const key = el.getAttribute('data-i18n-ph');
-                if (texts[key]) el.placeholder = texts[key];
-            });
-            const selectEl = document.getElementById('languageSelector');
-            if (selectEl) selectEl.value = lang;
-        }
 
         function escapeHTML(str) {
             if (!str) return '';
@@ -1284,10 +742,8 @@
         }
 
         function toggleSideMenu(isOpen) {
-            const drawer = document.getElementById('sideMenuDrawer');
-            const overlay = document.getElementById('sidebarOverlay');
-            if (isOpen) { drawer.classList.add('active'); overlay.classList.add('active'); }
-            else { drawer.classList.remove('active'); overlay.classList.remove('active'); }
+            document.getElementById('sideMenuDrawer').classList.toggle('active', isOpen);
+            document.getElementById('sidebarOverlay').classList.toggle('active', isOpen);
         }
 
         function handleSideAuthAction() {
@@ -1295,11 +751,85 @@
             if (currentUser) {
                 if (confirm('سىستېمىدىن راستلا چېكىنەمسىز؟')) handleLogout();
             } else {
-                switchTab('accountTab');
+                showMandatoryAuthGate(true);
             }
         }
 
-        function compressImage(file, maxWidth = 800, maxHeight = 800, quality = 0.75) {
+        function showMandatoryAuthGate(show) {
+            const gate = document.getElementById('mandatoryAuthGate');
+            if (gate) gate.style.display = show ? 'flex' : 'none';
+        }
+
+        function setGateAuthMode(mode) {
+            document.getElementById('gateLoginForm').style.display = mode === 'login' ? 'block' : 'none';
+            document.getElementById('gateRegForm').style.display = mode === 'register' ? 'block' : 'none';
+            document.getElementById('gateSwitchLoginBtn').style.background = mode === 'login' ? 'var(--accent-grad)' : 'transparent';
+            document.getElementById('gateSwitchLoginBtn').style.color = mode === 'login' ? '#041208' : 'var(--text-secondary)';
+            document.getElementById('gateSwitchRegBtn').style.background = mode === 'register' ? 'var(--accent-grad)' : 'transparent';
+            document.getElementById('gateSwitchRegBtn').style.color = mode === 'register' ? '#041208' : 'var(--text-secondary)';
+        }
+
+        function handleGateLogin() {
+            const inputVal = document.getElementById('gateLoginUser').value.trim().toLowerCase();
+            const pass = document.getElementById('gateLoginPass').value.trim();
+            if (!inputVal || !pass) return alert('نام ياكى پارولنى كىرگۈزۈڭ!');
+
+            if (inputVal === 'nasrulla' && btoa(pass) === 'MDk5Ng==') {
+                currentUser = { username: 'nasrulla', displayName: 'باشقۇرغۇچى', role: 'admin', balance: 9999, uid: '100000', avatar: '' };
+                localStorage.setItem('game_user', JSON.stringify(currentUser));
+                showMandatoryAuthGate(false);
+                updateUIAfterLogin();
+                return;
+            }
+
+            window.dbGet(window.dbRef(window.db, 'users')).then(snap => {
+                const users = snap.val() || {};
+                let foundUser = null, foundKey = null;
+                for (let k in users) {
+                    if ((k.toLowerCase() === inputVal || users[k].uid === inputVal) && users[k].pass === pass) {
+                        foundUser = users[k]; foundKey = k; break;
+                    }
+                }
+                if (!foundUser) return alert('كىرىش نامى، UID ياكى پارول خاتا!');
+
+                const newSession = generateSessionToken();
+                foundUser.sessionToken = newSession;
+                window.dbSet(window.dbRef(window.db, `users/${foundKey}/sessionToken`), newSession).then(() => {
+                    currentUser = { ...foundUser, username: foundKey };
+                    localStorage.setItem('game_user', JSON.stringify(currentUser));
+                    localStorage.setItem('current_session_token', newSession);
+                    showMandatoryAuthGate(false);
+                    updateUIAfterLogin();
+                    listenSingleDeviceSession(foundKey);
+                });
+            });
+        }
+
+        function handleGateRegister() {
+            const username = document.getElementById('gateRegUsername').value.trim().toLowerCase();
+            const displayName = document.getElementById('gateRegDisplayName').value.trim();
+            const pass = document.getElementById('gateRegPass').value.trim();
+            if (!username || !displayName || !pass) return alert('بارلىق بوشلۇقلارنى تولدۇرۇڭ!');
+
+            window.dbGet(window.dbRef(window.db, `users/${username}`)).then(snap => {
+                if (snap.exists()) return alert('بۇ كىرىش ئىسمى مەۋجۇت!');
+                const uid = generateUid();
+                const sessionToken = generateSessionToken();
+                const newUser = { username, displayName, pass, uid, balance: 0, role: 'user', sessionToken, avatar: '', createdAt: Date.now() };
+
+                window.dbSet(window.dbRef(window.db, `users/${username}`), newUser).then(() => {
+                    currentUser = newUser;
+                    localStorage.setItem('game_user', JSON.stringify(currentUser));
+                    localStorage.setItem('current_session_token', sessionToken);
+                    alert(`ھېسابات ئېچىلدى!\nUID: ${uid}`);
+                    showMandatoryAuthGate(false);
+                    updateUIAfterLogin();
+                    listenSingleDeviceSession(username);
+                });
+            });
+        }
+
+        function compressImage(file, maxWidth = 900, maxHeight = 900, quality = 0.85) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
@@ -1308,454 +838,265 @@
                     img.src = e.target.result;
                     img.onload = () => {
                         let width = img.width, height = img.height;
-                        if (width > height) {
-                            if (width > maxWidth) { height = Math.round((height * maxWidth) / width); width = maxWidth; }
-                        } else {
-                            if (height > maxHeight) { width = Math.round((width * maxHeight) / height); height = maxHeight; }
-                        }
+                        if (width > height) { if (width > maxWidth) { height = Math.round((height * maxWidth) / width); width = maxWidth; } }
+                        else { if (height > maxHeight) { width = Math.round((width * maxHeight) / height); height = maxHeight; } }
                         const canvas = document.createElement('canvas');
                         canvas.width = width; canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
+                        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
                         resolve(canvas.toDataURL('image/jpeg', quality));
                     };
-                    img.onerror = (err) => reject(err);
+                    img.onerror = reject;
                 };
-                reader.onerror = (err) => reject(err);
+                reader.onerror = reject;
             });
         }
 
-        function saveTickerText() {
-            if (!currentUser || currentUser.role !== 'admin') return alert('ھوقۇقىڭىز يوق!');
-            const text = document.getElementById('adminTickerInput').value.trim();
-            if (!text) return alert('خەت كىرگۈزۈڭ!');
-            window.dbSet(window.dbRef(window.db, 'site_branding/tickerText'), text).then(() => {
-                alert('باش بەت ئۇقتۇرۇش خېتى يېڭىلاندى!');
-            });
+        function triggerAvatarUpload() {
+            if (!currentUser) return alert('ئالدى بىلەن كىرىڭ!');
+            document.getElementById('avatarFileInput').click();
         }
 
-        async function handleCategoryFileSelected(e) {
+        async function handleUserAvatarSelected(e) {
             const file = e.target.files[0];
-            if (!file) return;
-            try { uploadedCategoryImgData = await compressImage(file, 400, 400, 0.8); }
-            catch(e) { alert('رەسىم بىر تەرەپ قىلىش مەغلۇپ بولدى!'); }
+            if (!file || !currentUser) return;
+            try {
+                const base64 = await compressImage(file, 250, 250, 0.8);
+                currentUser.avatar = base64;
+                localStorage.setItem('game_user', JSON.stringify(currentUser));
+                document.getElementById('settingsAvatarBox').innerHTML = `<img src="${base64}">`;
+                document.getElementById('sideAvatarCircle').innerHTML = `<img src="${base64}">`;
+                if (currentUser.username !== 'nasrulla') {
+                    window.dbSet(window.dbRef(window.db, `users/${currentUser.username}/avatar`), base64);
+                }
+                alert('باش رەسىم يېڭىلاندى!');
+            } catch(err) { alert('رەسىم خاتالىقى!'); }
         }
 
-        function saveNewCategory() {
-            if (!currentUser || currentUser.role !== 'admin') return alert('ھوقۇقىڭىز يوق!');
-            const title = document.getElementById('newCatTitle').value.trim();
-            if (!title) return alert('كاتېگورىيە نامىنى كىرگۈزۈڭ!');
-            if (!uploadedCategoryImgData) return alert('كاتېگورىيە رەسىمىنى تاللاڭ!');
-            const catId = 'cat_' + Date.now();
-            window.dbSet(window.dbRef(window.db, `custom_categories/${catId}`), {
-                id: catId, title: title, img: uploadedCategoryImgData, createdAt: Date.now()
-            }).then(() => {
-                alert('يېڭى كاتېگورىيە مۇۋەپپەقىيەتلىك قوشۇلدى!');
-                document.getElementById('newCatTitle').value = '';
-                document.getElementById('newCatImageFile').value = '';
-                uploadedCategoryImgData = '';
+        function copyMyUid() {
+            if (!currentUser || !currentUser.uid) return alert('UID يوق!');
+            navigator.clipboard.writeText(currentUser.uid).then(() => alert(`UID كۆچۈرۈلدى: ${currentUser.uid}`));
+        }
+
+        function generateUid() { return Math.floor(100000 + Math.random() * 900000).toString(); }
+        function generateSessionToken() { return 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9); }
+
+        function listenSingleDeviceSession(username) {
+            if (username === 'nasrulla') return;
+            const myToken = localStorage.getItem('current_session_token');
+            window.dbOnValue(window.dbRef(window.db, `users/${username}/sessionToken`), snap => {
+                const dbToken = snap.val();
+                if (dbToken && myToken && dbToken !== myToken) {
+                    alert('⚠️ ھېساباتىڭىز باشقا تېلېفوندا ئېچىلدى!');
+                    handleLogout(false);
+                }
             });
         }
 
-        function handleDeleteSelectedCategory() {
-            if (!currentUser || currentUser.role !== 'admin') return alert('ھوقۇقىڭىز يوق!');
-            const catId = document.getElementById('selectDeleteCategory').value;
-            if (!catId) return alert('ئۆچۈرىدىغان كاتېگورىيەنى تاللاڭ!');
-            if (confirm('بۇ كاتېگورىيەنى ئۆچۈرەمسىز؟')) {
-                window.dbRemove(window.dbRef(window.db, `custom_categories/${catId}`)).then(() => {
-                    Object.keys(allGames).forEach(prodId => {
-                        if (allGames[prodId].category === catId) window.dbRemove(window.dbRef(window.db, `game_products/${prodId}`));
-                    });
-                    alert('ئۆچۈرۈلدى!');
-                });
+        function saveDisplayName() {
+            if (!currentUser) return;
+            const newName = document.getElementById('settingDisplayNameInput').value.trim();
+            if (!newName) return alert('ئىسىم كىرگۈزۈڭ!');
+            if (currentUser.username === 'nasrulla') {
+                currentUser.displayName = newName;
+                localStorage.setItem('game_user', JSON.stringify(currentUser));
+                updateUIAfterLogin();
+                return alert('ئىسىم يېڭىلاندى!');
             }
-        }
-
-        async function handleProductFileSelected(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            try { uploadedProductImgData = await compressImage(file, 600, 600, 0.8); }
-            catch(e) { alert('رەسىم خاتالىقى!'); }
-        }
-
-        function addPriceRow() {
-            const container = document.getElementById('dynamicPriceContainer');
-            const row = document.createElement('div');
-            row.className = 'dynamic-price-row';
-            row.innerHTML = `
-                <input type="text" class="form-input prod-pkg-name" placeholder="مىقدارى (مەسىلەن: 325 UC)" required style="flex: 1.5;">
-                <input type="text" class="form-input prod-pkg-price" placeholder="باھاسى (مەسىلەن: 4.8 شامكەش)" required style="flex: 1.2;">
-                <button type="button" class="action-btn" style="width: auto; padding: 8px 12px; margin: 0; background: #e74c3c; color: #fff;" onclick="removePriceRow(this)">✕</button>
-            `;
-            container.appendChild(row);
-        }
-
-        function removePriceRow(btn) {
-            if (document.querySelectorAll('.dynamic-price-row').length > 1) btn.parentElement.remove();
-            else alert('ئەڭ ئاز دېگەندە بىر باھا بولۇشى كېرەك!');
-        }
-
-        function handleNewProductSubmit(e) {
-            e.preventDefault();
-            if (!currentUser || currentUser.role !== 'admin') return alert('ھوقۇقىڭىز يوق!');
-            const catId = document.getElementById('selectTargetCategory').value;
-            const title = document.getElementById('prodNameInput').value.trim();
-            const poster = uploadedProductImgData;
-            if (!catId || !title || !poster) return alert('بارلىق ئۇچۇرلارنى تولدۇرۇڭ!');
-            let pkgLines = [];
-            document.querySelectorAll('.dynamic-price-row').forEach(row => {
-                const name = row.querySelector('.prod-pkg-name').value.trim();
-                const price = row.querySelector('.prod-pkg-price').value.trim();
-                if (name && price) pkgLines.push(`${name}: ${price}`);
-            });
-            if (pkgLines.length === 0) return alert('باھا تىزىملىكىنى تولدۇرۇڭ!');
-            const gameId = 'prod_' + Date.now();
-            window.dbSet(window.dbRef(window.db, `game_products/${gameId}`), {
-                id: gameId, category: catId, title: title, poster: poster, packages: pkgLines.join('\n'), createdAt: Date.now()
-            }).then(() => {
-                alert('مەھسۇلات قوشۇلدى!');
-                document.getElementById('prodNameInput').value = '';
-                document.getElementById('prodImageFile').value = '';
-                uploadedProductImgData = '';
-                switchTab('homeTab');
+            window.dbSet(window.dbRef(window.db, `users/${currentUser.username}/displayName`), newName).then(() => {
+                currentUser.displayName = newName;
+                localStorage.setItem('game_user', JSON.stringify(currentUser));
+                updateUIAfterLogin();
+                alert('ئىسىم ساقلاندى!');
             });
         }
 
-        async function handleSiteLogoUpload(e) {
-            const file = e.target.files[0];
-            if (!file || !currentUser || currentUser.role !== 'admin') return;
-            const base64 = await compressImage(file, 300, 300, 0.85);
-            window.dbSet(window.dbRef(window.db, 'site_branding/logo'), base64).then(() => alert('لوگو يېڭىلاندى!'));
+        function updateUIAfterLogin() {
+            const sideAuthText = document.getElementById('sideMenuAuthText');
+            const sideAuthIcon = document.getElementById('sideMenuAuthIcon');
+
+            if (!currentUser) {
+                showMandatoryAuthGate(true);
+                if (sideAuthText) sideAuthText.innerText = "ھېساباتقا كىرىش";
+                if (sideAuthIcon) sideAuthIcon.className = "fa-solid fa-arrow-right-to-bracket";
+                return;
+            }
+
+            showMandatoryAuthGate(false);
+            if (sideAuthText) sideAuthText.innerText = "چېكىنىش (Log out)";
+            if (sideAuthIcon) sideAuthIcon.className = "fa-solid fa-right-from-bracket";
+
+            const dName = currentUser.displayName || currentUser.username;
+            const uidStr = currentUser.uid ? `UID: ${currentUser.uid}` : 'UID: --';
+            const bal = Number(currentUser.balance || 0).toFixed(2);
+
+            document.getElementById('settCardDisplayName').innerText = dName;
+            document.getElementById('settCardUsername').innerText = currentUser.username;
+            document.getElementById('settCardUid').innerText = uidStr;
+            document.getElementById('settCardBalance').innerText = bal;
+
+            if (currentUser.avatar) {
+                document.getElementById('settingsAvatarBox').innerHTML = `<img src="${currentUser.avatar}">`;
+                document.getElementById('sideAvatarCircle').innerHTML = `<img src="${currentUser.avatar}">`;
+            }
+
+            document.getElementById('sideUsernameText').innerText = dName;
+            document.getElementById('sideUidText').innerText = uidStr;
+            document.getElementById('settingDisplayNameInput').value = dName;
+
+            const isAdmin = currentUser.role === 'admin';
+            document.getElementById('sideAdminHubLink').style.display = isAdmin ? 'flex' : 'none';
+            document.getElementById('headerBalanceDisplay').innerText = bal;
+            document.getElementById('sideBalanceDisplay').innerText = `$ ${bal}`;
+
+            if (isAdmin) renderAdminData();
         }
 
-        async function handleBannerUpload(e, index) {
-            const file = e.target.files[0];
-            if (!file || !currentUser || currentUser.role !== 'admin') return;
-            const base64 = await compressImage(file, 1000, 500, 0.85);
-            window.dbSet(window.dbRef(window.db, `site_branding/banners/${index}`), base64).then(() => alert('Banner يېڭىلاندى!'));
+        function handleLogout(shouldReload = true) {
+            currentUser = null;
+            localStorage.removeItem('game_user');
+            localStorage.removeItem('current_session_token');
+            if (shouldReload) location.reload();
+            else { updateUIAfterLogin(); switchTab('homeTab'); }
         }
 
-        async function handleSplashLogoUpload(e) {
-            const file = e.target.files[0];
-            if (!file || !currentUser || currentUser.role !== 'admin') return;
-            const base64 = await compressImage(file, 400, 400, 0.85);
-            window.dbSet(window.dbRef(window.db, 'site_branding/splashLogo'), base64).then(() => alert('Splash يېڭىلاندى!'));
-        }
-
-        async function handleMenuBgUpload(e) {
-            const file = e.target.files[0];
-            if (!file || !currentUser || currentUser.role !== 'admin') return;
-            const base64 = await compressImage(file, 800, 1200, 0.85);
-            window.dbSet(window.dbRef(window.db, 'site_branding/menuBg'), base64).then(() => alert('Menu Background يېڭىلاندى!'));
-        }
-
-        function renderBannerSlider(bannersArr) {
-            const container = document.getElementById('bannerSliderContainer');
-            const track = document.getElementById('bannerSliderTrack');
-            const dotsContainer = document.getElementById('bannerDotsContainer');
-            if (!container || !track || !dotsContainer) return;
+        function renderMediaBanner(bannersArr) {
+            const track = document.getElementById('mediaBannerTrack');
+            const dotsContainer = document.getElementById('mediaBannerDots');
+            if (!track || !dotsContainer) return;
             track.innerHTML = ''; dotsContainer.innerHTML = '';
+
             let validBanners = (bannersArr || []).filter(b => b && b.trim() !== '');
             if (validBanners.length === 0) validBanners = ['https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop'];
-            container.style.display = 'block';
-            validBanners.forEach((bUrl, idx) => {
-                const slide = document.createElement('div');
-                slide.className = 'banner-slide-item';
-                slide.style.backgroundImage = `url('${bUrl}')`;
-                track.appendChild(slide);
+
+            validBanners.forEach((url, idx) => {
+                const item = document.createElement('div');
+                item.className = 'media-banner-item';
+                item.style.backgroundImage = `url('${url}')`;
+                item.innerHTML = `
+                    <div class="media-banner-overlay">
+                        <div>
+                            <div style="font-size:16px; font-weight:900; color:#fff;">Auto Chah پۇل قاچىلاش سۇپىسى</div>
+                            <div style="font-size:11px; color:var(--primary-color); margin-top:2px;">⚡ ئەڭ تېز، ئەڭ ئىشەنچلىك ئەقلىي مۇلازىمەت</div>
+                        </div>
+                    </div>
+                `;
+                track.appendChild(item);
+
                 const dot = document.createElement('div');
-                dot.className = `banner-dot ${idx === 0 ? 'active' : ''}`;
-                dot.onclick = () => {
-                    currentBannerIndex = idx;
-                    track.style.transform = `translateX(${currentBannerIndex * 100}%)`;
-                    document.querySelectorAll('.banner-dot').forEach((d, i) => d.classList.toggle('active', i === currentBannerIndex));
-                };
+                dot.className = `media-dot ${idx === 0 ? 'active' : ''}`;
                 dotsContainer.appendChild(dot);
             });
-            currentBannerIndex = 0;
+
             if (bannerSliderInterval) clearInterval(bannerSliderInterval);
             if (validBanners.length > 1) {
                 bannerSliderInterval = setInterval(() => {
                     currentBannerIndex = (currentBannerIndex + 1) % validBanners.length;
                     track.style.transform = `translateX(${currentBannerIndex * 100}%)`;
-                    document.querySelectorAll('.banner-dot').forEach((d, i) => d.classList.toggle('active', i === currentBannerIndex));
+                    document.querySelectorAll('.media-dot').forEach((d, i) => d.classList.toggle('active', i === currentBannerIndex));
                 }, 4000);
             }
         }
 
-        function renderCategories() {
-            const container = document.getElementById('homeCategoriesContainer');
+        /* 📁 بارلىق مەھسۇلاتلارنى تولۇق كاتېگورىيەنىڭ ئۆزى ئىچىدە كۆرسىتىش */
+        function renderMediaSections() {
+            const container = document.getElementById('mediaSectionsContainer');
             const selectTarget = document.getElementById('selectTargetCategory');
-            const selectDelete = document.getElementById('selectDeleteCategory');
-            if (container) container.innerHTML = '';
-            if (selectTarget) selectTarget.innerHTML = '<option value="">-- كاتېگورىيە تاللاڭ --</option>';
-            if (selectDelete) selectDelete.innerHTML = '<option value="">-- ئۆچۈرىدىغان كاتېگورىيەنى تاللاڭ --</option>';
-            const catKeys = Object.keys(allCategories);
-            if (catKeys.length === 0) {
-                if (container) container.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:var(--text-secondary); font-size:12px; padding:20px;">كاتېگورىيە يوق</div>';
-                return;
-            }
-            catKeys.forEach(k => {
-                const cat = allCategories[k];
-                if (container) {
-                    const card = document.createElement('div');
-                    card.className = 'cat-card-item';
-                    card.innerHTML = `<img src="${cat.img}" class="cat-card-img"><div class="cat-card-title">${escapeHTML(cat.title)}</div>`;
-                    card.onclick = () => openCategoryProducts(k, cat.title);
-                    container.appendChild(card);
-                }
-                if (selectTarget) { const opt = document.createElement('option'); opt.value = k; opt.innerText = cat.title; selectTarget.appendChild(opt); }
-                if (selectDelete) { const optDel = document.createElement('option'); optDel.value = k; optDel.innerText = cat.title; selectDelete.appendChild(optDel); }
-            });
-        }
-
-        function openCategoryProducts(catId, catTitle) {
-            currentFilter = catId;
-            document.getElementById('categoryViewSection').style.display = 'none';
-            document.getElementById('productsViewSection').style.display = 'block';
-            document.getElementById('selectedCategoryTitleDisplay').innerText = `📂 ${catTitle}`;
-            renderGames();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function goBackToCategories() {
-            currentFilter = 'all';
-            document.getElementById('productsViewSection').style.display = 'none';
-            document.getElementById('categoryViewSection').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function switchAdminOrderSubTab(type) {
-            ['game', 'deposit', 'users'].forEach(t => {
-                document.getElementById(`btnAdmin${t.charAt(0).toUpperCase() + t.slice(1)}SubTab`).classList.toggle('active', t === type);
-                document.getElementById(`admin${t.charAt(0).toUpperCase() + t.slice(1)}SubBox`).style.display = (t === type) ? 'block' : 'none';
-            });
-            if (type === 'users') renderAdminUsersList();
-        }
-
-        function switchTab(tabId, el) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active-tab'));
-            const target = document.getElementById(tabId);
-            if (target) target.classList.add('active-tab');
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            if (el) el.classList.add('active');
-            else {
-                const btn = document.querySelector(`.nav-item[onclick*="${tabId}"]`);
-                if (btn) btn.classList.add('active');
-            }
-            if (tabId === 'ordersTab') renderUserOrders();
-            else if (tabId === 'adminOrdersTab') { renderAdminOrdersDirect(); renderAdminUsersList(); }
-            else if (tabId === 'walletTab') updateWalletTabStats();
-            else if (tabId === 'feedbackTab') {
-                if (currentUser && currentUser.role === 'admin') {
-                    document.getElementById('adminFeedbackSection').style.display = 'block';
-                    renderAdminFeedbacks();
-                } else document.getElementById('adminFeedbackSection').style.display = 'none';
-            } else if (tabId === 'homeTab') goBackToCategories();
-        }
-
-        function copyShamkashAddress() {
-            navigator.clipboard.writeText(SHAMKASH_ADDRESS).then(() => alert('كۆچۈرۈۋېلىندى!'));
-        }
-
-        function setAuthMode(mode) {
-            document.getElementById('loginFormSection').style.display = mode === 'login' ? 'block' : 'none';
-            document.getElementById('registerFormSection').style.display = mode === 'register' ? 'block' : 'none';
-            document.getElementById('switchToLoginBtn').style.background = mode === 'login' ? 'var(--accent-grad)' : 'transparent';
-            document.getElementById('switchToLoginBtn').style.color = mode === 'login' ? '#041208' : 'var(--text-secondary)';
-            document.getElementById('switchToRegisterBtn').style.background = mode === 'register' ? 'var(--accent-grad)' : 'transparent';
-            document.getElementById('switchToRegisterBtn').style.color = mode === 'register' ? '#041208' : 'var(--text-secondary)';
-        }
-
-        async function handleProofFileSelected(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            uploadedDepositProofRawFile = file;
-            try { uploadedDepositProofData = await compressImage(file, 800, 800, 0.7); }
-            catch(err) { alert('رەسىم خاتالىقى!'); }
-        }
-
-        async function handleProfileAvatarUpload(e) {
-            const file = e.target.files[0];
-            if (!file || !currentUser) return;
-            const base64 = await compressImage(file, 250, 250, 0.8);
-            currentUser.avatar = base64;
-            localStorage.setItem('game_user', JSON.stringify(currentUser));
-            document.getElementById('mainAvatarBox').innerHTML = `<img src="${base64}">`;
-            document.getElementById('sideAvatarCircle').innerHTML = `<img src="${base64}">`;
-            if (currentUser.user !== 'nasrulla') window.dbSet(window.dbRef(window.db, `users/${currentUser.user}/avatar`), base64);
-            alert('يېڭىلاندى!');
-        }
-
-        window.initFirebaseApp = function() {
-            window.dbOnValue(window.dbRef(window.db, 'site_branding'), (snapshot) => {
-                const branding = snapshot.val() || {};
-                if (branding.logo) {
-                    const headerLogo = document.getElementById('headerLogoContainer');
-                    if (headerLogo) headerLogo.innerHTML = `<img src="${branding.logo}" alt="Logo">`;
-                }
-                if (branding.splashLogo || branding.logo) {
-                    const splashBox = document.getElementById('splashLogoContainer');
-                    if (splashBox) splashBox.innerHTML = `<img src="${branding.splashLogo || branding.logo}" alt="Auto Chah">`;
-                }
-                renderBannerSlider(branding.banners);
-                if (branding.tickerText) {
-                    const tickerMarquee = document.getElementById('homeTickerText');
-                    const tickerInput = document.getElementById('adminTickerInput');
-                    if (tickerMarquee) tickerMarquee.innerText = branding.tickerText;
-                    if (tickerInput) tickerInput.value = branding.tickerText;
-                }
-                const sideDrawer = document.getElementById('sideMenuDrawer');
-                if (sideDrawer) {
-                    if (branding.menuBg) { sideDrawer.style.backgroundImage = `url('${branding.menuBg}')`; sideDrawer.classList.add('custom-bg'); }
-                    else { sideDrawer.style.backgroundImage = 'none'; sideDrawer.classList.remove('custom-bg'); }
-                }
-            });
-
-            window.dbOnValue(window.dbRef(window.db, 'custom_categories'), (snapshot) => {
-                allCategories = snapshot.val() || {};
-                renderCategories();
-            });
-
-            window.dbOnValue(window.dbRef(window.db, 'game_products'), (snapshot) => {
-                allGames = snapshot.val() || {};
-                renderGames();
-            });
-
-            window.dbOnValue(window.dbRef(window.db, 'users'), (snapshot) => {
-                allUsers = snapshot.val() || {};
-                if (currentUser && currentUser.user !== 'nasrulla' && allUsers[currentUser.user]) {
-                    currentUser = { ...allUsers[currentUser.user], user: currentUser.user };
-                    localStorage.setItem('game_user', JSON.stringify(currentUser));
-                }
-                updateBalanceUI();
-                updateWalletTabStats();
-                if (currentUser && currentUser.role === 'admin') renderAdminUsersList();
-            });
-
-            window.dbOnValue(window.dbRef(window.db, 'game_orders'), (snapshot) => {
-                allOrders = snapshot.val() || {};
-                renderUserOrders();
-                updateWalletTabStats();
-                if (currentUser && currentUser.role === 'admin') renderAdminOrdersDirect();
-            });
-
-            window.dbOnValue(window.dbRef(window.db, 'deposit_requests'), (snapshot) => {
-                allDeposits = snapshot.val() || {};
-                renderUserOrders();
-                updateWalletTabStats();
-                if (currentUser && currentUser.role === 'admin') { renderAdminOrdersDirect(); renderAdminUsersList(); }
-            });
-
-            window.dbOnValue(window.dbRef(window.db, 'feedback_inbox'), (snapshot) => {
-                allFeedbacks = snapshot.val() || {};
-                if (currentUser && currentUser.role === 'admin') renderAdminFeedbacks();
-            });
-        };
-
-        function updateBalanceUI() {
-            const bal = (currentUser && currentUser.balance !== undefined) ? Number(currentUser.balance).toFixed(2) : '0.00';
-            document.getElementById('headerBalanceDisplay').innerText = bal;
-            const profBal = document.getElementById('profileBalanceDisplay');
-            if (profBal) profBal.innerText = bal;
-            const sideBal = document.getElementById('sideBalanceDisplay');
-            if (sideBal) sideBal.innerText = `$ ${bal}`;
-        }
-
-        function updateWalletTabStats() {
-            if (!currentUser) return;
-            const curBal = Number(currentUser.balance || 0).toFixed(2);
-            document.getElementById('walletCurrentBal').innerText = `$ ${curBal}`;
-            let totalDeposited = 0;
-            Object.values(allDeposits).filter(d => d.user === currentUser.user && d.status === 'approved').forEach(d => totalDeposited += Number(d.amount || 0));
-            document.getElementById('walletTotalDeposited').innerText = `$ ${totalDeposited.toFixed(2)}`;
-            let totalSpent = 0;
-            Object.values(allOrders).filter(o => o.user === currentUser.user && o.status === 'completed').forEach(o => {
-                totalSpent += parseFloat(String(o.price).replace(/[^0-9.]/g, '')) || 0;
-            });
-            document.getElementById('walletTotalSpent').innerText = `$ ${totalSpent.toFixed(2)}`;
-        }
-
-        function renderGames() {
-            const container = document.getElementById('gamesGridContainer');
             if (!container) return;
             container.innerHTML = '';
-            const keys = Object.keys(allGames);
-            let filteredKeys = currentFilter === 'all' ? keys : keys.filter(k => allGames[k].category === currentFilter);
-            if (filteredKeys.length === 0) {
-                container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text-secondary); padding: 30px;">مەھسۇلات يوق</div>';
+            if (selectTarget) selectTarget.innerHTML = '<option value="">-- كاتېگورىيە تاللاڭ --</option>';
+
+            const catKeys = Object.keys(allCategories);
+            if (catKeys.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding:30px; font-size:12px; color:var(--text-secondary);">ھېچقانداق كاتېگورىيە قوشۇلمىدى</div>';
                 return;
             }
-            filteredKeys.forEach(id => {
-                const game = allGames[id];
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    <img src="${game.poster}" alt="${escapeHTML(game.title)}">
-                    <div class="product-card-body">
-                        <div class="product-card-title">${escapeHTML(game.title)}</div>
-                        <div class="product-card-btn">⚡ قاچىلاش</div>
-                        ${currentUser && currentUser.role === 'admin' ? `<button style="background:none; border:none; color:#e74c3c; font-size:12px; margin-top:6px; cursor:pointer;" onclick="event.stopPropagation(); deleteGame('${id}')">🗑️ ئۆچۈرۈش</button>` : ''}
+
+            catKeys.forEach(catId => {
+                const cat = allCategories[catId];
+                if (selectTarget) {
+                    const opt = document.createElement('option');
+                    opt.value = catId; opt.innerText = cat.title;
+                    selectTarget.appendChild(opt);
+                }
+
+                const prods = Object.keys(allGames).filter(k => allGames[k].category === catId);
+
+                const sectionBlock = document.createElement('div');
+                sectionBlock.className = 'category-row-block';
+                sectionBlock.innerHTML = `
+                    <div class="category-row-header">
+                        <div class="category-row-title">${escapeHTML(cat.title)}</div>
                     </div>
+                    <div class="category-cards-scroll" id="scroll_row_${catId}"></div>
                 `;
-                card.onclick = () => openGameDetail(id);
-                container.appendChild(card);
+                container.appendChild(sectionBlock);
+
+                const rowContainer = sectionBlock.querySelector(`#scroll_row_${catId}`);
+                if (prods.length === 0) {
+                    rowContainer.innerHTML = '<div style="font-size:11px; color:var(--text-secondary); padding:10px 16px;">بۇ كاتېگورىيەدە مەھسۇلات تېخى يوق</div>';
+                } else {
+                    prods.forEach(prodId => {
+                        const g = allGames[prodId];
+                        const card = document.createElement('div');
+                        card.className = 'poster-card';
+                        card.innerHTML = `
+                            <div class="poster-img-box">
+                                <img src="${g.poster}" alt="${escapeHTML(g.title)}">
+                            </div>
+                            <div class="poster-info">
+                                <div class="poster-title">${escapeHTML(g.title)}</div>
+                                <div class="poster-btn">قاچىلاش</div>
+                            </div>
+                        `;
+                        card.onclick = () => openGameDetail(prodId);
+                        rowContainer.appendChild(card);
+                    });
+                }
             });
         }
 
         function openGameDetail(id) {
             selectedGameId = id;
             selectedPackage = null;
-            const game = allGames[id];
-            if (!game) return;
-            document.getElementById('detailGameImg').src = game.poster;
-            document.getElementById('detailGameTitle').innerText = game.title;
-            document.getElementById('selectedPriceDisplay').innerText = '0 شامكەش';
+            const g = allGames[id];
+            if (!g) return;
+            document.getElementById('detailGameImg').src = g.poster;
+            document.getElementById('detailGameTitle').innerText = g.title;
             const pkgContainer = document.getElementById('detailPackagesContainer');
             pkgContainer.innerHTML = '';
-            parsePackages(game.packages).forEach(pkg => {
-                const div = document.createElement('div');
-                div.className = 'package-card';
-                div.innerHTML = `<div class="pkg-amount">${escapeHTML(pkg.amount)}</div><div class="pkg-price">${escapeHTML(pkg.price)}</div>`;
-                div.onclick = () => {
-                    document.querySelectorAll('.package-card').forEach(p => p.classList.remove('selected'));
-                    div.classList.add('selected');
-                    selectedPackage = pkg;
-                    document.getElementById('selectedPriceDisplay').innerText = pkg.price;
-                };
-                pkgContainer.appendChild(div);
+            g.packages?.split('\n').forEach(line => {
+                const parts = line.split(':');
+                if (parts.length >= 2) {
+                    const div = document.createElement('div');
+                    div.className = 'order-card';
+                    div.style.cssText = 'text-align:center; padding:8px; cursor:pointer; margin-bottom:0;';
+                    div.innerHTML = `<div style="font-weight:bold; font-size:11px;">${escapeHTML(parts[0].trim())}</div><div style="font-size:11px; color:var(--primary-color);">${escapeHTML(parts[1].trim())}</div>`;
+                    div.onclick = () => {
+                        document.querySelectorAll('#detailPackagesContainer .order-card').forEach(p => p.style.borderColor = 'var(--border-glow)');
+                        div.style.borderColor = 'var(--primary-color)';
+                        selectedPackage = { amount: parts[0].trim(), price: parts[1].trim() };
+                        document.getElementById('selectedPriceDisplay').innerText = parts[1].trim();
+                    };
+                    pkgContainer.appendChild(div);
+                }
             });
             switchTab('detailTab');
         }
 
-        function parsePackages(pkgString) {
-            if (!pkgString) return [];
-            return pkgString.split('\n').map(line => {
-                const parts = line.split(':');
-                if (parts.length >= 2) return { amount: parts[0].trim(), price: parts[1].trim() };
-                return null;
-            }).filter(p => p !== null);
-        }
-
         function submitTopUpOrder() {
-            if (!currentUser) { alert('ئالدى بىلەن كىرىڭ!'); switchTab('accountTab'); return; }
-            const gameIdInput = document.getElementById('orderGameId').value.trim();
-            if (!gameIdInput) return alert('ID نى كىرگۈزۈڭ!');
-            if (!selectedPackage) return alert('مىقدارنى تاللاڭ!');
-            const packagePriceNum = parseFloat(String(selectedPackage.price).replace(/[^0-9.]/g, '')) || 0;
-            const userCurrentBal = parseFloat(currentUser.balance || 0);
-            if (userCurrentBal < packagePriceNum) {
-                alert(`قالدۇق پۇلىڭىز يەتمەيدۇ!\nقالدۇق: ${userCurrentBal.toFixed(2)} | كېرەكلىك: ${packagePriceNum.toFixed(2)}`);
-                switchTab('depositTab');
-                return;
-            }
-            if (!confirm(`زاكازنى جەزملەشتۈرەمسىز?`)) return;
-            const newBal = userCurrentBal - packagePriceNum;
-            window.dbSet(window.dbRef(window.db, `users/${currentUser.user}/balance`), newBal).then(() => {
-                const orderId = 'ord_' + Date.now();
-                window.dbSet(window.dbRef(window.db, `game_orders/${orderId}`), {
-                    orderId, user: currentUser.user, game: allGames[selectedGameId]?.title || 'مەھسۇلات',
-                    gamePlayerId: gameIdInput, package: selectedPackage.amount, price: selectedPackage.price,
+            if (!currentUser) return (alert('ئالدى بىلەن كىرىڭ!'), showMandatoryAuthGate(true));
+            const pId = document.getElementById('orderGameId').value.trim();
+            if (!pId || !selectedPackage) return alert('ID ۋە باھا تاللاڭ!');
+            const price = parseFloat(selectedPackage.price.replace(/[^0-9.]/g, '')) || 0;
+            const bal = parseFloat(currentUser.balance || 0);
+            if (bal < price) return (alert('قالدۇق يەتمەيدۇ!'), switchTab('depositTab'));
+            if (!confirm('زاكازنى تاپشۇرامسىز؟')) return;
+            window.dbSet(window.dbRef(window.db, `users/${currentUser.username}/balance`), bal - price).then(() => {
+                const ordId = 'ord_' + Date.now();
+                window.dbSet(window.dbRef(window.db, `game_orders/${ordId}`), {
+                    orderId: ordId, user: currentUser.username, uid: currentUser.uid || '',
+                    game: allGames[selectedGameId]?.title || '', gamePlayerId: pId,
+                    package: selectedPackage.amount, price: selectedPackage.price,
                     status: 'pending', timestamp: Date.now()
                 }).then(() => {
                     alert('زاكاز تاپشۇرۇلدى!');
@@ -1765,403 +1106,377 @@
             });
         }
 
+        async function handleProofFileSelected(e) {
+            const file = e.target.files[0];
+            if (file) {
+                uploadedDepositProofRawFile = file;
+                uploadedDepositProofData = await compressImage(file, 800, 800, 0.7);
+            }
+        }
+
         async function handleDepositSubmit(e) {
             e.preventDefault();
-            if (!currentUser) { alert('ئالدى بىلەن كىرىڭ!'); switchTab('accountTab'); return; }
-
-            const amountInput = document.getElementById('depositAmount');
-            const txIdInput = document.getElementById('depositTxId');
-            const submitBtn = document.getElementById('depositSubmitBtn');
-            const statusBox = document.getElementById('aiVerifyStatusBox');
-
-            const amount = parseFloat(amountInput.value);
-            const txId = txIdInput.value.trim();
-            const proofImg = uploadedDepositProofData;
-
-            if (!amount || amount <= 0 || !txId || !uploadedDepositProofRawFile) {
-                return alert('بارلىق بوشلۇقلارنى تولدۇرۇڭ ۋە تالون سۈرىتىنى تاللاڭ!');
-            }
-
-            submitBtn.disabled = true;
-            statusBox.className = 'ai-status-box ai-status-loading';
-            statusBox.innerHTML = '⏳ <b>Gemini سۈنئىي ئىدراكى تالوننى تەكشۈرۈۋاتىدۇ...</b><br>سۈرەتتىكى سومما ۋە كود ماس كەلگەندە ئاپتوماتىك تەستىقلىنىدۇ.';
-
-            let isAutoApproved = false;
-            let aiReason = '';
-
-            try {
-                const formData = new FormData();
-                formData.append('image', uploadedDepositProofRawFile);
-                formData.append('expected_amount', amount);
-
-                const response = await fetch(VERIFIER_API_URL, {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const res = await response.json();
-                if (res.status === 'success' && res.data) {
-                    const aiData = res.data;
-                    aiReason = aiData.reason || '';
-                    if (aiData.is_valid_receipt && aiData.is_matching) {
-                        isAutoApproved = true;
-                    }
-                }
-            } catch (err) {
-                console.log('AI verification skipped or network failed:', err);
-                aiReason = 'مۇلازىمىتېر ئالاقىسىدە تەكشۈرۈش قولدا باھالاشقا ئۆتتى';
-            }
-
-            const depositId = 'dep_' + Date.now();
-            const depositStatus = isAutoApproved ? 'approved' : 'pending';
-
-            const depositData = {
-                depositId,
-                user: currentUser.user,
-                amount: amount,
-                txId: txId,
-                proofImg: proofImg,
-                status: depositStatus,
-                aiVerified: isAutoApproved,
-                aiReason: aiReason,
-                timestamp: Date.now()
-            };
-
-            if (isAutoApproved) {
-                const userRef = window.dbRef(window.db, `users/${currentUser.user}`);
-                const snap = await window.dbGet(userRef);
-                let currentBal = snap.exists() ? parseFloat(snap.val().balance || 0) : 0;
-                await window.dbSet(window.dbRef(window.db, `users/${currentUser.user}/balance`), currentBal + amount);
-
-                statusBox.className = 'ai-status-box ai-status-success';
-                statusBox.innerHTML = `✅ <b>تالون ئاپتوماتىك تەستىقلاندى!</b><br>+${amount} شامكەش ھېساباتىڭىزغا قوشۇلدى.`;
-            } else {
-                statusBox.className = 'ai-status-box ai-status-error';
-                statusBox.innerHTML = `⚠️ <b>تەلەپ يوللاندى (باشقۇرغۇچى تەستىقلايدۇ)</b><br>AI ئەسكەرتىشى: ${aiReason || 'ئىسپات ئېنىق ئەمەس'}. باشقۇرغۇچى تەكشۈرۈپ قوبۇل قىلىدۇ.`;
-            }
-
-            await window.dbSet(window.dbRef(window.db, `deposit_requests/${depositId}`), depositData);
-
-            setTimeout(() => {
-                document.getElementById('depositForm').reset();
-                uploadedDepositProofData = '';
-                uploadedDepositProofRawFile = null;
-                submitBtn.disabled = false;
-                switchTab('ordersTab');
-            }, 2500);
-        }
-
-        function handleFeedbackSubmit(e) {
-            e.preventDefault();
-            if (!currentUser) { alert('كىرىڭ!'); switchTab('accountTab'); return; }
-            const subject = document.getElementById('feedbackSubject').value.trim();
-            const message = document.getElementById('feedbackMessage').value.trim();
-            if (!subject || !message) return alert('تولۇق يېزىڭ!');
-            const fbId = 'fb_' + Date.now();
-            window.dbSet(window.dbRef(window.db, `feedback_inbox/${fbId}`), {
-                fbId, user: currentUser.user, subject, message, timestamp: Date.now()
+            if (!currentUser) return (alert('كىرىڭ!'), showMandatoryAuthGate(true));
+            const amt = parseFloat(document.getElementById('depositAmount').value);
+            const tx = document.getElementById('depositTxId').value.trim();
+            if (!amt || !tx || !uploadedDepositProofRawFile) return alert('تولدۇرۇڭ!');
+            const btn = document.getElementById('depositSubmitBtn');
+            btn.disabled = true;
+            const depId = 'dep_' + Date.now();
+            window.dbSet(window.dbRef(window.db, `deposit_requests/${depId}`), {
+                depositId: depId, user: currentUser.username, uid: currentUser.uid || '',
+                amount: amt, txId: tx, proofImg: uploadedDepositProofData,
+                status: 'pending', timestamp: Date.now()
             }).then(() => {
-                alert('پىكىرىڭىز يوللاندى!');
-                document.getElementById('feedbackSubject').value = '';
-                document.getElementById('feedbackMessage').value = '';
+                alert('ئىلتىماس يوللاندى!');
+                document.getElementById('depositForm').reset();
+                btn.disabled = false;
+                switchTab('ordersTab');
             });
         }
 
-        function renderAdminFeedbacks() {
-            const container = document.getElementById('adminFeedbackInboxList');
-            if (!container) return;
-            container.innerHTML = '';
-            const list = Object.values(allFeedbacks).reverse();
-            if (list.length === 0) { container.innerHTML = '<div style="font-size:12px; color:var(--text-secondary);">پىكىر يوق</div>'; return; }
-            list.forEach(fb => {
-                const div = document.createElement('div');
-                div.className = 'order-card';
-                div.innerHTML = `
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span style="font-weight:800; font-size:13px; color:#2ecc71;">ئابونت: ${escapeHTML(fb.user)}</span>
-                        <button style="background:none; border:none; color:#e74c3c; cursor:pointer;" onclick="deleteFeedback('${fb.fbId}')">🗑️</button>
-                    </div>
-                    <div style="font-size:12px; font-weight:800; color:var(--text-primary);">تېما: ${escapeHTML(fb.subject)}</div>
-                    <div style="font-size:12px; color:var(--text-secondary); line-height:1.5;">${escapeHTML(fb.message)}</div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function deleteFeedback(fbId) {
-            if (confirm('ئۆچۈرەمسىز؟')) window.dbRemove(window.dbRef(window.db, `feedback_inbox/${fbId}`));
-        }
-
-        function renderAdminOrdersDirect() {
-            const depContainer = document.getElementById('historyAdminDepositsContainer');
-            const ordContainer = document.getElementById('historyAdminOrdersContainer');
-            if (!depContainer || !ordContainer) return;
-
-            depContainer.innerHTML = '';
-            const deposits = Object.values(allDeposits).reverse();
-            if (deposits.length === 0) depContainer.innerHTML = '<div style="font-size:12px; color:var(--text-secondary);">تەلەپ يوق</div>';
-            else {
-                deposits.forEach(dep => {
-                    const div = document.createElement('div');
-                    div.className = 'order-card';
-                    div.innerHTML = `
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <span style="font-weight:800; font-size:13px; color:var(--primary-color);">${escapeHTML(dep.user)}</span>
-                            <span style="font-weight:800; color:var(--primary-color); font-size:14px;">+${dep.amount} شامكەش</span>
-                        </div>
-                        <div style="font-size:11px; color:var(--text-secondary);">إسپات No: <b>${escapeHTML(dep.txId)}</b></div>
-                        ${dep.aiReason ? `<div style="font-size:11px; color:#00c6ff;">🤖 AI نەتىجىسى: ${escapeHTML(dep.aiReason)}</div>` : ''}
-                        <div style="margin: 6px 0;">
-                            <img src="${dep.proofImg}" style="max-width: 100%; max-height: 140px; border-radius: 12px; border: 1px solid var(--border-glow); object-fit: contain; cursor: pointer;" onclick="window.open('${dep.proofImg}')">
-                        </div>
-                        <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px;">
-                            ${dep.status === 'pending' ? `
-                                <button class="action-btn" style="width:auto; padding:6px 14px; margin:0; font-size:11px;" onclick="approveDeposit('${dep.depositId}', '${dep.user}', ${dep.amount})">✅ قوبۇللاش</button>
-                                <button class="action-btn" style="width:auto; padding:6px 14px; margin:0; background:#e74c3c; color:#fff; font-size:11px;" onclick="rejectDeposit('${dep.depositId}')">❌ ياندۇرۇش</button>
-                            ` : `<span style="font-size:11px; color:var(--text-secondary); font-weight:700;">${dep.status === 'approved' ? 'قوبۇللانغان ✅' : 'ياندۇرۇلغان ❌'}</span>`}
-                        </div>
-                    `;
-                    depContainer.appendChild(div);
-                });
-            }
-
-            ordContainer.innerHTML = '';
-            const orders = Object.values(allOrders).reverse();
-            if (orders.length === 0) ordContainer.innerHTML = '<div style="font-size:12px; color:var(--text-secondary);">زاكاز يوق</div>';
-            else {
-                orders.forEach(ord => {
-                    const div = document.createElement('div');
-                    div.className = 'order-card';
-                    div.innerHTML = `
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <span style="font-weight:800; font-size:13px; color:#3498db;">${escapeHTML(ord.user)}</span>
-                            <span style="font-size:12px; font-weight:700; color:var(--primary-color);">${escapeHTML(ord.price)}</span>
-                        </div>
-                        <div style="font-size:12px; font-weight:800;">${escapeHTML(ord.game)} - ${escapeHTML(ord.package)}</div>
-                        <div style="font-size:11px; color:var(--text-secondary);">ID: <b>${escapeHTML(ord.gamePlayerId)}</b></div>
-                        <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px;">
-                            ${ord.status === 'pending' ? `
-                                <button class="action-btn" style="width:auto; padding:6px 14px; margin:0; font-size:11px;" onclick="updateOrderStatus('${ord.orderId}', 'completed')">✅ تاماملاش</button>
-                                <button class="action-btn" style="width:auto; padding:6px 14px; margin:0; background:#e74c3c; color:#fff; font-size:11px;" onclick="updateOrderStatus('${ord.orderId}', 'rejected')">❌ ياندۇرۇش</button>
-                            ` : `<span style="font-size:11px; color:var(--text-secondary); font-weight:700;">${ord.status === 'completed' ? 'تاماملانغان ✅' : 'ياندۇرۇلغان ❌'}</span>`}
-                        </div>
-                    `;
-                    ordContainer.appendChild(div);
-                });
-            }
-        }
-
-        function updateOrderStatus(orderId, status) {
-            window.dbSet(window.dbRef(window.db, `game_orders/${orderId}/status`), status);
-        }
-
-        function approveDeposit(depositId, username, amount) {
-            if (!confirm(`${username} غا ${amount} شامكەش قوشامسىز؟`)) return;
-            const userRef = window.dbRef(window.db, `users/${username}`);
-            window.dbGet(userRef).then(snap => {
-                let currentBal = snap.exists() ? parseFloat(snap.val().balance || 0) : 0;
-                window.dbSet(window.dbRef(window.db, `users/${username}/balance`), currentBal + parseFloat(amount)).then(() => {
-                    window.dbSet(window.dbRef(window.db, `deposit_requests/${depositId}/status`), 'approved');
-                });
-            });
-        }
-
-        function rejectDeposit(depositId) {
-            if (!confirm('ياندۇرامسىز؟')) return;
-            window.dbSet(window.dbRef(window.db, `deposit_requests/${depositId}/status`), 'rejected');
-        }
-
-        function renderAdminUsersList() {
-            const container = document.getElementById('adminUsersListContainer');
-            if (!container) return;
-            container.innerHTML = '';
-            const userKeys = Object.keys(allUsers);
-            if (userKeys.length === 0) { container.innerHTML = '<div style="font-size:12px; color:var(--text-secondary);">ئابونت يوق</div>'; return; }
-            userKeys.forEach(username => {
-                if (username === 'nasrulla') return;
-                const uData = allUsers[username] || {};
-                const uBal = parseFloat(uData.balance || 0).toFixed(2);
-                const card = document.createElement('div');
-                card.className = 'admin-user-item';
-                card.innerHTML = `
-                    <div class="admin-user-header">
-                        <div style="display:flex; align-items:center; gap:10px;">
-                            <div class="admin-user-avatar">${uData.avatar ? `<img src="${uData.avatar}">` : '👤'}</div>
-                            <div style="font-weight:800; font-size:14px;">${escapeHTML(username)}</div>
-                        </div>
-                        <div style="text-align:left;">
-                            <span style="font-size:10px; color:var(--text-secondary);">قالدۇق:</span><br>
-                            <span style="font-size:14px; font-weight:800; color:var(--primary-color);">${uBal}</span>
-                        </div>
-                    </div>
-                    <div class="admin-user-controls">
-                        <input type="number" step="any" id="adjustAmount_${username}" class="admin-input-small" placeholder="سومما">
-                        <button type="button" class="action-btn" style="width:auto; padding:6px 12px; margin:0; font-size:11px;" onclick="adjustUserBalance('${username}', 'add')">➕</button>
-                        <button type="button" class="action-btn" style="width:auto; padding:6px 12px; margin:0; background:#e74c3c; color:#fff; font-size:11px;" onclick="adjustUserBalance('${username}', 'sub')">➖</button>
-                        <button type="button" style="background:none; border:none; color:#e74c3c; margin-right:auto; cursor:pointer;" onclick="deleteUserAccount('${username}')">🗑️</button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function adjustUserBalance(username, type) {
-            const val = parseFloat(document.getElementById(`adjustAmount_${username}`).value);
-            if (!val || val <= 0) return alert('سوممىنى كىرگۈزۈڭ!');
-            const currentBal = parseFloat(allUsers[username]?.balance || 0);
-            let newBal = type === 'add' ? (currentBal + val) : (currentBal - val);
-            if (newBal < 0) newBal = 0;
-            window.dbSet(window.dbRef(window.db, `users/${username}/balance`), newBal).then(() => alert('قالدۇق يېڭىلاندى!'));
-        }
-
-        function deleteUserAccount(username) {
-            if (confirm(`${username} نى ئۆچۈرەمسىز؟`)) window.dbRemove(window.dbRef(window.db, `users/${username}`));
+        function switchTab(tabId, el) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active-tab'));
+            const target = document.getElementById(tabId);
+            if (target) target.classList.add('active-tab');
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            if (el) el.classList.add('active');
+            if (tabId === 'ordersTab') renderUserOrders();
+            else if (tabId === 'walletTab') updateWalletTabStats();
+            else if (tabId === 'adminHubTab') renderAdminData();
+            else if (tabId === 'settingsTab') updateUIAfterLogin();
+            else if (tabId === 'homeTab') renderMediaSections();
         }
 
         function renderUserOrders() {
             const container = document.getElementById('userOrdersList');
             if (!container) return;
             container.innerHTML = '';
-            if (!currentUser) { container.innerHTML = '<div style="text-align: center; color: var(--text-secondary); padding: 30px;">كىرىڭ</div>'; return; }
-            
-            const myDeposits = Object.values(allDeposits).filter(d => d.user === currentUser.user).reverse();
-            if (myDeposits.length > 0) {
-                const depTitle = document.createElement('div');
-                depTitle.style.cssText = "font-size: 13px; font-weight: 800; color: var(--primary-color); margin: 10px 0 6px 0;";
-                depTitle.innerText = "💰 شامكەش پۇل قاچىلاش تەلەپلىرىم:";
-                container.appendChild(depTitle);
-                myDeposits.forEach(dep => {
-                    const div = document.createElement('div');
-                    div.className = 'order-card';
-                    let statusBadge = `<span class="order-badge badge-pending">تەكشۈرۈلۈۋاتىدۇ ⏳</span>`;
-                    if (dep.status === 'approved') statusBadge = `<span class="order-badge badge-success">قوبۇللاندى (+${dep.amount}) ✅</span>`;
-                    else if (dep.status === 'rejected') statusBadge = `<span class="order-badge badge-rejected">ياندۇرۇلدى ❌</span>`;
-                    div.innerHTML = `<div style="display:flex; justify-content:space-between;"><b>سومما: ${dep.amount} شامكەش</b>${statusBadge}</div><div style="font-size:11px; color:var(--text-secondary);">ئىسپات No: ${escapeHTML(dep.txId)}</div>`;
-                    container.appendChild(div);
-                });
-            }
-
-            const myOrders = Object.values(allOrders).filter(o => o.user === currentUser.user).reverse();
-            if (myOrders.length > 0) {
-                const ordTitle = document.createElement('div');
-                ordTitle.style.cssText = "font-size: 13px; font-weight: 800; color: #3498db; margin: 16px 0 6px 0;";
-                ordTitle.innerText = "🎮 ئويۇن ۋە مۇلازىمەت تەلەپلىرىم:";
-                container.appendChild(ordTitle);
-                myOrders.forEach(ord => {
-                    const div = document.createElement('div');
-                    div.className = 'order-card';
-                    let statusBadge = `<span class="order-badge badge-pending">ئورۇندىلىۋاتىدۇ ⏳</span>`;
-                    if (ord.status === 'completed') statusBadge = `<span class="order-badge badge-success">قاچىلاندى ✅</span>`;
-                    else if (ord.status === 'rejected') statusBadge = `<span class="order-badge badge-rejected">ياندۇرۇلدى ❌</span>`;
-                    div.innerHTML = `<div style="display:flex; justify-content:space-between;"><b>${escapeHTML(ord.game)} - ${escapeHTML(ord.package)}</b>${statusBadge}</div><div style="font-size:11px; color:var(--text-secondary);">ID: ${escapeHTML(ord.gamePlayerId)} | باھا: ${escapeHTML(ord.price)}</div>`;
-                    container.appendChild(div);
-                });
-            }
-            if (myDeposits.length === 0 && myOrders.length === 0) container.innerHTML = '<div style="text-align: center; color: var(--text-secondary); padding: 30px;">تەلەپ يوق</div>';
-        }
-
-        function deleteGame(id) {
-            if (confirm('ئۆچۈرەمسىز؟')) window.dbRemove(window.dbRef(window.db, `game_products/${id}`));
-        }
-
-        function handleRegister() {
-            const user = document.getElementById('regUser').value.trim();
-            const pass = document.getElementById('regPass').value.trim();
-            if (!user || !pass) return alert('ئىسىم ۋە پارولنى كىرگۈزۈڭ!');
-            window.dbGet(window.dbRef(window.db, `users/${user}`)).then(snap => {
-                if (snap.exists()) alert('بۇ ئىسىم بار!');
-                else {
-                    const newUser = { user, pass, role: 'user', balance: 0, avatar: '' };
-                    window.dbSet(window.dbRef(window.db, `users/${user}`), newUser).then(() => {
-                        currentUser = newUser;
-                        localStorage.setItem('game_user', JSON.stringify(currentUser));
-                        updateUIAfterLogin();
-                    });
-                }
+            if (!currentUser) return (container.innerHTML = '<div style="text-align:center; padding:20px;">ئالدى بىلەن كىرىڭ</div>');
+            const myOrders = Object.values(allOrders).filter(o => o.user === currentUser.username).reverse();
+            if (myOrders.length === 0) container.innerHTML = '<div style="text-align:center; padding:20px;">تەلەپ يوق</div>';
+            myOrders.forEach(o => {
+                const div = document.createElement('div');
+                div.className = 'order-card';
+                div.innerHTML = `
+                    <div style="display:flex; justify-content:space-between;">
+                        <b>${escapeHTML(o.game)} - ${escapeHTML(o.package)}</b>
+                        <span class="order-badge ${o.status === 'completed' ? 'badge-success' : (o.status === 'rejected' ? 'badge-rejected' : 'badge-pending')}">${o.status === 'completed' ? 'قاچىلاندى' : (o.status === 'rejected' ? 'ياندۇرۇلدى' : 'تەكشۈرۈلۈۋاتىدۇ')}</span>
+                    </div>
+                    <div style="font-size:11px; color:var(--text-secondary);">ID: ${escapeHTML(o.gamePlayerId)} | باھاسى: ${escapeHTML(o.price)}</div>
+                `;
+                container.appendChild(div);
             });
         }
 
-        function handleLogin() {
-            const user = document.getElementById('loginUser').value.trim();
-            const pass = document.getElementById('loginPass').value.trim();
-            if (user.toLowerCase() === 'nasrulla' && btoa(pass) === 'MDk5Ng==') {
-                currentUser = { user: 'nasrulla', role: 'admin', balance: 9999, avatar: '' };
-                localStorage.setItem('game_user', JSON.stringify(currentUser));
-                updateUIAfterLogin();
-                return;
-            }
-            window.dbGet(window.dbRef(window.db, `users/${user}`)).then(snap => {
-                if (snap.exists() && snap.val().pass === pass) {
-                    currentUser = { ...snap.val(), user };
-                    localStorage.setItem('game_user', JSON.stringify(currentUser));
-                    updateUIAfterLogin();
-                } else alert('خاتا!');
-            });
-        }
-
-        function updateUIAfterLogin() {
-            const authText = document.getElementById('sideMenuAuthText');
-            const authIcon = document.getElementById('sideMenuAuthIcon');
+        function updateWalletTabStats() {
             if (!currentUser) return;
-            document.getElementById('loginFormSection').style.display = 'none';
-            document.getElementById('registerFormSection').style.display = 'none';
-            document.getElementById('authModeSwitch').style.display = 'none';
-            document.getElementById('userProfileView').style.display = 'block';
-            document.getElementById('displayUsername').innerText = currentUser.user;
-            document.getElementById('sideUsernameText').innerText = currentUser.user;
-            if (currentUser.avatar) {
-                document.getElementById('mainAvatarBox').innerHTML = `<img src="${currentUser.avatar}">`;
-                document.getElementById('sideAvatarCircle').innerHTML = `<img src="${currentUser.avatar}">`;
-            }
-            const isAdmin = currentUser.role === 'admin';
-            document.getElementById('userRoleBadge').innerText = isAdmin ? 'باشقۇرغۇچى' : 'ئەزا';
-            document.getElementById('sideVipPill').innerHTML = isAdmin ? '<i class="fa-solid fa-crown" style="color:#f1c40f;"></i> باشقۇرغۇچى' : '<i class="fa-solid fa-star" style="color:#f1c40f;"></i> ئالتۇن';
-            document.getElementById('sideAdminOrdersLink').style.display = isAdmin ? 'flex' : 'none';
-            document.getElementById('sideAdminBrandingLink').style.display = isAdmin ? 'flex' : 'none';
-            document.getElementById('sideAdminUploadLink').style.display = isAdmin ? 'flex' : 'none';
-            if (authText) authText.innerText = '🚪 سىستېمىدىن چىكىنىش (Log out)';
-            if (authIcon) authIcon.className = 'fa-solid fa-right-from-bracket';
-            updateBalanceUI();
-            updateWalletTabStats();
-            renderGames();
-            renderCategories();
-            if (isAdmin) { renderAdminUsersList(); renderAdminOrdersDirect(); renderAdminFeedbacks(); }
+            document.getElementById('walletCurrentBal').innerText = `$ ${Number(currentUser.balance || 0).toFixed(2)}`;
+            let total = 0;
+            Object.values(allDeposits).filter(d => d.user === currentUser.username && d.status === 'approved').forEach(d => total += Number(d.amount || 0));
+            document.getElementById('walletTotalDeposited').innerText = `$ ${total.toFixed(2)}`;
         }
 
-        function handleLogout() {
-            currentUser = null;
-            localStorage.removeItem('game_user');
-            location.reload();
+        function handleFeedbackSubmit(e) {
+            e.preventDefault();
+            if (!currentUser) return;
+            const sub = document.getElementById('feedbackSubject').value.trim();
+            const msg = document.getElementById('feedbackMessage').value.trim();
+            window.dbSet(window.dbRef(window.db, `feedback_inbox/fb_${Date.now()}`), { user: currentUser.username, subject: sub, message: msg }).then(() => {
+                alert('پىكىرىڭىز يوللاندى!');
+                document.getElementById('feedbackSubject').value = '';
+                document.getElementById('feedbackMessage').value = '';
+            });
         }
 
         function handleSearch(e) {
             const kw = e.target.value.toLowerCase().trim();
-            const container = document.getElementById('gamesGridContainer');
-            if (!container) return;
-            container.innerHTML = '';
-            if (!kw) { renderGames(); return; }
-            document.getElementById('categoryViewSection').style.display = 'none';
-            document.getElementById('productsViewSection').style.display = 'block';
-            document.getElementById('selectedCategoryTitleDisplay').innerText = `🔍 ئىزدەش نەتىجىلىرى: "${kw}"`;
+            if (!kw) return renderMediaSections();
+            const container = document.getElementById('mediaSectionsContainer');
+            container.innerHTML = '<div style="font-size:14px; font-weight:800; padding:0 14px 10px 14px;">🔍 ئىزدەش نەتىجىلىرى:</div><div class="category-cards-scroll" id="searchResultsRow"></div>';
+            const resRow = document.getElementById('searchResultsRow');
+
             Object.keys(allGames).filter(k => allGames[k].title.toLowerCase().includes(kw)).forEach(id => {
-                const game = allGames[id];
+                const g = allGames[id];
                 const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `<img src="${game.poster}"><div class="product-card-body"><div class="product-card-title">${escapeHTML(game.title)}</div><div class="product-card-btn">⚡ قاچىلاش</div></div>`;
+                card.className = 'poster-card';
+                card.innerHTML = `
+                    <div class="poster-img-box">
+                        <img src="${g.poster}">
+                    </div>
+                    <div class="poster-info">
+                        <div class="poster-title">${escapeHTML(g.title)}</div>
+                        <div class="poster-btn">قاچىلاش</div>
+                    </div>
+                `;
                 card.onclick = () => openGameDetail(id);
-                container.appendChild(card);
+                resRow.appendChild(card);
             });
         }
 
+        function switchAdminSection(secId, btn) {
+            document.querySelectorAll('.admin-section-box').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(secId).classList.add('active');
+            if (btn) btn.classList.add('active');
+        }
+
+        function switchOrderTypeView(type) {
+            document.getElementById('viewAdminGameOrdersBox').style.display = (type === 'game') ? 'block' : 'none';
+            document.getElementById('viewAdminDepositOrdersBox').style.display = (type === 'deposit') ? 'block' : 'none';
+            document.getElementById('btnSubGameOrders').classList.toggle('active', type === 'game');
+            document.getElementById('btnSubDepositOrders').classList.toggle('active', type === 'deposit');
+        }
+
+        function renderAdminData() {
+            const depContainer = document.getElementById('historyAdminDepositsContainer');
+            const ordContainer = document.getElementById('historyAdminOrdersContainer');
+            const archiveContainer = document.getElementById('adminCompletedArchiveContainer');
+            const usersContainer = document.getElementById('adminUsersListContainer');
+
+            let countPendingDep = 0, countPendingOrd = 0, archiveList = [];
+
+            if (depContainer) {
+                depContainer.innerHTML = '';
+                const allDepList = Object.values(allDeposits).reverse();
+                const pendingDeps = allDepList.filter(d => d.status === 'pending');
+                countPendingDep = pendingDeps.length;
+
+                pendingDeps.forEach(dep => {
+                    const div = document.createElement('div');
+                    div.className = 'order-card';
+                    div.innerHTML = `
+                        <div style="display:flex; justify-content:space-between;">
+                            <b>${escapeHTML(dep.user)} (UID: ${dep.uid || '--'})</b>
+                            <span style="color:var(--primary-color); font-weight:bold;">+${dep.amount}</span>
+                        </div>
+                        <div style="font-size:11px; color:var(--text-secondary);">TxID: ${escapeHTML(dep.txId)}</div>
+                        <div style="display:flex; gap:6px; justify-content:flex-end; margin-top:4px;">
+                            <button class="action-btn" style="width:auto; padding:4px 10px; font-size:10px;" onclick="approveDeposit('${dep.depositId}', '${dep.user}', ${dep.amount})">تەستىقلاش</button>
+                            <button class="action-btn" style="width:auto; padding:4px 10px; font-size:10px; background:#e74c3c; color:#fff;" onclick="rejectDeposit('${dep.depositId}')">ياندۇرۇش</button>
+                        </div>
+                    `;
+                    depContainer.appendChild(div);
+                });
+
+                allDepList.filter(d => d.status !== 'pending').forEach(d => archiveList.push({ type: 'deposit', data: d, time: d.timestamp || 0 }));
+            }
+
+            if (ordContainer) {
+                ordContainer.innerHTML = '';
+                const allOrdList = Object.values(allOrders).reverse();
+                const pendingOrds = allOrdList.filter(o => o.status === 'pending');
+                countPendingOrd = pendingOrds.length;
+
+                pendingOrds.forEach(ord => {
+                    const div = document.createElement('div');
+                    div.className = 'order-card';
+                    div.innerHTML = `
+                        <div style="display:flex; justify-content:space-between;">
+                            <b>${escapeHTML(ord.user)} (UID: ${ord.uid || '--'})</b>
+                            <span style="font-weight:bold; color:var(--primary-color);">${escapeHTML(ord.price)}</span>
+                        </div>
+                        <div style="font-size:12px;">${escapeHTML(ord.game)} - ${escapeHTML(ord.package)} (ID: ${escapeHTML(ord.gamePlayerId)})</div>
+                        <div style="display:flex; gap:6px; justify-content:flex-end; margin-top:4px;">
+                            <button class="action-btn" style="width:auto; padding:4px 10px; font-size:10px;" onclick="window.dbSet(window.dbRef(window.db, 'game_orders/${ord.orderId}/status'), 'completed')">تاماملاش</button>
+                            <button class="action-btn" style="width:auto; padding:4px 10px; font-size:10px; background:#e74c3c; color:#fff;" onclick="window.dbSet(window.dbRef(window.db, 'game_orders/${ord.orderId}/status'), 'rejected')">ياندۇرۇش</button>
+                        </div>
+                    `;
+                    ordContainer.appendChild(div);
+                });
+
+                allOrdList.filter(o => o.status !== 'pending').forEach(o => archiveList.push({ type: 'game', data: o, time: o.timestamp || 0 }));
+            }
+
+            document.getElementById('countPendingGameOrders').innerText = countPendingOrd;
+            document.getElementById('countPendingDeposits').innerText = countPendingDep;
+
+            if (archiveContainer) {
+                archiveContainer.innerHTML = '';
+                archiveList.sort((a, b) => b.time - a.time);
+                archiveList.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'order-card';
+                    div.style.marginBottom = '6px';
+                    if (item.type === 'game') {
+                        const o = item.data;
+                        div.innerHTML = `<div style="display:flex; justify-content:space-between;"><span>🎮 <b>${escapeHTML(o.game)}</b> - ${escapeHTML(o.package)}</span><span class="order-badge ${o.status === 'completed' ? 'badge-success' : 'badge-rejected'}">${o.status}</span></div>`;
+                    } else {
+                        const d = item.data;
+                        div.innerHTML = `<div style="display:flex; justify-content:space-between;"><span>💰 <b>قالدۇق قاچىلاش</b> (+${d.amount})</span><span class="order-badge ${d.status === 'approved' ? 'badge-success' : 'badge-rejected'}">${d.status}</span></div>`;
+                    }
+                    archiveContainer.appendChild(div);
+                });
+            }
+
+            if (usersContainer) {
+                usersContainer.innerHTML = '';
+                Object.keys(allUsers).forEach(uKey => {
+                    if (uKey === 'nasrulla') return;
+                    const uData = allUsers[uKey] || {};
+                    const div = document.createElement('div');
+                    div.className = 'admin-user-member-card';
+                    div.innerHTML = `
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <div style="width:36px; height:36px; border-radius:50%; background:#000; overflow:hidden; border:1px solid var(--primary-color);">
+                                ${uData.avatar ? `<img src="${uData.avatar}" style="width:100%; height:100%; object-fit:cover;">` : '👤'}
+                            </div>
+                            <div>
+                                <div style="font-weight:900; font-size:12px;">${escapeHTML(uData.displayName || uKey)} (UID: ${uData.uid || '--'})</div>
+                                <div style="font-size:10px; color:var(--text-secondary);">${uKey}</div>
+                            </div>
+                        </div>
+                        <div style="text-align:left;">
+                            <div style="font-weight:900; color:var(--primary-color); font-size:12px;">$ ${Number(uData.balance || 0).toFixed(2)}</div>
+                            <div style="display:flex; gap:3px; margin-top:3px;">
+                                <input type="number" id="adj_${uKey}" class="form-input" placeholder="سومما" style="padding:2px 4px; font-size:10px; width:55px;">
+                                <button type="button" class="action-btn" style="width:auto; padding:2px 6px; margin:0;" onclick="adjustUserBal('${uKey}', 'add')">➕</button>
+                                <button type="button" class="action-btn" style="width:auto; padding:2px 6px; margin:0; background:#e74c3c; color:#fff;" onclick="adjustUserBal('${uKey}', 'sub')">➖</button>
+                            </div>
+                        </div>
+                    `;
+                    usersContainer.appendChild(div);
+                });
+            }
+        }
+
+        function adjustUserBal(u, type) {
+            const val = parseFloat(document.getElementById(`adj_${u}`).value);
+            if (!val || val <= 0) return alert('سومما يېزىڭ!');
+            const cur = parseFloat(allUsers[u]?.balance || 0);
+            const n = type === 'add' ? (cur + val) : Math.max(0, cur - val);
+            window.dbSet(window.dbRef(window.db, `users/${u}/balance`), n).then(() => alert('يېڭىلاندى!'));
+        }
+
+        function approveDeposit(depId, user, amt) {
+            window.dbGet(window.dbRef(window.db, `users/${user}/balance`)).then(snap => {
+                let cur = snap.exists() ? parseFloat(snap.val() || 0) : 0;
+                window.dbSet(window.dbRef(window.db, `users/${user}/balance`), cur + parseFloat(amt)).then(() => {
+                    window.dbSet(window.dbRef(window.db, `deposit_requests/${depId}/status`), 'approved');
+                });
+            });
+        }
+
+        function rejectDeposit(depId) {
+            window.dbSet(window.dbRef(window.db, `deposit_requests/${depId}/status`), 'rejected');
+        }
+
+        function copyShamkashAddress() { navigator.clipboard.writeText(SHAMKASH_ADDRESS).then(() => alert('كۆچۈرۈلدى!')); }
+
+        async function handleCategoryFileSelected(e) {
+            const file = e.target.files[0];
+            if (file) uploadedCategoryImgData = await compressImage(file, 400, 400, 0.8);
+        }
+
+        function saveNewCategory() {
+            if (!currentUser || currentUser.role !== 'admin') return;
+            const title = document.getElementById('newCatTitle').value.trim();
+            if (!title) return alert('نامىنى كىرگۈزۈڭ!');
+            const catId = 'cat_' + Date.now();
+            window.dbSet(window.dbRef(window.db, `custom_categories/${catId}`), { id: catId, title, createdAt: Date.now() }).then(() => {
+                alert('تۈر قوشۇلدى!');
+                document.getElementById('newCatTitle').value = '';
+            });
+        }
+
+        async function handleProductFileSelected(e) {
+            const file = e.target.files[0];
+            if (file) uploadedProductImgData = await compressImage(file, 600, 800, 0.85);
+        }
+
+        function addPriceRow() {
+            const row = document.createElement('div');
+            row.className = 'dynamic-price-row';
+            row.innerHTML = `
+                <input type="text" class="form-input prod-pkg-name" placeholder="325 UC" required style="flex:1.5;">
+                <input type="text" class="form-input prod-pkg-price" placeholder="4.8" required style="flex:1.2;">
+                <button type="button" class="action-btn" style="width:auto; padding:6px 10px; background:#e74c3c; color:#fff;" onclick="this.parentElement.remove()">✕</button>
+            `;
+            document.getElementById('dynamicPriceContainer').appendChild(row);
+        }
+
+        function handleNewProductSubmit(e) {
+            e.preventDefault();
+            if (!currentUser || currentUser.role !== 'admin') return;
+            const catId = document.getElementById('selectTargetCategory').value;
+            const title = document.getElementById('prodNameInput').value.trim();
+            if (!catId || !title || !uploadedProductImgData) return alert('تولدۇرۇڭ!');
+            let pkgLines = [];
+            document.querySelectorAll('.dynamic-price-row').forEach(row => {
+                const name = row.querySelector('.prod-pkg-name').value.trim();
+                const price = row.querySelector('.prod-pkg-price').value.trim();
+                if (name && price) pkgLines.push(`${name}: ${price}`);
+            });
+            const gameId = 'prod_' + Date.now();
+            window.dbSet(window.dbRef(window.db, `game_products/${gameId}`), {
+                id: gameId, category: catId, title, poster: uploadedProductImgData, packages: pkgLines.join('\n'), createdAt: Date.now()
+            }).then(() => {
+                alert('مەھسۇلات ساقلاندى!');
+                document.getElementById('prodNameInput').value = '';
+                uploadedProductImgData = '';
+            });
+        }
+
+        function saveTickerText() {
+            if (!currentUser || currentUser.role !== 'admin') return;
+            const text = document.getElementById('adminTickerInput').value.trim();
+            if (!text) return alert('خەت كىرگۈزۈڭ!');
+            window.dbSet(window.dbRef(window.db, 'site_branding/tickerText'), text).then(() => alert('ئۇقتۇرۇش ساقلاندى!'));
+        }
+
+        window.initFirebaseApp = function() {
+            window.dbOnValue(window.dbRef(window.db, 'site_branding'), snap => {
+                const b = snap.val() || {};
+                if (b.logo) document.getElementById('headerLogoContainer').innerHTML = `<img src="${b.logo}">`;
+                renderMediaBanner(b.banners);
+            });
+            window.dbOnValue(window.dbRef(window.db, 'custom_categories'), snap => {
+                allCategories = snap.val() || {};
+                renderMediaSections();
+            });
+            window.dbOnValue(window.dbRef(window.db, 'game_products'), snap => {
+                allGames = snap.val() || {};
+                renderMediaSections();
+            });
+            window.dbOnValue(window.dbRef(window.db, 'users'), snap => {
+                allUsers = snap.val() || {};
+                if (currentUser && currentUser.username !== 'nasrulla' && allUsers[currentUser.username]) {
+                    const freshData = allUsers[currentUser.username];
+                    currentUser.balance = freshData.balance;
+                    currentUser.displayName = freshData.displayName;
+                    currentUser.uid = freshData.uid;
+                    currentUser.avatar = freshData.avatar || '';
+                    updateUIAfterLogin();
+                }
+                if (currentUser?.role === 'admin') renderAdminData();
+            });
+            window.dbOnValue(window.dbRef(window.db, 'game_orders'), snap => {
+                allOrders = snap.val() || {};
+                renderUserOrders();
+                if (currentUser?.role === 'admin') renderAdminData();
+            });
+            window.dbOnValue(window.dbRef(window.db, 'deposit_requests'), snap => {
+                allDeposits = snap.val() || {};
+                if (currentUser?.role === 'admin') renderAdminData();
+            });
+        };
+
         window.addEventListener('load', () => {
             setTimeout(() => {
-                const splash = document.getElementById('splashScreen');
-                if (splash) { splash.style.opacity = '0'; setTimeout(() => splash.style.display = 'none', 300); }
-            }, 600);
-            setAppTheme(currentAppTheme, false);
-            changeLanguage(currentLang);
+                const s = document.getElementById('splashScreen');
+                if (s) { s.style.opacity = '0'; setTimeout(() => s.style.display = 'none', 300); }
+            }, 500);
+
             if (localStorage.getItem('game_user')) {
-                try { currentUser = JSON.parse(localStorage.getItem('game_user')); updateUIAfterLogin(); } catch(e){}
+                try {
+                    currentUser = JSON.parse(localStorage.getItem('game_user'));
+                    updateUIAfterLogin();
+                    if (currentUser && currentUser.username) {
+                        listenSingleDeviceSession(currentUser.username);
+                    }
+                } catch(e){ updateUIAfterLogin(); }
+            } else {
+                updateUIAfterLogin();
             }
         });
     </script>
